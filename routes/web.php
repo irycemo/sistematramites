@@ -12,6 +12,7 @@ use App\Http\Livewire\Admin\Recepcion;
 use App\Http\Livewire\Admin\Servicios;
 use App\Http\Controllers\ManualController;
 use App\Http\Controllers\TramitesController;
+use App\Http\Controllers\SetPasswordController;
 use App\Http\Livewire\Admin\CategoriasServicios;
 
 /*
@@ -64,5 +65,7 @@ Route::group(['middleware' => ['auth', 'esta.activo']], function(){
 
 });
 
+Route::get('setpassword/{email}', [SetPasswordController::class, 'create'])->name('setpassword');
+Route::post('setpassword', [SetPasswordController::class, 'store'])->name('setpassword.store');
 
 Route::get('manual', ManualController::class)->name('manual');
