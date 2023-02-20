@@ -3,13 +3,13 @@
 namespace App\Http\Livewire\Admin;
 
 use App\Models\File;
-use App\Models\User;
 use App\Models\Tramite;
 use Livewire\Component;
 use Livewire\WithPagination;
-use App\Http\Traits\ComponentesTrait;
-use Illuminate\Support\Facades\Storage;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use App\Http\Traits\ComponentesTrait;
 
 class Recepcion extends Component
 {
@@ -56,25 +56,31 @@ class Recepcion extends Component
 
             try {
 
-                $pdf = $this->documento->store('/', 'pdfs');
+                DB::transaction(function () {
 
-                File::create([
-                    'fileable_id' => $this->selected_id,
-                    'fileable_type' => 'App\Models\Tramite',
-                    'url' => $pdf
-                ]);
+                    $pdf = $this->documento->store('/', 'pdfs');
 
-                $tramite = Tramite::find($this->selected_id);
-                $tramite->update(['estado' => 'recivido']);
+                    File::create([
+                        'fileable_id' => $this->selected_id,
+                        'fileable_type' => 'App\Models\Tramite',
+                        'url' => $pdf
+                    ]);
 
-                $this->dispatchBrowserEvent('mostrarMensaje', ['success', "Se actualizó la información con éxito."]);
+                    $tramite = Tramite::find($this->selected_id);
+                    $tramite->update(['estado' => 'recivido']);
 
-                $this->resetearTodo();
+                    $this->dispatchBrowserEvent('mostrarMensaje', ['success', "Se actualizó la información con éxito."]);
+
+                    $this->resetearTodo();
+
+                });
 
             } catch (\Throwable $th) {
-                dd($th);
+
+                Log::error("Error al guardar documento del trámite id: " . $this->selected_id . " por el usuario: (id: " . auth()->user()->id . ") " . auth()->user()->name . ". " . $th->getMessage());
                 $this->dispatchBrowserEvent('mostrarMensaje', ['error', "Ha ocurrido un error."]);
                 $this->resetearTodo();
+
             }
 
         }

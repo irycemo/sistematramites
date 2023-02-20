@@ -4,7 +4,9 @@ namespace App\Http\Livewire\Admin;
 
 use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Log;
 use App\Http\Traits\ComponentesTrait;
 use Spatie\Permission\Models\Permission;
 
@@ -50,21 +52,27 @@ class Roles extends Component
 
         try {
 
-            $role = Role::create([
-                'name' => $this->nombre,
-                'creado_por' => auth()->user()->id
-            ]);
+            DB::transaction(function () {
 
-            $role->permissions()->sync($this->listaDePermisos);
+                $role = Role::create([
+                    'name' => $this->nombre,
+                    'creado_por' => auth()->user()->id
+                ]);
 
-            $this->resetearTodo();
+                $role->permissions()->sync($this->listaDePermisos);
 
-            $this->dispatchBrowserEvent('mostrarMensaje', ['success', "El role se creó con éxito."]);
+                $this->resetearTodo();
+
+                $this->dispatchBrowserEvent('mostrarMensaje', ['success', "El role se creó con éxito."]);
+
+            });
 
         } catch (\Throwable $th) {
+
+            Log::error("Error al crear rol por el usuario: (id: " . auth()->user()->id . ") " . auth()->user()->name . ". " . $th->getMessage());
             $this->dispatchBrowserEvent('mostrarMensaje', ['error', "Ha ocurrido un error."]);
             $this->resetearTodo();
-            $this->resetearTodo();
+
         }
 
     }
@@ -73,23 +81,29 @@ class Roles extends Component
 
         try{
 
-            $rol = Role::find($this->selected_id);
+            DB::transaction(function () {
 
-            $rol->update([
-                'name' => $this->nombre,
-                'actualizado_por' => auth()->user()->id
-            ]);
+                $rol = Role::find($this->selected_id);
 
-            $rol->permissions()->sync($this->listaDePermisos);
+                $rol->update([
+                    'name' => $this->nombre,
+                    'actualizado_por' => auth()->user()->id
+                ]);
 
-            $this->resetearTodo();
+                $rol->permissions()->sync($this->listaDePermisos);
 
-            $this->dispatchBrowserEvent('mostrarMensaje', ['success', "El rol se actualizó con éxito."]);
+                $this->resetearTodo();
+
+                $this->dispatchBrowserEvent('mostrarMensaje', ['success', "El rol se actualizó con éxito."]);
+
+            });
 
         } catch (\Throwable $th) {
 
+            Log::error("Error al actualzar rol por el usuario: (id: " . auth()->user()->id . ") " . auth()->user()->name . ". " . $th->getMessage());
             $this->dispatchBrowserEvent('mostrarMensaje', ['error', "Ha ocurrido un error."]);
             $this->resetearTodo();
+
         }
 
     }
@@ -107,9 +121,11 @@ class Roles extends Component
             $this->dispatchBrowserEvent('mostrarMensaje', ['success', "El role se elimino con exito."]);
 
         } catch (\Throwable $th) {
+
+            Log::error("Error al borrar rol por el usuario: (id: " . auth()->user()->id . ") " . auth()->user()->name . ". " . $th->getMessage());
             $this->dispatchBrowserEvent('mostrarMensaje', ['error', "Ha ocurrido un error."]);
             $this->resetearTodo();
-            $this->resetearTodo();
+
         }
 
     }

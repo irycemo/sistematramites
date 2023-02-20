@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string("nombre", 1000);
             $table->string("tipo");
+            $table->string("estado")->default('activo');
             $table->unsignedDecimal("umas", 18,2)->default(0)->nullable();
             $table->unsignedDecimal("ordinario", 18,2)->nullable();
             $table->unsignedDecimal("urgente", 18,2)->default(0)->nullable();

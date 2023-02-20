@@ -8,6 +8,7 @@ use App\Http\Constantes;
 use App\Models\Servicio;
 use Livewire\WithPagination;
 use App\Models\CategoriaServicio;
+use Illuminate\Support\Facades\Log;
 use App\Http\Traits\ComponentesTrait;
 
 class Tramites extends Component
@@ -155,7 +156,7 @@ class Tramites extends Component
 
         /* Buscar servicios de la categoría */
 
-        $this->servicios = Servicio::where('categoria_servicio_id', $this->categoria_servicio)->get();
+        $this->servicios = Servicio::where('estado', 'activo')->where('categoria_servicio_id', $this->categoria_servicio)->get();
 
         /* Al cambiar de categoría resetear inputs */
 
@@ -358,9 +359,11 @@ class Tramites extends Component
             $this->dispatchBrowserEvent('mostrarMensaje', ['success', "El trámite se creó con éxito."]);
 
         } catch (\Throwable $th) {
-            dd($th);
+
+            Log::error("Error al crear trámite por el usuario: (id: " . auth()->user()->id . ") " . auth()->user()->name . ". " . $th->getMessage());
             $this->dispatchBrowserEvent('mostrarMensaje', ['error', "Ha ocurrido un error."]);
             $this->resetearTodo();
+
         }
     }
 
@@ -402,7 +405,8 @@ class Tramites extends Component
             $this->dispatchBrowserEvent('mostrarMensaje', ['success', "El trámite se actualizó con éxito."]);
 
         } catch (\Throwable $th) {
-            dd($th);
+
+            Log::error("Error al actualizar trámite por el usuario: (id: " . auth()->user()->id . ") " . auth()->user()->name . ". " . $th->getMessage());
             $this->dispatchBrowserEvent('mostrarMensaje', ['error', "Ha ocurrido un error."]);
             $this->resetearTodo();
 
@@ -423,8 +427,11 @@ class Tramites extends Component
             $this->dispatchBrowserEvent('mostrarMensaje', ['success', "El trámite se eliminó con éxito."]);
 
         } catch (\Throwable $th) {
+
+            Log::error("Error al borrar trámite por el usuario: (id: " . auth()->user()->id . ") " . auth()->user()->name . ". " . $th->getMessage());
             $this->dispatchBrowserEvent('mostrarMensaje', ['error', "Ha ocurrido un error."]);
             $this->resetearTodo();
+
         }
     }
 

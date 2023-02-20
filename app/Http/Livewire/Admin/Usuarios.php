@@ -5,7 +5,9 @@ namespace App\Http\Livewire\Admin;
 use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Log;
 use App\Http\Traits\ComponentesTrait;
 
 class Usuarios extends Component
@@ -76,23 +78,29 @@ class Usuarios extends Component
 
         try {
 
-            $usuario = User::create([
-                'name' => $this->nombre,
-                'email' => $this->email,
-                'status' => $this->status,
-                'area' => $this->area,
-                'localidad' => $this->localidad,
-                'password' => 'sistema',
-                'creado_por' => auth()->user()->id
-            ]);
+            DB::transaction(function () {
 
-            $usuario->roles()->attach($this->role);
+                $usuario = User::create([
+                    'name' => $this->nombre,
+                    'email' => $this->email,
+                    'status' => $this->status,
+                    'area' => $this->area,
+                    'localidad' => $this->localidad,
+                    'password' => 'sistema',
+                    'creado_por' => auth()->user()->id
+                ]);
 
-            $this->resetearTodo();
+                $usuario->roles()->attach($this->role);
 
-            $this->dispatchBrowserEvent('mostrarMensaje', ['success', "El usuario se creó con éxito."]);
+                $this->resetearTodo();
+
+                $this->dispatchBrowserEvent('mostrarMensaje', ['success', "El usuario se creó con éxito."]);
+
+            });
 
         } catch (\Throwable $th) {
+
+            Log::error("Error al crear usuario por el usuario: (id: " . auth()->user()->id . ") " . auth()->user()->name . ". " . $th->getMessage());
             $this->dispatchBrowserEvent('mostrarMensaje', ['error', "Ha ocurrido un error."]);
             $this->resetearTodo();
         }
@@ -105,24 +113,30 @@ class Usuarios extends Component
 
         try{
 
-            $usuario = User::find($this->selected_id);
+            DB::transaction(function () {
 
-            $usuario->update([
-                'name' => $this->nombre,
-                'email' => $this->email,
-                'area' => $this->area,
-                'status' => $this->status,
-                'localidad' => $this->localidad,
-                'actualizado_por' => auth()->user()->id
-            ]);
+                $usuario = User::find($this->selected_id);
 
-            $usuario->roles()->sync($this->role);
+                $usuario->update([
+                    'name' => $this->nombre,
+                    'email' => $this->email,
+                    'area' => $this->area,
+                    'status' => $this->status,
+                    'localidad' => $this->localidad,
+                    'actualizado_por' => auth()->user()->id
+                ]);
 
-            $this->resetearTodo();
+                $usuario->roles()->sync($this->role);
 
-            $this->dispatchBrowserEvent('mostrarMensaje', ['success', "El usuario se actualizó con éxito."]);
+                $this->resetearTodo();
+
+                $this->dispatchBrowserEvent('mostrarMensaje', ['success', "El usuario se actualizó con éxito."]);
+
+            });
 
         } catch (\Throwable $th) {
+
+            Log::error("Error al actualizar usuario por el usuario: (id: " . auth()->user()->id . ") " . auth()->user()->name . ". " . $th->getMessage());
             $this->dispatchBrowserEvent('mostrarMensaje', ['error', "Ha ocurrido un error."]);
             $this->resetearTodo();
         }
@@ -142,6 +156,8 @@ class Usuarios extends Component
             $this->dispatchBrowserEvent('mostrarMensaje', ['success', "El usuario se eliminó con éxito."]);
 
         } catch (\Throwable $th) {
+
+            Log::error("Error al borrar usuario por el usuario: (id: " . auth()->user()->id . ") " . auth()->user()->name . ". " . $th->getMessage());
             $this->dispatchBrowserEvent('mostrarMensaje', ['error', "Ha ocurrido un error."]);
             $this->resetearTodo();
         }

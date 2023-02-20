@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Admin;
 use App\Models\Tramite;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\Log;
 use App\Http\Traits\ComponentesTrait;
 
 class Entrega extends Component
@@ -36,6 +37,8 @@ class Entrega extends Component
             $this->dispatchBrowserEvent('mostrarMensaje', ['success', "El trámite finalizó con éxito."]);
 
         }catch (\Throwable $th) {
+
+            Log::error("Error al entregar trámite por el usuario: (id: " . auth()->user()->id . ") " . auth()->user()->name . ". " . $th->getMessage());
             $this->dispatchBrowserEvent('mostrarMensaje', ['error', "Ha ocurrido un error."]);
             $this->resetearTodo();
 

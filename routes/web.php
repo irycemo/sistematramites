@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Livewire\Admin\Umas;
 use App\Http\Livewire\Admin\Roles;
 use App\Http\Livewire\Admin\Entrada;
 use App\Http\Livewire\Admin\Entrega;
@@ -47,6 +48,8 @@ Route::group(['middleware' => ['auth', 'esta.activo']], function(){
     Route::get('servicios', Servicios::class)->middleware('permission:Lista de servicios')->name('servicios');
 
     Route::get('categorias_servicios', CategoriasServicios::class)->middleware('permission:Lista de servicios')->name('categorias_servicios');
+
+    Route::get('umas', Umas::class)->middleware('permission:Lista de umas')->name('umas');
 
     Route::get('usuarios', Usuarios::class)->middleware('permission:Lista de usuarios')->name('usuarios');
 

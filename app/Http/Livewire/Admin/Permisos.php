@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Admin;
 
 use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\Log;
 use App\Http\Traits\ComponentesTrait;
 use Spatie\Permission\Models\Permission;
 
@@ -51,7 +52,7 @@ class Permisos extends Component
 
         try {
 
-            $permiso = Permission::create([
+            Permission::create([
                 'name' => $this->nombre,
                 'area' => $this->area,
                 'creado_por' => auth()->user()->id
@@ -62,6 +63,8 @@ class Permisos extends Component
             $this->dispatchBrowserEvent('mostrarMensaje', ['success', "El permiso se creó con éxito."]);
 
         } catch (\Throwable $th) {
+
+            Log::error("Error al crear permiso por el usuario: (id: " . auth()->user()->id . ") " . auth()->user()->name . ". " . $th->getMessage());
             $this->dispatchBrowserEvent('mostrarMensaje', ['error', "Ha ocurrido un error."]);
             $this->resetearTodo();
 
@@ -89,6 +92,7 @@ class Permisos extends Component
 
         } catch (\Throwable $th) {
 
+            Log::error("Error al actualizar permiso por el usuario: (id: " . auth()->user()->id . ") " . auth()->user()->name . ". " . $th->getMessage());
             $this->dispatchBrowserEvent('mostrarMensaje', ['error', "Ha ocurrido un error."]);
             $this->resetearTodo();
 
@@ -109,6 +113,8 @@ class Permisos extends Component
             $this->dispatchBrowserEvent('mostrarMensaje', ['success', "El permiso se eliminó con éxito."]);
 
         } catch (\Throwable $th) {
+
+            Log::error("Error al borrar permiso por el usuario: (id: " . auth()->user()->id . ") " . auth()->user()->name . ". " . $th->getMessage());
             $this->dispatchBrowserEvent('mostrarMensaje', ['error', "Ha ocurrido un error."]);
             $this->resetearTodo();
 

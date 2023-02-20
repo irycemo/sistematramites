@@ -2,7 +2,7 @@
 
     <div class="mb-5">
 
-        <h1 class="titulo-seccion text-3xl font-thin text-gray-500 mb-3">Servicios</h1>
+        <h1 class="text-3xl tracking-widest py-3 px-6 text-gray-600 rounded-xl border-b-2 border-gray-500 font-thin mb-6  bg-white">Servicios</h1>
 
         <div class="flex justify-between">
 
@@ -51,6 +51,36 @@
                             Nombre
 
                             @if($sort == 'name')
+
+                                @if($direction == 'asc')
+
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 float-right" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4" />
+                                    </svg>
+
+                                @else
+
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 float-right" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" />
+                                    </svg>
+
+                                @endif
+
+                            @else
+
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 float-right" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
+                                </svg>
+
+                            @endif
+
+                        </th>
+
+                        <th wire:click="order('estado')" class="cursor-pointer px-3 py-3 hidden lg:table-cell">
+
+                            Estado
+
+                            @if($sort == 'estado')
 
                                 @if($direction == 'asc')
 
@@ -398,6 +428,22 @@
 
                             <td class="px-3 py-3 w-full lg:w-auto p-3 text-gray-800 text-center lg:text-left lg:border-0 border border-b block lg:table-cell relative lg:static">
 
+                                <span class="lg:hidden absolute top-0 left-0 bg-blue-300 px-2 py-1 text-xs text-white font-bold uppercase rounded-br-xl">Estado</span>
+
+                                @if($servicio->estado == 'activo')
+
+                                    <span class="bg-green-400 py-1 px-2 rounded-full text-white text-xs">{{ ucfirst($servicio->estado) }}</span>
+
+                                @else
+
+                                    <span class="bg-red-400 py-1 px-2 rounded-full text-white text-xs">{{ ucfirst($servicio->estado) }}</span>
+
+                                @endif
+
+                            </td>
+
+                            <td class="px-3 py-3 w-full capitalize lg:w-auto p-3 text-gray-800 text-center lg:text-left lg:border-0 border border-b block lg:table-cell relative lg:static">
+
                                 <span class="lg:hidden absolute top-0 left-0 bg-blue-300 px-2 py-1 text-xs text-white font-bold uppercase rounded-br-xl">Tipo</span>
 
                                 {{ $servicio->tipo }}
@@ -553,7 +599,7 @@
 
                     <tr>
 
-                        <td colspan="12" class="py-2 px-5">
+                        <td colspan="15" class="py-2 px-5">
                             {{ $servicios->links()}}
                         </td>
 
@@ -595,7 +641,7 @@
 
         <x-slot name="content">
 
-             <div class="flex flex-col md:flex-row justify-between md:space-x-3 mb-5">
+            <div class="flex flex-col md:flex-row justify-between md:space-x-3 mb-5">
 
                 <div class="flex-auto ">
 
@@ -664,53 +710,37 @@
 
                 </div>
 
+                <div class="flex-auto ">
+
+                    <div>
+
+                        <Label>Esatado</Label>
+
+                    </div>
+
+                    <div>
+
+                        <select class="bg-white rounded text-sm w-full" wire:model.defer="estado">
+
+                            <option value="" selected>Seleccione una opción</option>
+                            <option value="activo" selected>Activo</option>
+                            <option value="inactivo" selected>Inactivo</option>
+
+                        </select>
+
+                    </div>
+
+                    <div>
+
+                        @error('estado') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+
+                    </div>
+
+                </div>
+
             </div>
 
             <div class="flex flex-col md:flex-row justify-between md:space-x-3 mb-5">
-
-                <div class="flex-auto ">
-
-                    <div>
-
-                        <Label>Tipo</Label>
-
-                    </div>
-
-                    <div>
-
-                        <input type="text" class="bg-white rounded text-sm w-full" wire:model.defer="tipo">
-
-                    </div>
-
-                    <div>
-
-                        @error('tipo') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
-
-                    </div>
-
-                </div>
-
-                <div class="flex-auto ">
-
-                    <div>
-
-                        <Label>UMAS</Label>
-
-                    </div>
-
-                    <div>
-
-                        <input type="number" class="bg-white rounded text-sm w-full" wire:model="umas">
-
-                    </div>
-
-                    <div>
-
-                        @error('umas') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
-
-                    </div>
-
-                </div>
 
                 <div class="flex-auto mr-1 ">
 
@@ -745,9 +775,61 @@
 
                 </div>
 
-            </div>
+                <div class="flex-auto ">
 
-            <div class="flex flex-col md:flex-row justify-between md:space-x-3 mb-5">
+                    <div>
+
+                        <Label>Tipo</Label>
+
+                    </div>
+
+                    <div>
+
+                        <select class="bg-white rounded text-sm w-full" wire:model="tipo">
+
+                            <option value="" selected>Seleccione una opción</option>
+                            <option value="fija" selected>Fija</option>
+                            <option value="uma" selected>UMA</option>
+
+                        </select>
+
+                    </div>
+
+                    <div>
+
+                        @error('tipo') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+
+                    </div>
+
+                </div>
+
+                @if($tipo == 'uma')
+
+                    <div class="flex-auto ">
+
+                        <div>
+
+                            <Label>UMAS</Label>
+
+                        </div>
+
+                        <div>
+
+                            <input type="number" class="bg-white rounded text-sm w-full" wire:model="umas">
+
+                        </div>
+
+                        <div>
+
+                            @error('umas') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+
+                        </div>
+
+                    </div>
+
+                @endif
+
+                @if($tipo == 'fija')
 
                 <div class="flex-auto mb-5">
 
@@ -770,47 +852,7 @@
 
                 </div>
 
-                <div class="flex-auto mb-5">
-
-                    <div>
-
-                        <Label>Urgente</Label>
-                    </div>
-
-                    <div>
-
-                        <input type="number" class="bg-white rounded text-sm w-full" wire:model.defer="urgente">
-
-                    </div>
-
-                    <div>
-
-                        @error('urgente') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
-
-                    </div>
-
-                </div>
-
-                <div class="flex-auto mb-5">
-
-                    <div>
-
-                        <Label>Extra Urgente</Label>
-                    </div>
-
-                    <div>
-
-                        <input type="number" class="bg-white rounded text-sm w-full" wire:model.defer="extra_urgente">
-
-                    </div>
-
-                    <div>
-
-                        @error('extra_urgente') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
-
-                    </div>
-
-                </div>
+            @endif
 
             </div>
 

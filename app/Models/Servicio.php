@@ -14,7 +14,7 @@ class Servicio extends Model implements Auditable
     use ModelosTrait;
     use \OwenIt\Auditing\Auditable;
 
-    protected $fillable = ['nombre', 'tipo', 'umas', 'ordinario', 'urgente', 'extra_urgente', 'categoria_servicio_id', 'actualizado_por', 'creado_por', 'operacion_principal', 'operacion_parcial'];
+    protected $fillable = ['nombre', 'estado', 'tipo', 'umas', 'ordinario', 'urgente', 'extra_urgente', 'categoria_servicio_id', 'actualizado_por', 'creado_por', 'operacion_principal', 'operacion_parcial'];
 
     public function categoria(){
         return $this->belongsTo(CategoriaServicio::class, 'categoria_servicio_id');

@@ -2,10 +2,11 @@
 
 namespace App\Http\Livewire\Admin;
 
-use App\Http\Traits\ComponentesTrait;
-use App\Models\CategoriaServicio;
 use Livewire\Component;
 use Livewire\WithPagination;
+use App\Models\CategoriaServicio;
+use Illuminate\Support\Facades\Log;
+use App\Http\Traits\ComponentesTrait;
 
 class CategoriasServicios extends Component
 {
@@ -44,7 +45,7 @@ class CategoriasServicios extends Component
 
         try {
 
-            $categoria = CategoriaServicio::create([
+            CategoriaServicio::create([
                 'nombre' => $this->nombre,
                 'creado_por' => auth()->user()->id
             ]);
@@ -54,8 +55,11 @@ class CategoriasServicios extends Component
             $this->dispatchBrowserEvent('mostrarMensaje', ['success', "La categoría se creó con éxito."]);
 
         } catch (\Throwable $th) {
+
+            Log::error("Error al crear categoría por el usuario: (id: " . auth()->user()->id . ") " . auth()->user()->name . ". " . $th->getMessage());
             $this->dispatchBrowserEvent('mostrarMensaje', ['error', "Ha ocurrido un error."]);
             $this->resetearTodo();
+
         }
 
     }
@@ -77,8 +81,10 @@ class CategoriasServicios extends Component
 
         } catch (\Throwable $th) {
 
+            Log::error("Error al actualizar categoría por el usuario: (id: " . auth()->user()->id . ") " . auth()->user()->name . ". " . $th->getMessage());
             $this->dispatchBrowserEvent('mostrarMensaje', ['error', "Ha ocurrido un error."]);
             $this->resetearTodo();
+
         }
 
     }
@@ -96,8 +102,11 @@ class CategoriasServicios extends Component
             $this->dispatchBrowserEvent('mostrarMensaje', ['success', "La categoría se elimino con exito."]);
 
         } catch (\Throwable $th) {
+
+            Log::error("Error al borrar categoría por el usuario: (id: " . auth()->user()->id . ") " . auth()->user()->name . ". " . $th->getMessage());
             $this->dispatchBrowserEvent('mostrarMensaje', ['error', "Ha ocurrido un error."]);
             $this->resetearTodo();
+
         }
 
     }

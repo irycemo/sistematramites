@@ -2,7 +2,7 @@
 
     <div class="mb-5">
 
-        <h1 class="text-3xl tracking-widest py-3 px-6 text-gray-600 rounded-xl border-b-2 border-gray-500 font-thin mb-6  bg-white">Roles</h1>
+        <h1 class="text-3xl tracking-widest py-3 px-6 text-gray-600 rounded-xl border-b-2 border-gray-500 font-thin mb-6  bg-white">Umas</h1>
 
         <div class="flex justify-between">
 
@@ -21,22 +21,20 @@
 
             </div>
 
-            @can('Crear usuario')
-
                 <button wire:click="abrirModalCrear" class="bg-gray-500 hover:shadow-lg hover:bg-gray-700 float-right mb-5 text-sm py-2 px-4 text-white rounded-full focus:outline-none hidden md:block">
+
                     <img wire:loading wire:target="abrirModalCrear" class="mx-auto h-4 mr-1" src="{{ asset('storage/img/loading3.svg') }}" alt="Loading">
-                    Agregar nuevo rol
+                    Agregar nueva UMA
+
                 </button>
 
                 <button wire:click="abrirModalCrear" class="bg-gray-500 hover:shadow-lg hover:bg-gray-700 float-right mb-5 text-sm py-2 px-4 text-white rounded-full focus:outline-none md:hidden">+</button>
-
-            @endcan
 
         </div>
 
     </div>
 
-    @if($roles->count())
+    @if($umas->count())
 
         <div class="relative overflow-x-auto rounded-lg shadow-xl">
 
@@ -46,11 +44,101 @@
 
                     <tr class="text-xs font-medium text-gray-500 uppercase text-left traling-wider">
 
-                        <th wire:click="order('name')" class="cursor-pointer px-3 py-3 hidden lg:table-cell">
+                        <th wire:click="order('año')" class="cursor-pointer px-3 py-3 hidden lg:table-cell">
 
-                            Nombre
+                            Año
 
-                            @if($sort == 'name')
+                            @if($sort == 'año')
+
+                                @if($direction == 'asc')
+
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 float-right" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4" />
+                                    </svg>
+
+                                @else
+
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 float-right" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" />
+                                    </svg>
+
+                                @endif
+
+                            @else
+
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 float-right" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
+                                </svg>
+
+                            @endif
+
+                        </th>
+
+                        <th wire:click="order('diario')" class="cursor-pointer px-3 py-3 hidden lg:table-cell">
+
+                            Diario
+
+                            @if($sort == 'diario')
+
+                                @if($direction == 'asc')
+
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 float-right" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4" />
+                                    </svg>
+
+                                @else
+
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 float-right" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" />
+                                    </svg>
+
+                                @endif
+
+                            @else
+
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 float-right" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
+                                </svg>
+
+                            @endif
+
+                        </th>
+
+                        <th wire:click="order('mensual')" class="cursor-pointer px-3 py-3 hidden lg:table-cell">
+
+                            Mensual
+
+                            @if($sort == 'mensual')
+
+                                @if($direction == 'asc')
+
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 float-right" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4" />
+                                    </svg>
+
+                                @else
+
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 float-right" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" />
+                                    </svg>
+
+                                @endif
+
+                            @else
+
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 float-right" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
+                                </svg>
+
+                            @endif
+
+                        </th>
+
+                        <th wire:click="order('anual')" class="cursor-pointer px-3 py-3 hidden lg:table-cell">
+
+                            Anual
+
+                            @if($sort == 'anual')
 
                                 @if($direction == 'asc')
 
@@ -145,15 +233,39 @@
 
                 <tbody class="divide-y divide-gray-200 flex-1 sm:flex-none ">
 
-                    @foreach($roles as $permiso)
+                    @foreach($umas as $uma)
 
                         <tr class="text-sm font-medium text-gray-500 bg-white flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0">
 
                             <td class="px-3 py-3 w-full lg:w-auto p-3 text-gray-800 text-center lg:text-left lg:border-0 border border-b block lg:table-cell relative lg:static">
 
-                                <span class="lg:hidden absolute top-0 left-0 bg-blue-300 px-2 py-1 text-xs text-white font-bold uppercase rounded-br-xl">Nombre</span>
+                                <span class="lg:hidden absolute top-0 left-0 bg-blue-300 px-2 py-1 text-xs text-white font-bold uppercase rounded-br-xl">Año</span>
 
-                                {{ $permiso->name }}
+                                {{ $uma->año }}
+
+                            </td>
+
+                            <td class="px-3 py-3 w-full lg:w-auto p-3 text-gray-800 text-center lg:text-left lg:border-0 border border-b block lg:table-cell relative lg:static">
+
+                                <span class="lg:hidden absolute top-0 left-0 bg-blue-300 px-2 py-1 text-xs text-white font-bold uppercase rounded-br-xl">Diario</span>
+
+                                ${{ number_format($uma->diario, 2) }}
+
+                            </td>
+
+                            <td class="px-3 py-3 w-full lg:w-auto p-3 text-gray-800 text-center lg:text-left lg:border-0 border border-b block lg:table-cell relative lg:static">
+
+                                <span class="lg:hidden absolute top-0 left-0 bg-blue-300 px-2 py-1 text-xs text-white font-bold uppercase rounded-br-xl">Mensual</span>
+
+                                ${{ number_format($uma->mensual, 2) }}
+
+                            </td>
+
+                            <td class="px-3 py-3 w-full lg:w-auto p-3 text-gray-800 text-center lg:text-left lg:border-0 border border-b block lg:table-cell relative lg:static">
+
+                                <span class="lg:hidden absolute top-0 left-0 bg-blue-300 px-2 py-1 text-xs text-white font-bold uppercase rounded-br-xl">Anual</span>
+
+                                ${{ number_format($uma->anual, 2) }}
 
                             </td>
 
@@ -161,13 +273,13 @@
 
                                 <span class="lg:hidden absolute top-0 left-0 bg-blue-300 px-2 py-1 text-xs text-white font-bold uppercase rounded-br-xl">Registrado</span>
 
-                                @if($permiso->creadoPor != null)
+                                @if($uma->creadoPor != null)
 
-                                    <span class="font-semibold">Registrado por: {{$permiso->creadoPor->name}}</span> <br>
+                                    <span class="font-semibold">Registrado por: {{$uma->creadoPor->name}}</span> <br>
 
                                 @endif
 
-                                {{ $permiso->created_at }}
+                                {{ $uma->created_at }}
 
                             </td>
 
@@ -175,13 +287,13 @@
 
                                 <span class="lg:hidden absolute top-0 left-0 bg-blue-300 px-2 py-1 text-xs text-white font-bold uppercase rounded-br-xl">Actualizado</span>
 
-                                @if($permiso->actualizadoPor != null)
+                                @if($uma->actualizadoPor != null)
 
-                                    <span class="font-semibold">Actualizado por: {{$permiso->actualizadoPor->name}}</span> <br>
+                                    <span class="font-semibold">Actualizado por: {{$uma->actualizadoPor->name}}</span> <br>
 
                                 @endif
 
-                                {{ $permiso->updated_at }}
+                                {{ $uma->updated_at }}
 
                             </td>
 
@@ -191,12 +303,12 @@
 
                                 <div class="flex justify-center lg:justify-start">
 
-                                    @can('Editar usuario')
+                                    @can('Editar uma')
 
                                         <button
-                                            wire:click="abrirModalEditar({{$permiso}})"
+                                            wire:click="abrirModalEditar({{$uma}})"
                                             wire:loading.attr="disabled"
-                                            wire:target="abiriModalEditar({{$permiso}})"
+                                            wire:target="abiriModalEditar({{$uma}})"
                                             class="bg-blue-400 hover:shadow-lg text-white text-xs md:text-sm px-3 py-2 rounded-full mr-2 hover:bg-blue-700 flex focus:outline-none"
                                         >
 
@@ -211,12 +323,13 @@
 
                                     @endcan
 
-                                    @can('Borrar usuario')
+
+                                    @can('Borrar uma')
 
                                         <button
-                                            wire:click="abrirModalBorrar({{$permiso}})"
+                                            wire:click="abrirModalBorrar({{$uma}})"
                                             wire:loading.attr="disabled"
-                                            wire:target="abrirModalBorrar({{$permiso}})"
+                                            wire:target="abrirModalBorrar({{$uma}})"
                                             class="bg-red-400 hover:shadow-lg text-white text-xs md:text-sm px-3 py-2 rounded-full hover:bg-red-700 flex focus:outline-none"
                                         >
 
@@ -244,7 +357,7 @@
                     <tr>
 
                         <td colspan="8" class="py-2 px-5">
-                            {{ $roles->links()}}
+                            {{ $umas->links()}}
                         </td>
 
                     </tr>
@@ -271,14 +384,14 @@
 
     @endif
 
-    <x-jet-dialog-modal wire:model="modal" maxWidth="2xl">
+    <x-jet-dialog-modal wire:model="modal">
 
         <x-slot name="title">
 
             @if($crear)
-                Nuevo Rol
+                Nueva UMA
             @elseif($editar)
-                Editar Rol
+                Editar UMA
             @endif
 
         </x-slot>
@@ -291,64 +404,40 @@
 
                     <div>
 
-                        <Label>Nombre</Label>
+                        <Label>Año</Label>
                     </div>
 
                     <div>
 
-                        <input type="text" class="bg-white rounded text-sm w-full" wire:model.defer="nombre">
+                        <input type="number" class="bg-white rounded text-sm w-full" wire:model.defer="año">
 
                     </div>
 
                     <div>
 
-                        @error('nombre') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+                        @error('año') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
 
                     </div>
 
                 </div>
 
-            </div>
-
-            <div class="flex flex-col md:flex-row justify-between md:space-x-3 mb-5">
-
                 <div class="flex-auto ">
 
                     <div>
 
-                        <Label class="">Seleccione los permisos</Label>
-
-                    </div>
-
-                    <div class="overflow-y-auto">
-
-                        @foreach($permisos as $nombre => $area)
-
-                            <p class="my-2">Área de {{ $nombre }}:</p>
-
-                            <div class="mb-2 flex flex-wrap">
-
-                                @foreach ($area as $permission)
-
-                                    <label class="mb-2 mr-3 border border-gray-500 px-2 rounded-full py-1 text-xs cursor-pointer flex items-center">
-
-                                        <input class="bg-white rounded" type="checkbox" wire:model.defer="listaDePermisos" value="{{ $permission->id }}">
-
-                                        <p class="ml-2">{{ $permission->name }}</p>
-
-                                    </label>
-
-                                @endforeach
-
-                            </div>
-
-                        @endforeach
+                        <Label>Diario</Label>
 
                     </div>
 
                     <div>
 
-                        @error('listaDePermisos') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+                        <input type="number" min="0" class="bg-white rounded text-sm w-full" wire:model.defer="diario">
+
+                    </div>
+
+                    <div>
+
+                        @error('diario') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
 
                     </div>
 
@@ -408,11 +497,11 @@
     <x-jet-confirmation-modal wire:model="modalBorrar">
 
         <x-slot name="title">
-            Eliminar Rol
+            Eliminar UMA
         </x-slot>
 
         <x-slot name="content">
-            ¿Esta seguro que desea eliminar al rol? No sera posible recuperar la información.
+            ¿Esta seguro que desea eliminar la UMA? No sera posible recuperar la información.
         </x-slot>
 
         <x-slot name="footer">

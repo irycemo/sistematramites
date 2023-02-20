@@ -2,11 +2,13 @@
 
 namespace App\Http\Livewire\Admin;
 
-use App\Http\Traits\ComponentesTrait;
-use App\Models\CategoriaServicio;
+use App\Models\Uma;
 use Livewire\Component;
 use App\Models\Servicio;
 use Livewire\WithPagination;
+use App\Models\CategoriaServicio;
+use Illuminate\Support\Facades\Log;
+use App\Http\Traits\ComponentesTrait;
 
 class Servicios extends Component
 {
@@ -18,6 +20,7 @@ class Servicios extends Component
     public $umas;
     public $ordinario;
     public $urgente;
+    public $estado;
     public $extra_urgente;
     public $categoria;
     public $operacion_parcial;
@@ -27,8 +30,9 @@ class Servicios extends Component
         return [
             'nombre' => 'required',
             'tipo' => 'required',
+            'estado' => 'required',
             'umas' => 'numeric|nullable|min:0',
-            'ordinario' => 'numeric|required',
+            'ordinario' => 'numeric|nullable',
             'urgente' => 'numeric|nullable|min:0',
             'extra_urgente' => 'numeric|nullable|min:0',
             'operacion_parcial' => 'required|numeric',
@@ -44,7 +48,7 @@ class Servicios extends Component
 
     public function resetearTodo(){
 
-        $this->reset(['modalBorrar', 'selected_id', 'crear', 'editar', 'modal', 'nombre', 'tipo', 'umas', 'ordinario', 'urgente','categoria', 'extra_urgente','operacion_principal','operacion_parcial']);
+        $this->reset(['modalBorrar', 'selected_id', 'crear', 'estado', 'editar', 'modal', 'nombre', 'tipo', 'umas', 'ordinario', 'urgente','categoria', 'extra_urgente','operacion_principal','operacion_parcial']);
         $this->resetErrorBag();
         $this->resetValidation();
     }
@@ -59,6 +63,7 @@ class Servicios extends Component
         $this->nombre = $modelo['nombre'];
         $this->tipo = $modelo['tipo'];
         $this->umas = $modelo['umas'];
+        $this->estado = $modelo['estado'];
         $this->ordinario = $modelo['ordinario'];
         $this->urgente = $modelo['urgente'];
         $this->extra_urgente = $modelo['extra_urgente'];
@@ -68,9 +73,32 @@ class Servicios extends Component
 
     }
 
+    public function checarTipo(){
+
+        if($this->tipo == 'uma'){
+
+            $uma = Uma::orderBy('año', 'desc')->first();
+
+            $this->ordinario = $uma->diario * $this->umas;
+
+            $this->urgente = $this->ordinario * 2;
+
+            $this->extra_urgente = $this->ordinario * 3;
+
+        }else{
+
+            $this->urgente = $this->ordinario * 2;
+
+            $this->extra_urgente = $this->ordinario * 3;
+        }
+
+    }
+
     public function crear(){
 
         $this->validate();
+
+        $this->checarTipo();
 
         try {
 
@@ -78,6 +106,7 @@ class Servicios extends Component
                 'nombre' => $this->nombre,
                 'tipo' => $this->tipo,
                 'umas' => $this->umas,
+                'estado' => $this->estado,
                 'ordinario' => $this->ordinario,
                 'urgente' => $this->urgente,
                 'operacion_principal' => $this->operacion_principal,
@@ -92,7 +121,8 @@ class Servicios extends Component
             $this->dispatchBrowserEvent('mostrarMensaje', ['success', "El servicio se creó con éxito."]);
 
         } catch (\Throwable $th) {
-            dd($th);
+
+            Log::error("Error al crear servicio por el usuario: (id: " . auth()->user()->id . ") " . auth()->user()->name . ". " . $th->getMessage());
             $this->dispatchBrowserEvent('mostrarMensaje', ['error', "Ha ocurrido un error."]);
             $this->resetearTodo();
         }
@@ -100,6 +130,10 @@ class Servicios extends Component
     }
 
     public function actualizar(){
+
+        $this->validate();
+
+        $this->checarTipo();
 
         try{
 
@@ -109,6 +143,7 @@ class Servicios extends Component
                 'nombre' => $this->nombre,
                 'tipo' => $this->tipo,
                 'umas' => $this->umas,
+                'estado' => $this->estado,
                 'ordinario' => $this->ordinario,
                 'urgente' => $this->urgente,
                 'operacion_principal' => $this->operacion_principal,
@@ -123,9 +158,11 @@ class Servicios extends Component
             $this->dispatchBrowserEvent('mostrarMensaje', ['success', "El servicio se actualizó con éxito."]);
 
         } catch (\Throwable $th) {
-            dd($th);
+
+            Log::error("Error al actualizar servicio por el usuario: (id: " . auth()->user()->id . ") " . auth()->user()->name . ". " . $th->getMessage());
             $this->dispatchBrowserEvent('mostrarMensaje', ['error', "Ha ocurrido un error."]);
             $this->resetearTodo();
+
         }
 
     }
@@ -143,8 +180,11 @@ class Servicios extends Component
             $this->dispatchBrowserEvent('mostrarMensaje', ['success', "El servicio se elimino con exito."]);
 
         } catch (\Throwable $th) {
+
+            Log::error("Error al borrar servicio por el usuario: (id: " . auth()->user()->id . ") " . auth()->user()->name . ". " . $th->getMessage());
             $this->dispatchBrowserEvent('mostrarMensaje', ['error', "Ha ocurrido un error."]);
             $this->resetearTodo();
+
         }
 
     }
@@ -158,6 +198,7 @@ class Servicios extends Component
                                 ->where('nombre', 'LIKE', '%' . $this->search . '%')
                                 ->orWhere('tipo', 'LIKE', '%' . $this->search . '%')
                                 ->orWhere('umas', 'LIKE', '%' . $this->search . '%')
+                                ->orWhere('estado', 'LIKE', '%' . $this->search . '%')
                                 ->orWhere('ordinario', 'LIKE', '%' . $this->search . '%')
                                 ->orWhere('operacion_principal', 'LIKE', '%' . $this->search . '%')
                                 ->orWhere('operacion_parcial', 'LIKE', '%' . $this->search . '%')

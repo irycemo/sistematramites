@@ -7,8 +7,9 @@ use Livewire\Component;
 use App\Http\Constantes;
 use App\Models\Servicio;
 use Livewire\WithPagination;
-use App\Http\Traits\ComponentesTrait;
 use App\Models\CategoriaServicio;
+use Illuminate\Support\Facades\Log;
+use App\Http\Traits\ComponentesTrait;
 
 class Entrada extends Component
 {
@@ -358,9 +359,11 @@ class Entrada extends Component
             $this->dispatchBrowserEvent('mostrarMensaje', ['success', "El trámite se creó con éxito."]);
 
         } catch (\Throwable $th) {
-            dd($th);
+
+            Log::error("Error al crear trámite por el usuario: (id: " . auth()->user()->id . ") " . auth()->user()->name . ". " . $th->getMessage());
             $this->dispatchBrowserEvent('mostrarMensaje', ['error', "Ha ocurrido un error."]);
             $this->resetearTodo();
+
         }
     }
 
@@ -402,7 +405,8 @@ class Entrada extends Component
             $this->dispatchBrowserEvent('mostrarMensaje', ['success', "El trámite se actualizó con éxito."]);
 
         } catch (\Throwable $th) {
-            dd($th);
+
+            Log::error("Error al actualizar trámite por el usuario: (id: " . auth()->user()->id . ") " . auth()->user()->name . ". " . $th->getMessage());
             $this->dispatchBrowserEvent('mostrarMensaje', ['error', "Ha ocurrido un error."]);
             $this->resetearTodo();
 
@@ -423,8 +427,11 @@ class Entrada extends Component
             $this->dispatchBrowserEvent('mostrarMensaje', ['success', "El trámite se eliminó con éxito."]);
 
         } catch (\Throwable $th) {
+
+            Log::error("Error al borrar trámite por el usuario: (id: " . auth()->user()->id . ") " . auth()->user()->name . ". " . $th->getMessage());
             $this->dispatchBrowserEvent('mostrarMensaje', ['error', "Ha ocurrido un error."]);
             $this->resetearTodo();
+
         }
     }
 
