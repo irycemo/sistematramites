@@ -151,7 +151,26 @@ class Tramites extends Component
 
         /* Al cambiar de categoría resetear inputs */
 
-        $this->reset(['id_servicio', 'tipo_servicio', 'flag_tomo_gravamen', 'flag_registro_gravamen', 'flag_numero_propiedad', 'flag_numero_escritura', 'flag_numero_notaria', 'flag_valor_propiedad', 'flag_numero_inmuebles', 'flag_numero_paginas', 'flag_foraneo']);
+        $this->reset([
+            'id_servicio',
+            'tipo_servicio',
+            'flag_seccion',
+            'flag_nombre_solicitante',
+            'flag_numero_oficio',
+            'flag_tomo',
+            'flag_folio_real',
+            'flag_registro',
+            'flag_numero_propiedad',
+            'flag_distrito',
+            'flag_numero_inmuebles',
+            'flag_numero_escritura',
+            'flag_numero_notaria',
+            'flag_tomo_gravamen',
+            'flag_foraneo',
+            'flag_registro_gravamen',
+            'flag_numero_paginas',
+            'flag_valor_propiedad',
+        ]);
 
         /* Ocultar inputs */
 

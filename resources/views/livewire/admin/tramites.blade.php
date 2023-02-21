@@ -586,7 +586,7 @@
 
                                 <span class="lg:hidden absolute top-0 left-0 bg-blue-300 px-2 py-1 text-xs text-white font-bold uppercase rounded-br-xl">Folio Real</span>
 
-                                {{ $tramite->folio_real }}
+                                {{ $tramite->folio_real ? $tramite->folio_real : 'N/A' }}
 
                             </td>
 
@@ -610,7 +610,7 @@
 
                                 <span class="lg:hidden absolute top-0 left-0 bg-blue-300 px-2 py-1 text-xs text-white font-bold uppercase rounded-br-xl">Número Propiedad</span>
 
-                                {{ $tramite->numero_propiedad }}
+                                {{ $tramite->numero_propiedad ? $tramite->numero_propiedad : 'N/A' }}
 
                             </td>
 
@@ -634,7 +634,7 @@
 
                                 <span class="lg:hidden absolute top-0 left-0 bg-blue-300 px-2 py-1 text-xs text-white font-bold uppercase rounded-br-xl">Número de escritura</span>
 
-                                {{ $tramite->numero_escritura }}
+                                {{ $tramite->numero_escritura ? $tramite->numero_escritura : 'N/A' }}
 
                             </td>
 
@@ -642,7 +642,7 @@
 
                                 <span class="lg:hidden absolute top-0 left-0 bg-blue-300 px-2 py-1 text-xs text-white font-bold uppercase rounded-br-xl">Notaria</span>
 
-                                {{ $tramite->numero_notaria }}
+                                {{ $tramite->numero_notaria ? $tramite->numero_notaria : 'N/A' }}
 
                             </td>
 
@@ -1096,7 +1096,7 @@
 
                     </div>
 
-                    <div class="flex-auto >
+                    <div class="flex-auto" >
 
                         <div>
 
