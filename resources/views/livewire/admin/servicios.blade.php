@@ -1,6 +1,6 @@
 <div class="">
 
-    <div class="mb-5">
+    <div class="mb-6">
 
         <h1 class="text-3xl tracking-widest py-3 px-6 text-gray-600 rounded-xl border-b-2 border-gray-500 font-thin mb-6  bg-white">Servicios</h1>
 
@@ -23,12 +23,12 @@
 
             @can('Crear servicio')
 
-                <button wire:click="abrirModalCrear" class="bg-gray-500 hover:shadow-lg hover:bg-gray-700 float-right mb-5 text-sm py-2 px-4 text-white rounded-full focus:outline-none hidden md:block">
+                <button wire:click="abrirModalCrear" class="bg-gray-500 hover:shadow-lg hover:bg-gray-700 float-right text-sm py-2 px-4 text-white rounded-full focus:outline-none hidden md:block">
                     <img wire:loading wire:target="abrirModalCrear" class="mx-auto h-4 mr-1" src="{{ asset('storage/img/loading3.svg') }}" alt="Loading">
                     Agregar nuevo servicio
                 </button>
 
-                <button wire:click="abrirModalCrear" class="bg-gray-500 hover:shadow-lg hover:bg-gray-700 float-right mb-5 text-sm py-2 px-4 text-white rounded-full focus:outline-none md:hidden">+</button>
+                <button wire:click="abrirModalCrear" class="bg-gray-500 hover:shadow-lg hover:bg-gray-700 float-right text-sm py-2 px-4 text-white rounded-full focus:outline-none md:hidden">+</button>
 
             @endcan
 
@@ -38,7 +38,7 @@
 
     @if($servicios->count())
 
-        <div class="relative overflow-x-auto rounded-lg shadow-xl">
+        <div class="relative overflow-x-auto rounded-lg shadow-xl border-t-2 border-t-gray-500">
 
             <table class="rounded-lg w-full">
 
@@ -454,7 +454,7 @@
 
                                 <span class="lg:hidden absolute top-0 left-0 bg-blue-300 px-2 py-1 text-xs text-white font-bold uppercase rounded-br-xl">Umas</span>
 
-                                {{ $servicio->umas ?  $servicio->umas : 'N/A'}}
+                                {{ $servicio->umas > 0 ?  $servicio->umas : 'N/A'}}
 
                             </td>
 
@@ -486,7 +486,7 @@
 
                                 <span class="lg:hidden  absolute top-0 left-0 bg-blue-300 px-2 py-1 text-xs text-white font-bold uppercase rounded-br-xl">Urgente</span>
 
-                                {{ $servicio->urgente ? '$' . $servicio->urgente : 'N/A'}}
+                                {{ $servicio->urgente > 0 ? '$' . $servicio->urgente : 'N/A'}}
 
                             </td>
 
@@ -494,7 +494,7 @@
 
                                 <span class="lg:hidden absolute top-0 left-0 bg-blue-300 px-2 py-1 text-xs text-white font-bold uppercase rounded-br-xl">Extra Urgente</span>
 
-                                {{ $servicio->extra_urgente ? '$' . $servicio->extra_urgente : 'N/A'}}
+                                {{ $servicio->extra_urgente > 0 ? '$' . $servicio->extra_urgente : 'N/A'}}
 
                             </td>
 
@@ -609,7 +609,7 @@
 
             </table>
 
-            <div class="h-full w-full rounded-lg bg-gray-200 bg-opacity-75 absolute top-0 left-0" wire:loading wire:target="search">
+            <div class="h-full w-full rounded-lg bg-gray-200 bg-opacity-75 absolute top-0 left-0" wire:loading >
 
                 <img class="mx-auto h-16" src="{{ asset('storage/img/loading.svg') }}" alt="">
 
@@ -714,7 +714,7 @@
 
                     <div>
 
-                        <Label>Esatado</Label>
+                        <Label>Estado</Label>
 
                     </div>
 
@@ -803,9 +803,9 @@
 
                 </div>
 
-                @if($tipo == 'uma')
+                @if($this->tipo == 'uma')
 
-                    <div class="flex-auto ">
+                    <div class="flex-auto">
 
                         <div>
 
@@ -815,7 +815,7 @@
 
                         <div>
 
-                            <input type="number" class="bg-white rounded text-sm w-full" wire:model="umas">
+                            <input type="number" class="bg-white rounded text-sm w-full" wire:model.lazy="umas">
 
                         </div>
 
@@ -829,7 +829,9 @@
 
                 @endif
 
-                @if($tipo == 'fija')
+            </div>
+
+            <div class="flex flex-col md:flex-row justify-between md:space-x-3 mb-5">
 
                 <div class="flex-auto mb-5">
 
@@ -840,7 +842,7 @@
 
                     <div>
 
-                        <input type="number" class="bg-white rounded text-sm w-full" wire:model.defer="ordinario">
+                        <input type="number" class="bg-white rounded text-sm w-full" wire:model.lazy="ordinario">
 
                     </div>
 
@@ -852,7 +854,47 @@
 
                 </div>
 
-            @endif
+                <div class="flex-auto mb-5">
+
+                    <div>
+
+                        <Label>Urgente</Label>
+                    </div>
+
+                    <div>
+
+                        <input type="number" class="bg-white rounded text-sm w-full" wire:model.defer="urgente">
+
+                    </div>
+
+                    <div>
+
+                        @error('urgente') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+
+                    </div>
+
+                </div>
+
+                <div class="flex-auto mb-5">
+
+                    <div>
+
+                        <Label>Extra Ordinario</Label>
+                    </div>
+
+                    <div>
+
+                        <input type="number" class="bg-white rounded text-sm w-full" wire:model.defer="extra_urgente">
+
+                    </div>
+
+                    <div>
+
+                        @error('extra_urgente') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+
+                    </div>
+
+                </div>
 
             </div>
 

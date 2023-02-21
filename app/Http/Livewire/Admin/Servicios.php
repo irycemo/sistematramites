@@ -25,6 +25,8 @@ class Servicios extends Component
     public $categoria;
     public $operacion_parcial;
     public $operacion_principal;
+    public $flag_uma = false;
+    public $flag_fija = false;
 
     protected function rules(){
         return [
@@ -73,6 +75,16 @@ class Servicios extends Component
 
     }
 
+    public function updatedOrdinario(){
+
+        $this->checarTipo();
+    }
+
+    public function updatedUmas(){
+
+        $this->checarTipo();
+    }
+
     public function checarTipo(){
 
         if($this->tipo == 'uma'){
@@ -81,15 +93,22 @@ class Servicios extends Component
 
             $this->ordinario = $uma->diario * $this->umas;
 
-            $this->urgente = $this->ordinario * 2;
+            $this->ordinario = ceil($this->ordinario);
 
-            $this->extra_urgente = $this->ordinario * 3;
+            $this->urgente = ceil($this->ordinario * 2);
+
+            $this->extra_urgente = ceil($this->ordinario * 3);
 
         }else{
 
-            $this->urgente = $this->ordinario * 2;
+            $this->umas = null;
 
-            $this->extra_urgente = $this->ordinario * 3;
+            $this->ordinario = ceil($this->ordinario);
+
+            $this->urgente = ceil($this->ordinario * 2);
+
+            $this->extra_urgente = ceil($this->ordinario * 3);
+
         }
 
     }
@@ -97,8 +116,6 @@ class Servicios extends Component
     public function crear(){
 
         $this->validate();
-
-        $this->checarTipo();
 
         try {
 
@@ -132,8 +149,6 @@ class Servicios extends Component
     public function actualizar(){
 
         $this->validate();
-
-        $this->checarTipo();
 
         try{
 

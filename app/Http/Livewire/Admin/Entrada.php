@@ -244,10 +244,25 @@ class Entrada extends Component
         elseif($this->tipo_servicio == 'Urgente'){
             $this->dias_de_entrega = 1;
             $this->monto = Servicio::find($this->id_servicio)->value('urgente');
+
+            if($this->monto == 0){
+
+                $this->dispatchBrowserEvent('mostrarMensaje', ['error', "Debe seleccionar un servicio."]);
+
+                $this->tipo_servicio = null;
+            }
         }
         elseif($this->tipo_servicio == 'Extra Urgente'){
             $this->dias_de_entrega = 0;
             $this->monto = Servicio::find($this->id_servicio)->value('extra_urgente');
+
+            if($this->monto == 0){
+
+                $this->dispatchBrowserEvent('mostrarMensaje', ['error', "Debe seleccionar un servicio."]);
+
+                $this->tipo_servicio = null;
+            }
+
         }
 
     }

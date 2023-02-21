@@ -30,7 +30,7 @@ class Entrega extends Component
 
             $tramite = Tramite::find($this->selected_id);
 
-            $tramite->update(['estado' => 'finalizado']);
+            $tramite->update(['estado' => 'entregado']);
 
             $this->resetearTodo();
 

@@ -238,16 +238,36 @@ class Tramites extends Component
         }
 
         if($this->tipo_servicio == 'Ordinario'){
+
             $this->dias_de_entrega = 4; //Certifiacdos 5, Inscripciones 10 días habiles
-            $this->monto = Servicio::find($this->id_servicio)->value('ordinario');
+            $this->monto = Servicio::find($this->id_servicio)->ordinario;
+
         }
         elseif($this->tipo_servicio == 'Urgente'){
+
             $this->dias_de_entrega = 1;
-            $this->monto = Servicio::find($this->id_servicio)->value('urgente');
+            $this->monto = Servicio::find($this->id_servicio)->urgente;
+
+            if($this->monto == 0){
+
+                $this->dispatchBrowserEvent('mostrarMensaje', ['error', "No hay cobro urgente para el servicio seleccionado."]);
+
+                $this->tipo_servicio = null;
+            }
+
         }
         elseif($this->tipo_servicio == 'Extra Urgente'){
+
             $this->dias_de_entrega = 0;
-            $this->monto = Servicio::find($this->id_servicio)->value('extra_urgente');
+            $this->monto = Servicio::find($this->id_servicio)->extra_urgente;
+
+            if($this->monto == 0){
+
+                $this->dispatchBrowserEvent('mostrarMensaje', ['error', "No hay cobro extra urgente para el servicio seleccionado."]);
+
+                $this->tipo_servicio = null;
+            }
+
         }
 
     }
@@ -449,6 +469,7 @@ class Tramites extends Component
                                 ->orWhere('nombre_solicitante', 'LIKE', '%' . $this->search . '%')
                                 ->orWhere('folio_real', 'LIKE', '%' . $this->search . '%')
                                 ->orWhere('tomo', 'LIKE', '%' . $this->search . '%')
+                                ->orWhere('estado', 'LIKE', '%' . $this->search . '%')
                                 ->orWhere('registro', 'LIKE', '%' . $this->search . '%')
                                 ->orWhere('numero_propiedad', 'LIKE', '%' . $this->search . '%')
                                 ->orWhere('distrito', 'LIKE', '%' . $this->search . '%')
