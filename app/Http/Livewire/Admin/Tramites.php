@@ -17,48 +17,39 @@ class Tramites extends Component
     use WithPagination;
     use ComponentesTrait;
 
+    public $solicitantes;
+    public $secciones;
+
     public $id_servicio;
     public $estado;
     public $categorias;
     public $categoria_servicio;
     public $servicios;
     public $solicitante;
-    public $nombre_solicitante;
-    public $numero_oficio;
-    public $tomo;
-    public $folio_real;
+    public $nombre_solicitante; public $flag_nombre_solicitante = false;
+    public $numero_oficio; public $flag_numero_oficio = false;
+    public $tomo; public $flag_tomo = false;
+    public $folio_real; public $flag_folio_real = false;
     public $tomo_bis;
-    public $registro;
+    public $registro; public $flag_registro = false;
     public $registro_bis;
-    public $numero_propiedad;
-    public $distrito;
+    public $numero_propiedad; public $flag_numero_propiedad = false;
+    public $distrito; public $flag_distrito = false;
     public $dias_de_entrega;
     public $monto;
     public $tipo_servicio;
-    public $numero_inmuebles;
+    public $numero_inmuebles; public $flag_numero_inmuebles = false;
     public $numero_control;
-    public $numero_escritura;
-    public $numero_notaria;
+    public $numero_escritura; public $flag_numero_escritura = false;
+    public $numero_notaria; public $flag_numero_notaria = false;
     public $limite_de_pago;
-    public $adiciona;
-    public $adicionaTramite;
-    public $nombreSolicitanteFlag = false;
-    public $foraneo;
-    public $seccion;
-    public $tomo_gravamen;
-    public $registro_gravamen;
-    public $valor_propiedad;
-    public $numero_paginas;
-
-    public $flag_tomo_gravamen = true;
-    public $flag_registro_gravamen = true;
-    public $flag_numero_propiedad = true;
-    public $flag_numero_escritura = true;
-    public $flag_numero_notaria = true;
-    public $flag_valor_propiedad = true;
-    public $flag_numero_inmuebles = true;
-    public $flag_numero_paginas = true;
-    public $flag_foraneo = true;
+    public $adiciona; public $adicionaTramite;
+    public $foraneo; public $flag_foraneo = false;
+    public $seccion; public $flag_seccion = false;
+    public $tomo_gravamen; public $flag_tomo_gravamen = false;
+    public $registro_gravamen; public $flag_registro_gravamen = false;
+    public $valor_propiedad; public $flag_valor_propiedad = false;
+    public $numero_paginas; public $flag_numero_paginas = false;
 
     protected function rules(){
         return [
@@ -110,46 +101,46 @@ class Tramites extends Component
                         'estado',
                         'id_servicio',
                         'solicitante',
-                        'seccion',
-                        'nombre_solicitante',
-                        'numero_oficio',
-                        'tomo',
-                        'folio_real',
+                        'seccion', 'flag_seccion',
+                        'nombre_solicitante', 'flag_nombre_solicitante',
+                        'numero_oficio', 'flag_numero_oficio',
+                        'tomo', 'flag_tomo',
+                        'folio_real', 'flag_folio_real',
                         'tomo_bis',
-                        'registro',
+                        'registro', 'flag_registro',
                         'registro_bis',
-                        'numero_propiedad',
-                        'distrito',
+                        'numero_propiedad', 'flag_numero_propiedad',
+                        'distrito', 'flag_distrito',
                         'dias_de_entrega',
                         'monto',
                         'tipo_servicio',
-                        'numero_inmuebles',
+                        'numero_inmuebles', 'flag_numero_inmuebles',
                         'numero_control',
-                        'numero_escritura',
-                        'numero_notaria',
+                        'numero_escritura', 'flag_numero_escritura',
+                        'numero_notaria', 'flag_numero_notaria',
                         'limite_de_pago',
-                        'adiciona',
-                        'tomo_gravamen',
-                        'adicionaTramite',
-                        'nombreSolicitanteFlag',
+                        'adiciona', 'adicionaTramite',
+                        'tomo_gravamen', 'flag_tomo_gravamen',
                         'categoria_servicio',
-                        'foraneo',
-                        'registro_gravamen',
+                        'foraneo', 'flag_foraneo',
+                        'registro_gravamen', 'flag_registro_gravamen',
                         'servicios',
-                        'numero_paginas',
-                        'valor_propiedad',
-                        'flag_numero_paginas',
-                        'flag_numero_inmuebles',
-                        'flag_valor_propiedad',
-                        'flag_numero_notaria',
-                        'flag_numero_escritura',
-                        'flag_numero_propiedad',
-                        'flag_registro_gravamen',
-                        'flag_tomo_gravamen',
-                        'flag_foraneo'
+                        'numero_paginas', 'flag_numero_paginas',
+                        'valor_propiedad', 'flag_valor_propiedad',
                     ]);
+
         $this->resetErrorBag();
         $this->resetValidation();
+
+    }
+
+    public function updatedAdicionaTramite(){
+
+        $this->adiciona = null;
+
+        if($this->adicionaTramite)
+            $this->dispatchBrowserEvent('select2');
+
     }
 
     public function updatedCategoriaServicio(){
@@ -195,12 +186,33 @@ class Tramites extends Component
 
     }
 
-    public function updatedAdicionaTramite(){
+    public function updatedIdServicio(){
 
-        $this->adiciona = null;
+        $servicio = Servicio::find($this->id_servicio);
 
-        if($this->adicionaTramite)
-            $this->dispatchBrowserEvent('select2');
+        switch ($servicio->nombre) {
+            case 'Copias simples (por página)':
+                $this->flag_nombre_solicitante = true;
+                $this->flag_tomo = true;
+                $this->flag_registro = true;
+                $this->flag_distrito = true;
+                $this->flag_seccion = true;
+                $this->flag_numero_paginas = true;
+                break;
+
+            case 'Copias certificadas (por página)':
+                    $this->flag_nombre_solicitante = true;
+                    $this->flag_tomo = true;
+                    $this->flag_registro = true;
+                    $this->flag_distrito = true;
+                    $this->flag_seccion = true;
+                    $this->flag_numero_paginas = true;
+                    break;
+
+            default:
+                # code...
+                break;
+        }
 
     }
 
@@ -208,15 +220,15 @@ class Tramites extends Component
 
         if($this->solicitante == 'Ventanilla'){
 
-            $this->nombreSolicitanteFlag = true;
+            $this->flag_nombre_solicitante = true;
             $this->nombre_solicitante = null;
 
         }elseif($this->solicitante == 'Oficialia de partes'){
 
-            $this->nombreSolicitanteFlag = true;
+            $this->flag_nombre_solicitante = true;
             $this->nombre_solicitante = null;
         }else{
-            $this->nombreSolicitanteFlag = false;
+            $this->flag_nombre_solicitante = false;
             $this->nombre_solicitante = null;
         }
 
@@ -239,7 +251,7 @@ class Tramites extends Component
 
         if($this->tipo_servicio == 'Ordinario'){
 
-            $this->dias_de_entrega = 4; //Certifiacdos 5, Inscripciones 10 días habiles
+            $this->dias_de_entrega = 4;
             $this->monto = Servicio::find($this->id_servicio)->ordinario;
 
         }
@@ -455,14 +467,18 @@ class Tramites extends Component
         }
     }
 
-    public function render()
-    {
+    public function mount(){
 
         $this->categorias = CategoriaServicio::all();
 
-        $solicitantes = Constantes::SOLICITANTES;
+        $this->solicitantes = Constantes::SOLICITANTES;
 
-        $secciones = Constantes::SECCIONES;
+        $this->secciones = Constantes::SECCIONES;
+
+    }
+
+    public function render()
+    {
 
         $tramites = Tramite::with('creadoPor', 'actualizadoPor', 'adicionaAlTramite', 'servicio')
                                 ->where('solicitante', 'LIKE', '%' . $this->search . '%')
@@ -489,6 +505,6 @@ class Tramites extends Component
                                 ->orderBy($this->sort, $this->direction)
                                 ->paginate($this->pagination);
 
-        return view('livewire.admin.tramites', compact('tramites', 'solicitantes', 'secciones'))->extends('layouts.admin');
+        return view('livewire.admin.tramites', compact('tramites'))->extends('layouts.admin');
     }
 }

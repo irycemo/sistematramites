@@ -845,38 +845,6 @@
 
                     <div>
 
-                        <Label>Solicitante</Label>
-
-                    </div>
-
-                    <div>
-
-                        <select class="bg-white rounded text-sm w-full" wire:model="solicitante">
-
-                            <option value="" selected>Seleccione una opción</option>
-
-                            @foreach ($solicitantes as $solicitante)
-
-                                <option value="{{ $solicitante }}">{{ $solicitante }}</option>
-
-                            @endforeach
-
-                        </select>
-
-                    </div>
-
-                    <div>
-
-                        @error('solicitante') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
-
-                    </div>
-
-                </div>
-
-                <div class="flex-auto ">
-
-                    <div>
-
                         <Label>Categoría de servicios</Label>
                     </div>
 
@@ -939,13 +907,45 @@
 
                 @endif
 
+                <div class="flex-auto ">
+
+                    <div>
+
+                        <Label>Solicitante</Label>
+
+                    </div>
+
+                    <div>
+
+                        <select class="bg-white rounded text-sm w-full" wire:model="solicitante">
+
+                            <option value="" selected>Seleccione una opción</option>
+
+                            @foreach ($solicitantes as $solicitante)
+
+                                <option value="{{ $solicitante }}">{{ $solicitante }}</option>
+
+                            @endforeach
+
+                        </select>
+
+                    </div>
+
+                    <div>
+
+                        @error('solicitante') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+
+                    </div>
+
+                </div>
+
             </div>
 
-            @if ($nombreSolicitanteFlag)
+            <div class="flex flex-col md:flex-row justify-between md:space-x-3 ">
 
-                <div class="flex flex-col md:flex-row justify-between md:space-x-3 mb-5">
+                @if ($flag_nombre_solicitante)
 
-                    <div class="flex-auto mr-1 ">
+                    <div class="flex-auto mb-5">
 
                         <div>
 
@@ -967,7 +967,11 @@
 
                     </div>
 
-                    <div class="flex-auto mr-1 ">
+                @endif
+
+                @if ($flag_numero_oficio)
+
+                    <div class="flex-auto mb-5">
 
                         <div>
 
@@ -989,239 +993,268 @@
 
                     </div>
 
-                </div>
-
-            @endif
-
-            <div class="flex flex-col md:flex-row justify-between md:space-x-3 mb-3">
-
-                <div class="flex-auto">
-
-                    <div>
-
-                        <Label>Folio Real</Label>
-                    </div>
-
-                    <div>
-
-                        <input type="text" class="bg-white rounded text-sm w-full" wire:model.defer="folio_real">
-
-                    </div>
-
-                    <div>
-
-                        @error('folio_real') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
-
-                    </div>
-
-                </div>
-
-                <div class="flex-auto">
-
-                    <div>
-
-                        <Label>Tomo</Label>
-
-                    </div>
-
-                    <div>
-
-                        <input type="text" class="bg-white rounded text-sm w-full" wire:model.defer="tomo">
-
-                    </div>
-
-                    <div>
-
-                        @error('tomo') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
-
-                    </div>
-
-                </div>
-
-                <div class="flex-auto">
-
-                    <div>
-
-                        <Label>Bis</Label>
-
-                    </div>
-
-                    <div>
-
-                        <x-jet-checkbox wire:model.defer="tomo_bis"></x-jet-checkbox>
-
-                    </div>
-
-                    <div>
-
-                        @error('tomo_bis') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
-
-                    </div>
-
-                </div>
-
-                <div class="flex-auto">
-
-                    <div>
-
-                        <Label>Registro</Label>
-
-                    </div>
-
-                    <div>
-
-                        <input type="text" class="bg-white rounded text-sm w-full" wire:model.defer="registro">
-
-                    </div>
-
-                    <div>
-
-                        @error('registro') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
-
-                    </div>
-
-                </div>
-
-                <div class="flex-auto">
-
-                    <div>
-
-                        <Label>Bis</Label>
-
-                    </div>
-
-                    <div>
-
-                        <x-jet-checkbox wire:model.defer="registro_bis"></x-jet-checkbox>
-
-                    </div>
-
-                    <div>
-
-                        @error('registro_bis') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
-
-                    </div>
-
-                </div>
+                @endif
 
             </div>
 
-            <div class="flex flex-col md:flex-row justify-between md:space-x-3 mb-3">
+            <div class="flex flex-col md:flex-row justify-between md:space-x-3 ">
 
-                <div class="flex-auto">
+                @if($flag_folio_real)
 
-                    <div>
+                    <div class="flex-auto mb-3">
 
-                        <Label>Distrito</Label>
-                    </div>
+                        <div>
 
-                    <div>
+                            <Label>Folio Real</Label>
+                        </div>
 
-                        <select class="bg-white rounded text-sm w-full" wire:model.defer="distrito">
+                        <div>
 
-                            <option value="" selected>Seleccione una opción</option>
-                            <option value="1" selected>1</option>
-                            <option value="2" selected>2</option>
-                            <option value="3" selected>3</option>
-                            <option value="4" selected>4</option>
-                            <option value="5" selected>5</option>
-                            <option value="6" selected>6</option>
-                            <option value="7" selected>7</option>
-                            <option value="8" selected>8</option>
-                            <option value="9" selected>9</option>
-                            <option value="10" selected>10</option>
-                            <option value="11" selected>11</option>
-                            <option value="12" selected>12</option>
-                            <option value="13" selected>13</option>
-                            <option value="14" selected>14</option>
-                            <option value="15" selected>15</option>
-                            <option value="16" selected>16</option>
-                            <option value="17" selected>17</option>
-                            <option value="18" selected>18</option>
-                            <option value="19" selected>19</option>
+                            <input type="text" class="bg-white rounded text-sm w-full" wire:model.defer="folio_real">
 
-                        </select>
+                        </div>
+
+                        <div>
+
+                            @error('folio_real') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+
+                        </div>
 
                     </div>
 
-                    <div>
+                @endif
 
-                        @error('distrito') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+                @if($flag_tomo)
 
-                    </div>
+                    <div class="flex-auto">
 
-                </div>
+                        <div>
 
-                <div class="flex-auto">
+                            <Label>Tomo</Label>
 
-                    <div>
+                        </div>
 
-                        <Label>Tomo Gravamen</Label>
+                        <div>
 
-                    </div>
+                            <input type="text" class="bg-white rounded text-sm w-full" wire:model.defer="tomo">
 
-                    <div>
+                        </div>
 
-                        <input type="text" class="bg-white rounded text-sm w-full" wire:model.defer="tomo_gravamen">
+                        <div>
 
-                    </div>
+                            @error('tomo') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
 
-                    <div>
-
-                        @error('tomo_gravamen') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+                        </div>
 
                     </div>
 
-                </div>
+                    <div class="flex-auto">
 
-                <div class="flex-auto">
+                        <div>
 
-                    <div>
+                            <Label>Bis</Label>
 
-                        <Label>Registro Gravamen</Label>
+                        </div>
+
+                        <div>
+
+                            <x-jet-checkbox wire:model.defer="tomo_bis"></x-jet-checkbox>
+
+                        </div>
+
+                        <div>
+
+                            @error('tomo_bis') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+
+                        </div>
 
                     </div>
 
-                    <div>
+                @endif
 
-                        <input type="text" class="bg-white rounded text-sm w-full" wire:model.defer="registro_gravamen">
+                @if($flag_registro)
+
+                    <div class="flex-auto mb-3">
+
+                        <div>
+
+                            <Label>Registro</Label>
+
+                        </div>
+
+                        <div>
+
+                            <input type="text" class="bg-white rounded text-sm w-full" wire:model.defer="registro">
+
+                        </div>
+
+                        <div>
+
+                            @error('registro') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+
+                        </div>
 
                     </div>
 
-                    <div>
+                    <div class="flex-auto >
 
-                        @error('registro_gravamen') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+                        <div>
+
+                            <Label>Bis</Label>
+
+                        </div>
+
+                        <div>
+
+                            <x-jet-checkbox wire:model.defer="registro_bis"></x-jet-checkbox>
+
+                        </div>
+
+                        <div>
+
+                            @error('registro_bis') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+
+                        </div>
 
                     </div>
 
-                </div>
+                @endif
 
             </div>
 
-            <div class="flex flex-col md:flex-row justify-between md:space-x-3 mb-3">
+            <div class="flex flex-col md:flex-row justify-between md:space-x-3 ">
 
-                <div class="flex-auto">
+                @if($flag_distrito)
 
-                    <div>
+                    <div class="flex-auto mb-3">
 
-                        <Label>Número de propiedad</Label>
+                        <div>
+
+                            <Label>Distrito</Label>
+                        </div>
+
+                        <div>
+
+                            <select class="bg-white rounded text-sm w-full" wire:model.defer="distrito">
+
+                                <option value="" selected>Seleccione una opción</option>
+                                <option value="1" selected>1</option>
+                                <option value="2" selected>2</option>
+                                <option value="3" selected>3</option>
+                                <option value="4" selected>4</option>
+                                <option value="5" selected>5</option>
+                                <option value="6" selected>6</option>
+                                <option value="7" selected>7</option>
+                                <option value="8" selected>8</option>
+                                <option value="9" selected>9</option>
+                                <option value="10" selected>10</option>
+                                <option value="11" selected>11</option>
+                                <option value="12" selected>12</option>
+                                <option value="13" selected>13</option>
+                                <option value="14" selected>14</option>
+                                <option value="15" selected>15</option>
+                                <option value="16" selected>16</option>
+                                <option value="17" selected>17</option>
+                                <option value="18" selected>18</option>
+                                <option value="19" selected>19</option>
+
+                            </select>
+
+                        </div>
+
+                        <div>
+
+                            @error('distrito') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+
+                        </div>
+
                     </div>
 
-                    <div>
+                @endif
 
-                        <input type="text" class="bg-white rounded text-sm w-full" wire:model.defer="numero_propiedad">
+                @if($flag_tomo_gravamen)
+
+                    <div class="flex-auto mb-3">
+
+                        <div>
+
+                            <Label>Tomo Gravamen</Label>
+
+                        </div>
+
+                        <div>
+
+                            <input type="text" class="bg-white rounded text-sm w-full" wire:model.defer="tomo_gravamen">
+
+                        </div>
+
+                        <div>
+
+                            @error('tomo_gravamen') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+
+                        </div>
 
                     </div>
 
-                    <div>
+                @endif
 
-                        @error('numero_propiedad') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+                @if($flag_registro_gravamen)
+
+                    <div class="flex-auto mb-3">
+
+                        <div>
+
+                            <Label>Registro Gravamen</Label>
+
+                        </div>
+
+                        <div>
+
+                            <input type="text" class="bg-white rounded text-sm w-full" wire:model.defer="registro_gravamen">
+
+                        </div>
+
+                        <div>
+
+                            @error('registro_gravamen') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+
+                        </div>
 
                     </div>
 
-                </div>
+                @endif
+
+            </div>
+
+            <div class="flex flex-col md:flex-row justify-between md:space-x-3 ">
+
+                @if($flag_numero_propiedad)
+
+                    <div class="flex-auto">
+
+                        <div>
+
+                            <Label>Número de propiedad</Label>
+                        </div>
+
+                        <div>
+
+                            <input type="text" class="bg-white rounded text-sm w-full" wire:model.defer="numero_propiedad">
+
+                        </div>
+
+                        <div>
+
+                            @error('numero_propiedad') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+
+                        </div>
+
+                    </div>
+
+                @endif
 
                 @if($flag_numero_escritura)
+
                     <div class="flex-auto">
 
                         <div>
@@ -1242,10 +1275,12 @@
                         </div>
 
                     </div>
+
                 @endif
 
                 @if($flag_numero_notaria)
-                    <div class="flex-auto">
+
+                    <div class="flex-auto mb-3">
 
                         <div>
 
@@ -1265,34 +1300,40 @@
                         </div>
 
                     </div>
+
                 @endif
 
             </div>
 
-            <div class="flex flex-col md:flex-row justify-between md:space-x-3 mb-3">
+            <div class="flex flex-col md:flex-row justify-between md:space-x-3">
 
-                <div class="flex-auto">
+                @if($flag_valor_propiedad)
 
-                    <div>
+                    <div class="flex-auto">
 
-                        <Label>Valor de propiedad</Label>
+                        <div>
+
+                            <Label>Valor de propiedad</Label>
+                        </div>
+
+                        <div>
+
+                            <input type="number" class="bg-white rounded text-sm w-full" wire:model.defer="valor_propiedad">
+
+                        </div>
+
+                        <div>
+
+                            @error('valor_propiedad') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+
+                        </div>
+
                     </div>
 
-                    <div>
-
-                        <input type="number" class="bg-white rounded text-sm w-full" wire:model.defer="valor_propiedad">
-
-                    </div>
-
-                    <div>
-
-                        @error('valor_propiedad') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
-
-                    </div>
-
-                </div>
+                @endif
 
                 @if($flag_numero_inmuebles)
+
                     <div class="flex-auto ">
 
                         <div>
@@ -1313,10 +1354,12 @@
                         </div>
 
                     </div>
+
                 @endif
 
                 @if($flag_numero_paginas)
-                    <div class="flex-auto ">
+
+                    <div class="flex-auto mb-3">
 
                         <div>
 
@@ -1336,6 +1379,7 @@
                         </div>
 
                     </div>
+
                 @endif
 
             </div>
@@ -1371,6 +1415,7 @@
                 </div>
 
                 @if($flag_foraneo)
+
                     <div class="flex-auto">
 
                         <div>
@@ -1392,6 +1437,7 @@
                         </div>
 
                     </div>
+
                 @endif
 
             </div>
