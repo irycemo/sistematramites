@@ -12,7 +12,8 @@ class Constantes{
         'Recepción',
         'Entrega',
         'Entrada',
-        'Umas'
+        'Umas',
+        'Auditoría'
     ];
 
     const AREAS_ADSCRIPCION = [

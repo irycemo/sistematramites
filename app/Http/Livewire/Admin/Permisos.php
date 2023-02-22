@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Admin;
 
+use App\Http\Constantes;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\Log;
@@ -12,6 +13,8 @@ class Permisos extends Component
 {
     use WithPagination;
     use ComponentesTrait;
+
+    public $areas;
 
     public $nombre;
     public $area;
@@ -119,6 +122,12 @@ class Permisos extends Component
             $this->resetearTodo();
 
         }
+
+    }
+
+    public function mount(){
+
+        $this->areas = collect(Constantes::AREAS)->sort();
 
     }
 

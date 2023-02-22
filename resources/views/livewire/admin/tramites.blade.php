@@ -839,9 +839,9 @@
 
             </div>
 
-            <div class="flex flex-col md:flex-row justify-between md:space-x-3 mb-3">
+            <div class="flex flex-col md:flex-row justify-between md:space-x-3 ">
 
-                <div class="flex-auto ">
+                <div class="flex-auto mb-3">
 
                     <div>
 
@@ -909,9 +909,9 @@
 
             </div>
 
-            <div class="flex flex-col md:flex-row justify-between md:space-x-3 mb-3">
+            <div class="flex flex-col md:flex-row justify-between md:space-x-3 ">
 
-                <div class="flex-auto ">
+                <div class="flex-auto mb-3">
 
                     <div>
 
@@ -1407,7 +1407,7 @@
 
                         <div>
 
-                            <input type="number" class="bg-white rounded text-sm w-full" wire:model.defer="numero_paginas">
+                            <input type="number" min="1" class="bg-white rounded text-sm w-full" wire:model.defer="numero_paginas">
 
                         </div>
 
@@ -1490,7 +1490,7 @@
                 @if($estado == 'nuevo')
 
                     <a
-                        href="{{ route('tramites.recibo', $tramite->id) }}"
+                        href="{{ route('tramites.recibo', $selected_id) }}"
                         target="_blank"
                         class="bg-gray-400 text-white hover:shadow-lg font-bold px-4 py-2 rounded-full text-sm mb-2 hover:bg-gray-700 flaot-left mr-1 focus:outline-none">
 

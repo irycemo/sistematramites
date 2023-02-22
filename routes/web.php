@@ -8,6 +8,7 @@ use App\Http\Livewire\Admin\Permisos;
 use App\Http\Livewire\Admin\Tramites;
 use App\Http\Livewire\Admin\Usuarios;
 use Illuminate\Support\Facades\Route;
+use App\Http\Livewire\Admin\Auditoria;
 use App\Http\Livewire\Admin\Recepcion;
 use App\Http\Livewire\Admin\Servicios;
 use App\Http\Controllers\ManualController;
@@ -62,6 +63,8 @@ Route::group(['middleware' => ['auth', 'esta.activo']], function(){
     Route::get('recepcion', Recepcion::class)->middleware('permission:Recepción')->name('recepcion');
 
     Route::get('entrega', Entrega::class)->middleware('permission:Entrega')->name('entrega');
+
+    Route::get('auditoria', Auditoria::class)->middleware('permission:Auditoria')->name('auditoria');
 
 });
 

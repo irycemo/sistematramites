@@ -138,7 +138,6 @@ class Tramites extends Component
 
         $this->reset([
             'flag_seccion',
-            'flag_nombre_solicitante',
             'flag_numero_oficio',
             'flag_tomo',
             'flag_folio_real',
@@ -298,7 +297,6 @@ class Tramites extends Component
 
         $this->selected_id = $tramite['id'];
         $this->estado = $tramite['estado'];
-        $this->id_servicio = $tramite['id_servicio'];
         $this->solicitante = $tramite['solicitante'];
         $this->tomo_bis = $tramite['tomo_bis'];
         $this->registro_bis = $tramite['registro_bis'];
@@ -307,6 +305,11 @@ class Tramites extends Component
         $this->tipo_servicio = $tramite['tipo_servicio'];
         $this->numero_control = $tramite['numero_control'];
         $this->limite_de_pago = $tramite['limite_de_pago'];
+
+        $this->id_servicio = $tramite['id_servicio'];
+        $servicio = Servicio::find($tramite['id_servicio']);
+        $this->categoria_servicio = $servicio->categoria_servicio_id;
+        $this->updatedCategoriaServicio();
 
         if(isset($tramite['nombre_solicitante'])){
             $this->nombre_solicitante = $tramite['nombre_solicitante'];
@@ -426,6 +429,12 @@ class Tramites extends Component
             }else{
 
                 $monto = $this->solicitante == "Oficialia de partes" ? 0 : (int)$this->monto;
+
+            }
+
+            if($this->numero_paginas != null){
+
+                $monto = $monto * (int)$this->numero_paginas;
 
             }
 
