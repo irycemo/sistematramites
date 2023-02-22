@@ -137,21 +137,21 @@ class Tramites extends Component
     public function resetFlags(){
 
         $this->reset([
-            'flag_seccion',
-            'flag_numero_oficio',
-            'flag_tomo',
-            'flag_folio_real',
-            'flag_registro',
-            'flag_numero_propiedad',
-            'flag_distrito',
-            'flag_numero_inmuebles',
-            'flag_numero_escritura',
-            'flag_numero_notaria',
-            'flag_tomo_gravamen',
-            'flag_foraneo',
-            'flag_registro_gravamen',
-            'flag_numero_paginas',
-            'flag_valor_propiedad',
+            'flag_seccion', 'seccion',
+            'flag_numero_oficio', 'numero_oficio',
+            'flag_tomo', 'tomo', 'tomo_bis',
+            'flag_folio_real', 'folio_real',
+            'flag_registro', 'registro', 'registro_bis',
+            'flag_numero_propiedad', 'numero_propiedad',
+            'flag_distrito', 'distrito',
+            'flag_numero_inmuebles', 'numero_inmuebles',
+            'flag_numero_escritura', 'numero_escritura',
+            'flag_numero_notaria', 'numero_notaria',
+            'flag_tomo_gravamen', 'tomo_gravamen',
+            'flag_foraneo', 'foraneo',
+            'flag_registro_gravamen', 'registro_gravamen',
+            'flag_numero_paginas', 'numero_paginas',
+            'flag_valor_propiedad', 'valor_propiedad'
         ]);
 
     }
@@ -234,14 +234,17 @@ class Tramites extends Component
 
             $this->flag_nombre_solicitante = true;
             $this->nombre_solicitante = null;
+
         }else{
             $this->flag_nombre_solicitante = false;
             $this->nombre_solicitante = null;
         }
 
         if($this->solicitante == "Pensiones"){
+
             $this->tipo_servicio = "Extra Urgente";
             $this->updatedTipoServicio();
+
         }
     }
 
@@ -302,7 +305,7 @@ class Tramites extends Component
         $this->registro_bis = $tramite['registro_bis'];
         $this->dias_de_entrega = $tramite['dias_de_entrega'];
         $this->monto = $tramite['monto'];
-        $this->tipo_servicio = $tramite['tipo_servicio'];
+        /* $this->tipo_servicio = $tramite['tipo_servicio']; */
         $this->numero_control = $tramite['numero_control'];
         $this->limite_de_pago = $tramite['limite_de_pago'];
 
@@ -424,11 +427,11 @@ class Tramites extends Component
 
             if($this->foraneo){
 
-                $monto = 1865 + ($this->solicitante == "Oficialia de partes" ? 0 : (int)$this->monto);
+                $monto = 1865 + (int)$this->monto;
 
             }else{
 
-                $monto = $this->solicitante == "Oficialia de partes" ? 0 : (int)$this->monto;
+                $monto = (int)$this->monto;
 
             }
 
@@ -508,10 +511,10 @@ class Tramites extends Component
                 'dias_de_entrega' => $this->dias_de_entrega,
                 'monto' => $this->monto,
                 'tipo_servicio' => $this->tipo_servicio,
-                'numero_control' => $this->numero_control,
                 'numero_escritura' => $this->numero_escritura,
                 'numero_notaria' => $this->numero_notaria,
                 'limite_de_pago' => now()->addDays(10),
+                'numero_paginas' => $this->numero_paginas,
                 'adiciona' => $this->adiciona,
                 'foraneo' => $this->foraneo,
                 'actualizado_por' => auth()->user()->id
