@@ -594,7 +594,7 @@
 
                                 <span class="lg:hidden  absolute top-0 left-0 bg-blue-300 px-2 py-1 text-xs text-white font-bold uppercase rounded-br-xl">Tomo / Bis</span>
 
-                                {{ $tramite->tomo }} {{ $tramite->tomo_bis ? '/ Bis' : ''}}
+                                {{ $tramite->tomo ? $tramite->tomo : 'N/A' }} {{ $tramite->tomo_bis ? '/ Bis' : ''}}
 
                             </td>
 
@@ -602,7 +602,7 @@
 
                                 <span class="lg:hidden  absolute top-0 left-0 bg-blue-300 px-2 py-1 text-xs text-white font-bold uppercase rounded-br-xl">Registro / Bis</span>
 
-                                {{ $tramite->registro }} {{ $tramite->registro_bis ? '/ Bis' : ''}}
+                                {{ $tramite->registro ? $tramite->registro : 'N/A' }} {{ $tramite->registro_bis ? '/ Bis' : ''}}
 
                             </td>
 
@@ -907,6 +907,10 @@
 
                 @endif
 
+            </div>
+
+            <div class="flex flex-col md:flex-row justify-between md:space-x-3 mb-3">
+
                 <div class="flex-auto ">
 
                     <div>
@@ -939,13 +943,9 @@
 
                 </div>
 
-            </div>
-
-            <div class="flex flex-col md:flex-row justify-between md:space-x-3 ">
-
                 @if ($flag_nombre_solicitante)
 
-                    <div class="flex-auto mb-5">
+                    <div class="flex-auto mb-3">
 
                         <div>
 
@@ -969,9 +969,13 @@
 
                 @endif
 
+            </div>
+
+            <div class="flex flex-col md:flex-row justify-between md:space-x-3 ">
+
                 @if ($flag_numero_oficio)
 
-                    <div class="flex-auto mb-5">
+                    <div class="flex-auto mb-3">
 
                         <div>
 
@@ -1165,6 +1169,41 @@
                         <div>
 
                             @error('distrito') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+
+                        </div>
+
+                    </div>
+
+                @endif
+
+                @if($flag_seccion)
+
+                    <div class="flex-auto mb-3">
+
+                        <div>
+
+                            <Label>Sección</Label>
+                        </div>
+
+                        <div>
+
+                            <select class="bg-white rounded text-sm w-full" wire:model.defer="seccion">
+
+                                <option value="" selected>Seleccione una opción</option>
+
+                                @foreach ($secciones as $seccion)
+
+                                    <option value="{{ $seccion }}">{{ $seccion }}</option>
+
+                                @endforeach
+
+                            </select>
+
+                        </div>
+
+                        <div>
+
+                            @error('seccion') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
 
                         </div>
 

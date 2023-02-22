@@ -19,10 +19,10 @@ class Tramites extends Component
 
     public $solicitantes;
     public $secciones;
+    public $categorias;
 
     public $id_servicio;
     public $estado;
-    public $categorias;
     public $categoria_servicio;
     public $servicios;
     public $solicitante;
@@ -55,10 +55,10 @@ class Tramites extends Component
         return [
             'id_servicio' => 'required',
             'solicitante' => 'required',
-            'tomo' => 'nullable',
-            'tomo_bis' => 'nullable|required_with:tomo',
-            'registro' => 'nullable',
-            'registro_bis' => 'nullable|required_with:registro',
+            'tomo' => 'nullable|required_with:tomo_bis',
+            'tomo_bis' => 'nullable',
+            'registro' => 'nullable|required_with:registro_bis',
+            'registro_bis' => 'nullable',
             'tipo_servicio' => 'required',
             'nombre_solicitante' => 'required_if:solicitante,Ventanilla,Juzgado',
             'adiciona' => 'required_if:adicionaTramite,true'
@@ -134,26 +134,9 @@ class Tramites extends Component
 
     }
 
-    public function updatedAdicionaTramite(){
-
-        $this->adiciona = null;
-
-        if($this->adicionaTramite)
-            $this->dispatchBrowserEvent('select2');
-
-    }
-
-    public function updatedCategoriaServicio(){
-
-        /* Buscar servicios de la categoría */
-
-        $this->servicios = Servicio::where('estado', 'activo')->where('categoria_servicio_id', $this->categoria_servicio)->get();
-
-        /* Al cambiar de categoría resetear inputs */
+    public function resetFlags(){
 
         $this->reset([
-            'id_servicio',
-            'tipo_servicio',
             'flag_seccion',
             'flag_nombre_solicitante',
             'flag_numero_oficio',
@@ -172,36 +155,26 @@ class Tramites extends Component
             'flag_valor_propiedad',
         ]);
 
-        /* Ocultar inputs */
+    }
 
-        $categoria = $this->categorias->where('id', $this->categoria_servicio)->first();
+    public function updatedAdicionaTramite(){
 
-        if($categoria != null && $categoria->nombre == 'Certificaciones'){
+        $this->adiciona = null;
 
-            $this->flag_numero_escritura = false;
-            $this->flag_numero_notaria = false;
-            $this->flag_numero_inmuebles = false;
-            $this->flag_foraneo = false;
+        if($this->adicionaTramite)
+            $this->dispatchBrowserEvent('select2');
 
-        }
+    }
 
-        if($categoria != null && $categoria->nombre == 'Inscripciones - Propiedad'){
+    public function updatedCategoriaServicio(){
 
-            $this->seccion = 'Propiedad';
+        /* Buscar servicios de la categoría */
 
-        }
+        $this->servicios = Servicio::where('estado', 'activo')->where('categoria_servicio_id', $this->categoria_servicio)->get();
 
-        if($categoria != null && $categoria->nombre == 'Inscripciones - Gravamenes'){
+        /* Al cambiar de categoría resetear inputs */
 
-            $this->seccion = 'Gravamen';
-
-        }
-
-        if($categoria != null && $categoria->nombre == 'Cancelación - Gravamenes'){
-
-            $this->seccion = 'Cancelaciones';
-
-        }
+        $this->resetFlags();
 
     }
 
@@ -209,9 +182,10 @@ class Tramites extends Component
 
         $servicio = Servicio::find($this->id_servicio);
 
+        $this->resetFlags();
+
         switch ($servicio->nombre) {
             case 'Copias simples (por página)':
-                $this->flag_nombre_solicitante = true;
                 $this->flag_tomo = true;
                 $this->flag_registro = true;
                 $this->flag_distrito = true;
@@ -220,13 +194,28 @@ class Tramites extends Component
                 break;
 
             case 'Copias certificadas (por página)':
-                    $this->flag_nombre_solicitante = true;
-                    $this->flag_tomo = true;
-                    $this->flag_registro = true;
-                    $this->flag_distrito = true;
-                    $this->flag_seccion = true;
-                    $this->flag_numero_paginas = true;
-                    break;
+                $this->flag_tomo = true;
+                $this->flag_registro = true;
+                $this->flag_distrito = true;
+                $this->flag_seccion = true;
+                $this->flag_numero_paginas = true;
+                break;
+
+            /* case 'Cuando se trate de uno o hasta cinco tomos o libros índice':
+                $this->flag_nombre_solicitante = true;
+                break;
+
+            case 'Búsqueda de bienes por índices de 21 o más':
+                $this->flag_nombre_solicitante = true;
+                break;
+
+            case 'Búsqueda de bienes por índices de 11 a 20':
+                $this->flag_nombre_solicitante = true;
+                break;
+
+            case 'Búsqueda de antecedente de 1 a 10':
+                $this->flag_nombre_solicitante = true;
+                break; */
 
             default:
                 # code...
@@ -311,43 +300,111 @@ class Tramites extends Component
         $this->estado = $tramite['estado'];
         $this->id_servicio = $tramite['id_servicio'];
         $this->solicitante = $tramite['solicitante'];
-        $this->nombre_solicitante = $tramite['nombre_solicitante'];
-        $this->tomo = $tramite['tomo'];
-        $this->folio_real = $tramite['folio_real'];
         $this->tomo_bis = $tramite['tomo_bis'];
-        $this->registro = $tramite['registro'];
         $this->registro_bis = $tramite['registro_bis'];
-        $this->numero_propiedad = $tramite['numero_propiedad'];
-        $this->numero_inmuebles = $tramite['numero_inmuebles'];
-        $this->distrito = $tramite['distrito'];
-        $this->seccion = $tramite['seccion'];
         $this->dias_de_entrega = $tramite['dias_de_entrega'];
         $this->monto = $tramite['monto'];
         $this->tipo_servicio = $tramite['tipo_servicio'];
         $this->numero_control = $tramite['numero_control'];
-        $this->numero_escritura = $tramite['numero_escritura'];
-        $this->numero_notaria = $tramite['numero_notaria'];
         $this->limite_de_pago = $tramite['limite_de_pago'];
-        $this->adiciona = $tramite['adiciona'];
-        $this->foraneo = $tramite['foraneo'];
-        $this->tomo_gravamen = $tramite['tomo_gravamen'];
-        $this->registro_gravamen = $tramite['registro_gravamen'];
-        $this->valor_propiedad = $tramite['valor_propiedad'];
-        $this->numero_paginas = $tramite['numero_paginas'];
-        $this->numero_oficio = $tramite['numero_oficio'];
 
         if(isset($tramite['nombre_solicitante'])){
-            $this->nombreSolicitanteFlag = true;
+            $this->nombre_solicitante = $tramite['nombre_solicitante'];
+            $this->flag_nombre_solicitante = true;
+        }
+
+        if(isset($tramite['tomo'])){
+            $this->tomo = $tramite['tomo'];
+            $this->flag_tomo = true;
+        }
+
+        if(isset($tramite['folio_real'])){
+            $this->folio_real = $tramite['folio_real'];
+            $this->flag_folio_real = true;
+        }
+
+        if(isset($tramite['registro'])){
+            $this->registro = $tramite['registro'];
+            $this->flag_registro = true;
+        }
+
+        if(isset($tramite['numero_propiedad'])){
+            $this->numero_propiedad = $tramite['numero_propiedad'];
+            $this->flag_numero_propiedad = true;
+        }
+
+        if(isset($tramite['numero_inmuebles'])){
+            $this->numero_inmuebles = $tramite['numero_inmuebles'];
+            $this->flag_numero_inmuebles = true;
+        }
+
+        if(isset($tramite['distrito'])){
+            $this->distrito = $tramite['distrito'];
+            $this->flag_distrito = true;
+        }
+
+        if(isset($tramite['seccion'])){
+            $this->seccion = $tramite['seccion'];
+            $this->flag_seccion = true;
+        }
+
+        if(isset($tramite['seccion'])){
+            $this->seccion = $tramite['seccion'];
+            $this->flag_seccion = true;
+        }
+
+        if(isset($tramite['numero_escritura'])){
+            $this->numero_escritura = $tramite['numero_escritura'];
+            $this->flag_numero_escritura = true;
+        }
+
+        if(isset($tramite['numero_notaria'])){
+            $this->numero_notaria = $tramite['numero_notaria'];
+            $this->flag_numero_notaria = true;
+        }
+
+        if(isset($tramite['numero_notaria'])){
+            $this->numero_notaria = $tramite['numero_notaria'];
+            $this->flag_numero_notaria = true;
+        }
+
+        if(isset($tramite['foraneo'])){
+            $this->foraneo = $tramite['foraneo'];
+            $this->flag_foraneo = true;
+        }
+
+        if(isset($tramite['tomo_gravamen'])){
+            $this->tomo_gravamen = $tramite['tomo_gravamen'];
+            $this->flag_tomo_gravamen = true;
+        }
+
+        if(isset($tramite['registro_gravamen'])){
+            $this->registro_gravamen = $tramite['registro_gravamen'];
+            $this->flag_registro_gravamen = true;
+        }
+
+        if(isset($tramite['valor_propiedad'])){
+            $this->valor_propiedad = $tramite['valor_propiedad'];
+            $this->flag_valor_propiedad = true;
+        }
+
+        if(isset($tramite['numero_paginas'])){
+            $this->numero_paginas = $tramite['numero_paginas'];
+            $this->flag_numero_paginas = true;
+        }
+
+        if(isset($tramite['numero_oficio'])){
+            $this->numero_oficio = $tramite['numero_oficio'];
+            $this->flag_numero_oficio = true;
         }
 
         $this->modal = true;
         $this->editar = true;
 
         if(isset($tramite['adiciona'])){
-
+            $this->adiciona = $tramite['adiciona'];
             $this->adicionaTramite = true;
             $this->dispatchBrowserEvent('select2');
-
         }
 
     }
