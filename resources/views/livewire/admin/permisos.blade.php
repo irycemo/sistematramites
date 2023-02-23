@@ -236,7 +236,7 @@
                                             wire:click="abrirModalEditar({{$permiso}})"
                                             wire:loading.attr="disabled"
                                             wire:target="abiriModalEditar({{$permiso}})"
-                                            class="bg-blue-400 hover:shadow-lg text-white text-xs md:text-sm px-3 py-2 rounded-full mr-2 hover:bg-blue-700 flex focus:outline-none"
+                                            class="bg-blue-400 hover:shadow-lg text-white text-xs md:text-sm px-3 py-1 items-center rounded-full mr-2 hover:bg-blue-700 flex focus:outline-none"
                                         >
 
 
@@ -257,7 +257,7 @@
                                             wire:click="abrirModalBorrar({{$permiso}})"
                                             wire:loading.attr="disabled"
                                             wire:target="abrirModalBorrar({{$permiso}})"
-                                            class="bg-red-400 hover:shadow-lg text-white text-xs md:text-sm px-3 py-2 rounded-full hover:bg-red-700 flex focus:outline-none"
+                                            class="bg-red-400 hover:shadow-lg text-white text-xs md:text-sm px-3 py-1 items-center rounded-full hover:bg-red-700 flex focus:outline-none"
                                         >
 
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-4 h-4 mr-3">

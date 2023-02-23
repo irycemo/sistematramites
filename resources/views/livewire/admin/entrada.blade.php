@@ -678,7 +678,7 @@
                                             wire:click="abrirModalEditar({{$tramite}})"
                                             wire:loading.attr="disabled"
                                             wire:target="abiriModalEditar({{$tramite}})"
-                                            class="w-1/3 lg:w-full bg-blue-400 hover:shadow-lg text-white text-xs md:text-sm px-3 py-1 rounded-full hover:bg-blue-700 flex justify-center focus:outline-none"
+                                            class="w-1/3 lg:w-full bg-blue-400 hover:shadow-lg text-white text-xs md:text-sm px-3 py-1 rounded-full hover:bg-blue-700 flex items-center justify-center focus:outline-none"
                                         >
 
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-4 h-4 mr-2">
@@ -697,7 +697,7 @@
                                             wire:click="abrirModalBorrar({{$tramite}})"
                                             wire:loading.attr="disabled"
                                             wire:target="abrirModalBorrar({{$tramite}})"
-                                            class="w-1/3 lg:w-full bg-red-400 hover:shadow-lg text-white text-xs md:text-sm px-3 py-1 rounded-full hover:bg-red-700 flex justify-center focus:outline-none"
+                                            class="w-1/3 lg:w-full bg-red-400 hover:shadow-lg text-white text-xs md:text-sm px-3 py-1 rounded-full hover:bg-red-700 flex items-center justify-center focus:outline-none"
                                         >
 
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-4 h-4 mr-2">

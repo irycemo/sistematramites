@@ -324,7 +324,7 @@
                                         wire:click="ver({{$audit}})"
                                         wire:loading.attr="disabled"
                                         wire:target="ver({{$audit}})"
-                                        class="bg-green-400 hover:shadow-lg text-white text-xs md:text-sm px-3 py-2 items-center rounded-full mr-2 hover:bg-green-700 flex focus:outline-none"
+                                        class="bg-green-400 hover:shadow-lg text-white text-xs md:text-sm px-3 py-1 items-center rounded-full mr-2 hover:bg-green-700 flex focus:outline-none"
                                     >
 
 

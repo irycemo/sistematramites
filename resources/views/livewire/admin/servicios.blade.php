@@ -573,7 +573,7 @@
                                             wire:click="abrirModalBorrar({{$servicio}})"
                                             wire:loading.attr="disabled"
                                             wire:target="abrirModalBorrar({{$servicio}})"
-                                            class="md:w-full bg-red-400 hover:shadow-lg text-white text-xs md:text-sm px-3 py-1 rounded-full hover:bg-red-700 flex justify-center focus:outline-none"
+                                            class="md:w-full bg-red-400 hover:shadow-lg text-white text-xs md:text-sm px-3 py-1 items-center rounded-full hover:bg-red-700 flex justify-center focus:outline-none"
                                         >
 
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-4 h-4 mr-2">
