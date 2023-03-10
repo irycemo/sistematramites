@@ -69,6 +69,7 @@
             <p>Trámite: {{ now()->format('Y') . '-' .$tramite->numero_control }}</p>
             <p>Servicio: {{ $tramite->servicio->nombre }}</p>
             <p>Tipo de servicio: {{ $tramite->tipo_servicio }}</p>
+            <p>Orden de pago: {{ $tramite->orden_de_pago }}</p>
 
         </div>
 

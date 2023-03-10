@@ -23,7 +23,7 @@ class Recepcion extends Component
 
     protected function rules(){
         return [
-            'documento' => 'required|mimes:pdf',
+            'documento' => 'nullable|mimes:pdf',
         ];
     }
 
@@ -52,11 +52,11 @@ class Recepcion extends Component
 
         $this->validate();
 
-        if($this->documento){
+        try {
 
-            try {
+            DB::transaction(function () {
 
-                DB::transaction(function () {
+                if($this->documento){
 
                     $pdf = $this->documento->store('/', 'pdfs');
 
@@ -66,22 +66,22 @@ class Recepcion extends Component
                         'url' => $pdf
                     ]);
 
-                    $tramite = Tramite::find($this->selected_id);
-                    $tramite->update(['estado' => 'recivido']);
+                }
 
-                    $this->dispatchBrowserEvent('mostrarMensaje', ['success', "Se actualizó la información con éxito."]);
+                $tramite = Tramite::find($this->selected_id);
+                $tramite->update(['estado' => 'recivido']);
 
-                    $this->resetearTodo();
+                $this->dispatchBrowserEvent('mostrarMensaje', ['success', "Se actualizó la información con éxito."]);
 
-                });
-
-            } catch (\Throwable $th) {
-
-                Log::error("Error al guardar documento del trámite id: " . $this->selected_id . " por el usuario: (id: " . auth()->user()->id . ") " . auth()->user()->name . ". " . $th->getMessage());
-                $this->dispatchBrowserEvent('mostrarMensaje', ['error', "Ha ocurrido un error."]);
                 $this->resetearTodo();
 
-            }
+            });
+
+        } catch (\Throwable $th) {
+
+            Log::error("Error al guardar documento del trámite id: " . $this->selected_id . " por el usuario: (id: " . auth()->user()->id . ") " . auth()->user()->name . ". " . $th->getMessage());
+            $this->dispatchBrowserEvent('mostrarMensaje', ['error', "Ha ocurrido un error."]);
+            $this->resetearTodo();
 
         }
 

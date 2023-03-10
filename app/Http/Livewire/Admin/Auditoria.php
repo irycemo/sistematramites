@@ -14,6 +14,8 @@ class Auditoria extends Component
     use ComponentesTrait;
     use WithPagination;
 
+    public $usuarios;
+
     public $usuario;
     public $evento;
     public $modelo;
@@ -37,10 +39,14 @@ class Auditoria extends Component
 
     }
 
+    public function mount(){
+
+        $this->usuarios = User::orderBy('name')->get();
+
+    }
+
     public function render()
     {
-
-        $usuarios = User::select('id', 'name')->orderBy('name')->get();
 
         $audits = Audit::with('user')
                             ->when(isset($this->usuario) && $this->usuario != "", function($q){
@@ -59,7 +65,7 @@ class Auditoria extends Component
                             ->paginate($this->pagination);
 
 
-        return view('livewire.admin.auditoria', compact('audits', 'usuarios'))->extends('layouts.admin');
+        return view('livewire.admin.auditoria', compact('audits'))->extends('layouts.admin');
     }
 
 }

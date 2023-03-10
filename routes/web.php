@@ -12,6 +12,7 @@ use App\Http\Livewire\Admin\Auditoria;
 use App\Http\Livewire\Admin\Recepcion;
 use App\Http\Livewire\Admin\Servicios;
 use App\Http\Controllers\ManualController;
+use App\Http\Controllers\ServiciosController;
 use App\Http\Controllers\TramitesController;
 use App\Http\Controllers\SetPasswordController;
 use App\Http\Livewire\Admin\CategoriasServicios;

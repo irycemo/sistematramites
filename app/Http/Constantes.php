@@ -48,7 +48,7 @@ class Constantes{
         'Coordinación Regional 7 Oriente (Ciudad Hidalgo)',
     ];
 
-    const LOCALIDADES = [
+    const UBICACIONES = [
         'Catastro',
         'RPP',
         'Regional 1',

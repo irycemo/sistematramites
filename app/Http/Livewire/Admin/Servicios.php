@@ -15,99 +15,80 @@ class Servicios extends Component
     use WithPagination;
     use ComponentesTrait;
 
-    public $nombre;
-    public $tipo;
-    public $umas;
-    public $ordinario;
-    public $urgente;
-    public $estado;
-    public $extra_urgente;
-    public $categoria;
-    public $operacion_parcial;
-    public $operacion_principal;
+    public $categorias;
+
+    public Servicio $modelo_editar;
     public $flag_uma = false;
     public $flag_fija = false;
 
     protected function rules(){
         return [
-            'nombre' => 'required',
-            'tipo' => 'required',
-            'estado' => 'required',
-            'umas' => 'numeric|nullable|min:0',
-            'ordinario' => 'numeric|nullable',
-            'urgente' => 'numeric|nullable|min:0',
-            'extra_urgente' => 'numeric|nullable|min:0',
-            'operacion_parcial' => 'required|numeric',
-            'operacion_principal' => 'required|numeric',
-            'categoria' => 'required'
+            'modelo_editar.nombre' => 'required',
+            'modelo_editar.tipo' => 'required',
+            'modelo_editar.estado' => 'required',
+            'modelo_editar.umas' => 'numeric|nullable|min:0',
+            'modelo_editar.ordinario' => 'required|numeric|nullable',
+            'modelo_editar.urgente' => 'numeric|nullable|min:0',
+            'modelo_editar.extra_urgente' => 'numeric|nullable|min:0',
+            'modelo_editar.operacion_parcial' => 'required|numeric',
+            'modelo_editar.operacion_principal' => 'required|numeric',
+            'modelo_editar.categoria_servicio_id' => 'required'
          ];
     }
 
     protected $validationAttributes  = [
-        'operacion_parcial' => 'operación parcial',
-        'operacion_principal' => 'operación principal'
+        'modelo_editar.operacion_parcial' => 'operación parcial',
+        'modelo_editar.operacion_principal' => 'operación principal'
     ];
 
-    public function resetearTodo(){
-
-        $this->reset(['modalBorrar', 'selected_id', 'crear', 'estado', 'editar', 'modal', 'nombre', 'tipo', 'umas', 'ordinario', 'urgente','categoria', 'extra_urgente','operacion_principal','operacion_parcial']);
-        $this->resetErrorBag();
-        $this->resetValidation();
+    public function crearModeloVacio(){
+        return Servicio::make();
     }
 
-    public function abrirModalEditar($modelo){
+    public function updatedModeloEditarOrdinario(){
+
+        $this->checarTipo();
+    }
+
+    public function updatedModeloEditarUmas(){
+
+        $this->checarTipo();
+    }
+
+    public function abrirModalEditar(Servicio $modelo){
 
         $this->resetearTodo();
         $this->modal = true;
         $this->editar = true;
 
-        $this->selected_id = $modelo['id'];
-        $this->nombre = $modelo['nombre'];
-        $this->tipo = $modelo['tipo'];
-        $this->umas = $modelo['umas'];
-        $this->estado = $modelo['estado'];
-        $this->ordinario = $modelo['ordinario'];
-        $this->urgente = $modelo['urgente'];
-        $this->extra_urgente = $modelo['extra_urgente'];
-        $this->categoria = $modelo['categoria_servicio_id'];
-        $this->operacion_principal = $modelo['operacion_principal'];
-        $this->operacion_parcial = $modelo['operacion_parcial'];
+        if($this->modelo_editar->isNot($modelo))
+            $this->modelo_editar = $modelo;
 
-    }
-
-    public function updatedOrdinario(){
-
-        $this->checarTipo();
-    }
-
-    public function updatedUmas(){
-
-        $this->checarTipo();
     }
 
     public function checarTipo(){
 
-        if($this->tipo == 'uma'){
+        if($this->modelo_editar->tipo == 'uma'){
 
             $uma = Uma::orderBy('año', 'desc')->first();
 
-            $this->ordinario = $uma->diario * $this->umas;
+            $this->modelo_editar->ordinario = $uma->diario * $this->modelo_editar->umas;
 
-            $this->ordinario = ceil($this->ordinario);
+            $this->modelo_editar->ordinario = ceil($this->modelo_editar->ordinario);
 
-            $this->urgente = ceil($this->ordinario * 2);
+            $this->modelo_editar->urgente = ceil($this->modelo_editar->ordinario * 2);
 
-            $this->extra_urgente = ceil($this->ordinario * 3);
+            $this->modelo_editar->extra_urgente = ceil($this->modelo_editar->ordinario * 3);
 
         }else{
 
-            $this->umas = null;
+            $this->modelo_editar->umas = null;
 
-            $this->ordinario = ceil($this->ordinario);
+            $this->modelo_editar->ordinario = ceil($this->modelo_editar->ordinario);
 
-            $this->urgente = ceil($this->ordinario * 2);
+            $this->modelo_editar->urgente = ceil($this->modelo_editar->ordinario * 2);
 
-            $this->extra_urgente = ceil($this->ordinario * 3);
+            $this->modelo_editar->extra_urgente = ceil($this->modelo_editar->ordinario * 3);
 
         }
 
@@ -119,19 +100,8 @@ class Servicios extends Component
 
         try {
 
-            Servicio::create([
-                'nombre' => $this->nombre,
-                'tipo' => $this->tipo,
-                'umas' => $this->umas,
-                'estado' => $this->estado,
-                'ordinario' => $this->ordinario,
-                'urgente' => $this->urgente,
-                'operacion_principal' => $this->operacion_principal,
-                'operacion_parcial' => $this->operacion_parcial,
-                'extra_urgente' => $this->extra_urgente,
-                'categoria_servicio_id' => $this->categoria,
-                'creado_por' => auth()->user()->id
-            ]);
+            $this->modelo_editar->creado_por = auth()->user()->id;
+            $this->modelo_editar->save();
 
             $this->resetearTodo();
 
@@ -152,21 +122,8 @@ class Servicios extends Component
 
         try{
 
-            $servicio = Servicio::find($this->selected_id);
-
-            $servicio->update([
-                'nombre' => $this->nombre,
-                'tipo' => $this->tipo,
-                'umas' => $this->umas,
-                'estado' => $this->estado,
-                'ordinario' => $this->ordinario,
-                'urgente' => $this->urgente,
-                'operacion_principal' => $this->operacion_principal,
-                'operacion_parcial' => $this->operacion_parcial,
-                'extra_urgente' => $this->extra_urgente,
-                'categoria_servicio_id' => $this->categoria,
-                'actualizado_por' => auth()->user()->id
-            ]);
+            $this->modelo_editar->actualizado_por = auth()->user()->id;
+            $this->modelo_editar->save();
 
             $this->resetearTodo();
 
@@ -190,7 +147,7 @@ class Servicios extends Component
 
             $servicio->delete();
 
-            $this->resetearTodo();
+            $this->resetearTodo($borrado = true);
 
             $this->dispatchBrowserEvent('mostrarMensaje', ['success', "El servicio se elimino con exito."]);
 
@@ -204,10 +161,16 @@ class Servicios extends Component
 
     }
 
+    public function mount(){
+
+        $this->modelo_editar = $this->crearModeloVacio();
+
+        $this->categorias = CategoriaServicio::all();
+
+    }
+
     public function render()
     {
-
-        $categorias = CategoriaServicio::all();
 
         $servicios = Servicio::with('categoria', 'creadoPor', 'actualizadoPor')
                                 ->where('nombre', 'LIKE', '%' . $this->search . '%')
@@ -228,6 +191,6 @@ class Servicios extends Component
                                 ->paginate($this->pagination);
 
 
-        return view('livewire.admin.servicios', compact('categorias', 'servicios'))->extends('layouts.admin');
+        return view('livewire.admin.servicios', compact('servicios'))->extends('layouts.admin');
     }
 }

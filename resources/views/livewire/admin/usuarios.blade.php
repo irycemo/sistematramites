@@ -114,11 +114,11 @@
 
                         </th>
 
-                        <th wire:click="order('localidad')" class="cursor-pointer px-3 py-3 hidden lg:table-cell">
+                        <th wire:click="order('ubicacion')" class="cursor-pointer px-3 py-3 hidden lg:table-cell">
 
-                            Localidad
+                            Ubicación
 
-                            @if($sort == 'localidad')
+                            @if($sort == 'ubicacion')
 
                                 @if($direction == 'asc')
 
@@ -322,7 +322,7 @@
 
                                 <span class="lg:hidden  absolute top-0 left-0 bg-blue-300 px-2 py-1 text-xs text-white font-bold uppercase rounded-br-xl">Localidad</span>
 
-                                {{ $user->localidad }}
+                                {{ $user->ubicacion }}
 
                             </td>
 
@@ -395,9 +395,9 @@
                                     @can('Editar usuario')
 
                                         <button
-                                            wire:click="abrirModalEditar({{$user}})"
+                                            wire:click="abrirModalEditar({{$user->id}})"
                                             wire:loading.attr="disabled"
-                                            wire:target="abiriModalEditar({{$user}})"
+                                            wire:target="abiriModalEditar({{$user->id}})"
                                             class="md:w-full bg-blue-400 hover:shadow-lg text-white text-xs md:text-sm px-3 py-1 items-center rounded-full mr-2 hover:bg-blue-700 flex justify-center focus:outline-none"
                                         >
 
@@ -415,9 +415,9 @@
                                     @can('Borrar usuario')
 
                                         <button
-                                            wire:click="abrirModalBorrar({{$user}})"
+                                            wire:click="abrirModalBorrar({{$user->id}})"
                                             wire:loading.attr="disabled"
-                                            wire:target="abrirModalBorrar({{$user}})"
+                                            wire:target="abrirModalBorrar({{$user->id}})"
                                             class="md:w-full bg-red-400 hover:shadow-lg text-white text-xs md:text-sm px-3 py-1 items-center rounded-full hover:bg-red-700 flex justify-center focus:outline-none"
                                         >
 
@@ -454,7 +454,7 @@
 
             </table>
 
-            <div class="h-full w-full rounded-lg bg-gray-200 bg-opacity-75 absolute top-0 left-0" wire:loading>
+            <div class="h-full w-full rounded-lg bg-gray-200 bg-opacity-75 absolute top-0 left-0" wire:loading.delay.longer>
 
                 <img class="mx-auto h-16" src="{{ asset('storage/img/loading.svg') }}" alt="">
 
@@ -486,177 +486,187 @@
 
         <x-slot name="content">
 
-             <div class="flex flex-col md:flex-row justify-between md:space-x-3 mb-5">
+            <div class="relative p-1">
 
-                <div class="flex-auto ">
+                <div class="flex flex-col md:flex-row justify-between md:space-x-3 mb-5">
 
-                    <div>
+                    <div class="flex-auto ">
 
-                        <Label>Nombre</Label>
-                    </div>
+                        <div>
 
-                    <div>
+                            <Label>Nombre</Label>
+                        </div>
 
-                        <input type="text" class="bg-white rounded text-sm w-full" wire:model.defer="nombre">
+                        <div>
 
-                    </div>
+                            <input type="text" class="bg-white rounded text-sm w-full" wire:model.defer="modelo_editar.name">
 
-                    <div>
+                        </div>
 
-                        @error('nombre') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+                        <div>
 
-                    </div>
+                            @error('modelo_editar.name') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
 
-                </div>
-
-                <div class="flex-auto ">
-
-                    <div>
-
-                        <Label>Email</Label>
+                        </div>
 
                     </div>
 
-                    <div>
+                    <div class="flex-auto ">
 
-                        <input type="email" class="bg-white rounded text-sm w-full" wire:model.defer="email">
+                        <div>
 
-                    </div>
+                            <Label>Email</Label>
 
-                    <div>
+                        </div>
 
-                        @error('email') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+                        <div>
 
-                    </div>
+                            <input type="email" class="bg-white rounded text-sm w-full" wire:model.defer="modelo_editar.email">
 
-                </div>
+                        </div>
 
-            </div>
+                        <div>
 
-            <div class="flex flex-col md:flex-row justify-between md:space-x-3 mb-5">
+                            @error('modelo_editar.email') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
 
-                <div class="flex-auto mr-1 ">
-
-                    <div>
-
-                        <Label>Status</Label>
-
-                    </div>
-
-                    <div>
-
-                        <select class="bg-white rounded text-sm w-full" wire:model.defer="status">
-
-                            <option value="">Seleccione una opción</option>
-                            <option value="activo">Activo</option>
-                            <option value="inactivo">Inactivo</option>
-
-                        </select>
-
-                    </div>
-
-                    <div>
-
-                        @error('status') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+                        </div>
 
                     </div>
 
                 </div>
 
-                <div class="flex-auto mr-1 ">
+                <div class="flex flex-col md:flex-row justify-between md:space-x-3 mb-5">
 
-                    <div>
+                    <div class="flex-auto mr-1 ">
 
-                        <Label>Rol</Label>
+                        <div>
+
+                            <Label>Status</Label>
+
+                        </div>
+
+                        <div>
+
+                            <select class="bg-white rounded text-sm w-full" wire:model.defer="modelo_editar.status">
+
+                                <option value="">Seleccione una opción</option>
+                                <option value="activo">Activo</option>
+                                <option value="inactivo">Inactivo</option>
+
+                            </select>
+
+                        </div>
+
+                        <div>
+
+                            @error('modelo_editar.status') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+
+                        </div>
 
                     </div>
 
-                    <div>
+                    <div class="flex-auto mr-1 ">
 
-                        <select class="bg-white rounded text-sm w-full" wire:model.defer="role">
+                        <div>
 
-                            <option value="">Seleccione una opción</option>
+                            <Label>Rol</Label>
 
-                            @foreach ($roles as $role)
+                        </div>
+
+                        <div>
+
+                            <select class="bg-white rounded text-sm w-full" wire:model.defer="role">
+
+                                <option value="">Seleccione una opción</option>
+
+                                @foreach ($roles as $role)
 
 
-                                <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                    <option value="{{ $role->id }}">{{ $role->name }}</option>
 
-                            @endforeach
+                                @endforeach
 
-                        </select>
+                            </select>
 
-                    </div>
+                        </div>
 
-                    <div>
+                        <div>
 
-                        @error('role') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+                            @error('role') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+
+                        </div>
 
                     </div>
 
                 </div>
 
-            </div>
+                <div class="flex flex-col md:flex-row justify-between md:space-x-3 mb-5">
 
-            <div class="flex flex-col md:flex-row justify-between md:space-x-3 mb-5">
+                    <div class="flex-auto mb-5">
 
-                <div class="flex-auto mb-5">
+                        <div>
 
-                    <div>
+                            <Label>Localidad</Label>
+                        </div>
 
-                        <Label>Localidad</Label>
+                        <div>
+
+                            <select class="bg-white rounded text-sm w-full" wire:model.defer="modelo_editar.ubicacion">
+                                <option selected value="">Selecciona una opción</option>
+
+                                @foreach ($ubicaciones as $ubicacion)
+
+                                    <option value="{{ $ubicacion }}">{{ $ubicacion }}</option>
+
+                                @endforeach
+
+                            </select>
+
+                        </div>
+
+                        <div>
+
+                            @error('modelo_editar.ubicacion') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+
+                        </div>
+
                     </div>
 
-                    <div>
+                    <div class="flex-auto mb-5">
 
-                        <select class="bg-white rounded text-sm w-full" wire:model.defer="localidad">
-                            <option selected value="">Selecciona una opción</option>
+                        <div>
 
-                            @foreach (App\Http\Constantes::LOCALIDADES as $localidad)
+                            <Label>Área</Label>
+                        </div>
 
-                                <option value="{{ $localidad }}">{{ $localidad }}</option>
+                        <div>
 
-                            @endforeach
+                            <select class="bg-white rounded text-sm w-full" wire:model.defer="modelo_editar.area">
+                                <option selected value="">Selecciona una opción</option>
 
-                        </select>
+                                @foreach ($areas_adscripcion as $area)
 
-                    </div>
+                                    <option value="{{ $area }}">{{ $area }}</option>
 
-                    <div>
+                                @endforeach
 
-                        @error('localidad') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+                            </select>
+
+                        </div>
+
+                        <div>
+
+                            @error('modelo_editar.area') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+
+                        </div>
 
                     </div>
 
                 </div>
 
-                <div class="flex-auto mb-5">
+                <div class="h-full w-full rounded-lg bg-gray-200 bg-opacity-75 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" wire:loading.delay.longer>
 
-                    <div>
-
-                        <Label>Área</Label>
-                    </div>
-
-                    <div>
-
-                        <select class="bg-white rounded text-sm w-full" wire:model.defer="area">
-                            <option selected value="">Selecciona una opción</option>
-
-                            @foreach (App\Http\Constantes::AREAS_ADSCRIPCION as $localidad)
-
-                                <option value="{{ $localidad }}">{{ $localidad }}</option>
-
-                            @endforeach
-
-                        </select>
-
-                    </div>
-
-                    <div>
-
-                        @error('localidad') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
-
-                    </div>
+                    <img class="mx-auto h-16" src="{{ asset('storage/img/loading.svg') }}" alt="">
 
                 </div>
 

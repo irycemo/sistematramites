@@ -14,32 +14,27 @@ class Umas extends Component
     use WithPagination;
     use ComponentesTrait;
 
-    public $año;
-    public $diario;
+    public Uma $modelo_editar;
 
     protected function rules(){
         return [
-            'año' => 'required|numeric|min:2016',
-            'diario' => 'required|numeric'
+            'modelo_editar.año' => 'required|numeric|min:2016|unique:umas,año,' . $this->modelo_editar->id,
+            'modelo_editar.diario' => 'required|numeric',
          ];
     }
 
-    public function resetearTodo(){
-
-        $this->reset(['modalBorrar', 'crear', 'editar', 'modal', 'año', 'diario']);
-        $this->resetErrorBag();
-        $this->resetValidation();
+    public function crearModeloVacio(){
+        return Uma::make();
     }
 
-    public function abrirModalEditar($modelo){
+    public function abrirModalEditar(Uma $modelo){
 
         $this->resetearTodo();
         $this->modal = true;
         $this->editar = true;
 
-        $this->selected_id = $modelo['id'];
-        $this->diario = $modelo['diario'];
-        $this->año = $modelo['año'];
+        if($this->modelo_editar->isNot($modelo))
+            $this->modelo_editar = $modelo;
 
     }
 
@@ -49,13 +44,10 @@ class Umas extends Component
 
         try {
 
-            Uma::create([
-                'diario' => $this->diario,
-                'mensual' => $this->diario * 30.4,
-                'anual' => $this->diario * 30.4 * 12,
-                'año' => $this->año,
-                'creado_por' => auth()->user()->id
-            ]);
+            $this->modelo_editar->anual = $this->modelo_editar->diario * 30.4 *12;
+            $this->modelo_editar->mensual = $this->modelo_editar->diario * 30.4;
+            $this->modelo_editar->creado_por = auth()->user()->id;
+            $this->modelo_editar->save();
 
             $this->resetearTodo();
 
@@ -75,15 +67,10 @@ class Umas extends Component
 
         try{
 
-            $uma = Uma::find($this->selected_id);
-
-            $uma->update([
-                'diario' => $this->diario,
-                'mensual' => $this->diario * 30.4,
-                'anual' => $this->diario * 30.4 * 12,
-                'año' => $this->año,
-                'actualizado_por' => auth()->user()->id
-            ]);
+            $this->modelo_editar->anual = $this->modelo_editar->diario * 30.4 *12;
+            $this->modelo_editar->mensual = $this->modelo_editar->diario * 30.4;
+            $this->modelo_editar->actualizado_por = auth()->user()->id;
+            $this->modelo_editar->save();
 
             $this->resetearTodo();
 
@@ -107,9 +94,9 @@ class Umas extends Component
 
             $uma->delete();
 
-            $this->resetearTodo();
+            $this->resetearTodo($borrado = true);
 
-            $this->dispatchBrowserEvent('mostrarMensaje', ['success', "La UMA se elimino con exito."]);
+            $this->dispatchBrowserEvent('mostrarMensaje', ['success', "La UMA se eliminó con éxito."]);
 
         } catch (\Throwable $th) {
 

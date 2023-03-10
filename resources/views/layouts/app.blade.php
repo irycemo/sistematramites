@@ -10,7 +10,8 @@
         <link rel="icon" type="image/png" href="{{ asset('storage/img/ico.png') }}">
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
+        <link rel="preconnect" href="https://fonts.bunny.net">
+        <link rel="stylesheet" href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap">
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -19,7 +20,7 @@
         @livewireStyles
 
         {{-- SweetAlert --}}
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.13/dist/sweetalert2.all.min.js" defer></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
         @stack('styles')
 
@@ -49,6 +50,7 @@
                     showConfirmButton: false,
                     timer: 5000,
                     timerProgressBar: true,
+                    showCloseButton :true,
                     didOpen: (toast) => {
                         toast.addEventListener('mouseenter', Swal.stopTimer)
                         toast.addEventListener('mouseleave', Swal.resumeTimer)

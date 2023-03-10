@@ -12,9 +12,9 @@
 
                     <option value="" selected>Seleccione un usuario</option>
 
-                    @foreach ($usuarios as $user)
+                    @foreach ($usuarios as $item)
 
-                        <option value="{{ $user->id }}">{{ $user->name }}</option>
+                        <option value="{{ $item->id }}">{{ $item->name }}</option>
 
                     @endforeach
 
@@ -323,8 +323,7 @@
                                     <button
                                         wire:click="ver({{$audit}})"
                                         wire:loading.attr="disabled"
-                                        wire:target="ver({{$audit}})"
-                                        class="bg-green-400 hover:shadow-lg text-white text-xs md:text-sm px-3 py-1 items-center rounded-full mr-2 hover:bg-green-700 flex focus:outline-none"
+                                        class="bg-green-400 hover:shadow-lg text-white text-xs md:text-sm px-3 py-2 items-center rounded-full mr-2 hover:bg-green-700 flex focus:outline-none"
                                     >
 
 
@@ -395,8 +394,10 @@
                     <p>Actualización</p>
                 @elseif($selecetedAudit['event'] == 'created')
                    <p>Creado</p>
+                @elseif($selecetedAudit['event'] == 'sync')
+                    <p>Sync</p>
                 @else
-                    <p>Borrado</p>
+                    Borrado
                 @endif
 
                 <strong>Usuario:</strong>
@@ -427,11 +428,7 @@
 
                             <strong>Valores anteriores</strong>
 
-                            {{-- @foreach (json_decode($selecetedAudit['old_values'])->roles as  $value)
-
-                                <p> = {{ $value ?? 'null' }}</p>
-
-                            @endforeach --}}
+                            <p>Role => {{ $oldRole }}</p>
 
                         </div>
 
@@ -439,11 +436,7 @@
 
                             <strong>Valores nuevos</strong>
 
-                            {{-- @foreach (json_decode($selecetedAudit['new_values']) as $key => $value)
-
-                                <p>{{ $key }} = {{ $value ?? 'null' }}</p>
-
-                            @endforeach --}}
+                            <p>Role => {{ $newRole }}</p>
 
                         </div>
 

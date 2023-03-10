@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('status')->nullable();
-            $table->string('localidad')->nullable();
-            $table->string('area')->nullable();
+            $table->string('ubicacion')->nullable()->comment('Ubicación fisica del usuario');
+            $table->string('area')->nullable()->comment('Hace referencia al departamento al que pertenece');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

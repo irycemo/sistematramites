@@ -24,10 +24,6 @@ class Tramite extends Model implements Auditable
         return $this->belongsTo(Servicio::class, 'id_servicio');
     }
 
-    public function getLimiteDePagoAttribute(){
-        return Carbon::createFromFormat('Y-m-d', $this->attributes['limite_de_pago'])->format('d-m-Y');
-    }
-
     public function files(){
         return $this->morphMany(File::class, 'fileable');
     }

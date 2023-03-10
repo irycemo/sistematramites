@@ -2,10 +2,11 @@
 
 namespace App\Http\Livewire\Admin;
 
+use App\Models\Role;
 use Livewire\Component;
 use Livewire\WithPagination;
+
 use Illuminate\Support\Facades\DB;
-use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Log;
 use App\Http\Traits\ComponentesTrait;
 use Spatie\Permission\Models\Permission;
@@ -15,30 +16,33 @@ class Roles extends Component
     use WithPagination;
     use ComponentesTrait;
 
-    public $nombre;
+    public $permisos;
+
+    public Role $modelo_editar;
     public $listaDePermisos = [];
 
     protected function rules(){
         return [
-            'nombre' => 'required'
+            'modelo_editar.name' => 'required'
          ];
     }
 
-    public function resetearTodo(){
+    protected $validationAttributes  = [
+        'modelo_editar.name' => 'nombre',
+    ];
 
-        $this->reset(['modalBorrar', 'crear', 'editar', 'modal', 'nombre', 'listaDePermisos']);
-        $this->resetErrorBag();
-        $this->resetValidation();
+    public function crearModeloVacio(){
+        return Role::make();
     }
 
-    public function abrirModalEditar($modelo){
+    public function abrirModalEditar(Role $modelo){
 
         $this->resetearTodo();
         $this->modal = true;
         $this->editar = true;
 
-        $this->selected_id = $modelo['id'];
-        $this->nombre = $modelo['name'];
+        if($this->modelo_editar->isNot($modelo))
+            $this->modelo_editar = $modelo;
 
         foreach($modelo['permissions'] as $permission){
             array_push($this->listaDePermisos, (string)$permission['id']);
@@ -54,12 +58,10 @@ class Roles extends Component
 
             DB::transaction(function () {
 
-                $role = Role::create([
-                    'name' => $this->nombre,
-                    'creado_por' => auth()->user()->id
-                ]);
+                $this->modelo_editar->creado_por = auth()->user()->id;
+                $this->modelo_editar->save();
 
-                $role->permissions()->sync($this->listaDePermisos);
+                $this->modelo_editar->permissions()->sync($this->listaDePermisos);
 
                 $this->resetearTodo();
 
@@ -79,18 +81,16 @@ class Roles extends Component
 
     public function actualizar(){
 
+        $this->validate();
+
         try{
 
             DB::transaction(function () {
 
-                $rol = Role::find($this->selected_id);
+                $this->modelo_editar->actualizado_por = auth()->user()->id;
+                $this->modelo_editar->save();
 
-                $rol->update([
-                    'name' => $this->nombre,
-                    'actualizado_por' => auth()->user()->id
-                ]);
-
-                $rol->permissions()->sync($this->listaDePermisos);
+                $this->modelo_editar->permissions()->sync($this->listaDePermisos);
 
                 $this->resetearTodo();
 
@@ -116,9 +116,9 @@ class Roles extends Component
 
             $role->delete();
 
-            $this->resetearTodo();
+            $this->resetearTodo($borrado = true);
 
-            $this->dispatchBrowserEvent('mostrarMensaje', ['success', "El role se elimino con exito."]);
+            $this->dispatchBrowserEvent('mostrarMensaje', ['success', "El role se eliminó con exito."]);
 
         } catch (\Throwable $th) {
 
@@ -130,6 +130,20 @@ class Roles extends Component
 
     }
 
+    public function mount(){
+
+        $this->modelo_editar = $this->crearModeloVacio();
+
+        array_push($this->fields, 'listaDePermisos');
+
+        $permisos = Permission::all();
+
+        $this->permisos = $permisos->groupBy(function($permiso) {
+            return $permiso->area;
+        })->all();
+
+    }
+
     public function render()
     {
 
@@ -138,12 +152,7 @@ class Roles extends Component
                             ->orderBy($this->sort, $this->direction)
                             ->paginate($this->pagination);
 
-        $permisos = Permission::all();
-
-        $permisos = $permisos->groupBy(function($permiso) {
-            return $permiso->area;
-        })->all();
-
-        return view('livewire.admin.roles', compact('roles', 'permisos'))->extends('layouts.admin');
+        return view('livewire.admin.roles', compact('roles'))->extends('layouts.admin');
     }
+
 }

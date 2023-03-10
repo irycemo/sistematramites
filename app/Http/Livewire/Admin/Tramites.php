@@ -10,6 +10,8 @@ use Livewire\WithPagination;
 use App\Models\CategoriaServicio;
 use Illuminate\Support\Facades\Log;
 use App\Http\Traits\ComponentesTrait;
+use App\Http\Services\Tramites\TramiteService;
+use App\Http\Services\Tramites\TramitesContext;
 
 class Tramites extends Component
 {
@@ -20,398 +22,233 @@ class Tramites extends Component
     public $solicitantes;
     public $secciones;
     public $categorias;
-
-    public $id_servicio;
-    public $estado;
     public $categoria_servicio;
     public $servicios;
-    public $solicitante;
-    public $nombre_solicitante; public $flag_nombre_solicitante = false;
-    public $numero_oficio; public $flag_numero_oficio = false;
-    public $tomo; public $flag_tomo = false;
-    public $folio_real; public $flag_folio_real = false;
-    public $tomo_bis;
-    public $registro; public $flag_registro = false;
-    public $registro_bis;
-    public $numero_propiedad; public $flag_numero_propiedad = false;
-    public $distrito; public $flag_distrito = false;
-    public $dias_de_entrega;
-    public $monto;
-    public $tipo_servicio;
-    public $numero_inmuebles; public $flag_numero_inmuebles = false;
-    public $numero_control;
-    public $numero_escritura; public $flag_numero_escritura = false;
-    public $numero_notaria; public $flag_numero_notaria = false;
-    public $limite_de_pago;
-    public $adiciona; public $adicionaTramite;
-    public $foraneo; public $flag_foraneo = false;
-    public $seccion; public $flag_seccion = false;
-    public $tomo_gravamen; public $flag_tomo_gravamen = false;
-    public $registro_gravamen; public $flag_registro_gravamen = false;
-    public $valor_propiedad; public $flag_valor_propiedad = false;
-    public $numero_paginas; public $flag_numero_paginas = false;
+    public $adicionaTramite;
+
+    public Tramite $modelo_editar;
+
+    public $flags = [
+        'flag_seccion' => false,
+        'flag_numero_oficio' => false,
+        'flag_nombre_solicitante' => false,
+        'flag_tomo' => false,
+        'flag_folio_real' => false,
+        'flag_registro' => false,
+        'flag_numero_propiedad' => false,
+        'flag_distrito' => false,
+        'flag_numero_inmuebles' => false,
+        'flag_numero_escritura' => false,
+        'flag_numero_notaria' => false,
+        'flag_tomo_gravamen' => false,
+        'flag_foraneo' => false,
+        'flag_registro_gravamen' => false,
+        'flag_numero_paginas' => false,
+        'flag_valor_propiedad' => false,
+    ];
 
     protected function rules(){
         return [
-            'id_servicio' => 'required',
-            'solicitante' => 'required',
-            'tomo' => 'nullable|required_with:tomo_bis',
-            'tomo_bis' => 'nullable',
-            'registro' => 'nullable|required_with:registro_bis',
-            'registro_bis' => 'nullable',
-            'tipo_servicio' => 'required',
-            'nombre_solicitante' => 'required_if:solicitante,Ventanilla,Juzgado',
-            'adiciona' => 'required_if:adicionaTramite,true'
+            'modelo_editar.id_servicio' => 'required',
+            'modelo_editar.solicitante' => 'required',
+            'modelo_editar.nombre_solicitante' => 'required_if:modelo_editar.solicitante,Ventanilla,Juzgado',
+            'modelo_editar.numero_oficio' => 'nullable',
+            'modelo_editar.folio_real' => 'nullable',
+            'modelo_editar.tomo' => 'nullable|required_with:tomo_bis',
+            'modelo_editar.tomo_bis' => 'nullable',
+            'modelo_editar.registro' => 'nullable|required_with:registro_bis',
+            'modelo_editar.registro_bis' => 'nullable',
+            'modelo_editar.tomo_gravamen' => 'nullable',
+            'modelo_editar.registro_gravamen' => 'nullable',
+            'modelo_editar.distrito' => 'nullable',
+            'modelo_editar.seccion' => 'nullable',
+            'modelo_editar.limite_de_pago' => 'nullable',
+            'modelo_editar.dias_de_entrega' => 'nullable',
+            'modelo_editar.monto' => 'nullable',
+            'modelo_editar.tipo_servicio' => 'required',
+            'modelo_editar.numero_paginas' => 'nullable',
+            'modelo_editar.numero_inmuebles' => 'nullable',
+            'modelo_editar.numero_propiedad' => 'nullable',
+            'modelo_editar.numero_escritura' => 'nullable',
+            'modelo_editar.numero_notaria' => 'nullable',
+            'modelo_editar.valor_propiedad' => 'nullable',
+            'modelo_editar.foraneo' => 'nullable|boolean',
+            'modelo_editar.adiciona' => 'required_if:adicionaTramite,true'
          ];
     }
 
     protected $messages = [
-        'adiciona.required_if' => 'El campo trámite es obligatorio cuando el campo adiciona tramite está seleccionado.',
+        'modelo_editar.adiciona.required_if' => 'El campo trámite es obligatorio cuando el campo adiciona tramite está seleccionado.',
     ];
 
     protected $validationAttributes  = [
-        'id_servicio' => 'servicio',
-        'folio_real' => 'folio real',
-        'tomo_bis' => 'tomo bis',
-        'registro_bis' => 'registro bis',
-        'numero_propiedad' => 'número de propiedad',
-        'nombre_solicitante' => 'nombre del solicitante',
-        'dias_de_entrega' => 'días de entrega',
-        'tipo_servicio' => 'tipo de servicio',
-        'numero_control' => 'número de control',
-        'numero_escritura' => 'número de escritura',
-        'numero_notaria' => 'número de notaria',
-        'limite_de_pago' => 'límite de pago',
-        'adiciona' => 'trámite',
-        'numero_inmuebles' => 'cantidad de inmuebles',
-        'numero_paginas' => 'número de páginas',
-        'valor_propiedad' => 'valor de la propiedad',
-        'registro_gravamen' => 'registro gravamen',
-        'tomo_gravamen' => 'tomo gravamen',
-        'numero_oficio' => 'número de oficio'
+        'modelo_editar.id_servicio' => 'servicio',
+        'modelo_editar.folio_real' => 'folio real',
+        'modelo_editar.tomo_bis' => 'tomo bis',
+        'modelo_editar.registro_bis' => 'registro bis',
+        'modelo_editar.numero_propiedad' => 'número de propiedad',
+        'modelo_editar.nombre_solicitante' => 'nombre del solicitante',
+        'modelo_editar.dias_de_entrega' => 'días de entrega',
+        'modelo_editar.tipo_servicio' => 'tipo de servicio',
+        'modelo_editar.numero_control' => 'número de control',
+        'modelo_editar.numero_escritura' => 'número de escritura',
+        'modelo_editar.numero_notaria' => 'número de notaria',
+        'modelo_editar.limite_de_pago' => 'límite de pago',
+        'modelo_editar.adiciona' => 'trámite',
+        'modelo_editar.numero_inmuebles' => 'cantidad de inmuebles',
+        'modelo_editar.numero_paginas' => 'número de páginas',
+        'modelo_editar.valor_propiedad' => 'valor de la propiedad',
+        'modelo_editar.registro_gravamen' => 'registro gravamen',
+        'modelo_editar.tomo_gravamen' => 'tomo gravamen',
+        'modelo_editar.numero_oficio' => 'número de oficio'
     ];
 
-    public function resetearTodo(){
-
-        $this->reset([
-                        'modalBorrar',
-                        'crear',
-                        'editar',
-                        'modal',
-                        'estado',
-                        'id_servicio',
-                        'solicitante',
-                        'seccion', 'flag_seccion',
-                        'nombre_solicitante', 'flag_nombre_solicitante',
-                        'numero_oficio', 'flag_numero_oficio',
-                        'tomo', 'flag_tomo',
-                        'folio_real', 'flag_folio_real',
-                        'tomo_bis',
-                        'registro', 'flag_registro',
-                        'registro_bis',
-                        'numero_propiedad', 'flag_numero_propiedad',
-                        'distrito', 'flag_distrito',
-                        'dias_de_entrega',
-                        'monto',
-                        'tipo_servicio',
-                        'numero_inmuebles', 'flag_numero_inmuebles',
-                        'numero_control',
-                        'numero_escritura', 'flag_numero_escritura',
-                        'numero_notaria', 'flag_numero_notaria',
-                        'limite_de_pago',
-                        'adiciona', 'adicionaTramite',
-                        'tomo_gravamen', 'flag_tomo_gravamen',
-                        'categoria_servicio',
-                        'foraneo', 'flag_foraneo',
-                        'registro_gravamen', 'flag_registro_gravamen',
-                        'servicios',
-                        'numero_paginas', 'flag_numero_paginas',
-                        'valor_propiedad', 'flag_valor_propiedad',
-                    ]);
-
-        $this->resetErrorBag();
-        $this->resetValidation();
-
-    }
-
-    public function resetFlags(){
-
-        $this->reset([
-            'flag_seccion', 'seccion',
-            'flag_numero_oficio', 'numero_oficio',
-            'flag_tomo', 'tomo', 'tomo_bis',
-            'flag_folio_real', 'folio_real',
-            'flag_registro', 'registro', 'registro_bis',
-            'flag_numero_propiedad', 'numero_propiedad',
-            'flag_distrito', 'distrito',
-            'flag_numero_inmuebles', 'numero_inmuebles',
-            'flag_numero_escritura', 'numero_escritura',
-            'flag_numero_notaria', 'numero_notaria',
-            'flag_tomo_gravamen', 'tomo_gravamen',
-            'flag_foraneo', 'foraneo',
-            'flag_registro_gravamen', 'registro_gravamen',
-            'flag_numero_paginas', 'numero_paginas',
-            'flag_valor_propiedad', 'valor_propiedad'
-        ]);
-
+    public function crearModeloVacio(){
+        return Tramite::make();
     }
 
     public function updatedAdicionaTramite(){
 
-        $this->adiciona = null;
+        $this->modelo_editar->adiciona = null;
 
         if($this->adicionaTramite)
             $this->dispatchBrowserEvent('select2');
+        else
+            $this->modelo_editar->adiciona = null;
 
     }
 
     public function updatedCategoriaServicio(){
 
         /* Buscar servicios de la categoría */
-
         $this->servicios = Servicio::where('estado', 'activo')->where('categoria_servicio_id', $this->categoria_servicio)->get();
 
         /* Al cambiar de categoría resetear inputs */
+        $this->reset(['flags']);
 
-        $this->resetFlags();
-
-    }
-
-    public function updatedIdServicio(){
-
-        $servicio = Servicio::find($this->id_servicio);
-
-        $this->resetFlags();
-
-        switch ($servicio->nombre) {
-            case 'Copias simples (por página)':
-                $this->flag_tomo = true;
-                $this->flag_registro = true;
-                $this->flag_distrito = true;
-                $this->flag_seccion = true;
-                $this->flag_numero_paginas = true;
-                break;
-
-            case 'Copias certificadas (por página)':
-                $this->flag_tomo = true;
-                $this->flag_registro = true;
-                $this->flag_distrito = true;
-                $this->flag_seccion = true;
-                $this->flag_numero_paginas = true;
-                break;
-
-            /* case 'Cuando se trate de uno o hasta cinco tomos o libros índice':
-                $this->flag_nombre_solicitante = true;
-                break;
-
-            case 'Búsqueda de bienes por índices de 21 o más':
-                $this->flag_nombre_solicitante = true;
-                break;
-
-            case 'Búsqueda de bienes por índices de 11 a 20':
-                $this->flag_nombre_solicitante = true;
-                break;
-
-            case 'Búsqueda de antecedente de 1 a 10':
-                $this->flag_nombre_solicitante = true;
-                break; */
-
-            default:
-                # code...
-                break;
-        }
+        $this->modelo_editar = $this->crearModeloVacio();
 
     }
 
-    public function updatedSolicitante(){
+    public function updatedModeloEditarIdServicio(){
 
-        if($this->solicitante == 'Ventanilla'){
+        $servicio = Servicio::find($this->modelo_editar->id_servicio);
 
-            $this->flag_nombre_solicitante = true;
-            $this->nombre_solicitante = null;
+        $this->reset(['flags']);
 
-        }elseif($this->solicitante == 'Oficialia de partes'){
+        $this->modelo_editar = $this->crearModeloVacio();
 
-            $this->flag_nombre_solicitante = true;
-            $this->nombre_solicitante = null;
+        $this->modelo_editar->id_servicio = $servicio->id;
+
+        $tramiteContext = new TramitesContext($servicio->nombre);
+
+        $this->flags = $tramiteContext->cambiarFlags();
+
+    }
+
+    public function updatedModeloEditarSolicitante(){
+
+        if($this->modelo_editar->solicitante == 'Ventanilla'){
+
+            $this->flags['flag_nombre_solicitante'] = true;
+            $this->modelo_editar->nombre_solicitante = null;
+
+        }elseif($this->modelo_editar->solicitante == 'Oficialia de partes'){
+
+            $this->flags['flag_nombre_solicitante'] = true;
+            $this->modelo_editar->nombre_solicitante = null;
 
         }else{
-            $this->flag_nombre_solicitante = false;
-            $this->nombre_solicitante = null;
+            $this->flags['flag_nombre_solicitante'] = false;
+            $this->modelo_editar->nombre_solicitante = null;
         }
 
-        if($this->solicitante == "Pensiones"){
+        if($this->modelo_editar->solicitante == "Pensiones"){
 
-            $this->tipo_servicio = "Extra Urgente";
-            $this->updatedTipoServicio();
+            $this->modelo_editar->tipo_servicio = "Extra Urgente";
+            $this->updatedModeloEditarTipoServicio();
 
         }
     }
 
-    public function updatedTipoServicio(){
+    public function updatedModeloEditarTipoServicio(){
 
-        if($this->id_servicio == ""){
+        if($this->modelo_editar->id_servicio == ""){
 
             $this->dispatchBrowserEvent('mostrarMensaje', ['error', "Debe seleccionar un servicio."]);
 
-            $this->tipo_servicio = null;
+            $this->modelo_editar->tipo_servicio = null;
+
+            $this->modelo_editar->solicitante = null;
 
             return;
         }
 
-        if($this->tipo_servicio == 'Ordinario'){
+        if($this->modelo_editar->tipo_servicio == 'Ordinario'){
 
-            $this->dias_de_entrega = 4;
-            $this->monto = Servicio::find($this->id_servicio)->ordinario;
+            $this->modelo_editar->dias_de_entrega = 4;
+            $this->modelo_editar->monto = Servicio::find($this->modelo_editar->id_servicio)->ordinario;
 
         }
-        elseif($this->tipo_servicio == 'Urgente'){
+        elseif($this->modelo_editar->tipo_servicio == 'Urgente'){
 
-            $this->dias_de_entrega = 1;
-            $this->monto = Servicio::find($this->id_servicio)->urgente;
+            $this->modelo_editar->dias_de_entrega = 1;
+            $this->modelo_editar->monto = Servicio::find($this->modelo_editar->id_servicio)->urgente;
 
-            if($this->monto == 0){
+            if($this->modelo_editar->monto == 0){
 
-                $this->dispatchBrowserEvent('mostrarMensaje', ['error', "No hay cobro urgente para el servicio seleccionado."]);
+                $this->dispatchBrowserEvent('mostrarMensaje', ['error', "No hay servicio urgente para el servicio seleccionado."]);
 
-                $this->tipo_servicio = null;
+                $this->modelo_editar->tipo_servicio = null;
             }
 
         }
-        elseif($this->tipo_servicio == 'Extra Urgente'){
+        elseif($this->modelo_editar->tipo_servicio == 'Extra Urgente'){
 
-            $this->dias_de_entrega = 0;
-            $this->monto = Servicio::find($this->id_servicio)->extra_urgente;
+            $this->modelo_editar->dias_de_entrega = 0;
+            $this->modelo_editar->monto = Servicio::find($this->modelo_editar->id_servicio)->extra_urgente;
 
-            if($this->monto == 0){
+            if($this->modelo_editar->monto == 0){
 
-                $this->dispatchBrowserEvent('mostrarMensaje', ['error', "No hay cobro extra urgente para el servicio seleccionado."]);
+                $this->dispatchBrowserEvent('mostrarMensaje', ['error', "No hay servicio extra urgente para el servicio seleccionado."]);
 
-                $this->tipo_servicio = null;
+                $this->modelo_editar->tipo_servicio = null;
             }
 
         }
 
     }
 
-    public function abrirModalEditar($tramite){
+    public function updatedModeloEditarForaneo(){
+
+        $this->updatedModeloEditarTipoServicio();
+
+    }
+
+    public function abrirModalEditar(Tramite $modelo){
 
         $this->resetearTodo();
 
-        $this->selected_id = $tramite['id'];
-        $this->estado = $tramite['estado'];
-        $this->solicitante = $tramite['solicitante'];
-        $this->tomo_bis = $tramite['tomo_bis'];
-        $this->registro_bis = $tramite['registro_bis'];
-        $this->dias_de_entrega = $tramite['dias_de_entrega'];
-        $this->monto = $tramite['monto'];
-        /* $this->tipo_servicio = $tramite['tipo_servicio']; */
-        $this->numero_control = $tramite['numero_control'];
-        $this->limite_de_pago = $tramite['limite_de_pago'];
-
-        $this->id_servicio = $tramite['id_servicio'];
-        $servicio = Servicio::find($tramite['id_servicio']);
+        $this->selected_id = $modelo->id;
+        $servicio = Servicio::find($modelo->id_servicio);
         $this->categoria_servicio = $servicio->categoria_servicio_id;
         $this->updatedCategoriaServicio();
 
-        if(isset($tramite['nombre_solicitante'])){
-            $this->nombre_solicitante = $tramite['nombre_solicitante'];
-            $this->flag_nombre_solicitante = true;
-        }
-
-        if(isset($tramite['tomo'])){
-            $this->tomo = $tramite['tomo'];
-            $this->flag_tomo = true;
-        }
-
-        if(isset($tramite['folio_real'])){
-            $this->folio_real = $tramite['folio_real'];
-            $this->flag_folio_real = true;
-        }
-
-        if(isset($tramite['registro'])){
-            $this->registro = $tramite['registro'];
-            $this->flag_registro = true;
-        }
-
-        if(isset($tramite['numero_propiedad'])){
-            $this->numero_propiedad = $tramite['numero_propiedad'];
-            $this->flag_numero_propiedad = true;
-        }
-
-        if(isset($tramite['numero_inmuebles'])){
-            $this->numero_inmuebles = $tramite['numero_inmuebles'];
-            $this->flag_numero_inmuebles = true;
-        }
-
-        if(isset($tramite['distrito'])){
-            $this->distrito = $tramite['distrito'];
-            $this->flag_distrito = true;
-        }
-
-        if(isset($tramite['seccion'])){
-            $this->seccion = $tramite['seccion'];
-            $this->flag_seccion = true;
-        }
-
-        if(isset($tramite['seccion'])){
-            $this->seccion = $tramite['seccion'];
-            $this->flag_seccion = true;
-        }
-
-        if(isset($tramite['numero_escritura'])){
-            $this->numero_escritura = $tramite['numero_escritura'];
-            $this->flag_numero_escritura = true;
-        }
-
-        if(isset($tramite['numero_notaria'])){
-            $this->numero_notaria = $tramite['numero_notaria'];
-            $this->flag_numero_notaria = true;
-        }
-
-        if(isset($tramite['numero_notaria'])){
-            $this->numero_notaria = $tramite['numero_notaria'];
-            $this->flag_numero_notaria = true;
-        }
-
-        if(isset($tramite['foraneo'])){
-            $this->foraneo = $tramite['foraneo'];
-            $this->flag_foraneo = true;
-        }
-
-        if(isset($tramite['tomo_gravamen'])){
-            $this->tomo_gravamen = $tramite['tomo_gravamen'];
-            $this->flag_tomo_gravamen = true;
-        }
-
-        if(isset($tramite['registro_gravamen'])){
-            $this->registro_gravamen = $tramite['registro_gravamen'];
-            $this->flag_registro_gravamen = true;
-        }
-
-        if(isset($tramite['valor_propiedad'])){
-            $this->valor_propiedad = $tramite['valor_propiedad'];
-            $this->flag_valor_propiedad = true;
-        }
-
-        if(isset($tramite['numero_paginas'])){
-            $this->numero_paginas = $tramite['numero_paginas'];
-            $this->flag_numero_paginas = true;
-        }
-
-        if(isset($tramite['numero_oficio'])){
-            $this->numero_oficio = $tramite['numero_oficio'];
-            $this->flag_numero_oficio = true;
-        }
+        if($this->modelo_editar->isNot($modelo))
+            $this->modelo_editar = $modelo;
 
         $this->modal = true;
         $this->editar = true;
 
-        if(isset($tramite['adiciona'])){
-            $this->adiciona = $tramite['adiciona'];
-            $this->adicionaTramite = true;
-            $this->dispatchBrowserEvent('select2');
+        foreach($this->modelo_editar->getAttributes() as $attribute => $value){
+
+            if($value)
+                $this->flags['flag_' . $attribute] = true;
+
         }
+
+        if($this->modelo_editar->adiciona)
+            $this->adicionaTramite = true;
 
     }
 
@@ -421,60 +258,13 @@ class Tramites extends Component
 
         try {
 
-            $numero_control = Tramite::orderBy('numero_control', 'desc')->value('numero_control');
-
-            $monto = 0;
-
-            if($this->foraneo){
-
-                $monto = 1865 + (int)$this->monto;
-
-            }else{
-
-                $monto = (int)$this->monto;
-
-            }
-
-            if($this->numero_paginas != null){
-
-                $monto = $monto * (int)$this->numero_paginas;
-
-            }
-
-            $tramite = Tramite::create([
-                'numero_control' => $numero_control ? $numero_control + 1 : 1,
-                'id_servicio' => $this->id_servicio,
-                'solicitante' => $this->solicitante,
-                'nombre_solicitante' => $this->nombre_solicitante,
-                'tomo' => $this->tomo,
-                'folio_real' => $this->folio_real,
-                'tomo_bis' => $this->tomo_bis,
-                'registro' => $this->registro,
-                'registro_bis' => $this->registro_bis,
-                'numero_propiedad' => $this->numero_propiedad,
-                'numero_inmuebles' => $this->numero_inmuebles,
-                'distrito' => $this->distrito,
-                'seccion' => $this->seccion,
-                'dias_de_entrega' => $this->dias_de_entrega,
-                'monto' => $monto,
-                'tipo_servicio' => $this->tipo_servicio,
-                'numero_escritura' => $this->numero_escritura,
-                'numero_notaria' => $this->numero_notaria,
-                'limite_de_pago' => now()->addDays(10),
-                'adiciona' => $this->adiciona,
-                'foraneo' => $this->foraneo,
-                'tomo_gravamen' => $this->tomo_gravamen,
-                'registro_gravamen' => $this->registro_gravamen,
-                'valor_propiedad' => $this->valor_propiedad,
-                'numero_paginas' => $this->numero_paginas,
-                'numero_oficio' => $this->numero_oficio,
-                'estado' => 'nuevo',
-                'creado_por' => auth()->user()->id
-            ]);
+            $tramite = (new TramiteService($this->modelo_editar))->crear();
 
             $this->resetearTodo();
 
-            $this->dispatchBrowserEvent('imprimir_recibo', ['tramite' => $tramite->id]);
+            $this->selected_id = $tramite->id;
+
+            $this->dispatchBrowserEvent('imprimir_recibo', ['tramite' => $this->selected_id]);
 
             $this->dispatchBrowserEvent('mostrarMensaje', ['success', "El trámite se creó con éxito."]);
 
@@ -493,32 +283,7 @@ class Tramites extends Component
 
         try{
 
-            $tramite = Tramite::find($this->selected_id);
-
-            $tramite->update([
-                'id_servicio' => $this->id_servicio,
-                'solicitante' => $this->solicitante,
-                'nombre_solicitante' => $this->nombre_solicitante,
-                'tomo' => $this->tomo,
-                'folio_real' => $this->folio_real,
-                'tomo_bis' => $this->tomo_bis,
-                'registro' => $this->registro,
-                'registro_bis' => $this->registro_bis,
-                'numero_inmuebles' => $this->numero_inmuebles,
-                'numero_propiedad' => $this->numero_propiedad,
-                'distrito' => $this->distrito,
-                'seccion' => $this->seccion,
-                'dias_de_entrega' => $this->dias_de_entrega,
-                'monto' => $this->monto,
-                'tipo_servicio' => $this->tipo_servicio,
-                'numero_escritura' => $this->numero_escritura,
-                'numero_notaria' => $this->numero_notaria,
-                'limite_de_pago' => now()->addDays(10),
-                'numero_paginas' => $this->numero_paginas,
-                'adiciona' => $this->adiciona,
-                'foraneo' => $this->foraneo,
-                'actualizado_por' => auth()->user()->id
-            ]);
+            (new TramiteService($this->modelo_editar))->actualizar();
 
             $this->resetearTodo();
 
@@ -538,11 +303,9 @@ class Tramites extends Component
 
         try{
 
-            $tramite = Tramite::find($this->selected_id);
+            (new TramiteService($this->modelo_editar))->borrar($this->selected_id);
 
-            $tramite->delete();
-
-            $this->resetearTodo();
+            $this->resetearTodo($borrado = true);
 
             $this->dispatchBrowserEvent('mostrarMensaje', ['success', "El trámite se eliminó con éxito."]);
 
@@ -556,6 +319,10 @@ class Tramites extends Component
     }
 
     public function mount(){
+
+        array_push($this->fields, 'adicionaTramite', 'flags', 'servicios', 'categoria_servicio');
+
+        $this->modelo_editar = $this->crearModeloVacio();
 
         $this->categorias = CategoriaServicio::all();
 

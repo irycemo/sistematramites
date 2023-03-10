@@ -489,7 +489,7 @@
 
             </table>
 
-            <div class="h-full w-full rounded-lg bg-gray-200 bg-opacity-75 absolute top-0 left-0" wire:loading wire:target="search">
+            <div class="h-full w-full rounded-lg bg-gray-200 bg-opacity-75 absolute top-0 left-0" wire:loading.delay.longer>
 
                 <img class="mx-auto h-16" src="{{ asset('storage/img/loading.svg') }}" alt="">
 
@@ -519,21 +519,31 @@
 
             <div class="flex flex-col md:flex-row justify-between md:space-x-3 mb-3">
 
-                <div class="flex-auto mb-5">
+                <div class="relative p-1">
 
-                    <div>
-                        <Label>Documento</Label>
+                    <div class="flex-auto mb-5">
+
+                        <div>
+                            <Label>Documento</Label>
+                        </div>
+
+                        <div>
+
+                            <x-filepond wire:model="documento"  />
+
+                        </div>
+
+                        <div>
+
+                            @error('documento') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+
+                        </div>
+
                     </div>
 
-                    <div>
+                    <div class="h-full w-full rounded-lg bg-gray-200 bg-opacity-75 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" wire:loading.delay.longer>
 
-                        <x-filepond wire:model="documento"  />
-
-                    </div>
-
-                    <div>
-
-                        @error('documento') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+                        <img class="mx-auto h-16" src="{{ asset('storage/img/loading.svg') }}" alt="">
 
                     </div>
 

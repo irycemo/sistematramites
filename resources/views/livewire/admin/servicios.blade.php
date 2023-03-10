@@ -551,9 +551,9 @@
                                     @can('Editar servicio')
 
                                         <button
-                                            wire:click="abrirModalEditar({{$servicio}})"
+                                            wire:click="abrirModalEditar({{$servicio->id}})"
                                             wire:loading.attr="disabled"
-                                            wire:target="abiriModalEditar({{$servicio}})"
+                                            wire:target="abiriModalEditar({{$servicio->id}})"
                                             class="md:w-full bg-blue-400 hover:shadow-lg text-white text-xs md:text-sm px-3 py-1 rounded-full mr-2 hover:bg-blue-700 flex items-center justify-center focus:outline-none"
                                         >
 
@@ -570,9 +570,9 @@
                                     @can('Borrar servicio')
 
                                         <button
-                                            wire:click="abrirModalBorrar({{$servicio}})"
+                                            wire:click="abrirModalBorrar({{$servicio->id}})"
                                             wire:loading.attr="disabled"
-                                            wire:target="abrirModalBorrar({{$servicio}})"
+                                            wire:target="abrirModalBorrar({{$servicio->id}})"
                                             class="md:w-full bg-red-400 hover:shadow-lg text-white text-xs md:text-sm px-3 py-1 items-center rounded-full hover:bg-red-700 flex justify-center focus:outline-none"
                                         >
 
@@ -609,7 +609,7 @@
 
             </table>
 
-            <div class="h-full w-full rounded-lg bg-gray-200 bg-opacity-75 absolute top-0 left-0" wire:loading >
+            <div class="h-full w-full rounded-lg bg-gray-200 bg-opacity-75 absolute top-0 left-0" wire:loading.delay.longer>
 
                 <img class="mx-auto h-16" src="{{ asset('storage/img/loading.svg') }}" alt="">
 
@@ -641,258 +641,268 @@
 
         <x-slot name="content">
 
-            <div class="flex flex-col md:flex-row justify-between md:space-x-3 mb-5">
+            <div class="relative p-1">
 
-                <div class="flex-auto ">
+                <div class="flex flex-col md:flex-row justify-between md:space-x-3 mb-5">
 
-                    <div>
-
-                        <Label>Nombre</Label>
-                    </div>
-
-                    <div>
-
-                        <input type="text" class="bg-white rounded text-sm w-full" wire:model.defer="nombre">
-
-                    </div>
-
-                    <div>
-
-                        @error('nombre') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
-
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div class="flex flex-col md:flex-row justify-between md:space-x-3 mb-5">
-
-                <div class="flex-auto ">
-
-                    <div>
-
-                        <Label>Operación principal</Label>
-                    </div>
-
-                    <div>
-
-                        <input type="number" class="bg-white rounded text-sm w-full" wire:model.defer="operacion_principal">
-
-                    </div>
-
-                    <div>
-
-                        @error('operacion_principal') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
-
-                    </div>
-
-                </div>
-
-                <div class="flex-auto ">
-
-                    <div>
-
-                        <Label>Operación parcial</Label>
-                    </div>
-
-                    <div>
-
-                        <input type="number" class="bg-white rounded text-sm w-full" wire:model.defer="operacion_parcial">
-
-                    </div>
-
-                    <div>
-
-                        @error('operacion_parcial') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
-
-                    </div>
-
-                </div>
-
-                <div class="flex-auto ">
-
-                    <div>
-
-                        <Label>Estado</Label>
-
-                    </div>
-
-                    <div>
-
-                        <select class="bg-white rounded text-sm w-full" wire:model.defer="estado">
-
-                            <option value="" selected>Seleccione una opción</option>
-                            <option value="activo" selected>Activo</option>
-                            <option value="inactivo" selected>Inactivo</option>
-
-                        </select>
-
-                    </div>
-
-                    <div>
-
-                        @error('estado') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
-
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div class="flex flex-col md:flex-row justify-between md:space-x-3 mb-5">
-
-                <div class="flex-auto mr-1 ">
-
-                    <div>
-
-                        <Label>Categoría</Label>
-
-                    </div>
-
-                    <div>
-
-                        <select class="bg-white rounded text-sm w-full" wire:model.defer="categoria">
-
-                            <option value="">Seleccione una opción</option>
-
-                            @foreach ($categorias as $categoria)
-
-
-                                <option value="{{ $categoria->id }}">{{ $categoria->nombre }}</option>
-
-                            @endforeach
-
-                        </select>
-
-                    </div>
-
-                    <div>
-
-                        @error('categoria') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
-
-                    </div>
-
-                </div>
-
-                <div class="flex-auto ">
-
-                    <div>
-
-                        <Label>Tipo</Label>
-
-                    </div>
-
-                    <div>
-
-                        <select class="bg-white rounded text-sm w-full" wire:model="tipo">
-
-                            <option value="" selected>Seleccione una opción</option>
-                            <option value="fija" selected>Fija</option>
-                            <option value="uma" selected>UMA</option>
-
-                        </select>
-
-                    </div>
-
-                    <div>
-
-                        @error('tipo') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
-
-                    </div>
-
-                </div>
-
-                @if($this->tipo == 'uma')
-
-                    <div class="flex-auto">
+                    <div class="flex-auto ">
 
                         <div>
 
-                            <Label>UMAS</Label>
+                            <Label>Nombre</Label>
+                        </div>
+
+                        <div>
+
+                            <input type="text" class="bg-white rounded text-sm w-full" wire:model.defer="modelo_editar.nombre">
 
                         </div>
 
                         <div>
 
-                            <input type="number" class="bg-white rounded text-sm w-full" wire:model.lazy="umas">
+                            @error('modelo_editar.nombre') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="flex flex-col md:flex-row justify-between md:space-x-3 mb-5">
+
+                    <div class="flex-auto ">
+
+                        <div>
+
+                            <Label>Operación principal</Label>
+                        </div>
+
+                        <div>
+
+                            <input type="number" class="bg-white rounded text-sm w-full" wire:model.defer="modelo_editar.operacion_principal">
 
                         </div>
 
                         <div>
 
-                            @error('umas') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+                            @error('modelo_editar.operacion_principal') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
 
                         </div>
 
                     </div>
 
-                @endif
+                    <div class="flex-auto ">
 
-            </div>
+                        <div>
 
-            <div class="flex flex-col md:flex-row justify-between md:space-x-3 mb-5">
+                            <Label>Operación parcial</Label>
+                        </div>
 
-                <div class="flex-auto mb-5">
+                        <div>
 
-                    <div>
+                            <input type="number" class="bg-white rounded text-sm w-full" wire:model.defer="modelo_editar.operacion_parcial">
 
-                        <Label>Ordinario</Label>
+                        </div>
+
+                        <div>
+
+                            @error('modelo_editar.operacion_parcial') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+
+                        </div>
+
                     </div>
 
-                    <div>
+                    <div class="flex-auto ">
 
-                        <input type="number" class="bg-white rounded text-sm w-full" wire:model.lazy="ordinario">
+                        <div>
 
-                    </div>
+                            <Label>Estado</Label>
 
-                    <div>
+                        </div>
 
-                        @error('ordinario') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+                        <div>
+
+                            <select class="bg-white rounded text-sm w-full" wire:model.defer="modelo_editar.estado">
+
+                                <option value="" selected>Seleccione una opción</option>
+                                <option value="activo" selected>Activo</option>
+                                <option value="inactivo" selected>Inactivo</option>
+
+                            </select>
+
+                        </div>
+
+                        <div>
+
+                            @error('modelo_editar.estado') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+
+                        </div>
 
                     </div>
 
                 </div>
 
-                <div class="flex-auto mb-5">
+                <div class="flex flex-col md:flex-row justify-between md:space-x-3 mb-5">
 
-                    <div>
+                    <div class="flex-auto mr-1 ">
 
-                        <Label>Urgente</Label>
+                        <div>
+
+                            <Label>Categoría</Label>
+
+                        </div>
+
+                        <div>
+
+                            <select class="bg-white rounded text-sm w-full" wire:model.defer="modelo_editar.categoria_servicio_id">
+
+                                <option value="">Seleccione una opción</option>
+
+                                @foreach ($categorias as $categoria)
+
+
+                                    <option value="{{ $categoria->id }}">{{ $categoria->nombre }}</option>
+
+                                @endforeach
+
+                            </select>
+
+                        </div>
+
+                        <div>
+
+                            @error('modelo_editar.categoria_servicio_id') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+
+                        </div>
+
                     </div>
 
-                    <div>
+                    <div class="flex-auto ">
 
-                        <input type="number" class="bg-white rounded text-sm w-full" wire:model.defer="urgente">
+                        <div>
+
+                            <Label>Tipo</Label>
+
+                        </div>
+
+                        <div>
+
+                            <select class="bg-white rounded text-sm w-full" wire:model="modelo_editar.tipo">
+
+                                <option value="" selected>Seleccione una opción</option>
+                                <option value="fija" selected>Fija</option>
+                                <option value="uma" selected>UMA</option>
+
+                            </select>
+
+                        </div>
+
+                        <div>
+
+                            @error('modelo_editar.tipo') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+
+                        </div>
 
                     </div>
 
-                    <div>
+                    @if($this->modelo_editar->tipo == 'uma')
 
-                        @error('urgente') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+                        <div class="flex-auto">
+
+                            <div>
+
+                                <Label>UMAS</Label>
+
+                            </div>
+
+                            <div>
+
+                                <input type="number" class="bg-white rounded text-sm w-full" wire:model.lazy="modelo_editar.umas">
+
+                            </div>
+
+                            <div>
+
+                                @error('modelo_editar.umas') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+
+                            </div>
+
+                        </div>
+
+                    @endif
+
+                </div>
+
+                <div class="flex flex-col md:flex-row justify-between md:space-x-3 mb-5">
+
+                    <div class="flex-auto mb-5">
+
+                        <div>
+
+                            <Label>Ordinario</Label>
+                        </div>
+
+                        <div>
+
+                            <input type="number" class="bg-white rounded text-sm w-full" wire:model.lazy="modelo_editar.ordinario">
+
+                        </div>
+
+                        <div>
+
+                            @error('modelo_editar.ordinario') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+
+                        </div>
+
+                    </div>
+
+                    <div class="flex-auto mb-5">
+
+                        <div>
+
+                            <Label>Urgente</Label>
+                        </div>
+
+                        <div>
+
+                            <input type="number" class="bg-white rounded text-sm w-full" wire:model.defer="modelo_editar.urgente">
+
+                        </div>
+
+                        <div>
+
+                            @error('modelo_editar.urgente') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+
+                        </div>
+
+                    </div>
+
+                    <div class="flex-auto mb-5">
+
+                        <div>
+
+                            <Label>Extra Ordinario</Label>
+                        </div>
+
+                        <div>
+
+                            <input type="number" class="bg-white rounded text-sm w-full" wire:model.defer="modelo_editar.extra_urgente">
+
+                        </div>
+
+                        <div>
+
+                            @error('modelo_editar.extra_urgente') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+
+                        </div>
 
                     </div>
 
                 </div>
 
-                <div class="flex-auto mb-5">
+                <div class="h-full w-full rounded-lg bg-gray-200 bg-opacity-75 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" wire:loading.delay.longer>
 
-                    <div>
-
-                        <Label>Extra Ordinario</Label>
-                    </div>
-
-                    <div>
-
-                        <input type="number" class="bg-white rounded text-sm w-full" wire:model.defer="extra_urgente">
-
-                    </div>
-
-                    <div>
-
-                        @error('extra_urgente') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
-
-                    </div>
+                    <img class="mx-auto h-16" src="{{ asset('storage/img/loading.svg') }}" alt="">
 
                 </div>
 

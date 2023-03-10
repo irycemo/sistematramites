@@ -233,9 +233,9 @@
                                     @can('Editar permiso')
 
                                         <button
-                                            wire:click="abrirModalEditar({{$permiso}})"
+                                            wire:click="abrirModalEditar({{$permiso->id}})"
                                             wire:loading.attr="disabled"
-                                            wire:target="abiriModalEditar({{$permiso}})"
+                                            wire:target="abiriModalEditar({{$permiso->id}})"
                                             class="bg-blue-400 hover:shadow-lg text-white text-xs md:text-sm px-3 py-1 items-center rounded-full mr-2 hover:bg-blue-700 flex focus:outline-none"
                                         >
 
@@ -254,9 +254,9 @@
                                     @can('Borrar permiso')
 
                                         <button
-                                            wire:click="abrirModalBorrar({{$permiso}})"
+                                            wire:click="abrirModalBorrar({{$permiso->id}})"
                                             wire:loading.attr="disabled"
-                                            wire:target="abrirModalBorrar({{$permiso}})"
+                                            wire:target="abrirModalBorrar({{$permiso->id}})"
                                             class="bg-red-400 hover:shadow-lg text-white text-xs md:text-sm px-3 py-1 items-center rounded-full hover:bg-red-700 flex focus:outline-none"
                                         >
 
@@ -293,7 +293,7 @@
 
             </table>
 
-            <div class="h-full w-full rounded-lg bg-gray-200 bg-opacity-75 absolute top-0 left-0" wire:loading>
+            <div class="h-full w-full rounded-lg bg-gray-200 bg-opacity-75 absolute top-0 left-0" wire:loading.delay.longer>
 
                 <img class="mx-auto h-16" src="{{ asset('storage/img/loading.svg') }}" alt="">
 
@@ -325,57 +325,67 @@
 
         <x-slot name="content">
 
-             <div class="flex flex-col md:flex-row justify-between md:space-x-3 mb-5">
+            <div class="relative p-1">
 
-                <div class="flex-auto ">
+                <div class="flex flex-col md:flex-row justify-between md:space-x-3 mb-5">
 
-                    <div>
+                    <div class="flex-auto ">
 
-                        <Label>Nombre</Label>
+                        <div>
+
+                            <Label>Nombre</Label>
+                        </div>
+
+                        <div>
+
+                            <input type="text" class="bg-white rounded text-sm w-full" wire:model.defer="modelo_editar.name">
+
+                        </div>
+
+                        <div>
+
+                            @error('modelo_editar.name') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+
+                        </div>
+
                     </div>
 
-                    <div>
+                    <div class="flex-auto ">
 
-                        <input type="text" class="bg-white rounded text-sm w-full" wire:model.defer="nombre">
+                        <div>
 
-                    </div>
+                            <Label>Área</Label>
 
-                    <div>
+                        </div>
 
-                        @error('nombre') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+                        <div>
+
+                            <select wire:model.defer="modelo_editar.area" class="bg-white rounded text-sm w-full">
+
+                                @foreach ($areas as $area)
+
+                                    <option value="{{ $area }}">{{ $area }}</option>
+
+                                @endforeach
+
+
+                            </select>
+
+                        </div>
+
+                        <div>
+
+                            @error('modelo_editar.area') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+
+                        </div>
 
                     </div>
 
                 </div>
 
-                <div class="flex-auto ">
+                <div class="h-full w-full rounded-lg bg-gray-200 bg-opacity-75 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" wire:loading.delay.longer>
 
-                    <div>
-
-                        <Label>Área</Label>
-
-                    </div>
-
-                    <div>
-
-                        <select wire:model.defer="area" class="bg-white rounded text-sm w-full">
-
-                            @foreach ($areas as $area)
-
-                                <option value="{{ $area }}">{{ $area }}</option>
-
-                            @endforeach
-
-
-                        </select>
-
-                    </div>
-
-                    <div>
-
-                        @error('area') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
-
-                    </div>
+                    <img class="mx-auto h-16" src="{{ asset('storage/img/loading.svg') }}" alt="">
 
                 </div>
 

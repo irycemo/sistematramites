@@ -14,29 +14,33 @@ class CategoriasServicios extends Component
     use WithPagination;
     use ComponentesTrait;
 
-    public $nombre;
+    public CategoriaServicio $modelo_editar;
 
     protected function rules(){
         return [
-            'nombre' => 'required',
+            'modelo_editar.nombre' => 'required',
+            'modelo_editar.concepto' => 'required',
+            'modelo_editar.seccion' => 'required',
          ];
     }
 
-    public function resetearTodo(){
+    protected $validationAttributes  = [
+        'modelo_editar.seccion' => 'sección',
+    ];
 
-        $this->reset(['modalBorrar', 'crear', 'editar', 'modal', 'nombre']);
-        $this->resetErrorBag();
-        $this->resetValidation();
+    public function crearModeloVacio(){
+        return CategoriaServicio::make();
     }
 
-    public function abrirModalEditar($modelo){
+    public function abrirModalEditar(CategoriaServicio $modelo){
 
         $this->resetearTodo();
         $this->modal = true;
         $this->editar = true;
 
-        $this->selected_id = $modelo['id'];
-        $this->nombre = $modelo['nombre'];
+        if($this->modelo_editar->isNot($modelo))
+            $this->modelo_editar = $modelo;
+
     }
 
     public function crear(){
@@ -45,10 +49,8 @@ class CategoriasServicios extends Component
 
         try {
 
-            CategoriaServicio::create([
-                'nombre' => $this->nombre,
-                'creado_por' => auth()->user()->id
-            ]);
+            $this->modelo_editar->creado_por = auth()->user()->id;
+            $this->modelo_editar->save();
 
             $this->resetearTodo();
 
@@ -68,12 +70,8 @@ class CategoriasServicios extends Component
 
         try{
 
-            $categoria = CategoriaServicio::find($this->selected_id);
-
-            $categoria->update([
-                'nombre' => $this->nombre,
-                'actualizado_por' => auth()->user()->id
-            ]);
+            $this->modelo_editar->actualizado_por = auth()->user()->id;
+            $this->modelo_editar->save();
 
             $this->resetearTodo();
 
@@ -97,7 +95,7 @@ class CategoriasServicios extends Component
 
             $categoria->delete();
 
-            $this->resetearTodo();
+            $this->resetearTodo($borrado = true);
 
             $this->dispatchBrowserEvent('mostrarMensaje', ['success', "La categoría se elimino con exito."]);
 
@@ -116,6 +114,7 @@ class CategoriasServicios extends Component
 
         $categorias = CategoriaServicio::with('creadoPor', 'actualizadoPor')
                                             ->where('nombre', 'LIKE', '%' . $this->search . '%')
+                                            ->where('concepto', 'LIKE', '%' . $this->search . '%')
                                             ->orderBy($this->sort, $this->direction)
                                             ->paginate($this->pagination);
 

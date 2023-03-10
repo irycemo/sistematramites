@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Admin;
 
 use App\Models\User;
 use Livewire\Component;
+use App\Http\Constantes;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
@@ -15,48 +16,43 @@ class Usuarios extends Component
     use WithPagination;
     use ComponentesTrait;
 
-    public $nombre;
-    public $email;
-    public $status;
+    public $roles;
+    public $ubicaciones;
+    public $areas_adscripcion;
+
+    public User $modelo_editar;
     public $role;
-    public $localidad;
-    public $area;
 
     protected function rules(){
         return [
-            'nombre' => 'required',
-            'email' => 'required|email:rfc,dns|unique:users,email,' . $this->selected_id,
-            'status' => 'required|in:activo,inactivo',
+            'modelo_editar.name' => 'required',
+            'modelo_editar.email' => 'required|email:rfc,dns|unique:users,email,' . $this->modelo_editar->id,
+            'modelo_editar.status' => 'required|in:activo,inactivo',
             'role' => 'required',
-            'localidad' => 'required',
-            'area' => 'required'
+            'modelo_editar.ubicacion' => 'required',
+            'modelo_editar.area' => 'required'
          ];
     }
 
     protected $validationAttributes  = [
         'role' => 'rol',
+        'modelo_editar.ubicacion' => 'ubicación'
     ];
 
-    public function resetearTodo(){
-
-        $this->reset(['modalBorrar', 'crear', 'editar', 'modal', 'nombre', 'email', 'status','role', 'localidad', 'area']);
-        $this->resetErrorBag();
-        $this->resetValidation();
+    public function crearModeloVacio(){
+        return User::make();
     }
 
-    public function abrirModalEditar($usuario){
+    public function abrirModalEditar(User $modelo){
 
         $this->resetearTodo();
         $this->modal = true;
         $this->editar = true;
 
-        $this->selected_id = $usuario['id'];
-        $this->nombre = $usuario['name'];
-        $this->email = $usuario['email'];
-        $this->status = $usuario['status'];
-        $this->area = $usuario['area'];
-        $this->localidad = $usuario['localidad'];
-        $this->role = 1;
+        if($this->modelo_editar->isNot($modelo))
+            $this->modelo_editar = $modelo;
+
+        $this->role = $modelo['roles'][0]['id'];
 
     }
 
@@ -64,9 +60,7 @@ class Usuarios extends Component
 
         $this->validate();
 
-        $user = User::where('name', $this->nombre)->first();
-
-        if($user){
+        if(User::where('name', $this->modelo_editar->name)->first()){
 
             $this->dispatchBrowserEvent('mostrarMensaje', ['error', "El usuario " . $this->nombre . " ya esta registrado."]);
 
@@ -80,17 +74,11 @@ class Usuarios extends Component
 
             DB::transaction(function () {
 
-                $usuario = User::create([
-                    'name' => $this->nombre,
-                    'email' => $this->email,
-                    'status' => $this->status,
-                    'area' => $this->area,
-                    'localidad' => $this->localidad,
-                    'password' => 'sistema',
-                    'creado_por' => auth()->user()->id
-                ]);
+                $this->modelo_editar->password = 'sistema';
+                $this->modelo_editar->creado_por = auth()->user()->id;
+                $this->modelo_editar->save();
 
-                $usuario->roles()->attach($this->role);
+                $this->modelo_editar->roles()->attach($this->role);
 
                 $this->resetearTodo();
 
@@ -115,18 +103,10 @@ class Usuarios extends Component
 
             DB::transaction(function () {
 
-                $usuario = User::find($this->selected_id);
+                $this->modelo_editar->actualizado_por = auth()->user()->id;
+                $this->modelo_editar->save();
 
-                $usuario->update([
-                    'name' => $this->nombre,
-                    'email' => $this->email,
-                    'area' => $this->area,
-                    'status' => $this->status,
-                    'localidad' => $this->localidad,
-                    'actualizado_por' => auth()->user()->id
-                ]);
-
-                $usuario->roles()->sync($this->role);
+                $this->modelo_editar->roles()->sync($this->role);
 
                 $this->resetearTodo();
 
@@ -151,7 +131,7 @@ class Usuarios extends Component
 
             $usuario->delete();
 
-            $this->resetearTodo();
+            $this->resetearTodo($borrado = true);
 
             $this->dispatchBrowserEvent('mostrarMensaje', ['success', "El usuario se eliminó con éxito."]);
 
@@ -164,12 +144,30 @@ class Usuarios extends Component
 
     }
 
+    public function mount(){
+
+        $this->modelo_editar = $this->crearModeloVacio();
+
+        array_push($this->fields, 'role');
+
+        $this->roles = Role::where('id', '!=', 1)->select('id', 'name')->orderBy('name')->get();
+
+        $this->ubicaciones = Constantes::UBICACIONES;
+
+        sort($this->ubicaciones);
+
+        $this->areas_adscripcion = Constantes::AREAS_ADSCRIPCION;
+
+        sort($this->areas_adscripcion);
+
+    }
+
     public function render()
     {
 
         $usuarios = User::with('creadoPor', 'actualizadoPor')->where('name', 'LIKE', '%' . $this->search . '%')
                             ->orWhere('email', 'LIKE', '%' . $this->search . '%')
-                            ->orWhere('localidad', 'LIKE', '%' . $this->search . '%')
+                            ->orWhere('ubicacion', 'LIKE', '%' . $this->search . '%')
                             ->orWhere('area', 'LIKE', '%' . $this->search . '%')
                             ->orWhere('status', 'LIKE', '%' . $this->search . '%')
                             ->orWhere(function($q){
@@ -180,8 +178,6 @@ class Usuarios extends Component
                             ->orderBy($this->sort, $this->direction)
                             ->paginate($this->pagination);
 
-        $roles = Role::all();
-
-        return view('livewire.admin.usuarios', compact('usuarios', 'roles'))->extends('layouts.admin');
+        return view('livewire.admin.usuarios', compact('usuarios'))->extends('layouts.admin');
     }
 }
