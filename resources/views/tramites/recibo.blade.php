@@ -70,6 +70,7 @@
             <p>Servicio: {{ $tramite->servicio->nombre }}</p>
             <p>Tipo de servicio: {{ $tramite->tipo_servicio }}</p>
             <p>Orden de pago: {{ $tramite->orden_de_pago }}</p>
+            <p>Linea de captura: {{ $tramite->linea_de_captura }}</p>
 
         </div>
 
@@ -80,7 +81,7 @@
         </div>
 
         <div class="footer">
-            <p>LA VIGENCIA PARA EL PAGO DE ESTE TRÁMITE ES: {{ $tramite->limite_de_pago }}.</p>
+            <p>LA VIGENCIA PARA EL PAGO DE ESTE TRÁMITE ES: {{ $tramite->limite_de_pago->format('d-m-Y') }}.</p>
         </div>
 
     </div>

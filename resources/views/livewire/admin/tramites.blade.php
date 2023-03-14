@@ -536,7 +536,7 @@
 
                                 <span class="lg:hidden absolute top-0 left-0 bg-blue-300 px-2 py-1 text-xs text-white font-bold uppercase rounded-br-xl">Límite de pago</span>
 
-                                {{ $tramite->limite_de_pago }}
+                                {{ $tramite->limite_de_pago->format('d-m-Y') }}
 
                             </td>
 
@@ -1378,7 +1378,7 @@
                 @if($modelo_editar->estado == 'nuevo')
 
                     <a
-                        href="{{ route('tramites.recibo', $selected_id) }}"
+                        href="{{ route('tramites.orden', $selected_id) }}"
                         target="_blank"
                         class="bg-gray-400 text-white hover:shadow-lg font-bold px-4 py-2 rounded-full text-sm mb-2 hover:bg-gray-700 flaot-left mr-1 focus:outline-none">
 
@@ -1503,9 +1503,13 @@
 
             const tramite = event.detail.tramite;
 
-            var url = "{{ route('tramites.recibo', '')}}" + "/" + tramite;
+            var url_ticket = "{{ route('tramites.recibo', '')}}" + "/" + tramite;
 
-            window.open(url, '_blank');
+            var url_orden = "{{ route('tramites.orden', '')}}" + "/" + tramite;
+
+            window.open(url_orden, '_blank');
+
+            window.open(url_ticket, '_blank');
 
             window.location.href = "{{ route('tramites')}}";
 

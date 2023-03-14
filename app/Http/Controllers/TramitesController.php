@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tramite;
-use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Picqer\Barcode\BarcodeGeneratorPNG;
+use Picqer\Barcode\BarcodeGeneratorHTML;
 
 class TramitesController extends Controller
 {
@@ -16,4 +18,17 @@ class TramitesController extends Controller
 
         return $pdf->stream('recibo.pdf');
     }
+
+    public function orden(Tramite $tramite){
+
+        $tramite->load('servicio');
+
+        $generatorPNG = new BarcodeGeneratorPNG();
+
+        $pdf = Pdf::loadView('tramites.orden', compact('tramite', 'generatorPNG'));
+
+        return $pdf->stream('orden.pdf');
+
+    }
+
 }

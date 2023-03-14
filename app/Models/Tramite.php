@@ -16,6 +16,10 @@ class Tramite extends Model implements Auditable
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
+    protected $casts = [
+        'limite_de_pago' => 'date'
+    ];
+
     public function adicionaAlTramite(){
         return $this->belongsTo(Tramite::class, 'adiciona');
     }
