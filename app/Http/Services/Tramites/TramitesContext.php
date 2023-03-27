@@ -15,8 +15,8 @@ class TramitesContext
 
         $this->strategy = match($tramite){
 
-            'Copias certificadas (por página)' => new Copias(),
-            'Copias simples (por página)' => new Copias(),
+            'Copias certificadas' => new Copias(),
+            'Copias simples' => new Copias(),
             default => new Reset()
 
         };

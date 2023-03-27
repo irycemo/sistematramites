@@ -35,13 +35,15 @@ class TramiteFactory extends Factory
             'numero_propiedad' => $this->faker->randomNumber(4),
             'distrito' => $this->faker->numberBetween(1,19),
             'seccion' => $this->faker->randomElement(Constantes::SECCIONES, 1),
-            'dias_de_entrega' => $this->faker->randomNumber(1),
+            'fecha_entrega' => now(),
             'monto' => $this->faker->randomFloat(2,126,500),
             'tipo_servicio' => $this->faker->randomElement(['Ordinario', 'Urgente', 'ExtraUrgente'], 1),
             'numero_control' => $this->faker->unique()->randomNumber(),
             'numero_escritura' => $this->faker->randomNumber(4),
             'numero_notaria' => $this->faker->randomNumber(3),
             'limite_de_pago' => now()->addDays(10),
+            'linea_de_captura' => 12414232352345432532,
+            'orden_de_pago' => 12414232352345432532,
 
         ];
     }

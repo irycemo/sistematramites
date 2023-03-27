@@ -63,7 +63,7 @@ class Tramites extends Component
             'modelo_editar.distrito' => 'nullable',
             'modelo_editar.seccion' => 'nullable',
             'modelo_editar.limite_de_pago' => 'nullable',
-            'modelo_editar.dias_de_entrega' => 'nullable',
+            'modelo_editar.fecha_entrega' => 'nullable',
             'modelo_editar.monto' => 'nullable',
             'modelo_editar.tipo_servicio' => 'required',
             'modelo_editar.numero_paginas' => 'nullable',
@@ -88,7 +88,7 @@ class Tramites extends Component
         'modelo_editar.registro_bis' => 'registro bis',
         'modelo_editar.numero_propiedad' => 'número de propiedad',
         'modelo_editar.nombre_solicitante' => 'nombre del solicitante',
-        'modelo_editar.dias_de_entrega' => 'días de entrega',
+        'modelo_editar.fecha_entrega' => 'fecha de entrega',
         'modelo_editar.tipo_servicio' => 'tipo de servicio',
         'modelo_editar.numero_control' => 'número de control',
         'modelo_editar.numero_escritura' => 'número de escritura',
@@ -160,7 +160,7 @@ class Tramites extends Component
 
         }else{
             $this->flags['flag_nombre_solicitante'] = false;
-            $this->modelo_editar->nombre_solicitante = null;
+            $this->modelo_editar->nombre_solicitante = $this->modelo_editar->solicitante;
         }
 
         if($this->modelo_editar->solicitante == "Pensiones"){
@@ -186,13 +186,13 @@ class Tramites extends Component
 
         if($this->modelo_editar->tipo_servicio == 'Ordinario'){
 
-            $this->modelo_editar->dias_de_entrega = 4;
+            $this->modelo_editar->fecha_entrega = $this->calcularFecha(4);
             $this->modelo_editar->monto = Servicio::find($this->modelo_editar->id_servicio)->ordinario;
 
         }
         elseif($this->modelo_editar->tipo_servicio == 'Urgente'){
 
-            $this->modelo_editar->dias_de_entrega = 1;
+            $this->modelo_editar->fecha_entrega = $this->calcularFecha(1);
             $this->modelo_editar->monto = Servicio::find($this->modelo_editar->id_servicio)->urgente;
 
             if($this->modelo_editar->monto == 0){
@@ -205,7 +205,7 @@ class Tramites extends Component
         }
         elseif($this->modelo_editar->tipo_servicio == 'Extra Urgente'){
 
-            $this->modelo_editar->dias_de_entrega = 0;
+            $this->modelo_editar->fecha_entrega = now()->format('Y-m-d');
             $this->modelo_editar->monto = Servicio::find($this->modelo_editar->id_servicio)->extra_urgente;
 
             if($this->modelo_editar->monto == 0){
@@ -330,6 +330,21 @@ class Tramites extends Component
 
         $this->secciones = Constantes::SECCIONES;
 
+    }
+
+    public function calcularFecha($dias){
+
+        $actual = today();
+
+        $actual->addDays($dias);
+
+        while($actual->isWeekend()){
+
+            $actual->addDay();
+
+        }
+
+        return $actual->toDateString();
     }
 
     public function render()

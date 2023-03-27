@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tramite;
-use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Picqer\Barcode\BarcodeGeneratorPNG;
-use Picqer\Barcode\BarcodeGeneratorHTML;
 
 class TramitesController extends Controller
 {

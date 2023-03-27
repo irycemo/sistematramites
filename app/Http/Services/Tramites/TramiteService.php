@@ -24,10 +24,11 @@ class TramiteService{
     public function crear(){
 
         $this->tramite->numero_control = $this->obtenerNumeroControl();
-        $this->tramite->limite_de_pago = now()->addDays(10);
+        $this->tramite->limite_de_pago = $this->fecha_vencimiento;
         $this->tramite->orden_de_pago = $this->orden_de_pago;
         $this->tramite->linea_de_captura = $this->linea;
-        $this->tramite->estado = 'nuevo';
+        $this->tramite->estado = 'pagado'; //Estado
+        //$this->tramite->fecha_prelacion = now(); //Prelacion
         $this->tramite->monto = $this->calcularMonto();
         $this->tramite->creado_por = auth()->user()->id;
 

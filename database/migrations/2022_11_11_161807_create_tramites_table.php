@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('tramites', function (Blueprint $table) {
             $table->id();
             $table->string('estado');
-            $table->unsignedInteger('numero_control');
+            $table->unsignedInteger('numero_control')->unique();
             $table->foreignId("id_servicio")->references('id')->on('servicios');
             $table->string("solicitante");
             $table->string("nombre_solicitante")->nullable();
@@ -31,7 +31,7 @@ return new class extends Migration
             $table->string("distrito")->nullable();
             $table->string("seccion")->nullable();
             $table->date("limite_de_pago");
-            $table->unsignedTinyInteger("dias_de_entrega");
+            $table->date("fecha_entrega");
             $table->unsignedDecimal("monto", 18, 2);
             $table->string("tipo_servicio");
             $table->unsignedInteger('numero_paginas')->nullable();
@@ -47,6 +47,7 @@ return new class extends Migration
             $table->timestamp('reingreso')->nullable();
             $table->string('orden_de_pago');
             $table->string('linea_de_captura');
+            $table->timestamp('fecha_prelacion')->nullable();
             $table->timestamps();
         });
     }
