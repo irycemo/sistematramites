@@ -40,7 +40,7 @@ class SistemaRppService{
 
             $data = json_decode($response, true);
 
-            if(isset($data['errors']))
+            if($data['result'] == 'error')
                 Log::error("Error al enviar tramite pagado al sistema rpp. " . $response);
 
         } catch (\Throwable $th) {

@@ -18,7 +18,17 @@ class TramiteService{
     {
         $this->tramite = $tramite;
 
-        $this->procesarLineaCaptura();
+        if($tramite->adiciona == null){
+
+            $this->procesarLineaCaptura();
+
+        }else{
+
+            $this->orden_de_pago = $tramite->orden_de_pago;
+            $this->linea = $tramite->linea_de_captura;
+            $this->fecha_vencimiento = $tramite->limite_de_pago;
+
+        }
     }
 
     public function crear(){

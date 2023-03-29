@@ -132,17 +132,29 @@
 
                 <th>
                     <p>Número de control: {{ now()->format('Y') . '-' . $tramite->numero_control }}</p>
-                    <p>Servicio: {{ $tramite->servicio->nombre }}</p>
+                    <p>Solicitante: {{ $tramite->nombre_solicitante }}</p>
+                    <p>Servicio: {{ $tramite->servicio->nombre }}
+                        @if($tramite->adiciona)
+                            / {{ $tramite->adicionaAlTramite->servicio->nombre }}
+                        @endif
+                    </p>
                     <p>Tipo de servicio: {{ $tramite->tipo_servicio }}</p>
                     <p>Orden de pago: {{ $tramite->orden_de_pago }}</p>
-                    <p>Total a pagar: ${{ number_format($tramite->monto, 2) }}</p>
+                    <p>Total a pagar:
+                        @if($tramite->adiciona)
+                            ${{ number_format($tramite->adicionaAlTramite->monto, 2) }}
+                        @else
+                            ${{ number_format($tramite->monto, 2) }}
+                        @endif
+                    </p>
                 </th>
 
                 <th style="vertical-align: middle">
 
                     <div class="text-center" >
 
-                        <p>La vigencia para el pago de este trámite es: {{ $tramite->limite_de_pago->format('d-m-Y') }}.</p>
+                        <p>La vigencia para el pago de este trámite es:</p>
+                        <p>{{ $tramite->limite_de_pago->format('d-m-Y') }}.</p>
 
                         <p >Linea de captura:</p>
                         <img src="data:image/png;base64,{{ base64_encode($generatorPNG->getBarcode($tramite->linea_de_captura, $generatorPNG::TYPE_CODE_128)) }}">

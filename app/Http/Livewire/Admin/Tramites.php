@@ -24,6 +24,7 @@ class Tramites extends Component
     public $categorias;
     public $categoria_servicio;
     public $servicios;
+    public $servicio;
     public $adicionaTramite;
 
     public Tramite $modelo_editar;
@@ -132,15 +133,15 @@ class Tramites extends Component
 
     public function updatedModeloEditarIdServicio(){
 
-        $servicio = Servicio::find($this->modelo_editar->id_servicio);
+        $this->servicio = Servicio::find($this->modelo_editar->id_servicio);
 
         $this->reset(['flags']);
 
         $this->modelo_editar = $this->crearModeloVacio();
 
-        $this->modelo_editar->id_servicio = $servicio->id;
+        $this->modelo_editar->id_servicio = $this->servicio->id;
 
-        $tramiteContext = new TramitesContext($servicio->nombre);
+        $tramiteContext = new TramitesContext($this->servicio->nombre);
 
         $this->flags = $tramiteContext->cambiarFlags();
 
@@ -258,7 +259,7 @@ class Tramites extends Component
 
         try {
 
-            $tramite = (new TramiteService($this->modelo_editar))->crear();
+            $tramite = (new TramitesContext($this->servicio->nombre))->crearTramite($this->modelo_editar);
 
             $this->resetearTodo();
 

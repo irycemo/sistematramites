@@ -20,6 +20,22 @@ class Tramite extends Model implements Auditable
         'limite_de_pago' => 'date'
     ];
 
+    public function getEstadoColorAttribute()
+    {
+        return [
+            'nuevo' => 'blue',
+            'pagado' => 'green',
+            'inactivo' => 'red',
+            'concluido' => 'gray',
+            'rechazado' => 'red',
+            'expirado' => 'red',
+            'procesando' => 'yellow',
+            'revission' => 'yellow',
+            'recibido' => 'blue',
+            'finalizado' => 'gray',
+        ][$this->estado] ?? 'gray';
+    }
+
     public function adicionaAlTramite(){
         return $this->belongsTo(Tramite::class, 'adiciona');
     }

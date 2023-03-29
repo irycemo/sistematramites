@@ -438,39 +438,7 @@
 
                                 <span class="lg:hidden absolute top-0 left-0 bg-blue-300 px-2 py-1 text-xs text-white font-bold uppercase rounded-br-xl">Estado</span>
 
-                                @if($tramite->estado == 'pagado')
-
-                                    <span class="bg-green-400 py-1 px-2 rounded-full text-white uppercase text-xs">Pagado</span>
-
-                                @elseif($tramite->estado == 'nuevo')
-
-                                    <span class="bg-blue-400 py-1 px-2 rounded-full text-white  uppercase text-xs">nuevo</span>
-
-                                @elseif($tramite->estado == 'finalizado')
-
-                                    <span class="bg-gray-400 py-1 px-2 rounded-full text-white  uppercase text-xs">finalizado</span>
-
-                                @elseif($tramite->estado == 'expirado')
-
-                                    <span class="bg-red-400 py-1 px-2 rounded-full text-white  uppercase text-xs">expirado</span>
-
-                                @elseif($tramite->estado == 'recibido')
-
-                                    <span class="bg-yellow-400 py-1 px-2 rounded-full text-white  uppercase text-xs">recibido</span>
-
-                                @elseif($tramite->estado == 'revision')
-
-                                    <span class="bg-orange-400 py-1 px-2 rounded-full text-white  uppercase text-xs">revisión</span>
-
-                                @elseif($tramite->estado == 'procesando')
-
-                                    <span class="bg-green-400 py-1 px-2 rounded-full text-white  uppercase text-xs">procesando</span>
-
-                                @elseif($tramite->estado == 'entregado')
-
-                                    <span class="bg-gray-400 py-1 px-2 rounded-full text-white  uppercase text-xs">entregado</span>
-
-                                @endif
+                                <span class="bg-{{ $tramite->estado_color }}-400 py-1 px-2 rounded-full text-white text-xs">{{ ucfirst($tramite->estado) }}</span>
 
                             </td>
 
@@ -1503,15 +1471,13 @@
 
             const tramite = event.detail.tramite;
 
-            var url_ticket = "{{ route('tramites.recibo', '')}}" + "/" + tramite;
-
             var url_orden = "{{ route('tramites.orden', '')}}" + "/" + tramite;
 
             window.open(url_orden, '_blank');
 
-            window.open(url_ticket, '_blank');
+            var url_ticket = "{{ route('tramites.recibo', '')}}" + "/" + tramite;
 
-            window.location.href = "{{ route('tramites')}}";
+            window.open(url_ticket, '_blank');
 
         });
 

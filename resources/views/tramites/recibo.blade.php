@@ -67,7 +67,12 @@
             <p class="title">CALIFICACIÓN DE INSCRIPCIONES</p>
             <p>Fecha: {{Carbon\Carbon::now()->format('d-m-Y')}}</p>
             <p>Trámite: {{ now()->format('Y') . '-' .$tramite->numero_control }}</p>
-            <p>Servicio: {{ $tramite->servicio->nombre }}</p>
+            <p>Solicitante: {{ $tramite->nombre_solicitante }}</p>
+            <p>Servicio: {{ $tramite->servicio->nombre }}
+                @if($tramite->adiciona)
+                    / {{ $tramite->adicionaAlTramite->servicio->nombre }}
+                @endif
+            </p>
             <p>Tipo de servicio: {{ $tramite->tipo_servicio }}</p>
             <p>Orden de pago: {{ $tramite->orden_de_pago }}</p>
             <p>Linea de captura: {{ $tramite->linea_de_captura }}</p>
@@ -76,7 +81,14 @@
 
         <div class="total">
 
-            <p>Total a pagar: ${{ $tramite->monto }}</p>
+            <p>
+                Total a pagar:
+                @if($tramite->adiciona)
+                    ${{ number_format($tramite->adicionaAlTramite->monto, 2) }}
+                @else
+                    ${{ number_format($tramite->monto, 2) }}
+                @endif
+            </p>
 
         </div>
 
