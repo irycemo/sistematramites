@@ -6,6 +6,8 @@ use App\Models\Tramite;
 use App\Models\Servicio;
 use Illuminate\Support\Facades\Log;
 use App\Http\Services\Tramites\TramiteService;
+use App\Http\Services\SistemaRpp\SistemaRppService;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Services\Tramites\TramitesStrategyInterface;
 
 class Copias implements TramitesStrategyInterface{
@@ -44,14 +46,26 @@ class Copias implements TramitesStrategyInterface{
         $tramite->orden_de_pago = $consulta->orden_de_pago;
         $tramite->linea_de_captura = $consulta->linea_de_captura;
 
-        return (new TramiteService($tramite))->crear();
+        $tramtie = (new TramiteService($tramite))->crear();
+
+        $tramite->load('servicio.categoria');
+
+        (new SistemaRppService())->insertarSistemaRpp($tramite);
+
+        return $tramite;
 
     }
 
     public function crearTramiteConsulta(Tramite $tramite):Tramite
     {
 
-        $servicio = Servicio::where('nombre', 'Búsqueda de antecedente de 1 a 10')->firstOrFail();
+        $servicio = Servicio::where('nombre', 'Búsqueda de antecedente de 1 a 10')->first();
+
+        if(!$servicio){
+
+            throw new ModelNotFoundException("Error al encontrar el servcio en App/Http/Services/Tramites/TramitesStrategies/Copias");
+
+        }
 
         $consulta = Tramite::make();
         $consulta->id_servicio = $servicio->id;
@@ -61,6 +75,8 @@ class Copias implements TramitesStrategyInterface{
         $consulta->fecha_entrega = $tramite->fecha_entrega;
         $consulta->solicitante = $tramite->solicitante;
         $consulta->nombre_solicitante = $tramite->nombre_solicitante;
+        $consulta->distrito = $tramite->distrito;
+        $consulta->seccion = $tramite->seccion;
 
         return (new TramiteService($consulta))->crear();
 

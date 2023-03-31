@@ -2,6 +2,7 @@
 
 namespace App\Http\Services\Tramites\TramitesStrategies;
 
+use App\Exceptions\TramiteNoRegistradoException;
 use App\Models\Tramite;
 use App\Http\Services\Tramites\TramitesStrategyInterface;
 
@@ -33,7 +34,11 @@ class Reset implements TramitesStrategyInterface{
 
     public function crearTramite(Tramite $tramite):Tramite
     {
+
+        throw new TramiteNoRegistradoException('El trámite no esta registrado en TramitesContexto. ' . 'Servicio id: ' . $tramite->id_servicio);
+
         return $tramite;
+
     }
 
 }

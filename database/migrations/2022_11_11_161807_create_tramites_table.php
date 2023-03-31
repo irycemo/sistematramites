@@ -48,6 +48,8 @@ return new class extends Migration
             $table->string('orden_de_pago');
             $table->string('linea_de_captura');
             $table->timestamp('fecha_prelacion')->nullable();
+            $table->unsignedBigInteger('movimiento_registral')->nullable();
+            $table->text('observaciones')->nullable();
             $table->timestamps();
         });
     }

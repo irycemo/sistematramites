@@ -12,13 +12,6 @@ class TramiteObserver
      */
     public function created(Tramite $tramite): void
     {
-        if($tramite->estado == 'pagado'){
-
-            $tramite->load('servicio.categoria');
-
-            (new SistemaRppService())->insertarSistemaRpp($tramite);
-
-        }
 
     }
 
@@ -28,13 +21,7 @@ class TramiteObserver
     public function updated(Tramite $tramite): void
     {
 
-        if($tramite->estado == 'pagado'){
 
-            $tramite->load('servicio.categoria');
-
-            (new SistemaRppService())->insertarSistemaRpp($tramite);
-
-        }
 
     }
 

@@ -36,8 +36,11 @@ class TramitesController extends Controller
 
         try {
 
-            $tramite = Tramite::where('numero_control', $request->validated())
-                                ->update(['estado' => 'rechazado']);
+            $tramite = Tramite::where('numero_control', $request->id)
+                                ->update([
+                                    'estado' => 'rechazado',
+                                    'observaciones' => $request->observaciones
+                                ]);
 
             return response()->json([
                 'result' => 'success',

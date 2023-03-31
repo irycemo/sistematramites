@@ -8,6 +8,7 @@ use App\Http\Constantes;
 use App\Models\Servicio;
 use Livewire\WithPagination;
 use App\Models\CategoriaServicio;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Http\Traits\ComponentesTrait;
 use App\Http\Services\Tramites\TramiteService;
@@ -259,18 +260,21 @@ class Tramites extends Component
 
         try {
 
-            $tramite = (new TramitesContext($this->servicio->nombre))->crearTramite($this->modelo_editar);
+            DB::transaction(function () {
 
-            $this->resetearTodo();
+                $tramite = (new TramitesContext($this->servicio->nombre))->crearTramite($this->modelo_editar);
 
-            $this->selected_id = $tramite->id;
+                $this->resetearTodo();
 
-            $this->dispatchBrowserEvent('imprimir_recibo', ['tramite' => $this->selected_id]);
+                $this->selected_id = $tramite->id;
 
-            $this->dispatchBrowserEvent('mostrarMensaje', ['success', "El trámite se creó con éxito."]);
+                $this->dispatchBrowserEvent('imprimir_recibo', ['tramite' => $this->selected_id]);
+
+                $this->dispatchBrowserEvent('mostrarMensaje', ['success', "El trámite se creó con éxito."]);
+
+        });
 
         } catch (\Throwable $th) {
-
             Log::error("Error al crear trámite por el usuario: (id: " . auth()->user()->id . ") " . auth()->user()->name . ". " . $th->getMessage());
             $this->dispatchBrowserEvent('mostrarMensaje', ['error', "Ha ocurrido un error."]);
             $this->resetearTodo();
