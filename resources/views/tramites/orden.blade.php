@@ -140,12 +140,7 @@
                     </p>
                     <p>Tipo de servicio: {{ $tramite->tipo_servicio }}</p>
                     <p>Orden de pago: {{ $tramite->orden_de_pago }}</p>
-                    <p>Total a pagar:
-                        @if($tramite->adiciona)
-                            ${{ number_format($tramite->adicionaAlTramite->monto, 2) }}
-                        @else
-                            ${{ number_format($tramite->monto, 2) }}
-                        @endif
+                    <p>Total a pagar: ${{ number_format($tramite->monto, 2) }}
                     </p>
                 </th>
 

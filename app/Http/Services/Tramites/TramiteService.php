@@ -24,9 +24,10 @@ class TramiteService{
 
         }else{
 
-            $this->orden_de_pago = $tramite->orden_de_pago;
-            $this->linea = $tramite->linea_de_captura;
-            $this->fecha_vencimiento = $tramite->limite_de_pago;
+            $this->orden_de_pago = $tramite->adicionaAlTramite->orden_de_pago;
+            $this->linea = $tramite->adicionaAlTramite->linea_de_captura;
+            $this->fecha_vencimiento = $tramite->adicionaAlTramite->limite_de_pago;
+            $this->tramite->movimiento_registral = $tramite->adicionaAlTramite->movimiento_registral;
 
         }
     }

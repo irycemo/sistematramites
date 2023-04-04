@@ -39,20 +39,38 @@ class Copias implements TramitesStrategyInterface{
     public function crearTramite(Tramite $tramite):Tramite
     {
 
-        $consulta = $this->crearTramiteConsulta($tramite);
+        if($tramite->adiciona == null){
 
-        $tramite->adiciona = $consulta->id;
-        $tramite->limite_de_pago = $consulta->limite_de_pago;
-        $tramite->orden_de_pago = $consulta->orden_de_pago;
-        $tramite->linea_de_captura = $consulta->linea_de_captura;
+            $consulta = $this->crearTramiteConsulta($tramite);
 
-        $tramtie = (new TramiteService($tramite))->crear();
+            $tramite->adiciona = $consulta->id;
+            $tramite->limite_de_pago = $consulta->limite_de_pago;
+            $tramite->orden_de_pago = $consulta->orden_de_pago;
+            $tramite->linea_de_captura = $consulta->linea_de_captura;
 
-        $tramite->load('servicio.categoria');
+            $tramtie = (new TramiteService($tramite))->crear();
 
-        (new SistemaRppService())->insertarSistemaRpp($tramite);
+            $tramite->monto = $tramite->monto + $consulta->monto;
 
-        return $tramite;
+            $tramtie->save();
+
+            $tramite->load('servicio.categoria');
+
+            (new SistemaRppService())->insertarSistemaRpp($tramite);
+
+            return $tramite;
+
+        }else{
+
+            $tramtie = (new TramiteService($tramite))->crear();
+
+            (new SistemaRppService())->actualizarSistemaRpp($tramite);
+
+            return $tramite;
+
+        }
+
+
 
     }
 
@@ -70,7 +88,7 @@ class Copias implements TramitesStrategyInterface{
         $consulta = Tramite::make();
         $consulta->id_servicio = $servicio->id;
         $consulta->estado = 'nuevo';
-        $consulta->monto = $servicio->ordinario + $tramite->monto;
+        $consulta->monto = $servicio->ordinario;
         $consulta->tipo_servicio = 'ordinario';
         $consulta->fecha_entrega = $tramite->fecha_entrega;
         $consulta->solicitante = $tramite->solicitante;

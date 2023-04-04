@@ -44,6 +44,7 @@ return new class extends Migration
             $table->foreignId('adiciona')->nullable()->references('id')->on('tramites');
             $table->foreignId('creado_por')->nullable()->references('id')->on('users');
             $table->foreignId('actualizado_por')->nullable()->references('id')->on('users');
+            $table->foreignId('recibido_por')->nullable()->references('id')->on('users');
             $table->timestamp('reingreso')->nullable();
             $table->string('orden_de_pago');
             $table->string('linea_de_captura');

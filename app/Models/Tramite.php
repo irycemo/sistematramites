@@ -23,17 +23,17 @@ class Tramite extends Model implements Auditable
     public function getEstadoColorAttribute()
     {
         return [
-            'nuevo' => 'blue',
-            'pagado' => 'green',
-            'inactivo' => 'red',
-            'concluido' => 'gray',
-            'rechazado' => 'red',
-            'expirado' => 'red',
-            'procesando' => 'yellow',
-            'revission' => 'yellow',
-            'recibido' => 'blue',
-            'finalizado' => 'gray',
-        ][$this->estado] ?? 'gray';
+            'nuevo' => 'blue-400',
+            'pagado' => 'green-400',
+            'inactivo' => 'red-400',
+            'concluido' => 'gray-400',
+            'rechazado' => 'red-400',
+            'expirado' => 'red-400',
+            'Procesando' => 'orange-300',
+            'revission' => 'orange-300',
+            'recibido' => 'blue-400',
+            'finalizado' => 'gray-800',
+        ][$this->estado] ?? 'gray-400';
     }
 
     public function adicionaAlTramite(){
@@ -46,5 +46,9 @@ class Tramite extends Model implements Auditable
 
     public function files(){
         return $this->morphMany(File::class, 'fileable');
+    }
+
+    public function recibidoPor(){
+        return $this->belongsTo(User::class, 'recibido_por');
     }
 }

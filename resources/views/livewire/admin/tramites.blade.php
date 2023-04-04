@@ -438,7 +438,7 @@
 
                                 <span class="lg:hidden absolute top-0 left-0 bg-blue-300 px-2 py-1 text-xs text-white font-bold uppercase rounded-br-xl">Estado</span>
 
-                                <span class="bg-{{ $tramite->estado_color }}-400 py-1 px-2 rounded-full text-white text-xs">{{ ucfirst($tramite->estado) }}</span>
+                                <span class="bg-{{ $tramite->estado_color }} py-1 px-2 rounded-full text-white text-xs">{{ ucfirst($tramite->estado) }}</span>
 
                             </td>
 

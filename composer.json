@@ -14,6 +14,7 @@
         "laravel/tinker": "^2.7",
         "livewire/livewire": "^2.5",
         "opcodesio/log-viewer": "^1.8",
+        "orangehill/iseed": "^3.0",
         "owen-it/laravel-auditing": "^13.0",
         "picqer/php-barcode-generator": "^2.2",
         "ricorocks-digital-agency/soap": "^1.7",

@@ -447,24 +447,51 @@
 
                                 <div class="flex flex-col justify-center lg:justify-start items-center space-y-1">
 
-                                    @can('Finalizar')
+                                    @if($tramite->recibido_por == null)
 
-                                        <button
-                                            wire:click="abrirModalBorrar({{$tramite}})"
-                                            wire:loading.attr="disabled"
-                                            wire:target="abrirModalBorrar({{$tramite}})"
-                                            class="md:w-full bg-blue-400 hover:shadow-lg text-white text-xs md:text-sm px-3 py-1 items-center rounded-full hover:bg-blue-700 flex justify-center focus:outline-none"
-                                        >
+                                        @can('Preentregar')
 
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-2">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                                            </svg>
+                                            <button
+                                                wire:click="abrirModalRecibir({{$tramite}})"
+                                                wire:loading.attr="disabled"
+                                                wire:target="abrirModalRecibir({{$tramite}})"
+                                                class="md:w-full bg-blue-400 hover:shadow-lg text-white text-xs md:text-sm px-3 py-1 items-center rounded-full hover:bg-blue-700 flex justify-center focus:outline-none"
+                                            >
 
-                                            Finalizar
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-2">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                                                </svg>
 
-                                        </button>
+                                                Recibir
 
-                                    @endcan
+                                            </button>
+
+                                        @endcan
+
+                                    @endif
+
+                                    @if($tramite->recibido_por != null)
+
+                                        @can('Entregar')
+
+                                            <button
+                                                wire:click="abrirModalFinalizar({{$tramite}})"
+                                                wire:loading.attr="disabled"
+                                                wire:target="abrirModalFinalizar({{$tramite}})"
+                                                class="md:w-full bg-blue-400 hover:shadow-lg text-white text-xs md:text-sm px-3 py-1 items-center rounded-full hover:bg-blue-700 flex justify-center focus:outline-none"
+                                            >
+
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-2">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                                                </svg>
+
+                                                Entregar
+
+                                            </button>
+
+                                        @endcan
+
+                                    @endif
 
                                 </div>
 
@@ -521,6 +548,70 @@
 
             <x-jet-secondary-button
                 wire:click="$toggle('modalBorrar')"
+                wire:loading.attr="disabled"
+            >
+                No
+            </x-jet-secondary-button>
+
+            <x-jet-danger-button
+                class="ml-2"
+                wire:click="finalizar()"
+                wire:loading.attr="disabled"
+                wire:target="finalizar"
+            >
+                Si
+            </x-jet-danger-button>
+
+        </x-slot>
+
+    </x-jet-confirmation-modal>
+
+    <x-jet-confirmation-modal wire:model="modalRecibir">
+
+        <x-slot name="title">
+            Recibir documentación
+        </x-slot>
+
+        <x-slot name="content">
+            ¿Esta seguro que desea recibir documentación?
+        </x-slot>
+
+        <x-slot name="footer">
+
+            <x-jet-secondary-button
+                wire:click="$toggle('modalRecibir')"
+                wire:loading.attr="disabled"
+            >
+                No
+            </x-jet-secondary-button>
+
+            <x-jet-danger-button
+                class="ml-2"
+                wire:click="recibir()"
+                wire:loading.attr="disabled"
+                wire:target="recibir"
+            >
+                Si
+            </x-jet-danger-button>
+
+        </x-slot>
+
+    </x-jet-confirmation-modal>
+
+    <x-jet-confirmation-modal wire:model="modalFinalizar">
+
+        <x-slot name="title">
+            Finalizar trámite
+        </x-slot>
+
+        <x-slot name="content">
+            ¿Esta seguro que desea finalizar el trámite?
+        </x-slot>
+
+        <x-slot name="footer">
+
+            <x-jet-secondary-button
+                wire:click="$toggle('modalRecibir')"
                 wire:loading.attr="disabled"
             >
                 No
