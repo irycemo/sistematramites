@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Services\SistemaRpp;
+namespace App\Http\Services\SistemaRPP;
 
 use App\Exceptions\ErrorAlActualizarMovimientoRegistralEnTramite;
 use App\Exceptions\ErrorAlEnviarTramiteSistemaRppException;
