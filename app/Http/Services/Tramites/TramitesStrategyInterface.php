@@ -11,4 +11,6 @@ interface TramitesStrategyInterface
 
     public function crearTramite(Tramite $tramite);
 
+    public function validaciones();
+
 }

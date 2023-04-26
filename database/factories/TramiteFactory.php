@@ -42,8 +42,8 @@ class TramiteFactory extends Factory
             'numero_escritura' => $this->faker->randomNumber(4),
             'numero_notaria' => $this->faker->randomNumber(3),
             'limite_de_pago' => now()->addDays(10),
-            'linea_de_captura' => 12414232352345432532,
-            'orden_de_pago' => 12414232352345432532,
+            'linea_de_captura' => 124152345432532,
+            'orden_de_pago' => 124152345432532,
 
         ];
     }

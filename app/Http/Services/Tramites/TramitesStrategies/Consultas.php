@@ -37,4 +37,18 @@ class Consultas implements TramitesStrategyInterface{
     {
         return (new TramiteService($tramite))->crear();
     }
+
+    public function validaciones(){
+
+        return [
+            'modelo_editar.seccion' => 'required',
+            'modelo_editar.tomo' => 'required_without:folio_real',
+            'modelo_editar.registro' => 'required_without:folio_real',
+            'modelo_editar.distrito' => 'required',
+            'modelo_editar.numero_paginas' => 'required',
+            'modelo_editar.nombre_solicitante' => 'required'
+        ];
+
+    }
+
 }

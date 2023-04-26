@@ -91,6 +91,10 @@
         text-align: center;
     }
 
+    .leyenda{
+        font-size: 9px;
+    }
+
 </style>
 
 <body>
@@ -131,7 +135,7 @@
             <tr>
 
                 <th>
-                    <p>Número de control: {{ now()->format('Y') . '-' . $tramite->numero_control }}</p>
+                    <p>Número de control: {{ $tramite->numero_control }}</p>
                     <p>Solicitante: {{ $tramite->nombre_solicitante }}</p>
                     <p>Servicio: {{ $tramite->servicio->nombre }}
                         @if($tramite->adiciona)
@@ -167,7 +171,7 @@
 
     <div class="footer">
 
-        <p>Centros de pagos en bancos: </p>
+        <p class="leyenda">EL USUARIO ACEPTA LOS DATOS QUE SE PLASMAN EN ESTA ORDEN DE PAGO, AL MOMENTO DE REALIZAR EL PAGO, SI DESPUES DE REALIZAR DICHO PAGO SE DETECTA ALGÚN ERROR EL SOLICITANTE DEBERÁ ACLARARLO Y TENDRÁ NUEVAMENTE QUE CUBRIR EL COSTO, ESTO DE CONFORMIDAD CON LO ESTABLECIDO EN EL ARTÍCULO 15, PÁRRAFO II DE LA LEY DE FUNCIÓN REGISTRAL Y CATASTRAL DEL ESTADO DE MICHOACÁN DE OCAMPO.</p>
 
     </div>
 

@@ -39,6 +39,7 @@ class TramiteService{
         $this->tramite->orden_de_pago = $this->orden_de_pago;
         $this->tramite->linea_de_captura = $this->linea;
         $this->tramite->estado = 'pagado'; //Estado
+        $this->tramite->fecha_entrega = $this->calcularFechaEntrega();
         //$this->tramite->fecha_prelacion = now(); //Prelacion
         $this->tramite->monto = $this->calcularMonto();
         $this->tramite->creado_por = auth()->user()->id;
@@ -108,6 +109,24 @@ class TramiteService{
         }
 
         return $monto;
+
+    }
+
+    public function calcularFechaEntrega(){
+
+        if($this->tramite->tipo_servicio == 'ordinario'){
+
+            return now()->addDays(4)->toDateString();
+
+        }elseif($this->tramite->tipo_servicio == 'urgente'){
+
+            return now()->addDays(1)->toDateString();
+
+        }else{
+
+            return now()->toDateString();
+
+        }
 
     }
 

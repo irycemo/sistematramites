@@ -14,12 +14,12 @@ class ServiciosTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('servicios')->delete();
-        
+
         \DB::table('servicios')->insert(array (
-            0 => 
+            0 =>
             array (
                 'id' => 1,
                 'nombre' => 'Gravamen o libertad de gravamen hasta por 10 años',
@@ -37,7 +37,7 @@ class ServiciosTableSeeder extends Seeder
                 'created_at' => '2023-03-31 10:52:19',
                 'updated_at' => '2023-03-31 10:52:19',
             ),
-            1 => 
+            1 =>
             array (
                 'id' => 2,
                 'nombre' => 'Gravamen o libertad de gravamen de 10 hasta 20 años',
@@ -55,7 +55,7 @@ class ServiciosTableSeeder extends Seeder
                 'created_at' => '2023-03-31 10:52:19',
                 'updated_at' => '2023-03-31 10:52:19',
             ),
-            2 => 
+            2 =>
             array (
                 'id' => 3,
                 'nombre' => 'Gravamen o libertad de gravamen de más de 20 años',
@@ -73,7 +73,7 @@ class ServiciosTableSeeder extends Seeder
                 'created_at' => '2023-03-31 10:52:19',
                 'updated_at' => '2023-03-31 10:52:19',
             ),
-            3 => 
+            3 =>
             array (
                 'id' => 4,
                 'nombre' => 'Exsitencia o inexsitencia de gravamenes o anotaciones preventivas',
@@ -91,7 +91,7 @@ class ServiciosTableSeeder extends Seeder
                 'created_at' => '2023-03-31 10:52:19',
                 'updated_at' => '2023-03-31 10:52:19',
             ),
-            4 => 
+            4 =>
             array (
                 'id' => 5,
                 'nombre' => 'Propiedad o negativos de propiedad',
@@ -109,7 +109,7 @@ class ServiciosTableSeeder extends Seeder
                 'created_at' => '2023-03-31 10:52:19',
                 'updated_at' => '2023-03-31 10:52:19',
             ),
-            5 => 
+            5 =>
             array (
                 'id' => 6,
                 'nombre' => 'Propiedad con medidas y linderos',
@@ -127,7 +127,7 @@ class ServiciosTableSeeder extends Seeder
                 'created_at' => '2023-03-31 10:52:19',
                 'updated_at' => '2023-03-31 10:52:19',
             ),
-            6 => 
+            6 =>
             array (
                 'id' => 7,
                 'nombre' => 'Búsqueda de antecedente de 1 a 10',
@@ -145,7 +145,7 @@ class ServiciosTableSeeder extends Seeder
                 'created_at' => '2023-03-31 10:52:19',
                 'updated_at' => '2023-03-31 11:30:23',
             ),
-            7 => 
+            7 =>
             array (
                 'id' => 8,
                 'nombre' => 'Historía registral hasta 5 antecedentes, por cada uno adicional',
@@ -163,7 +163,7 @@ class ServiciosTableSeeder extends Seeder
                 'created_at' => '2023-03-31 10:52:19',
                 'updated_at' => '2023-03-31 10:52:19',
             ),
-            8 => 
+            8 =>
             array (
                 'id' => 9,
             'nombre' => 'Copias certificadas (por página)',
@@ -181,7 +181,7 @@ class ServiciosTableSeeder extends Seeder
                 'created_at' => '2023-03-31 10:52:19',
                 'updated_at' => '2023-03-31 10:52:19',
             ),
-            9 => 
+            9 =>
             array (
                 'id' => 10,
             'nombre' => 'Copias simples (por página)',
@@ -199,7 +199,7 @@ class ServiciosTableSeeder extends Seeder
                 'created_at' => '2023-03-31 10:52:19',
                 'updated_at' => '2023-03-31 10:52:19',
             ),
-            10 => 
+            10 =>
             array (
                 'id' => 11,
                 'nombre' => 'Reproducciones certificadas de testimonios de escrituras, hasta por 5 hojas',
@@ -217,7 +217,7 @@ class ServiciosTableSeeder extends Seeder
                 'created_at' => '2023-03-31 10:52:19',
                 'updated_at' => '2023-03-31 10:52:19',
             ),
-            11 => 
+            11 =>
             array (
                 'id' => 12,
                 'nombre' => 'Reproducciones certificadas de testimonios de escrituras por cada hoja',
@@ -235,7 +235,7 @@ class ServiciosTableSeeder extends Seeder
                 'created_at' => '2023-03-31 10:52:19',
                 'updated_at' => '2023-03-31 10:52:19',
             ),
-            12 => 
+            12 =>
             array (
                 'id' => 13,
                 'nombre' => 'Aclaraciones adminisrativas de inscripciones por cada una',
@@ -253,7 +253,7 @@ class ServiciosTableSeeder extends Seeder
                 'created_at' => '2023-03-31 10:52:19',
                 'updated_at' => '2023-03-31 10:52:19',
             ),
-            13 => 
+            13 =>
             array (
                 'id' => 14,
                 'nombre' => 'Escrituras constitutivas',
@@ -271,7 +271,7 @@ class ServiciosTableSeeder extends Seeder
                 'created_at' => '2023-03-31 10:52:19',
                 'updated_at' => '2023-03-31 10:52:19',
             ),
-            14 => 
+            14 =>
             array (
                 'id' => 15,
                 'nombre' => 'Actos de emisión de bonos y obligaciones de sociedades mercantiles',
@@ -289,7 +289,7 @@ class ServiciosTableSeeder extends Seeder
                 'created_at' => '2023-03-31 10:52:19',
                 'updated_at' => '2023-03-31 10:52:19',
             ),
-            15 => 
+            15 =>
             array (
                 'id' => 16,
                 'nombre' => 'Actas en que se haga constar aumento de capital',
@@ -307,7 +307,7 @@ class ServiciosTableSeeder extends Seeder
                 'created_at' => '2023-03-31 10:52:19',
                 'updated_at' => '2023-03-31 10:52:19',
             ),
-            16 => 
+            16 =>
             array (
                 'id' => 17,
                 'nombre' => 'Inscripción de gravámenes relativos a garantías prendiarias',
@@ -325,7 +325,7 @@ class ServiciosTableSeeder extends Seeder
                 'created_at' => '2023-03-31 10:52:19',
                 'updated_at' => '2023-03-31 10:52:19',
             ),
-            17 => 
+            17 =>
             array (
                 'id' => 18,
                 'nombre' => 'Cancelaciones de inscripciones de comercio',
@@ -343,7 +343,7 @@ class ServiciosTableSeeder extends Seeder
                 'created_at' => '2023-03-31 10:52:19',
                 'updated_at' => '2023-03-31 10:52:19',
             ),
-            18 => 
+            18 =>
             array (
                 'id' => 19,
                 'nombre' => 'Depósito de balances o inscripciones de los mismos, actas de asambleas de socios o de consejo',
@@ -361,7 +361,7 @@ class ServiciosTableSeeder extends Seeder
                 'created_at' => '2023-03-31 10:52:19',
                 'updated_at' => '2023-03-31 10:52:19',
             ),
-            19 => 
+            19 =>
             array (
                 'id' => 20,
                 'nombre' => 'Actas de disolución o liquidación de sociedades por cada una de las formas codificadas',
@@ -379,7 +379,7 @@ class ServiciosTableSeeder extends Seeder
                 'created_at' => '2023-03-31 10:52:19',
                 'updated_at' => '2023-03-31 10:52:19',
             ),
-            20 => 
+            20 =>
             array (
                 'id' => 21,
                 'nombre' => 'Poderes y sustitución de los mismos',
@@ -397,7 +397,7 @@ class ServiciosTableSeeder extends Seeder
                 'created_at' => '2023-03-31 10:52:19',
                 'updated_at' => '2023-03-31 10:52:19',
             ),
-            21 => 
+            21 =>
             array (
                 'id' => 22,
                 'nombre' => 'Sentencias sobre emancipación para ejercer el comercio, habilitación de edad, licencia de matrimonio y renovación de la misma',
@@ -415,7 +415,7 @@ class ServiciosTableSeeder extends Seeder
                 'created_at' => '2023-03-31 10:52:19',
                 'updated_at' => '2023-03-31 10:52:19',
             ),
-            22 => 
+            22 =>
             array (
                 'id' => 23,
                 'nombre' => 'Incripción y cancelación de contratos de corresponsalias',
@@ -433,7 +433,7 @@ class ServiciosTableSeeder extends Seeder
                 'created_at' => '2023-03-31 10:52:19',
                 'updated_at' => '2023-03-31 10:52:19',
             ),
-            23 => 
+            23 =>
             array (
                 'id' => 24,
                 'nombre' => 'Sentencias sobre declaraciones de quiebra o en que se admita la  liquidación judicial',
@@ -451,7 +451,7 @@ class ServiciosTableSeeder extends Seeder
                 'created_at' => '2023-03-31 10:52:19',
                 'updated_at' => '2023-03-31 10:52:19',
             ),
-            24 => 
+            24 =>
             array (
                 'id' => 25,
                 'nombre' => 'Actos autorizados por el secretario de gobierno',
@@ -469,7 +469,7 @@ class ServiciosTableSeeder extends Seeder
                 'created_at' => '2023-03-31 10:52:19',
                 'updated_at' => '2023-03-31 10:52:19',
             ),
-            25 => 
+            25 =>
             array (
                 'id' => 26,
                 'nombre' => 'Constacia o retificación de documentos y firmas',
@@ -487,7 +487,7 @@ class ServiciosTableSeeder extends Seeder
                 'created_at' => '2023-03-31 10:52:19',
                 'updated_at' => '2023-03-31 10:52:19',
             ),
-            26 => 
+            26 =>
             array (
                 'id' => 27,
                 'nombre' => 'Inscripción de otros documentos en el registro de comercio',
@@ -505,7 +505,7 @@ class ServiciosTableSeeder extends Seeder
                 'created_at' => '2023-03-31 10:52:19',
                 'updated_at' => '2023-03-31 10:52:19',
             ),
-            27 => 
+            27 =>
             array (
                 'id' => 28,
                 'nombre' => 'Por la historia de las inscripcioines de títulos de comercio, por el término que se solicite y hasta cinco antecedentes',
@@ -523,7 +523,7 @@ class ServiciosTableSeeder extends Seeder
                 'created_at' => '2023-03-31 10:52:19',
                 'updated_at' => '2023-03-31 10:52:19',
             ),
-            28 => 
+            28 =>
             array (
                 'id' => 29,
                 'nombre' => 'Inmuebles rústicos',
@@ -541,7 +541,7 @@ class ServiciosTableSeeder extends Seeder
                 'created_at' => '2023-03-31 10:52:19',
                 'updated_at' => '2023-03-31 10:52:19',
             ),
-            29 => 
+            29 =>
             array (
                 'id' => 30,
                 'nombre' => 'Inmuebles urbanos',
@@ -559,7 +559,7 @@ class ServiciosTableSeeder extends Seeder
                 'created_at' => '2023-03-31 10:52:19',
                 'updated_at' => '2023-03-31 10:52:19',
             ),
-            30 => 
+            30 =>
             array (
                 'id' => 31,
                 'nombre' => 'Habitacional sin exder $878,007.50',
@@ -577,7 +577,7 @@ class ServiciosTableSeeder extends Seeder
                 'created_at' => '2023-03-31 10:52:19',
                 'updated_at' => '2023-03-31 10:52:19',
             ),
-            31 => 
+            31 =>
             array (
                 'id' => 32,
                 'nombre' => 'Habitacional excediendo $878,007.50',
@@ -595,7 +595,7 @@ class ServiciosTableSeeder extends Seeder
                 'created_at' => '2023-03-31 10:52:19',
                 'updated_at' => '2023-03-31 10:52:19',
             ),
-            32 => 
+            32 =>
             array (
                 'id' => 33,
                 'nombre' => 'Fusión de predios',
@@ -613,7 +613,7 @@ class ServiciosTableSeeder extends Seeder
                 'created_at' => '2023-03-31 10:52:19',
                 'updated_at' => '2023-03-31 10:52:19',
             ),
-            33 => 
+            33 =>
             array (
                 'id' => 34,
                 'nombre' => 'Servidumbres',
@@ -631,7 +631,7 @@ class ServiciosTableSeeder extends Seeder
                 'created_at' => '2023-03-31 10:52:19',
                 'updated_at' => '2023-03-31 10:52:19',
             ),
-            34 => 
+            34 =>
             array (
                 'id' => 35,
                 'nombre' => 'Plano habitacional recidencial',
@@ -649,7 +649,7 @@ class ServiciosTableSeeder extends Seeder
                 'created_at' => '2023-03-31 10:52:19',
                 'updated_at' => '2023-03-31 10:52:19',
             ),
-            35 => 
+            35 =>
             array (
                 'id' => 36,
                 'nombre' => 'Plano habitacional tipo medio',
@@ -667,7 +667,7 @@ class ServiciosTableSeeder extends Seeder
                 'created_at' => '2023-03-31 10:52:19',
                 'updated_at' => '2023-03-31 10:52:19',
             ),
-            36 => 
+            36 =>
             array (
                 'id' => 37,
                 'nombre' => 'Plano habitacional popular',
@@ -685,7 +685,7 @@ class ServiciosTableSeeder extends Seeder
                 'created_at' => '2023-03-31 10:52:19',
                 'updated_at' => '2023-03-31 10:52:19',
             ),
-            37 => 
+            37 =>
             array (
                 'id' => 38,
                 'nombre' => 'Plano habitacional campestre',
@@ -703,7 +703,7 @@ class ServiciosTableSeeder extends Seeder
                 'created_at' => '2023-03-31 10:52:19',
                 'updated_at' => '2023-03-31 10:52:19',
             ),
-            38 => 
+            38 =>
             array (
                 'id' => 39,
                 'nombre' => 'Plano habitacional rústico',
@@ -721,7 +721,7 @@ class ServiciosTableSeeder extends Seeder
                 'created_at' => '2023-03-31 10:52:19',
                 'updated_at' => '2023-03-31 10:52:19',
             ),
-            39 => 
+            39 =>
             array (
                 'id' => 40,
                 'nombre' => 'Plano industrial y comercial',
@@ -739,7 +739,7 @@ class ServiciosTableSeeder extends Seeder
                 'created_at' => '2023-03-31 10:52:19',
                 'updated_at' => '2023-03-31 10:52:19',
             ),
-            40 => 
+            40 =>
             array (
                 'id' => 41,
                 'nombre' => 'Propiedad en condominio habitacional',
@@ -757,7 +757,7 @@ class ServiciosTableSeeder extends Seeder
                 'created_at' => '2023-03-31 10:52:19',
                 'updated_at' => '2023-03-31 10:52:19',
             ),
-            41 => 
+            41 =>
             array (
                 'id' => 42,
                 'nombre' => 'Propiedad en condominio habitacional - local comercial',
@@ -775,7 +775,7 @@ class ServiciosTableSeeder extends Seeder
                 'created_at' => '2023-03-31 10:52:19',
                 'updated_at' => '2023-03-31 10:52:19',
             ),
-            42 => 
+            42 =>
             array (
                 'id' => 43,
                 'nombre' => 'Subdivisiones',
@@ -793,7 +793,7 @@ class ServiciosTableSeeder extends Seeder
                 'created_at' => '2023-03-31 10:52:19',
                 'updated_at' => '2023-03-31 10:52:19',
             ),
-            43 => 
+            43 =>
             array (
                 'id' => 44,
                 'nombre' => 'Ratificación de documentos y firmas ante RPP',
@@ -811,7 +811,7 @@ class ServiciosTableSeeder extends Seeder
                 'created_at' => '2023-03-31 10:52:19',
                 'updated_at' => '2023-03-31 10:52:19',
             ),
-            44 => 
+            44 =>
             array (
                 'id' => 45,
                 'nombre' => 'Cuando se aporten bienes inmuebles',
@@ -829,7 +829,7 @@ class ServiciosTableSeeder extends Seeder
                 'created_at' => '2023-03-31 10:52:19',
                 'updated_at' => '2023-03-31 10:52:19',
             ),
-            45 => 
+            45 =>
             array (
                 'id' => 46,
                 'nombre' => 'Cuando se aporten bienes distintos',
@@ -847,7 +847,7 @@ class ServiciosTableSeeder extends Seeder
                 'created_at' => '2023-03-31 10:52:19',
                 'updated_at' => '2023-03-31 10:52:19',
             ),
-            46 => 
+            46 =>
             array (
                 'id' => 47,
                 'nombre' => 'Documentos relativos a grvámenes de bienes inmuebles',
@@ -865,7 +865,7 @@ class ServiciosTableSeeder extends Seeder
                 'created_at' => '2023-03-31 10:52:19',
                 'updated_at' => '2023-03-31 10:52:19',
             ),
-            47 => 
+            47 =>
             array (
                 'id' => 48,
                 'nombre' => 'Cesión de derechos litigosos de crédito',
@@ -883,7 +883,7 @@ class ServiciosTableSeeder extends Seeder
                 'created_at' => '2023-03-31 10:52:19',
                 'updated_at' => '2023-03-31 10:52:19',
             ),
-            48 => 
+            48 =>
             array (
                 'id' => 49,
                 'nombre' => 'División de hipoteca',
@@ -901,7 +901,7 @@ class ServiciosTableSeeder extends Seeder
                 'created_at' => '2023-03-31 10:52:19',
                 'updated_at' => '2023-03-31 10:52:19',
             ),
-            49 => 
+            49 =>
             array (
                 'id' => 50,
                 'nombre' => 'Reestructura de créditos o convenios modificatorios',
@@ -919,7 +919,7 @@ class ServiciosTableSeeder extends Seeder
                 'created_at' => '2023-03-31 10:52:19',
                 'updated_at' => '2023-03-31 10:52:19',
             ),
-            50 => 
+            50 =>
             array (
                 'id' => 51,
                 'nombre' => 'Convenio modificatorio donde se reforme cualquier claúsula del contrato',
@@ -937,7 +937,7 @@ class ServiciosTableSeeder extends Seeder
                 'created_at' => '2023-03-31 10:52:19',
                 'updated_at' => '2023-03-31 10:52:19',
             ),
-            51 => 
+            51 =>
             array (
                 'id' => 52,
                 'nombre' => 'Créditos para la adquisición de vivienda de interés social',
@@ -955,7 +955,7 @@ class ServiciosTableSeeder extends Seeder
                 'created_at' => '2023-03-31 10:52:19',
                 'updated_at' => '2023-03-31 10:52:19',
             ),
-            52 => 
+            52 =>
             array (
                 'id' => 53,
                 'nombre' => 'Créditos para la adquisición de vivienda popular',
@@ -973,7 +973,7 @@ class ServiciosTableSeeder extends Seeder
                 'created_at' => '2023-03-31 10:52:19',
                 'updated_at' => '2023-03-31 10:52:19',
             ),
-            53 => 
+            53 =>
             array (
                 'id' => 54,
                 'nombre' => 'Cancelación de documentos relativos a gravámenes de bienes inmuebles',
@@ -991,7 +991,7 @@ class ServiciosTableSeeder extends Seeder
                 'created_at' => '2023-03-31 10:52:19',
                 'updated_at' => '2023-03-31 10:52:19',
             ),
-            54 => 
+            54 =>
             array (
                 'id' => 55,
                 'nombre' => 'Cancelación de cesión de derechos litigosos de crédito',
@@ -1009,7 +1009,7 @@ class ServiciosTableSeeder extends Seeder
                 'created_at' => '2023-03-31 10:52:19',
                 'updated_at' => '2023-03-31 10:52:19',
             ),
-            55 => 
+            55 =>
             array (
                 'id' => 56,
                 'nombre' => 'Cancelación de grávamen de división de hipoteca',
@@ -1027,7 +1027,7 @@ class ServiciosTableSeeder extends Seeder
                 'created_at' => '2023-03-31 10:52:19',
                 'updated_at' => '2023-03-31 10:52:19',
             ),
-            56 => 
+            56 =>
             array (
                 'id' => 57,
                 'nombre' => 'Cancelación de reestructura de créditos garantizados con bienes inmuebles, o convenios modificatorios a los contratos de crédito',
@@ -1045,7 +1045,7 @@ class ServiciosTableSeeder extends Seeder
                 'created_at' => '2023-03-31 10:52:19',
                 'updated_at' => '2023-03-31 10:52:19',
             ),
-            57 => 
+            57 =>
             array (
                 'id' => 58,
                 'nombre' => 'Cancelación de convenio modificatorio donde se reforme cualquier claúsula del contrato',
@@ -1063,7 +1063,7 @@ class ServiciosTableSeeder extends Seeder
                 'created_at' => '2023-03-31 10:52:19',
                 'updated_at' => '2023-03-31 10:52:19',
             ),
-            58 => 
+            58 =>
             array (
                 'id' => 59,
                 'nombre' => 'Cancelación de créditos para la adquisición de vivienda de interés social',
@@ -1081,7 +1081,7 @@ class ServiciosTableSeeder extends Seeder
                 'created_at' => '2023-03-31 10:52:19',
                 'updated_at' => '2023-03-31 10:52:19',
             ),
-            59 => 
+            59 =>
             array (
                 'id' => 60,
                 'nombre' => 'Cancelación de créditos para la adquisición de vivienda popular',
@@ -1099,7 +1099,7 @@ class ServiciosTableSeeder extends Seeder
                 'created_at' => '2023-03-31 10:52:19',
                 'updated_at' => '2023-03-31 10:52:19',
             ),
-            60 => 
+            60 =>
             array (
                 'id' => 61,
                 'nombre' => 'Por la inscripción de varios',
@@ -1117,7 +1117,7 @@ class ServiciosTableSeeder extends Seeder
                 'created_at' => '2023-03-31 10:52:19',
                 'updated_at' => '2023-03-31 10:52:19',
             ),
-            61 => 
+            61 =>
             array (
                 'id' => 62,
                 'nombre' => 'Testimonios notariales, y los avisos preventivos',
@@ -1135,8 +1135,26 @@ class ServiciosTableSeeder extends Seeder
                 'created_at' => '2023-03-31 10:52:19',
                 'updated_at' => '2023-03-31 10:52:19',
             ),
+            62 =>
+            array (
+                'id' => 63,
+                'nombre' => 'Cuando se trate de uno o hasta cinco tomos o libros índice',
+                'tipo' => 'uma',
+                'estado' => 'activo',
+                'umas' => '1',
+                'ordinario' => '104.00',
+                'urgente' => null,
+                'extra_urgente' => null,
+                'operacion_principal' => '2403',
+                'operacion_parcial' => '1765',
+                'categoria_servicio_id' => 1,
+                'creado_por' => NULL,
+                'actualizado_por' => NULL,
+                'created_at' => '2023-03-31 10:52:19',
+                'updated_at' => '2023-03-31 10:52:19',
+            ),
         ));
-        
-        
+
+
     }
 }

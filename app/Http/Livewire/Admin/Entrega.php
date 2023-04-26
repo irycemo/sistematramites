@@ -14,10 +14,17 @@ class Entrega extends Component
     use WithPagination;
     use ComponentesTrait;
 
-    public Tramite $modelo_editar;
-
+    public $solicitantes;
+    public $secciones;
+    public $categorias;
+    public $categoria_servicio;
+    public $servicios;
+    public $servicio;
+    public $adicionaTramite;
     public $modalRecibir = false;
     public $modalFinalizar = false;
+
+    public Tramite $modelo_editar;
 
     public function crearModeloVacio(){
         return Tramite::make();
@@ -32,28 +39,41 @@ class Entrega extends Component
 
     public function recibir(){
 
-        $this->modelo_editar->recibido_por = auth()->user()->id;
+        try {
 
-        $this->modelo_editar->save();
+            $this->modelo_editar->estado = 'recibido';
+            $this->modelo_editar->recibido_por = auth()->user()->id;
+            $this->modelo_editar->actualizado_por = auth()->user()->id;
 
-        $this->resetearTodo();
+            $this->modelo_editar->save();
+
+            $this->resetearTodo();
+
+        } catch (\Throwable $th) {
+
+            Log::error("Error al recibir documentación por el usuario: (id: " . auth()->user()->id . ") " . auth()->user()->name . ". " . $th->getMessage());
+            $this->dispatchBrowserEvent('mostrarMensaje', ['error', "Ha ocurrido un error."]);
+            $this->resetearTodo();
+
+        }
 
     }
 
     public function abrirModalFinalizar(Tramite $modelo){
+
         $this->modalFinalizar = true;
 
         if($this->modelo_editar->isNot($modelo))
             $this->modelo_editar = $modelo;
-    }
 
+    }
 
     public function finalizar(){
 
         try{
 
             $this->modelo_editar->estado = 'finalizado';
-
+            $this->modelo_editar->actualizado_por = auth()->user()->id;
             $this->modelo_editar->save();
 
             $this->resetearTodo();
@@ -82,7 +102,7 @@ class Entrega extends Component
     {
 
         $tramites = Tramite::with('creadoPor', 'actualizadoPor', 'adicionaAlTramite', 'servicio', 'files', 'recibidoPor')
-                                ->where('estado', 'concluido')
+                                ->whereIn('estado', ['concluido', 'recibido'])
                                 ->where(function ($q){
                                     return $q->where('solicitante', 'LIKE', '%' . $this->search . '%')
                                                 ->orWhere('nombre_solicitante', 'LIKE', '%' . $this->search . '%')
@@ -109,5 +129,6 @@ class Entrega extends Component
                                 ->paginate($this->pagination);
 
         return view('livewire.admin.entrega', compact('tramites'))->extends('layouts.admin');
+
     }
 }

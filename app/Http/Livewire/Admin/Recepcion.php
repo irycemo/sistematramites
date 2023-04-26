@@ -21,27 +21,26 @@ class Recepcion extends Component
     public $documento;
     public $documentos = [];
 
+    public Tramite $modelo_editar;
+
     protected function rules(){
         return [
             'documento' => 'nullable|mimes:pdf',
         ];
     }
 
-    public function resetearTodo(){
+    public function crearModeloVacio(){
+        return Tramite::make();
+    }
+
+    public function abrirModalEditar(Tramite $modelo){
 
         $this->dispatchBrowserEvent('removeFiles');
 
-        $this->reset(['modalBorrar', 'crear', 'editar', 'modal', 'documento']);
-        $this->resetErrorBag();
-        $this->resetValidation();
-    }
-
-    public function abrirModalEditar($tramite){
-
         $this->resetearTodo();
 
-        $this->selected_id = $tramite['id'];
-        $this->documentos = $tramite['files'];
+        $this->selected_id = $modelo['id'];
+        $this->documentos = $modelo['files'];
 
         $this->modal = true;
         $this->editar = true;
@@ -74,6 +73,8 @@ class Recepcion extends Component
                 $this->dispatchBrowserEvent('mostrarMensaje', ['success', "Se actualizó la información con éxito."]);
 
                 $this->resetearTodo();
+
+                $this->dispatchBrowserEvent('removeFiles');
 
             });
 

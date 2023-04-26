@@ -27,6 +27,7 @@ class Tramites extends Component
     public $servicios;
     public $servicio;
     public $adicionaTramite;
+    public $distritos;
 
     public Tramite $modelo_editar;
 
@@ -102,7 +103,8 @@ class Tramites extends Component
         'modelo_editar.valor_propiedad' => 'valor de la propiedad',
         'modelo_editar.registro_gravamen' => 'registro gravamen',
         'modelo_editar.tomo_gravamen' => 'tomo gravamen',
-        'modelo_editar.numero_oficio' => 'número de oficio'
+        'modelo_editar.numero_oficio' => 'número de oficio',
+        'modelo_editar.seccion' => 'sección'
     ];
 
     public function crearModeloVacio(){
@@ -142,7 +144,15 @@ class Tramites extends Component
 
         $this->modelo_editar->id_servicio = $this->servicio->id;
 
-        $tramiteContext = new TramitesContext($this->servicio->nombre);
+        if($this->servicio->categoria->nombre == 'Comercio'){
+
+            $tramiteContext = new TramitesContext('Comercio');
+
+        }else{
+
+            $tramiteContext = new TramitesContext($this->servicio->nombre);
+
+        }
 
         $this->flags = $tramiteContext->cambiarFlags();
 
@@ -150,7 +160,7 @@ class Tramites extends Component
 
     public function updatedModeloEditarSolicitante(){
 
-        if($this->modelo_editar->solicitante == 'Ventanilla'){
+        if($this->modelo_editar->solicitante == 'Usuario / Notaría'){
 
             $this->flags['flag_nombre_solicitante'] = true;
             $this->modelo_editar->nombre_solicitante = null;
@@ -188,13 +198,11 @@ class Tramites extends Component
 
         if($this->modelo_editar->tipo_servicio == 'Ordinario'){
 
-            $this->modelo_editar->fecha_entrega = $this->calcularFecha(4);
             $this->modelo_editar->monto = Servicio::find($this->modelo_editar->id_servicio)->ordinario;
 
         }
         elseif($this->modelo_editar->tipo_servicio == 'Urgente'){
 
-            $this->modelo_editar->fecha_entrega = $this->calcularFecha(1);
             $this->modelo_editar->monto = Servicio::find($this->modelo_editar->id_servicio)->urgente;
 
             if($this->modelo_editar->monto == 0){
@@ -207,7 +215,6 @@ class Tramites extends Component
         }
         elseif($this->modelo_editar->tipo_servicio == 'Extra Urgente'){
 
-            $this->modelo_editar->fecha_entrega = now()->format('Y-m-d');
             $this->modelo_editar->monto = Servicio::find($this->modelo_editar->id_servicio)->extra_urgente;
 
             if($this->modelo_editar->monto == 0){
@@ -256,13 +263,23 @@ class Tramites extends Component
 
     public function crear(){
 
-        $this->validate();
+        if($this->servicio->categoria->nombre == 'Comercio'){
+
+            $context = new TramitesContext('Comercio');
+
+        }else{
+
+            $context = new TramitesContext($this->servicio->nombre);
+
+        }
+
+        $this->validate(array_merge($this->rules(), $context->validaciones()));
 
         try {
 
-            DB::transaction(function () {
+            DB::transaction(function () use ($context){
 
-                $tramite = (new TramitesContext($this->servicio->nombre))->crearTramite($this->modelo_editar);
+                $tramite = $context->crearTramite($this->modelo_editar);
 
                 $this->resetearTodo();
 
@@ -275,6 +292,7 @@ class Tramites extends Component
         });
 
         } catch (\Throwable $th) {
+            dd($th);
             Log::error("Error al crear trámite por el usuario: (id: " . auth()->user()->id . ") " . auth()->user()->name . ". " . $th->getMessage());
             $this->dispatchBrowserEvent('mostrarMensaje', ['error', "Ha ocurrido un error."]);
             $this->resetearTodo();
@@ -284,7 +302,9 @@ class Tramites extends Component
 
     public function actualizar(){
 
-        $this->validate();
+        $context = new TramitesContext($this->servicio->nombre);
+
+        $this->validate(array_merge($this->rules(), $context->validaciones()));
 
         try{
 
@@ -334,6 +354,8 @@ class Tramites extends Component
         $this->solicitantes = Constantes::SOLICITANTES;
 
         $this->secciones = Constantes::SECCIONES;
+
+        $this->distritos = Constantes::DISTRITOS;
 
     }
 

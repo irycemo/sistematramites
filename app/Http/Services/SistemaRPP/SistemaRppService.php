@@ -11,7 +11,7 @@ class SistemaRppService{
 
     public function insertarSistemaRpp($tramite){
 
-        $url = 'http://127.0.0.1:8000/api/movimiento_registral';
+        $url = env('SISTEMA_RPP_SERVICE_INSERT');
 
         $response = Http::accept('application/json')->asForm()->post($url,[
             'monto' => $tramite->monto,
@@ -21,7 +21,7 @@ class SistemaRppService{
             'tipo_servicio' => $tramite->tipo_servicio,
             'seccion' => $tramite->seccion,
             'distrito' => $tramite->distrito,
-            'fecha_entrega' => now()->toDateString(), //fecha de entrega
+            'fecha_entrega' => $tramite->fecha_entrega,
             'categoria_servicio' => $tramite->servicio->categoria->nombre,
             'servicio' => $tramite->servicio->nombre,
             'numero_oficio' => $tramite->numero_oficio,
@@ -52,6 +52,9 @@ class SistemaRppService{
 
             $tramite->update(['movimiento_registral' => $data['data']['id']]);
 
+            if($tramite->adicionaAlTramite)
+                $tramite->adicionaAlTramite->update(['movimiento_registral' => $data['data']['id']]);
+
         }else{
 
             throw new ErrorAlEnviarTramiteSistemaRppException("Error al enviar tramite pagado al sistema rpp."  . $response);
@@ -62,7 +65,7 @@ class SistemaRppService{
 
     public function actualizarSistemaRpp($tramite){
 
-        $url = 'http://127.0.0.1:8000/api/actualizar_registral';
+        $url = env('SISTEMA_RPP_SERVICE_UPDATE');
 
         $response = Http::accept('application/json')->asForm()->post($url,[
             'monto' => $tramite->monto,
@@ -72,7 +75,7 @@ class SistemaRppService{
             'tipo_servicio' => $tramite->tipo_servicio,
             'seccion' => $tramite->seccion,
             'distrito' => $tramite->distrito,
-            'fecha_entrega' => now()->toDateString(), //fecha de entrega
+            'fecha_entrega' => $tramite->fecha_entrega,
             'categoria_servicio' => $tramite->servicio->categoria->nombre,
             'servicio' => $tramite->servicio->nombre,
             'numero_oficio' => $tramite->numero_oficio,
@@ -103,6 +106,9 @@ class SistemaRppService{
             }
 
             $tramite->update(['movimiento_registral' => $data['data']['id']]);
+
+            if($tramite->adicionaAlTramite)
+                $tramite->adicionaAlTramite->update(['movimiento_registral' => $data['data']['id']]);
 
         }else{
 

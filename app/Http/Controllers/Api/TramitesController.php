@@ -13,8 +13,12 @@ class TramitesController extends Controller
 
         try {
 
-            $tramite = Tramite::where('numero_control', $request->validated())
-                                ->update(['estado' => 'concluido']);
+            $tramite = Tramite::where('numero_control', $request->validated())->firstOrFail();
+
+            $tramite->update(['estado' => 'concluido']);
+
+            if($tramite->adicionaAlTramite)
+                $tramite->adicionaAlTramite->update(['estado' => 'concluido']);
 
             return response()->json([
                 'result' => 'success',
@@ -36,11 +40,15 @@ class TramitesController extends Controller
 
         try {
 
-            $tramite = Tramite::where('numero_control', $request->tramite)
-                                ->update([
-                                    'estado' => 'rechazado',
-                                    'observaciones' => $request->observaciones
-                                ]);
+            $tramite = Tramite::where('numero_control', $request->tramite)->firstOrFail();
+
+            $tramite->update([
+                        'estado' => 'rechazado',
+                        'observaciones' => $request->observaciones
+                    ]);
+
+            if($tramite->adicionaAlTramite)
+                $tramite->adicionaAlTramite->update(['estado' => 'rechazado']);
 
             return response()->json([
                 'result' => 'success',

@@ -4,6 +4,7 @@ use App\Http\Livewire\Admin\Umas;
 use App\Http\Livewire\Admin\Roles;
 use App\Http\Livewire\Admin\Entrada;
 use App\Http\Livewire\Admin\Entrega;
+use App\Http\Livewire\Admin\Consulta;
 use App\Http\Livewire\Admin\Permisos;
 use App\Http\Livewire\Admin\Tramites;
 use App\Http\Livewire\Admin\Usuarios;
@@ -12,7 +13,6 @@ use App\Http\Livewire\Admin\Auditoria;
 use App\Http\Livewire\Admin\Recepcion;
 use App\Http\Livewire\Admin\Servicios;
 use App\Http\Controllers\ManualController;
-use App\Http\Controllers\ServiciosController;
 use App\Http\Controllers\TramitesController;
 use App\Http\Controllers\SetPasswordController;
 use App\Http\Livewire\Admin\CategoriasServicios;
@@ -67,6 +67,8 @@ Route::group(['middleware' => ['auth', 'esta.activo']], function(){
     Route::get('entrega', Entrega::class)->middleware('permission:Entrega')->name('entrega');
 
     Route::get('auditoria', Auditoria::class)->middleware('permission:Auditoria')->name('auditoria');
+
+    Route::get('consulta', Consulta::class)->middleware('permission:Consultas')->name('consulta');
 
 });
 

@@ -2,24 +2,24 @@
 
 namespace App\Http\Services\Tramites\TramitesStrategies;
 
-use App\Exceptions\TramiteNoRegistradoException;
 use App\Models\Tramite;
+use App\Http\Services\Tramites\TramiteService;
 use App\Http\Services\Tramites\TramitesStrategyInterface;
 
-class Reset implements TramitesStrategyInterface{
+class Comercio implements TramitesStrategyInterface{
 
     public function cambiarFlags():array
     {
 
         return  [
-            'flag_seccion' => false,
+            'flag_seccion' => true,
             'flag_numero_oficio' => false,
             'flag_nombre_solicitante' => false,
             'flag_tomo' => false,
             'flag_folio_real' => false,
             'flag_registro' => false,
             'flag_numero_propiedad' => false,
-            'flag_distrito' => false,
+            'flag_distrito' => true,
             'flag_numero_inmuebles' => false,
             'flag_numero_escritura' => false,
             'flag_numero_notaria' => false,
@@ -35,7 +35,7 @@ class Reset implements TramitesStrategyInterface{
     public function crearTramite(Tramite $tramite):Tramite
     {
 
-        throw new TramiteNoRegistradoException('El trámite no esta registrado en TramitesContexto. ' . 'Servicio id: ' . $tramite->id_servicio);
+        $tramite = (new TramiteService($tramite))->crear();
 
         return $tramite;
 
@@ -43,7 +43,11 @@ class Reset implements TramitesStrategyInterface{
 
     public function validaciones(){
 
-        return [];
+        return [
+            'modelo_editar.seccion' => 'required',
+            'modelo_editar.distrito' => 'required',
+            'modelo_editar.nombre_solicitante' => 'required',
+        ];
 
     }
 

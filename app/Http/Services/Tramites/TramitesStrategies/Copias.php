@@ -20,7 +20,7 @@ class Copias implements TramitesStrategyInterface{
             'flag_numero_oficio' => false,
             'flag_nombre_solicitante' => false,
             'flag_tomo' => true,
-            'flag_folio_real' => false,
+            'flag_folio_real' => true,
             'flag_registro' => true,
             'flag_numero_propiedad' => false,
             'flag_distrito' => true,
@@ -32,6 +32,19 @@ class Copias implements TramitesStrategyInterface{
             'flag_registro_gravamen' => false,
             'flag_numero_paginas' => true,
             'flag_valor_propiedad' => false,
+        ];
+
+    }
+
+    public function validaciones(){
+
+        return [
+            'modelo_editar.seccion' => 'required',
+            'modelo_editar.tomo' => 'required_without:folio_real',
+            'modelo_editar.registro' => 'required_without:folio_real',
+            'modelo_editar.distrito' => 'required',
+            'modelo_editar.numero_paginas' => 'required',
+            'modelo_editar.nombre_solicitante' => 'required'
         ];
 
     }
@@ -77,7 +90,7 @@ class Copias implements TramitesStrategyInterface{
     public function crearTramiteConsulta(Tramite $tramite):Tramite
     {
 
-        $servicio = Servicio::where('nombre', 'Búsqueda de antecedente de 1 a 10')->first();
+        $servicio = Servicio::where('nombre', 'Cuando se trate de uno o hasta cinco tomos o libros índice')->first();
 
         if(!$servicio){
 

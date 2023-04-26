@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Carbon\Carbon;
 use App\Http\Traits\ModelosTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -29,9 +28,9 @@ class Tramite extends Model implements Auditable
             'concluido' => 'gray-400',
             'rechazado' => 'red-400',
             'expirado' => 'red-400',
-            'Procesando' => 'orange-300',
-            'revission' => 'orange-300',
-            'recibido' => 'blue-400',
+            'procesando' => 'emerald-400',
+            'revision' => 'orange-400',
+            'recibido' => 'yellow-400',
             'finalizado' => 'gray-800',
         ][$this->estado] ?? 'gray-400';
     }

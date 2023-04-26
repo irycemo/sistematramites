@@ -430,7 +430,13 @@
 
                                 <span class="lg:hidden absolute top-0 left-0 bg-blue-300 px-2 py-1 text-xs text-white font-bold uppercase rounded-br-xl">Número de control</span>
 
-                                {{ date("Y") }}-{{ $tramite->numero_control }}
+                                {{ $tramite->numero_control }}
+
+                                @if($tramite->adiciona)
+
+                                    {{ $tramite->adicionaAlTramite->numero_control }}
+
+                                @endif
 
                             </td>
 
@@ -894,7 +900,7 @@
 
                                     <div>
 
-                                        <input type="text" class="bg-white rounded text-sm w-full" wire:model.defer="modelo_editar.tomo">
+                                        <input type="number" class="bg-white rounded text-sm w-full" wire:model.defer="modelo_editar.tomo">
 
                                     </div>
 
@@ -946,7 +952,7 @@
 
                                     <div>
 
-                                        <input type="text" class="bg-white rounded text-sm w-full" wire:model.defer="modelo_editar.registro">
+                                        <input type="number" class="bg-white rounded text-sm w-full" wire:model.defer="modelo_editar.registro">
 
                                     </div>
 
@@ -998,25 +1004,12 @@
                                     <select class="bg-white rounded text-sm w-full" wire:model.defer="modelo_editar.distrito">
 
                                         <option value="" selected>Seleccione una opción</option>
-                                        <option value="1" selected>1</option>
-                                        <option value="2" selected>2</option>
-                                        <option value="3" selected>3</option>
-                                        <option value="4" selected>4</option>
-                                        <option value="5" selected>5</option>
-                                        <option value="6" selected>6</option>
-                                        <option value="7" selected>7</option>
-                                        <option value="8" selected>8</option>
-                                        <option value="9" selected>9</option>
-                                        <option value="10" selected>10</option>
-                                        <option value="11" selected>11</option>
-                                        <option value="12" selected>12</option>
-                                        <option value="13" selected>13</option>
-                                        <option value="14" selected>14</option>
-                                        <option value="15" selected>15</option>
-                                        <option value="16" selected>16</option>
-                                        <option value="17" selected>17</option>
-                                        <option value="18" selected>18</option>
-                                        <option value="19" selected>19</option>
+
+                                        @foreach ($distritos as $key => $item)
+
+                                            <option value="{{ $key }}">{{ $item }}</option>
+
+                                        @endforeach
 
                                     </select>
 

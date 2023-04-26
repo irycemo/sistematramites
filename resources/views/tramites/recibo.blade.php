@@ -66,7 +66,7 @@
 
             <p class="title">CALIFICACIÓN DE INSCRIPCIONES</p>
             <p>Fecha: {{Carbon\Carbon::now()->format('d-m-Y')}}</p>
-            <p>Trámite: {{ now()->format('Y') . '-' .$tramite->numero_control }}</p>
+            <p>No. Control: {{ $tramite->numero_control }}</p>
             <p>Solicitante: {{ $tramite->nombre_solicitante }}</p>
             <p>Servicio: {{ $tramite->servicio->nombre }}
                 @if($tramite->adiciona)

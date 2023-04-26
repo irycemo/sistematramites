@@ -13,7 +13,8 @@ class Constantes{
         'Entrega',
         'Entrada',
         'Umas',
-        'Auditoría'
+        'Auditoría',
+        'Consultas'
     ];
 
     const AREAS_ADSCRIPCION = [
@@ -63,8 +64,7 @@ class Constantes{
     const SOLICITANTES = [
         'Oficialia de partes',
         'SAT',
-        /* 'Juzgado', */
-        'Ventanilla',
+        'Usuario / Notaría',
         'Pensiones'
     ];
 
@@ -74,6 +74,28 @@ class Constantes{
         'Sentencias',
         'Varios',
         'Cancelaciones	'
+    ];
+
+    const DISTRITOS = [
+        1 => '01 Morelia',
+        2 => '02 Uruapan',
+        3 => '03 Zamora',
+        4 => '04 Apatzingán',
+        5 => '05 Hidalgo',
+        6 => '06 Tacámbaro',
+        7 => '07 Páztcuaro',
+        8 => '08 Zitácuaro',
+        9 => '09 Jiquilpan',
+        10 => '10 Zinapécuaro',
+        11 => '11 Zacapu',
+        12 => '12 La Piedad',
+        13 => '13 Huetamo',
+        14 => '14 Maravatío',
+        15 => '15 Salazar',
+        16 => '16 Puruániro',
+        17 => '17 Coalcoman',
+        18 => '18 Ario De Rosales',
+        19 => '19 Tanhuato'
     ];
 
 }
