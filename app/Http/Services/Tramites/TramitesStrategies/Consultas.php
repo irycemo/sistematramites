@@ -3,7 +3,6 @@
 namespace App\Http\Services\Tramites\TramitesStrategies;
 
 use App\Models\Tramite;
-use Illuminate\Support\Facades\Log;
 use App\Http\Services\Tramites\TramiteService;
 use App\Http\Services\Tramites\TramitesStrategyInterface;
 

@@ -5,7 +5,7 @@ namespace App\Http\Services\Tramites\TramitesStrategies;
 use App\Models\Tramite;
 use App\Models\Servicio;
 use App\Http\Services\Tramites\TramiteService;
-use App\Http\Services\SistemaRpp\SistemaRppService;
+use App\Http\Services\SistemaRPP\SistemaRppService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Services\Tramites\TramitesStrategyInterface;
 
