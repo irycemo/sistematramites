@@ -31,6 +31,7 @@ class Copias implements TramitesStrategyInterface{
             'flag_registro_gravamen' => false,
             'flag_numero_paginas' => true,
             'flag_valor_propiedad' => false,
+            'flag_dependencias' => false,
         ];
 
     }

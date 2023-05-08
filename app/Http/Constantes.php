@@ -14,7 +14,8 @@ class Constantes{
         'Entrada',
         'Umas',
         'Auditoría',
-        'Consultas'
+        'Consultas',
+        'Dependencias'
     ];
 
     const AREAS_ADSCRIPCION = [
@@ -64,8 +65,9 @@ class Constantes{
     const SOLICITANTES = [
         'Oficialia de partes',
         'SAT',
-        'Usuario / Notaría',
-        'Pensiones'
+        'Usuario',
+        'Notaría',
+        'S.T.A.S.P.E.'
     ];
 
     const SECCIONES = [

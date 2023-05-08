@@ -39,6 +39,7 @@ return new class extends Migration
             $table->string("numero_propiedad")->nullable();
             $table->string("numero_escritura")->nullable();
             $table->string("numero_notaria")->nullable();
+            $table->string("nombre_notario")->nullable();
             $table->string("valor_propiedad")->nullable();
             $table->boolean("foraneo")->default(false)->nullable();
             $table->foreignId('adiciona')->nullable()->references('id')->on('tramites');

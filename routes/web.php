@@ -5,6 +5,7 @@ use App\Http\Livewire\Admin\Roles;
 use App\Http\Livewire\Admin\Entrada;
 use App\Http\Livewire\Admin\Entrega;
 use App\Http\Livewire\Admin\Consulta;
+use App\Http\Livewire\Admin\Notarias;
 use App\Http\Livewire\Admin\Permisos;
 use App\Http\Livewire\Admin\Tramites;
 use App\Http\Livewire\Admin\Usuarios;
@@ -12,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Admin\Auditoria;
 use App\Http\Livewire\Admin\Recepcion;
 use App\Http\Livewire\Admin\Servicios;
+use App\Http\Livewire\Admin\Dependencias;
 use App\Http\Controllers\ManualController;
 use App\Http\Controllers\TramitesController;
 use App\Http\Controllers\SetPasswordController;
@@ -69,6 +71,10 @@ Route::group(['middleware' => ['auth', 'esta.activo']], function(){
     Route::get('auditoria', Auditoria::class)->middleware('permission:Auditoria')->name('auditoria');
 
     Route::get('consulta', Consulta::class)->middleware('permission:Consultas')->name('consulta');
+
+    Route::get('dependencias', Dependencias::class)->middleware('permission:Lista de dependencias')->name('dependencias');
+
+    Route::get('notarias', Notarias::class)->middleware('permission:Lista de notarias')->name('notarias');
 
 });
 

@@ -136,6 +136,66 @@
 
                         </th>
 
+                        <th wire:click="order('material')" class="cursor-pointer px-3 py-3 hidden lg:table-cell">
+
+                            Material
+
+                            @if($sort == 'material')
+
+                                @if($direction == 'asc')
+
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 float-right" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4" />
+                                    </svg>
+
+                                @else
+
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 float-right" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" />
+                                    </svg>
+
+                                @endif
+
+                            @else
+
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 float-right" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
+                                </svg>
+
+                            @endif
+
+                        </th>
+
+                        <th wire:click="order('clave_ingreso')" class="cursor-pointer px-3 py-3 hidden lg:table-cell">
+
+                            Clave de ingreso
+
+                            @if($sort == 'clave_ingreso')
+
+                                @if($direction == 'asc')
+
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 float-right" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4" />
+                                    </svg>
+
+                                @else
+
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 float-right" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" />
+                                    </svg>
+
+                                @endif
+
+                            @else
+
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 float-right" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
+                                </svg>
+
+                            @endif
+
+                        </th>
+
                         <th wire:click="order('umas')" class="cursor-pointer px-3 py-3 hidden lg:table-cell">
 
                             UMAS
@@ -316,6 +376,36 @@
 
                         </th>
 
+                        <th wire:click="order('costo_sap')" class="cursor-pointer px-3 py-3 hidden lg:table-cell">
+
+                            Costo SAP
+
+                            @if($sort == 'costo_sap')
+
+                                @if($direction == 'asc')
+
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 float-right" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4" />
+                                    </svg>
+
+                                @else
+
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 float-right" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" />
+                                    </svg>
+
+                                @endif
+
+                            @else
+
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 float-right" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
+                                </svg>
+
+                            @endif
+
+                        </th>
+
                         <th wire:click="order('categoria_servicio_id')" class="cursor-pointer px-3 py-3 hidden lg:table-cell">
 
                             Categoría
@@ -452,6 +542,22 @@
 
                             <td class="px-3 py-3 w-full lg:w-auto p-3 text-gray-800 text-center lg:text-left lg:border-0 border border-b block lg:table-cell relative lg:static">
 
+                                <span class="lg:hidden absolute top-0 left-0 bg-blue-300 px-2 py-1 text-xs text-white font-bold uppercase rounded-br-xl">Material</span>
+
+                                {{ $servicio->material }}
+
+                            </td>
+
+                            <td class="px-3 py-3 w-full lg:w-auto p-3 text-gray-800 text-center lg:text-left lg:border-0 border border-b block lg:table-cell relative lg:static">
+
+                                <span class="lg:hidden absolute top-0 left-0 bg-blue-300 px-2 py-1 text-xs text-white font-bold uppercase rounded-br-xl">Clave de ingreso</span>
+
+                                {{ $servicio->clave_ingreso }}
+
+                            </td>
+
+                            <td class="px-3 py-3 w-full lg:w-auto p-3 text-gray-800 text-center lg:text-left lg:border-0 border border-b block lg:table-cell relative lg:static">
+
                                 <span class="lg:hidden absolute top-0 left-0 bg-blue-300 px-2 py-1 text-xs text-white font-bold uppercase rounded-br-xl">Umas</span>
 
                                 {{ $servicio->umas > 0 ?  $servicio->umas : 'N/A'}}
@@ -495,6 +601,14 @@
                                 <span class="lg:hidden absolute top-0 left-0 bg-blue-300 px-2 py-1 text-xs text-white font-bold uppercase rounded-br-xl">Extra Urgente</span>
 
                                 {{ $servicio->extra_urgente > 0 ? '$' . $servicio->extra_urgente : 'N/A'}}
+
+                            </td>
+
+                            <td class="px-3 py-3 w-full lg:w-auto p-3 text-gray-800 text-center lg:text-left lg:border-0 border border-b block lg:table-cell relative lg:static">
+
+                                <span class="lg:hidden absolute top-0 left-0 bg-blue-300 px-2 py-1 text-xs text-white font-bold uppercase rounded-br-xl">Costo SAP</span>
+
+                                {{ $servicio->costo_sap > 0 ? '$' . $servicio->costo_sap : 'N/A'}}
 
                             </td>
 
@@ -670,43 +784,34 @@
 
                 <div class="flex flex-col md:flex-row justify-between md:space-x-3 mb-5">
 
-                    <div class="flex-auto ">
+                    <div class="flex-auto mr-1 ">
 
                         <div>
 
-                            <Label>Operación principal</Label>
-                        </div>
-
-                        <div>
-
-                            <input type="number" class="bg-white rounded text-sm w-full" wire:model.defer="modelo_editar.operacion_principal">
+                            <Label>Categoría</Label>
 
                         </div>
 
                         <div>
 
-                            @error('modelo_editar.operacion_principal') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+                            <select class="bg-white rounded text-sm w-full" wire:model.defer="modelo_editar.categoria_servicio_id">
 
-                        </div>
+                                <option value="">Seleccione una opción</option>
 
-                    </div>
+                                @foreach ($categorias as $categoria)
 
-                    <div class="flex-auto ">
 
-                        <div>
+                                    <option value="{{ $categoria->id }}">{{ $categoria->nombre }}</option>
 
-                            <Label>Operación parcial</Label>
-                        </div>
+                                @endforeach
 
-                        <div>
-
-                            <input type="number" class="bg-white rounded text-sm w-full" wire:model.defer="modelo_editar.operacion_parcial">
+                            </select>
 
                         </div>
 
                         <div>
 
-                            @error('modelo_editar.operacion_parcial') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+                            @error('modelo_editar.categoria_servicio_id') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
 
                         </div>
 
@@ -744,34 +849,110 @@
 
                 <div class="flex flex-col md:flex-row justify-between md:space-x-3 mb-5">
 
-                    <div class="flex-auto mr-1 ">
+                    <div class="flex-auto ">
 
                         <div>
 
-                            <Label>Categoría</Label>
+                            <Label>Material</Label>
+                        </div>
+
+                        <div>
+
+                            <input type="number" class="bg-white rounded text-sm w-full" wire:model.defer="modelo_editar.material">
 
                         </div>
 
                         <div>
 
-                            <select class="bg-white rounded text-sm w-full" wire:model.defer="modelo_editar.categoria_servicio_id">
+                            @error('modelo_editar.material') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
 
-                                <option value="">Seleccione una opción</option>
+                        </div>
 
-                                @foreach ($categorias as $categoria)
+                    </div>
 
+                    <div class="flex-auto ">
 
-                                    <option value="{{ $categoria->id }}">{{ $categoria->nombre }}</option>
+                        <div>
 
-                                @endforeach
+                            <Label>Clave de ingreso</Label>
+                        </div>
 
-                            </select>
+                        <div>
+
+                            <input type="text" class="bg-white rounded text-sm w-full" wire:model.defer="modelo_editar.clave_ingreso">
 
                         </div>
 
                         <div>
 
-                            @error('modelo_editar.categoria_servicio_id') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+                            @error('modelo_editar.clave_ingreso') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+
+                        </div>
+
+                    </div>
+
+                    <div class="flex-auto ">
+
+                        <div>
+
+                            <Label>Costo SAP</Label>
+                        </div>
+
+                        <div>
+
+                            <input type="number" class="bg-white rounded text-sm w-full" wire:model.defer="modelo_editar.costo_sap">
+
+                        </div>
+
+                        <div>
+
+                            @error('modelo_editar.costo_sap') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="flex flex-col md:flex-row justify-between md:space-x-3 mb-5">
+
+                    <div class="flex-auto ">
+
+                        <div>
+
+                            <Label>Operación principal</Label>
+                        </div>
+
+                        <div>
+
+                            <input type="number" class="bg-white rounded text-sm w-full" wire:model.defer="modelo_editar.operacion_principal">
+
+                        </div>
+
+                        <div>
+
+                            @error('modelo_editar.operacion_principal') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+
+                        </div>
+
+                    </div>
+
+                    <div class="flex-auto ">
+
+                        <div>
+
+                            <Label>Operación parcial</Label>
+                        </div>
+
+                        <div>
+
+                            <input type="number" class="bg-white rounded text-sm w-full" wire:model.defer="modelo_editar.operacion_parcial">
+
+                        </div>
+
+                        <div>
+
+                            @error('modelo_editar.operacion_parcial') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
 
                         </div>
 

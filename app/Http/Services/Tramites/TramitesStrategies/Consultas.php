@@ -12,14 +12,14 @@ class Consultas implements TramitesStrategyInterface{
     {
 
         return  [
-            'flag_seccion' => true,
+            'flag_seccion' => false,
             'flag_numero_oficio' => false,
-            'flag_nombre_solicitante' => false,
-            'flag_tomo' => false,
+            'flag_nombre_solicitante' => true,
+            'flag_tomo' => true,
             'flag_folio_real' => false,
-            'flag_registro' => false,
+            'flag_registro' => true,
             'flag_numero_propiedad' => false,
-            'flag_distrito' => true,
+            'flag_distrito' => false,
             'flag_numero_inmuebles' => false,
             'flag_numero_escritura' => false,
             'flag_numero_notaria' => false,
@@ -40,12 +40,8 @@ class Consultas implements TramitesStrategyInterface{
     public function validaciones(){
 
         return [
-            'modelo_editar.seccion' => 'required',
             'modelo_editar.tomo' => 'required_without:folio_real',
             'modelo_editar.registro' => 'required_without:folio_real',
-            'modelo_editar.distrito' => 'required',
-            'modelo_editar.numero_paginas' => 'required',
-            'modelo_editar.nombre_solicitante' => 'required'
         ];
 
     }

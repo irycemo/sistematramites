@@ -8,6 +8,7 @@ use Illuminate\Database\Seeder;
 use Database\Seeders\RoleSeeder;
 use Database\Seeders\UserSeeder;
 use Database\Seeders\TramiteSeeder;
+use Database\Seeders\DependenciaSeeder;
 use Database\Seeders\CategoriaServicioSeeder;
 
 class DatabaseSeeder extends Seeder
@@ -23,7 +24,8 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeeder::class);
         $this->call(CategoriaServicioSeeder::class);
         $this->call(UmaSeeder::class);
-        $this->call(ServiciosTableSeeder::class);
-        $this->call(TramiteSeeder::class);
+        /* $this->call(ServiciosTableSeeder::class); */
+        /* $this->call(TramiteSeeder::class); */
+        $this->call(DependenciaSeeder::class);
     }
 }

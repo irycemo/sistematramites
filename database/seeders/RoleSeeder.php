@@ -22,6 +22,7 @@ class RoleSeeder extends Seeder
         $role3 = Role::create(['name' => 'Precalificación']);
         $role4 = Role::create(['name' => 'Validación']);
         $role5 = Role::create(['name' => 'Entrega']);
+        $role5 = Role::create(['name' => 'Oficialia de partes']);
 
         Permission::create(['name' => 'Lista de roles', 'area' => 'Roles'])->syncRoles([$role1]);
         Permission::create(['name' => 'Crear rol', 'area' => 'Roles'])->syncRoles([$role1]);
@@ -47,6 +48,16 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'Crear uma', 'area' => 'Umas'])->syncRoles([$role1]);
         Permission::create(['name' => 'Editar uma', 'area' => 'Umas'])->syncRoles([$role1]);
         Permission::create(['name' => 'Borrar uma', 'area' => 'Umas'])->syncRoles([$role1]);
+
+        Permission::create(['name' => 'Lista de dependencias', 'area' => 'Dependencias'])->syncRoles([$role1]);
+        Permission::create(['name' => 'Crear dependencia', 'area' => 'Dependencias'])->syncRoles([$role1]);
+        Permission::create(['name' => 'Editar dependencia', 'area' => 'Dependencias'])->syncRoles([$role1]);
+        Permission::create(['name' => 'Borrar dependencia', 'area' => 'Dependencias'])->syncRoles([$role1]);
+
+        Permission::create(['name' => 'Lista de notarias', 'area' => 'Notarias'])->syncRoles([$role1]);
+        Permission::create(['name' => 'Crear notaria', 'area' => 'Notarias'])->syncRoles([$role1]);
+        Permission::create(['name' => 'Editar notaria', 'area' => 'Notarias'])->syncRoles([$role1]);
+        Permission::create(['name' => 'Borrar notaria', 'area' => 'Notarias'])->syncRoles([$role1]);
 
         Permission::create(['name' => 'Lista de trámites', 'area' => 'Trámites'])->syncRoles([$role1]);
         Permission::create(['name' => 'Crear trámite', 'area' => 'Trámites'])->syncRoles([$role1]);

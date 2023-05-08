@@ -831,6 +831,78 @@
 
                     @endif
 
+                    @if ($flags['flag_dependencias'])
+
+                        <div class="flex-auto mb-3 w-full">
+
+                            <div>
+
+                                <Label>Dependencia</Label>
+
+                            </div>
+
+                            <div>
+
+                                <select class="bg-white rounded text-sm w-full" wire:model="modelo_editar.nombre_solicitante">
+
+                                    <option value="" selected>Seleccione una opción</option>
+
+                                    @foreach ($dependencias as $item)
+
+                                        <option value="{{ $item->nombre }}">{{ $item->nombre }}</option>
+
+                                    @endforeach
+
+                                </select>
+
+                            </div>
+
+                            <div>
+
+                                @error('modelo_editar.nombre_solicitante') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+
+                            </div>
+
+                        </div>
+
+                    @endif
+
+                    @if ($flags['flag_notarias'])
+
+                        <div class="flex-auto mb-3 w-full">
+
+                            <div>
+
+                                <Label>Notaria</Label>
+
+                            </div>
+
+                            <div>
+
+                                <select class="bg-white rounded text-sm w-full" wire:model="notaria">
+
+                                    <option value="" selected>Seleccione una opción</option>
+
+                                    @foreach ($notarias as $item)
+
+                                        <option value="{{ $item }}">{{ $item->numero }} - {{ $item->notario }}</option>
+
+                                    @endforeach
+
+                                </select>
+
+                            </div>
+
+                            <div>
+
+                                @error('notaria') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+
+                            </div>
+
+                        </div>
+
+                    @endif
+
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">

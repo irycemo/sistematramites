@@ -18,7 +18,7 @@ class CategoriaServicioSeeder extends Seeder
     {
         $categoria = CategoriaServicio::create(['nombre' => 'Certificaciones', 'concepto' => '20501', 'seccion' => '0']);
 
-        $categoria->servicios()->saveMany([
+        /* $categoria->servicios()->saveMany([
                                     new Servicio([
                                         'nombre' => 'Gravamen o libertad de gravamen hasta por 10 años',
                                         'tipo' => 'fija',
@@ -126,11 +126,13 @@ class CategoriaServicioSeeder extends Seeder
                                         'operacion_principal' => "2403",
                                         'operacion_parcial' => "0665"
                                     ])
-                                ]);
+                                ]); */
 
-        $categoria = CategoriaServicio::create(['nombre' => 'Comercio', 'concepto' => '20507', 'seccion' => '6']);
+        $categoria = CategoriaServicio::create(['nombre' => 'Comercio Certificaciones', 'concepto' => '20507', 'seccion' => '6']);
 
-        $categoria->servicios()->saveMany([
+        $categoria = CategoriaServicio::create(['nombre' => 'Comercio Inscripciones', 'concepto' => '20507', 'seccion' => '6']);
+
+        /* $categoria->servicios()->saveMany([
                                             new Servicio([
                                                 'nombre' => 'Escrituras constitutivas',
                                                 'tipo' => 'uma',
@@ -248,11 +250,11 @@ class CategoriaServicioSeeder extends Seeder
                                                 'operacion_parcial' => "0"
 
                                             ]),
-                                        ]);
+                                        ]); */
 
         $categoria = CategoriaServicio::create(['nombre' => 'Inscripciones - Propiedad', 'concepto' => '20502', 'seccion' => '1']);
 
-        $categoria->servicios()->saveMany([
+        /* $categoria->servicios()->saveMany([
                                             new Servicio([
                                                 'nombre' => 'Inmuebles rústicos',
                                                 'tipo' => 'uma',
@@ -411,11 +413,11 @@ class CategoriaServicioSeeder extends Seeder
                                                 'operacion_principal' => "2403",
                                                 'operacion_parcial' => "1745"
                                             ]),
-                                        ]);
+                                        ]); */
 
         $categoria = CategoriaServicio::create(['nombre' => 'Inscripciones - Gravamenes', 'concepto' => '20510', 'seccion' => '2']);
 
-        $categoria->servicios()->saveMany([
+        /* $categoria->servicios()->saveMany([
                                             new Servicio([
                                                 'nombre' => 'Documentos relativos a grvámenes de bienes inmuebles',
                                                 'tipo' => 'uma',
@@ -484,11 +486,11 @@ class CategoriaServicioSeeder extends Seeder
                                                 'operacion_principal' => "2403",
                                                 'operacion_parcial' => "2540"
                                             ]),
-                                        ]);
+                                        ]); */
 
         $categoria = CategoriaServicio::create(['nombre' => 'Cancelación - Gravamenes', 'concepto' => '20510', 'seccion' => '2']);
 
-        $categoria->servicios()->saveMany([
+        /* $categoria->servicios()->saveMany([
                                             new Servicio([
                                                 'nombre' => 'Cancelación de documentos relativos a gravámenes de bienes inmuebles',
                                                 'tipo' => '50%',
@@ -552,11 +554,11 @@ class CategoriaServicioSeeder extends Seeder
                                                 'operacion_principal' => "2403",
                                                 'operacion_parcial' => "1760"
                                             ]),
-                                        ]);
+                                        ]); */
 
         $categoria = CategoriaServicio::create(['nombre' => 'Varios , Sentencias, Arrendamientos, Avisos Preventivos', 'concepto' => '20505', 'seccion' => '5']);
 
-        $categoria->servicios()->saveMany([
+        /* $categoria->servicios()->saveMany([
                                             new Servicio([
                                                 'nombre' => 'Por la inscripción de varios',
                                                 'tipo' => 'fija',
@@ -576,6 +578,6 @@ class CategoriaServicioSeeder extends Seeder
                                                 'operacion_parcial' => "1765"
 
                                             ]),
-                                        ]);
+                                        ]); */
     }
 }

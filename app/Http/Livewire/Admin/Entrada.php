@@ -2,10 +2,12 @@
 
 namespace App\Http\Livewire\Admin;
 
+use App\Models\Notaria;
 use App\Models\Tramite;
 use Livewire\Component;
 use App\Http\Constantes;
 use App\Models\Servicio;
+use App\Models\Dependencia;
 use Livewire\WithPagination;
 use App\Models\CategoriaServicio;
 use Illuminate\Support\Facades\DB;
@@ -29,6 +31,9 @@ class Entrada extends Component
     public $adicionaTramite;
     public $tramitesAdiciona;
     public $distritos;
+    public $dependencias;
+    public $notarias;
+    public $notaria;
 
     public Tramite $modelo_editar;
 
@@ -49,10 +54,14 @@ class Entrada extends Component
         'flag_registro_gravamen' => false,
         'flag_numero_paginas' => false,
         'flag_valor_propiedad' => false,
+        'flag_dependencias' => false,
+        'flag_notarias' => false,
     ];
 
     protected function rules(){
         return [
+            'categoria_servicio' => 'required',
+            'servicio' => 'required',
             'modelo_editar.id_servicio' => 'required',
             'modelo_editar.solicitante' => 'required',
             'modelo_editar.nombre_solicitante' => 'required_if:modelo_editar.solicitante,Ventanilla,Juzgado',
@@ -75,6 +84,7 @@ class Entrada extends Component
             'modelo_editar.numero_propiedad' => 'nullable',
             'modelo_editar.numero_escritura' => 'nullable',
             'modelo_editar.numero_notaria' => 'nullable',
+            'modelo_editar.nombre_notario' => 'nullable',
             'modelo_editar.valor_propiedad' => 'nullable',
             'modelo_editar.foraneo' => 'nullable|boolean',
             'modelo_editar.adiciona' => 'required_if:adicionaTramite,true'
@@ -160,27 +170,54 @@ class Entrada extends Component
 
     public function updatedModeloEditarSolicitante(){
 
-        if($this->modelo_editar->solicitante == 'Usuario / Notaría'){
+        $this->modelo_editar->nombre_solicitante = null;
+        $this->modelo_editar->nombre_notario = null;
+        $this->modelo_editar->numero_notaria = null;
+        $this->notaria = null;
+
+        if($this->modelo_editar->solicitante == 'Usuario'){
 
             $this->flags['flag_nombre_solicitante'] = true;
-            $this->modelo_editar->nombre_solicitante = null;
+            $this->flags['flag_dependencias'] = false;
+            $this->flags['flag_notarias'] = false;
+
+
+        }elseif($this->modelo_editar->solicitante == 'Notaría'){
+
+            $this->flags['flag_dependencias'] = false;
+            $this->flags['flag_nombre_solicitante'] = false;
+            $this->flags['flag_notarias'] = true;
 
         }elseif($this->modelo_editar->solicitante == 'Oficialia de partes'){
 
-            $this->flags['flag_nombre_solicitante'] = true;
-            $this->modelo_editar->nombre_solicitante = null;
+            $this->flags['flag_nombre_solicitante'] = false;
+            $this->flags['flag_dependencias'] = true;
+            $this->flags['flag_notarias'] = false;
 
         }else{
+
             $this->flags['flag_nombre_solicitante'] = false;
+            $this->flags['flag_dependencias'] = false;
+            $this->flags['flag_notarias'] = false;
             $this->modelo_editar->nombre_solicitante = $this->modelo_editar->solicitante;
         }
 
-        if($this->modelo_editar->solicitante == "Pensiones"){
+        if($this->modelo_editar->solicitante == "S.T.A.S.P.E."){
 
+            $this->modelo_editar->nombre_solicitante = $this->modelo_editar->solicitante;
             $this->modelo_editar->tipo_servicio = "Extra Urgente";
             $this->updatedModeloEditarTipoServicio();
 
         }
+    }
+
+    public function updatedNotaria(){
+
+        $notaria = json_decode($this->notaria);
+
+        $this->modelo_editar->numero_notaria = $notaria->numero;
+        $this->modelo_editar->nombre_notario = $notaria->notario;
+
     }
 
     public function updatedModeloEditarTipoServicio(){
@@ -265,6 +302,11 @@ class Entrada extends Component
     }
 
     public function crear(){
+
+        $this->validate([
+            'servicio' => 'required',
+            'categoria_servicio' => 'required'
+        ]);
 
         if($this->servicio->categoria->nombre == 'Comercio'){
 
@@ -373,6 +415,10 @@ class Entrada extends Component
         $this->tramitesAdiciona = Tramite::select('numero_control', 'id')->get();
 
         $this->distritos = Constantes::DISTRITOS;
+
+        $this->dependencias = Dependencia::orderBy('nombre')->get();
+
+        $this->notarias = Notaria::orderBy('numero')->get();
 
     }
 
