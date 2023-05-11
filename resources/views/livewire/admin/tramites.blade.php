@@ -640,7 +640,7 @@
         </x-slot>
 
         <x-slot name="content">
-            {{ $errors }}
+
             <div class="relative p-1">
 
                 <div class="flex flex-col md:flex-row justify-between md:space-x-3 mb-3">
@@ -805,7 +805,7 @@
 
                     </div>
 
-                    @if ($flags['flag_nombre_solicitante'])
+                    @if ($flags['nombre_solicitante'])
 
                         <div class="flex-auto mb-3 w-full">
 
@@ -831,7 +831,7 @@
 
                     @endif
 
-                    @if ($flags['flag_dependencias'])
+                    @if ($flags['dependencias'])
 
                         <div class="flex-auto mb-3 w-full">
 
@@ -867,7 +867,7 @@
 
                     @endif
 
-                    @if ($flags['flag_notarias'])
+                    @if ($flags['notarias'])
 
                         <div class="flex-auto mb-3 w-full">
 
@@ -907,7 +907,7 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
 
-                        @if ($flags['flag_numero_oficio'])
+                        @if ($flags['numero_oficio'])
 
                             <div class="flex-auto ">
 
@@ -933,7 +933,7 @@
 
                         @endif
 
-                        @if($flags['flag_folio_real'])
+                        @if($flags['folio_real'])
 
                             <div class="flex-auto ">
 
@@ -958,7 +958,7 @@
 
                         @endif
 
-                        @if($flags['flag_tomo'])
+                        @if($flags['tomo'])
 
                             <div class="flex items-center space-x-2">
 
@@ -1010,7 +1010,7 @@
 
                         @endif
 
-                        @if($flags['flag_registro'])
+                        @if($flags['registro'])
 
                             <div class="flex items-center space-x-2">
 
@@ -1062,7 +1062,7 @@
 
                         @endif
 
-                        @if($flags['flag_distrito'])
+                        @if($flags['distrito'])
 
                             <div class="flex-auto">
 
@@ -1097,7 +1097,7 @@
 
                         @endif
 
-                        @if($flags['flag_seccion'])
+                        @if($flags['seccion'])
 
                             <div class="flex-auto">
 
@@ -1132,7 +1132,7 @@
 
                         @endif
 
-                        @if($flags['flag_tomo_gravamen'])
+                        @if($flags['tomo_gravamen'])
 
                             <div class="flex-auto">
 
@@ -1158,7 +1158,7 @@
 
                         @endif
 
-                        @if($flags['flag_registro_gravamen'])
+                        @if($flags['registro_gravamen'])
 
                             <div class="flex-auto">
 
@@ -1184,7 +1184,7 @@
 
                         @endif
 
-                        @if($flags['flag_numero_propiedad'])
+                        @if($flags['numero_propiedad'])
 
                             <div class="flex-auto">
 
@@ -1209,7 +1209,7 @@
 
                         @endif
 
-                        @if($flags['flag_numero_escritura'])
+                        @if($flags['numero_escritura'])
 
                             <div class="flex-auto">
 
@@ -1234,32 +1234,7 @@
 
                         @endif
 
-                        @if($flags['flag_numero_notaria'])
-
-                            <div class="flex-auto">
-
-                                <div>
-
-                                    <Label>Número de Notaria</Label>
-                                </div>
-
-                                <div>
-
-                                    <input type="text" class="bg-white rounded text-sm w-full" wire:model.defer="modelo_editar.numero_notaria">
-
-                                </div>
-
-                                <div>
-
-                                    @error('modelo_editar.numero_notaria') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
-
-                                </div>
-
-                            </div>
-
-                        @endif
-
-                        @if($flags['flag_valor_propiedad'])
+                        @if($flags['valor_propiedad'])
 
                             <div class="flex-auto">
 
@@ -1284,7 +1259,7 @@
 
                         @endif
 
-                        @if($flags['flag_numero_inmuebles'])
+                        @if($flags['numero_inmuebles'])
 
                             <div class="flex-auto ">
 
@@ -1309,7 +1284,7 @@
 
                         @endif
 
-                        @if($flags['flag_numero_paginas'])
+                        @if($flags['numero_paginas'])
 
                             <div class="flex-auto">
 
@@ -1366,7 +1341,7 @@
 
                     </div>
 
-                    @if($flags['flag_foraneo'])
+                    @if($flags['foraneo'])
 
                         <div class="flex-auto">
 

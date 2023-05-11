@@ -37,24 +37,23 @@ class Tramites extends Component
     public Tramite $modelo_editar;
 
     public $flags = [
-        'flag_seccion' => false,
-        'flag_numero_oficio' => false,
-        'flag_nombre_solicitante' => false,
-        'flag_tomo' => false,
-        'flag_folio_real' => false,
-        'flag_registro' => false,
-        'flag_numero_propiedad' => false,
-        'flag_distrito' => false,
-        'flag_numero_inmuebles' => false,
-        'flag_numero_escritura' => false,
-        'flag_numero_notaria' => false,
-        'flag_tomo_gravamen' => false,
-        'flag_foraneo' => false,
-        'flag_registro_gravamen' => false,
-        'flag_numero_paginas' => false,
-        'flag_valor_propiedad' => false,
-        'flag_dependencias' => false,
-        'flag_notarias' => false,
+        'seccion' => false,
+        'numero_oficio' => false,
+        'nombre_solicitante' => false,
+        'tomo' => false,
+        'folio_real' => false,
+        'registro' => false,
+        'numero_propiedad' => false,
+        'distrito' => false,
+        'numero_inmuebles' => false,
+        'numero_escritura' => false,
+        'tomo_gravamen' => false,
+        'foraneo' => false,
+        'registro_gravamen' => false,
+        'numero_paginas' => false,
+        'valor_propiedad' => false,
+        'dependencias' => false,
+        'notarias' => false,
     ];
 
     protected function rules(){
@@ -154,15 +153,7 @@ class Tramites extends Component
 
         $this->modelo_editar->id_servicio = $this->servicio->id;
 
-        if($this->servicio->categoria->nombre == 'Comercio'){
-
-            $tramiteContext = new TramitesContext('Comercio');
-
-        }else{
-
-            $tramiteContext = new TramitesContext($this->servicio->nombre);
-
-        }
+        $tramiteContext = new TramitesContext($this->servicio->categoria->nombre, $this->modelo_editar);
 
         $this->flags = $tramiteContext->cambiarFlags();
 
@@ -177,28 +168,28 @@ class Tramites extends Component
 
         if($this->modelo_editar->solicitante == 'Usuario'){
 
-            $this->flags['flag_nombre_solicitante'] = true;
-            $this->flags['flag_dependencias'] = false;
-            $this->flags['flag_notarias'] = false;
+            $this->flags['nombre_solicitante'] = true;
+            $this->flags['dependencias'] = false;
+            $this->flags['notarias'] = false;
 
 
         }elseif($this->modelo_editar->solicitante == 'Notaría'){
 
-            $this->flags['flag_dependencias'] = false;
-            $this->flags['flag_nombre_solicitante'] = false;
-            $this->flags['flag_notarias'] = true;
+            $this->flags['dependencias'] = false;
+            $this->flags['nombre_solicitante'] = false;
+            $this->flags['notarias'] = true;
 
         }elseif($this->modelo_editar->solicitante == 'Oficialia de partes'){
 
-            $this->flags['flag_nombre_solicitante'] = false;
-            $this->flags['flag_dependencias'] = true;
-            $this->flags['flag_notarias'] = false;
+            $this->flags['nombre_solicitante'] = false;
+            $this->flags['dependencias'] = true;
+            $this->flags['notarias'] = false;
 
         }else{
 
-            $this->flags['flag_nombre_solicitante'] = false;
-            $this->flags['flag_dependencias'] = false;
-            $this->flags['flag_notarias'] = false;
+            $this->flags['nombre_solicitante'] = false;
+            $this->flags['dependencias'] = false;
+            $this->flags['notarias'] = false;
             $this->modelo_editar->nombre_solicitante = $this->modelo_editar->solicitante;
         }
 
@@ -290,7 +281,7 @@ class Tramites extends Component
         foreach($this->modelo_editar->getAttributes() as $attribute => $value){
 
             if($value)
-                $this->flags['flag_' . $attribute] = true;
+                $this->flags['' . $attribute] = true;
 
         }
 
@@ -306,15 +297,7 @@ class Tramites extends Component
             'categoria_servicio' => 'required'
         ]);
 
-        if($this->servicio->categoria->nombre == 'Comercio'){
-
-            $context = new TramitesContext('Comercio');
-
-        }else{
-
-            $context = new TramitesContext($this->servicio->nombre);
-
-        }
+        $context = new TramitesContext($this->servicio->categoria->nombre, $this->modelo_editar);
 
         $this->validate(array_merge($this->rules(), $context->validaciones()));
 
@@ -322,7 +305,7 @@ class Tramites extends Component
 
             DB::transaction(function () use ($context){
 
-                $tramite = $context->crearTramite($this->modelo_editar);
+                $tramite = $context->crearTramite();
 
                 $this->resetearTodo();
 
@@ -335,7 +318,7 @@ class Tramites extends Component
         });
 
         } catch (\Throwable $th) {
-            dd($th);
+
             Log::error("Error al crear trámite por el usuario: (id: " . auth()->user()->id . ") " . auth()->user()->name . ". " . $th->getMessage());
             $this->dispatchBrowserEvent('mostrarMensaje', ['error', "Ha ocurrido un error."]);
             $this->resetearTodo();
@@ -452,3 +435,4 @@ class Tramites extends Component
         return view('livewire.admin.tramites', compact('tramites'))->extends('layouts.admin');
     }
 }
+
