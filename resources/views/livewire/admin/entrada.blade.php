@@ -6,708 +6,69 @@
 
 <div class="">
 
-    <div class="mb-6">
+    <h1 class="text-3xl tracking-widest py-3 px-6 text-gray-600 rounded-xl border-b-2 border-gray-500 font-thin mb-6  bg-white">Entrada</h1>
 
-        <h1 class="text-3xl tracking-widest py-3 px-6 text-gray-600 rounded-xl border-b-2 border-gray-500 font-thin mb-6  bg-white">Entrada</h1>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
 
-        <div class="flex justify-between">
+        {{-- Campos --}}
+        <div>
 
-            <div>
+            {{-- Categoria - Servicio --}}
+            <div class="flex-row lg:flex lg:space-x-3">
 
-                <input type="text" wire:model.debounce.500ms="search" placeholder="Buscar" class="bg-white rounded-full text-sm">
+                <div class="flex-auto bg-white p-3 rounded-lg mb-3 shadow-md">
 
-                <select class="bg-white rounded-full text-sm" wire:model="pagination">
+                    <div class="mb-2">
 
-                    <option value="10">10</option>
-                    <option value="25">25</option>
-                    <option value="50">50</option>
-                    <option value="100">100</option>
+                        <Label class="text-lg tracking-widest rounded-xl border-gray-500">Categoría</Label>
 
-                </select>
+                    </div>
 
-            </div>
+                    <div>
 
-            @can('Crear entrada')
+                        <select class="bg-white rounded text-sm w-full" wire:model="categoria_selected">
 
-                <button wire:click="abrirModalCrear" class="bg-gray-500 hover:shadow-lg hover:bg-gray-700 float-right text-sm py-2 px-4 text-white rounded-full focus:outline-none hidden md:block">
+                            <option selected value="">Selecciona una opción</option>
 
-                    <img wire:loading wire:target="abrirModalCrear" class="mx-auto h-4 mr-1" src="{{ asset('storage/img/loading3.svg') }}" alt="Loading">
-                    Agregar nuevo trámite
+                            @foreach ($categorias as $item)
 
-                </button>
+                                <option value="{{ $item }}">{{ $item->nombre }}</option>
 
-                <button wire:click="abrirModalCrear" class="bg-gray-500 hover:shadow-lg hover:bg-gray-700 float-right text-sm py-2 px-4 text-white rounded-full focus:outline-none md:hidden">+</button>
+                            @endforeach
 
-            @endcan
+                        </select>
 
-        </div>
+                    </div>
 
-    </div>
+                    <div>
 
-    @if($tramites->count())
-
-        <div class="relative overflow-x-auto rounded-lg shadow-xl border-t-2 border-t-gray-500">
-
-            <table class="rounded-lg w-full">
-
-                <thead class="border-b border-gray-300 bg-gray-50">
-
-                    <tr class="text-xs font-medium text-gray-500 uppercase text-left traling-wider">
-
-                        <th wire:click="order('numero_control')" class="cursor-pointer px-3 py-3 hidden lg:table-cell">
-
-                            Número de Control
-
-                            @if($sort == 'numero_control')
-
-                                @if($direction == 'asc')
-
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 float-right" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4" />
-                                    </svg>
-
-                                @else
-
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 float-right" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" />
-                                    </svg>
-
-                                @endif
-
-                            @else
-
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 float-right" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
-                                </svg>
-
-                            @endif
-
-                        </th>
-
-                        <th wire:click="order('id_servicio')" class="cursor-pointer px-3 py-3 hidden lg:table-cell">
-
-                            Servicio
-
-                            @if($sort == 'id_servicio')
-
-                                @if($direction == 'asc')
-
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 float-right" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4" />
-                                    </svg>
-
-                                @else
-
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 float-right" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" />
-                                    </svg>
-
-                                @endif
-
-                            @else
-
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 float-right" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
-                                </svg>
-
-                            @endif
-
-                        </th>
-
-                        <th wire:click="order('solicitante')" class="cursor-pointer px-3 py-3 hidden lg:table-cell">
-
-                            Solicitante
-
-                            @if($sort == 'solicitante')
-
-                                @if($direction == 'asc')
-
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 float-right" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4" />
-                                    </svg>
-
-                                @else
-
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 float-right" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" />
-                                    </svg>
-
-                                @endif
-
-                            @else
-
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 float-right" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
-                                </svg>
-
-                            @endif
-
-                        </th>
-
-                        <th wire:click="order('folio_real')" class="cursor-pointer px-3 py-3 hidden lg:table-cell">
-
-                            Folio Real
-
-                            @if($sort == 'folio_real')
-
-                                @if($direction == 'asc')
-
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 float-right" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4" />
-                                    </svg>
-
-                                @else
-
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 float-right" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" />
-                                    </svg>
-
-                                @endif
-
-                            @else
-
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 float-right" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
-                                </svg>
-
-                            @endif
-
-                        </th>
-
-                        <th wire:click="order('tomo')" class="cursor-pointer px-3 py-3 hidden lg:table-cell">
-
-                            Tomo / Bis
-
-                            @if($sort == 'tomo')
-
-                                @if($direction == 'asc')
-
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 float-right" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4" />
-                                    </svg>
-
-                                @else
-
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 float-right" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" />
-                                    </svg>
-
-                                @endif
-
-                            @else
-
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 float-right" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
-                                </svg>
-
-                            @endif
-
-                        </th>
-
-                        <th wire:click="order('registro')" class="cursor-pointer px-3 py-3 hidden lg:table-cell">
-
-                            Registro / Bis
-
-                            @if($sort == 'registro')
-
-                                @if($direction == 'asc')
-
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 float-right" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4" />
-                                    </svg>
-
-                                @else
-
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 float-right" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" />
-                                    </svg>
-
-                                @endif
-
-                            @else
-
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 float-right" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
-                                </svg>
-
-                            @endif
-
-                        </th>
-
-                        <th wire:click="order('monto')" class="cursor-pointer px-3 py-3 hidden lg:table-cell">
-
-                            Monto
-
-                            @if($sort == 'monto')
-
-                                @if($direction == 'asc')
-
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 float-right" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4" />
-                                    </svg>
-
-                                @else
-
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 float-right" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" />
-                                    </svg>
-
-                                @endif
-
-                            @else
-
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 float-right" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
-                                </svg>
-
-                            @endif
-
-                        </th>
-
-                        <th wire:click="order('tipo_servicio')" class="cursor-pointer px-3 py-3 hidden lg:table-cell">
-
-                            Tipo de Servicio
-
-                            @if($sort == 'tipo_servicio')
-
-                                @if($direction == 'asc')
-
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 float-right" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4" />
-                                    </svg>
-
-                                @else
-
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 float-right" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" />
-                                    </svg>
-
-                                @endif
-
-                            @else
-
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 float-right" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
-                                </svg>
-
-                            @endif
-
-                        </th>
-
-                        <th wire:click="order('limite_de_pago')" class="cursor-pointer px-3 py-3 hidden lg:table-cell">
-
-                            Límite de pago
-
-                            @if($sort == 'limite_de_pago')
-
-                                @if($direction == 'asc')
-
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 float-right" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4" />
-                                    </svg>
-
-                                @else
-
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 float-right" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" />
-                                    </svg>
-
-                                @endif
-
-                            @else
-
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 float-right" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
-                                </svg>
-
-                            @endif
-
-                        </th>
-
-                        <th wire:click="order('created_at')" class="cursor-pointer px-3 py-3 hidden lg:table-cell">
-
-                            Registro
-
-                            @if($sort == 'created_at')
-
-                                @if($direction == 'asc')
-
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 float-right" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4" />
-                                    </svg>
-
-                                @else
-
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 float-right" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" />
-                                    </svg>
-
-                                @endif
-
-                            @else
-
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 float-right" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
-                                </svg>
-
-                            @endif
-
-                        </th>
-
-                        <th wire:click="order('updated_at')" class="cursor-pointer px-3 py-3 hidden lg:table-cell">
-
-                            Actualizado
-
-                            @if($sort == 'updated_at')
-
-                                @if($direction == 'asc')
-
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 float-right" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4" />
-                                    </svg>
-
-                                @else
-
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 float-right" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" />
-                                    </svg>
-
-                                @endif
-
-                            @else
-
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 float-right" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
-                                </svg>
-
-                            @endif
-
-                        </th>
-
-                        <th class="px-3 py-3 hidden lg:table-cell">Acciones</th>
-
-                    </tr>
-
-                </thead>
-
-                <tbody class="divide-y divide-gray-200 flex-1 sm:flex-none ">
-
-                    @foreach($tramites as $tramite)
-
-                        <tr class="text-sm font-medium text-gray-500 bg-white flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0">
-
-                            <td class="px-3 py-3 w-full lg:w-auto p-3 text-gray-800 text-center lg:text-left lg:border-0 border border-b block lg:table-cell relative lg:static">
-
-                                <span class="lg:hidden absolute top-0 left-0 bg-blue-300 px-2 py-1 text-xs text-white font-bold uppercase rounded-br-xl">Número de control</span>
-
-                                {{ $tramite->numero_control }}
-
-                            </td>
-
-                            <td class="px-3 py-3 w-full lg:w-auto p-3 text-gray-800 text-center lg:text-left lg:border-0 border border-b block lg:table-cell relative lg:static">
-
-                                <span class="lg:hidden absolute top-0 left-0 bg-blue-300 px-2 py-1 text-xs text-white font-bold uppercase rounded-br-xl">Tipo de trámite</span>
-
-                                {{ $tramite->servicio->nombre }}
-
-                            </td>
-
-                            <td class="px-3 py-3 w-full lg:w-auto p-3 text-gray-800 text-center lg:text-left lg:border-0 border border-b block lg:table-cell relative lg:static">
-
-                                <span class="lg:hidden absolute top-0 left-0 bg-blue-300 px-2 py-1 text-xs text-white font-bold uppercase rounded-br-xl">Solicitante</span>
-
-                                {{ $tramite->solicitante }}
-
-                                {{ $tramite->nombre_solicitante ? '/ ' . $tramite->nombre_solicitante : ''}}
-
-                            </td>
-
-                            <td class="px-3 py-3 w-full lg:w-auto p-3 text-gray-800 text-center lg:text-left lg:border-0 border border-b block lg:table-cell relative lg:static">
-
-                                <span class="lg:hidden absolute top-0 left-0 bg-blue-300 px-2 py-1 text-xs text-white font-bold uppercase rounded-br-xl">Folio Real</span>
-
-                                {{ $tramite->folio_real }}
-
-                            </td>
-
-                            <td class="px-3 py-3 w-full lg:w-auto capitalize p-3 text-gray-800 text-center lg:text-left lg:border-0 border border-b block lg:table-cell relative lg:static">
-
-                                <span class="lg:hidden  absolute top-0 left-0 bg-blue-300 px-2 py-1 text-xs text-white font-bold uppercase rounded-br-xl">Tomo / Bis</span>
-
-                                {{ $tramite->tomo }} {{ $tramite->tomo_bis ? '/ Bis' : ''}}
-
-                            </td>
-
-                            <td class="px-3 py-3 w-full lg:w-auto capitalize p-3 text-gray-800 text-center lg:text-left lg:border-0 border border-b block lg:table-cell relative lg:static">
-
-                                <span class="lg:hidden  absolute top-0 left-0 bg-blue-300 px-2 py-1 text-xs text-white font-bold uppercase rounded-br-xl">Registro / Bis</span>
-
-                                {{ $tramite->registro }} {{ $tramite->registro_bis ? '/ Bis' : ''}}
-
-                            </td>
-
-                            <td class="px-3 py-3 w-full lg:w-auto p-3 text-gray-800 text-center lg:text-left lg:border-0 border border-b block lg:table-cell relative lg:static">
-
-                                <span class="lg:hidden absolute top-0 left-0 bg-blue-300 px-2 py-1 text-xs text-white font-bold uppercase rounded-br-xl">Monto</span>
-
-                                ${{ $tramite->monto }}
-
-                            </td>
-
-                            <td class="px-3 py-3 w-full lg:w-auto p-3 text-gray-800 text-center lg:text-left lg:border-0 border border-b block lg:table-cell relative lg:static">
-
-                                <span class="lg:hidden absolute top-0 left-0 bg-blue-300 px-2 py-1 text-xs text-white font-bold uppercase rounded-br-xl">Tipo de servicio</span>
-
-                                {{ $tramite->tipo_servicio }}
-
-                            </td>
-
-                            <td class="px-3 py-3 w-full lg:w-auto p-3 text-gray-800 text-center lg:text-left lg:border-0 border border-b block lg:table-cell relative lg:static">
-
-                                <span class="lg:hidden absolute top-0 left-0 bg-blue-300 px-2 py-1 text-xs text-white font-bold uppercase rounded-br-xl">Límite de pago</span>
-
-                                {{ $tramite->limite_de_pago->format('d-m-Y') }}
-
-                            </td>
-
-                            <td class="px-3 py-3 w-full lg:w-auto p-3 text-gray-800 text-center lg:text-left lg:border-0 border border-b block lg:table-cell relative lg:static">
-
-                                <span class="lg:hidden absolute top-0 left-0 bg-blue-300 px-2 py-1 text-xs text-white font-bold uppercase rounded-br-xl">Registrado</span>
-
-                                @if($tramite->creadoPor != null)
-
-                                    <span class="font-semibold">Registrado por: {{$tramite->creadoPor->name}}</span> <br>
-
-                                @endif
-
-                                {{ $tramite->created_at }}
-
-                            </td>
-
-                            <td class="px-3 py-3 w-full lg:w-auto p-3 text-gray-800 text-center lg:text-left lg:border-0 border border-b block lg:table-cell relative lg:static">
-
-                                <span class="lg:hidden absolute top-0 left-0 bg-blue-300 px-2 py-1 text-xs text-white font-bold uppercase rounded-br-xl">Actualizado</span>
-
-                                @if($tramite->actualizadoPor != null)
-
-                                    <span class="font-semibold">Actualizado por: {{$tramite->actualizadoPor->name}}</span> <br>
-
-                                @endif
-
-                                {{ $tramite->updated_at }}
-
-                            </td>
-
-                            <td class="px-3 py-3 w-full lg:w-auto p-3 text-gray-800 text-center lg:text-left lg:border-0 border border-b lg:table-cell relative lg:static">
-
-                                <span class="lg:hidden absolute top-0 left-0 bg-blue-300 px-2 py-1 text-xs text-white font-bold uppercase rounded-br-xl">Acciones</span>
-
-                                <div class="flex flex-col justify-center lg:justify-start items-center space-y-1">
-
-                                    @can('Editar entrada')
-
-                                        <button
-                                            wire:click="abrirModalEditar({{$tramite->id}})"
-                                            wire:loading.attr="disabled"
-                                            wire:target="abiriModalEditar({{$tramite->id}})"
-                                            class="w-1/3 lg:w-full bg-blue-400 hover:shadow-lg text-white text-xs md:text-sm px-3 py-1 rounded-full hover:bg-blue-700 flex items-center justify-center focus:outline-none"
-                                        >
-
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-4 h-4 mr-2">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                            </svg>
-
-                                            Editar
-
-                                        </button>
-
-                                    @endcan
-
-                                    @can('Borrar entrada')
-
-                                        <button
-                                            wire:click="abrirModalBorrar({{$tramite->id}})"
-                                            wire:loading.attr="disabled"
-                                            wire:target="abrirModalBorrar({{$tramite->id}})"
-                                            class="w-1/3 lg:w-full bg-red-400 hover:shadow-lg text-white text-xs md:text-sm px-3 py-1 rounded-full hover:bg-red-700 flex items-center justify-center focus:outline-none"
-                                        >
-
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-4 h-4 mr-2">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                            </svg>
-
-                                            Eliminar
-
-                                        </button>
-
-                                    @endcan
-
-                                </div>
-
-                            </td>
-                        </tr>
-
-                    @endforeach
-
-                </tbody>
-
-                <tfoot class="border-gray-300 bg-gray-50">
-
-                    <tr>
-
-                        <td colspan="20" class="py-2 px-5">
-                            {{ $tramites->links() }}
-                        </td>
-
-                    </tr>
-
-                </tfoot>
-
-            </table>
-
-            <div class="h-full w-full rounded-lg bg-gray-200 bg-opacity-75 absolute top-0 left-0" wire:loading.delay.longer>
-
-                <img class="mx-auto h-16" src="{{ asset('storage/img/loading.svg') }}" alt="">
-
-            </div>
-
-        </div>
-
-    @else
-
-        <div class="border-b border-gray-300 bg-white text-gray-500 text-center p-5 rounded-full text-lg">
-
-            No hay resultados.
-
-        </div>
-
-    @endif
-
-    <x-jet-dialog-modal wire:model="modal">
-
-        <x-slot name="title">
-
-            @if($crear)
-                Nuevo Trámite
-            @elseif($editar)
-                Editar Trámite
-            @endif
-
-        </x-slot>
-
-        <x-slot name="content">
-
-            <div class="relative p-1">
-
-                <div class="flex flex-col md:flex-row justify-between md:space-x-3 mb-3">
-
-                    <div class="flex-auto mr-1 ">
-
-                        <div class="flex space-x-4 items-center">
-
-                            <Label>¿Adiciona a otro trámite?</Label>
-
-                            <x-jet-checkbox wire:model="adicionaTramite"></x-jet-checkbox>
-
-                        </div>
+                        @error('categoria_selected') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
 
                     </div>
 
                 </div>
 
-                <div>
+                @if($this->categoria != '')
 
-                    @if ($adicionaTramite)
+                    <div class="bg-white p-3 rounded-lg space-y-2 mb-3 shadow-md">
 
-                        <div class="flex flex-col md:flex-row justify-between md:space-x-3 mb-5">
+                        <div class="">
 
-                            <div class="flex-auto mr-1 ">
+                            <div class="mb-2">
 
-                                <div class="flex space-x-4 items-center">
+                            <Label class="text-lg tracking-widest rounded-xl border-gray-500">Servicio</Label>
 
-                                    <Label>Seleccione el trámite</Label>
-
-                                </div>
-
-                                <div class="w-full md:w-1/2" wire:ignore>
-
-                                    <select class="select2 bg-white rounded text-sm w-full  z-50" wire:model="modelo_editar.adiciona">
-
-                                        @foreach ($tramitesAdiciona as $tramite)
-
-                                            <option value="{{ $tramite->id }}">{{ $tramite->numero_control }}</option>
-
-                                        @endforeach
-
-                                    </select>
-
-                                </div>
-
-                                <div>
-
-                                    @error('modelo_editar.adiciona') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    @endif
-
-                </div>
-
-                <div class="flex flex-col md:flex-row justify-between md:space-x-3 ">
-
-                    <div class="flex-auto mb-3">
-
-                        <div>
-
-                            <Label>Categoría de servicios</Label>
-                        </div>
-
-                        <div>
-
-                            <select class="bg-white rounded text-sm w-full" wire:model="categoria_servicio">
-
-                                <option value="" selected>Seleccione una opción</option>
-
-                                @foreach ($categorias as $categoria)
-
-                                    <option  value="{{ $categoria->id }}">{{ $categoria->nombre }}</option>
-
-                                @endforeach
-
-                            </select>
-
-                        </div>
-
-                        <div>
-
-                            @error('categoria_servicio') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
-
-                        </div>
-
-                    </div>
-
-                    @if($servicios)
-
-                        <div class="flex-auto ">
-
-                            <div>
-
-                                <Label>Servicio</Label>
                             </div>
 
                             <div>
 
-                                <select class="bg-white rounded text-sm w-full" wire:model="modelo_editar.id_servicio">
+                                <select class="bg-white rounded text-sm w-full" wire:model="servicio_selected">
 
-                                    <option value="" selected>Seleccione una opción</option>
+                                    <option selected value="">Selecciona una opción</option>
 
-                                    @foreach ($servicios as $servicio)
+                                    @foreach ($servicios as $item)
 
-                                        <option  value="{{ $servicio->id }}">{{ $servicio->nombre }}</option>
+                                        <option value="{{ $item }}">{{ $item->nombre }}</option>
 
                                     @endforeach
 
@@ -717,7 +78,57 @@
 
                             <div>
 
-                                @error('modelo_editar.id_servicio') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+                                @error('servicio_selected') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                @endif
+
+            </div>
+
+            @if ($flags['adiciona'])
+
+                <div class="flex space-x-3 bg-white p-4 rounded-lg mb-3 shadow-md">
+
+                    <div class="flex space-x-4 items-center">
+
+                        <Label>¿Adiciona a otro trámite?</Label>
+
+                        <x-jet-checkbox wire:model="adicionaTramite"></x-jet-checkbox>
+
+                    </div>
+
+                    @if($adicionaTramite)
+
+                        <div class="flex-auto mr-1 ">
+
+                            <div class="flex space-x-4 items-center">
+
+                                <Label>Seleccione el trámite</Label>
+
+                            </div>
+
+                            <div class="" wire:ignore>
+
+                                <select class="select2 bg-white rounded text-sm w-full  z-50" wire:model="modelo_editar.adiciona">
+
+                                    @foreach ($tramitesAdiciona as $item)
+
+                                        <option value="{{ $item->id }}">{{ $item->numero_control }}</option>
+
+                                    @endforeach
+
+                                </select>
+
+                            </div>
+
+                            <div>
+
+                                @error('modelo_editar.adiciona') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
 
                             </div>
 
@@ -727,47 +138,56 @@
 
                 </div>
 
-                <div class="flex flex-col md:flex-row justify-between md:space-x-3 ">
+            @endif
 
-                    <div class="flex-auto mb-3 w-1/3">
+            {{-- Solicitante - Nombre del solicitante --}}
+            @if ($flags['solicitante'])
 
-                        <div>
+                <div class="flex-row lg:flex lg:space-x-3">
 
-                            <Label>Solicitante</Label>
+                    <div class="flex-auto bg-white p-3 rounded-lg mb-3 shadow-md">
 
-                        </div>
+                        <div class="flex-auto ">
 
-                        <div>
+                            <div class="mb-2">
 
-                            <select class="bg-white rounded text-sm w-full" wire:model="modelo_editar.solicitante">
+                                <Label class="text-lg tracking-widest rounded-xl border-gray-500">Solicitante</Label>
 
-                                <option value="" selected>Seleccione una opción</option>
+                            </div>
 
-                                @foreach ($solicitantes as $solicitante)
+                            <div>
 
-                                    <option value="{{ $solicitante }}">{{ $solicitante }}</option>
+                                <select class="bg-white rounded text-sm w-full" wire:model="modelo_editar.solicitante">
 
-                                @endforeach
+                                    <option value="" selected>Seleccione una opción</option>
 
-                            </select>
+                                    @foreach ($solicitantes as $solicitante)
 
-                        </div>
+                                        <option value="{{ $solicitante }}">{{ $solicitante }}</option>
 
-                        <div>
+                                    @endforeach
 
-                            @error('modelo_editar.solicitante') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+                                </select>
+
+                            </div>
+
+                            <div>
+
+                                @error('modelo_editar.solicitante') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+
+                            </div>
 
                         </div>
 
                     </div>
 
-                    @if ($flags['flag_nombre_solicitante'])
+                    @if ($flags['nombre_solicitante'])
 
-                        <div class="flex-auto mb-3 w-full">
+                        <div class="flex-auto bg-white p-3 rounded-lg mb-3 shadow-md">
 
-                            <div>
+                            <div class="mb-2">
 
-                                <Label>Nombre del solicitante</Label>
+                                <Label class="text-lg tracking-widest rounded-xl border-gray-500">Nombre del solicitante</Label>
 
                             </div>
 
@@ -787,13 +207,13 @@
 
                     @endif
 
-                    @if ($flags['flag_dependencias'])
+                    @if ($flags['dependencias'])
 
-                        <div class="flex-auto mb-3 w-full">
+                        <div class="flex-auto bg-white p-3 rounded-lg mb-3 shadow-md">
 
-                            <div>
+                            <div class="mb-2">
 
-                                <Label>Dependencia</Label>
+                                <Label class="text-lg tracking-widest rounded-xl border-gray-500">Dependencia</Label>
 
                             </div>
 
@@ -823,13 +243,13 @@
 
                     @endif
 
-                    @if ($flags['flag_notarias'])
+                    @if ($flags['notarias'])
 
-                        <div class="flex-auto mb-3 w-full">
+                        <div class="flex-auto bg-white p-3 rounded-lg mb-3 shadow-md">
 
-                            <div>
+                            <div class="mb-2">
 
-                                <Label>Notaria</Label>
+                                <Label class="text-lg tracking-widest rounded-xl border-gray-500">Notaria</Label>
 
                             </div>
 
@@ -861,449 +281,400 @@
 
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+            @endif
 
-                        @if ($flags['flag_numero_oficio'])
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
 
-                            <div class="flex-auto ">
+                @if ($flags['folio_real'])
 
-                                <div>
+                    <div class="flex-auto bg-white p-4 rounded-lg mb-3 shadow-md">
 
-                                    <Label>Número de oficio</Label>
+                        <div class="mb-2">
 
-                                </div>
+                            <Label class="text-lg tracking-widest rounded-xl border-gray-500">Folio real</Label>
 
-                                <div>
-
-                                    <input type="text" class="bg-white rounded text-sm w-full" wire:model.defer="modelo_editar.numero_oficio">
-
-                                </div>
-
-                                <div>
-
-                                    @error('modelo_editar.numero_oficio') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
-
-                                </div>
-
-                            </div>
-
-                        @endif
-
-                        @if($flags['flag_folio_real'])
-
-                            <div class="flex-auto ">
-
-                                <div>
-
-                                    <Label>Folio Real</Label>
-                                </div>
-
-                                <div>
-
-                                    <input type="text" class="bg-white rounded text-sm w-full" wire:model.defer="modelo_editar.folio_real">
-
-                                </div>
-
-                                <div>
-
-                                    @error('modelo_editar.folio_real') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
-
-                                </div>
-
-                            </div>
-
-                        @endif
-
-                        @if($flags['flag_tomo'])
-
-                            <div class="flex items-center space-x-2">
-
-                                <div class="flex-auto">
-
-                                    <div>
-
-                                        <Label>Tomo</Label>
-
-                                    </div>
-
-                                    <div>
-
-                                        <input type="number" class="bg-white rounded text-sm w-full" wire:model.defer="modelo_editar.tomo">
-
-                                    </div>
-
-                                    <div>
-
-                                        @error('modelo_editar.tomo') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
-
-                                    </div>
-
-                                </div>
-
-                                <div class="flex-auto">
-
-                                    <div>
-
-                                        <Label>Bis</Label>
-
-                                    </div>
-
-                                    <div>
-
-                                        <x-jet-checkbox wire:model.defer="modelo_editar.tomo_bis"></x-jet-checkbox>
-
-                                    </div>
-
-                                    <div>
-
-                                        @error('modelo_editar.tomo_bis') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        @endif
-
-                        @if($flags['flag_registro'])
-
-                            <div class="flex items-center space-x-2">
-
-                                <div class="flex-auto">
-
-                                    <div>
-
-                                        <Label>Registro</Label>
-
-                                    </div>
-
-                                    <div>
-
-                                        <input type="number" class="bg-white rounded text-sm w-full" wire:model.defer="modelo_editar.registro">
-
-                                    </div>
-
-                                    <div>
-
-                                        @error('modelo_editar.registro') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
-
-                                    </div>
-
-                                </div>
-
-                                <div class="flex-auto" >
-
-                                    <div>
-
-                                        <Label>Bis</Label>
-
-                                    </div>
-
-                                    <div>
-
-                                        <x-jet-checkbox wire:model.defer="modelo_editar.registro_bis"></x-jet-checkbox>
-
-                                    </div>
-
-                                    <div>
-
-                                        @error('modelo_editar.registro_bis') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        @endif
-
-                        @if($flags['flag_distrito'])
-
-                            <div class="flex-auto">
-
-                                <div>
-
-                                    <Label>Distrito</Label>
-                                </div>
-
-                                <div>
-
-                                    <select class="bg-white rounded text-sm w-full" wire:model.defer="modelo_editar.distrito">
-
-                                        <option value="" selected>Seleccione una opción</option>
-
-                                        @foreach ($distritos as $key => $item)
-
-                                            <option value="{{  $key }}">{{  $item }}</option>
-
-                                        @endforeach
-
-                                    </select>
-
-                                </div>
-
-                                <div>
-
-                                    @error('modelo_editar.distrito') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
-
-                                </div>
-
-                            </div>
-
-                        @endif
-
-                        @if($flags['flag_seccion'])
-
-                            <div class="flex-auto">
-
-                                <div>
-
-                                    <Label>Sección</Label>
-                                </div>
-
-                                <div>
-
-                                    <select class="bg-white rounded text-sm w-full" wire:model.defer="modelo_editar.seccion">
-
-                                        <option value="" selected>Seleccione una opción</option>
-
-                                        @foreach ($secciones as $seccion)
-
-                                            <option value="{{ $seccion }}">{{ $seccion }}</option>
-
-                                        @endforeach
-
-                                    </select>
-
-                                </div>
-
-                                <div>
-
-                                    @error('modelo_editar.seccion') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
-
-                                </div>
-
-                            </div>
-
-                        @endif
-
-                        @if($flags['flag_tomo_gravamen'])
-
-                            <div class="flex-auto">
-
-                                <div>
-
-                                    <Label>Tomo Gravamen</Label>
-
-                                </div>
-
-                                <div>
-
-                                    <input type="text" class="bg-white rounded text-sm w-full" wire:model.defer="modelo_editar.tomo_gravamen">
-
-                                </div>
-
-                                <div>
-
-                                    @error('modelo_editar.tomo_gravamen') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
-
-                                </div>
-
-                            </div>
-
-                        @endif
-
-                        @if($flags['flag_registro_gravamen'])
-
-                            <div class="flex-auto">
-
-                                <div>
-
-                                    <Label>Registro Gravamen</Label>
-
-                                </div>
-
-                                <div>
-
-                                    <input type="text" class="bg-white rounded text-sm w-full" wire:model.defer="modelo_editar.registro_gravamen">
-
-                                </div>
-
-                                <div>
-
-                                    @error('modelo_editar.registro_gravamen') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
-
-                                </div>
-
-                            </div>
-
-                        @endif
-
-                        @if($flags['flag_numero_propiedad'])
-
-                            <div class="flex-auto">
-
-                                <div>
-
-                                    <Label>Número de propiedad</Label>
-                                </div>
-
-                                <div>
-
-                                    <input type="text" class="bg-white rounded text-sm w-full" wire:model.defer="modelo_editar.numero_propiedad">
-
-                                </div>
-
-                                <div>
-
-                                    @error('modelo_editar.numero_propiedad') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
-
-                                </div>
-
-                            </div>
-
-                        @endif
-
-                        @if($flags['flag_numero_escritura'])
-
-                            <div class="flex-auto">
-
-                                <div>
-
-                                    <Label>Número de escritura</Label>
-                                </div>
-
-                                <div>
-
-                                    <input type="text" class="bg-white rounded text-sm w-full" wire:model.defer="modelo_editar.numero_escritura">
-
-                                </div>
-
-                                <div>
-
-                                    @error('modelo_editar.numero_escritura') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
-
-                                </div>
-
-                            </div>
-
-                        @endif
-
-                        @if($flags['flag_numero_notaria'])
-
-                            <div class="flex-auto">
-
-                                <div>
-
-                                    <Label>Número de Notaria</Label>
-                                </div>
-
-                                <div>
-
-                                    <input type="text" class="bg-white rounded text-sm w-full" wire:model.defer="modelo_editar.numero_notaria">
-
-                                </div>
-
-                                <div>
-
-                                    @error('modelo_editar.numero_notaria') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
-
-                                </div>
-
-                            </div>
-
-                        @endif
-
-                        @if($flags['flag_valor_propiedad'])
-
-                            <div class="flex-auto">
-
-                                <div>
-
-                                    <Label>Valor de propiedad</Label>
-                                </div>
-
-                                <div>
-
-                                    <input type="number" class="bg-white rounded text-sm w-full" wire:model.defer="modelo_editar.valor_propiedad">
-
-                                </div>
-
-                                <div>
-
-                                    @error('modelo_editar.valor_propiedad') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
-
-                                </div>
-
-                            </div>
-
-                        @endif
-
-                        @if($flags['flag_numero_inmuebles'])
-
-                            <div class="flex-auto ">
-
-                                <div>
-
-                                    <Label>Cantidad de inmuebles</Label>
-                                </div>
-
-                                <div>
-
-                                    <input type="number" class="bg-white rounded text-sm w-full" wire:model.defer="modelo_editar.numero_inmuebles">
-
-                                </div>
-
-                                <div>
-
-                                    @error('modelo_editar.numero_inmuebles') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
-
-                                </div>
-
-                            </div>
-
-                        @endif
-
-                        @if($flags['flag_numero_paginas'])
-
-                            <div class="flex-auto">
-
-                                <div>
-
-                                    <Label>Cantidad de páginas</Label>
-                                </div>
-
-                                <div>
-
-                                    <input type="number" min="1" class="bg-white rounded text-sm w-full" wire:model.defer="modelo_editar.numero_paginas">
-
-                                </div>
-
-                                <div>
-
-                                    @error('modelo_editar.numero_paginas') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
-
-                                </div>
-
-                            </div>
-
-                        @endif
-
-                </div>
-
-                <div class="flex flex-col md:flex-row justify-between md:space-x-3 mt-3">
-
-                    <div class="flex-auto ">
-
-                        <div>
-
-                            <Label>Tipo de servicio</Label>
                         </div>
 
                         <div>
 
-                            <select class="bg-white rounded text-sm w-full" wire:model="modelo_editar.tipo_servicio" @if($this->modelo_editar->solicitante == "Pensiones") disabled @endif>
+                            <input type="number" class="bg-white rounded text-sm w-full" wire:model.lazy="modelo_editar.folio_real">
+
+                        </div>
+
+                        <div>
+
+                            @error('modelo_editar.folio_real') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+
+                        </div>
+
+                    </div>
+
+                @endif
+
+                @if($flags['tomo'])
+
+                    <div class="flex space-x-3 bg-white p-4 rounded-lg mb-3 shadow-md">
+
+                        <div class="flex-auto">
+
+                            <div class="mb-2">
+
+                                <Label class="text-lg tracking-widest rounded-xl border-gray-500">Tomo</Label>
+
+                            </div>
+
+                            <div>
+
+                                <input type="number" class="bg-white rounded text-sm w-full" wire:model.defer="modelo_editar.tomo">
+
+                            </div>
+
+                            <div>
+
+                                @error('modelo_editar.tomo') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+
+                            </div>
+
+                        </div>
+
+                        <div class="flex-auto">
+
+                            <div class="mb-2">
+
+                                <Label class="text-lg tracking-widest rounded-xl border-gray-500">Bis</Label>
+
+                            </div>
+
+                            <div>
+
+                                <x-jet-checkbox wire:model.defer="modelo_editar.tomo_bis"></x-jet-checkbox>
+
+                            </div>
+
+                            <div>
+
+                                @error('modelo_editar.tomo_bis') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                @endif
+
+                @if($flags['registro'])
+
+                    <div class="flex space-x-3 bg-white p-4 rounded-lg mb-3 shadow-md">
+
+                        <div class="flex-auto">
+
+                            <div class="mb-2">
+
+                                <Label class="text-lg tracking-widest rounded-xl border-gray-500">Registro</Label>
+
+                            </div>
+
+                            <div>
+
+                                <input type="number" class="bg-white rounded text-sm w-full" wire:model.defer="modelo_editar.registro">
+
+                            </div>
+
+                            <div>
+
+                                @error('modelo_editar.registro') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+
+                            </div>
+
+                        </div>
+
+                        <div class="flex-auto" >
+
+                            <div class="mb-2">
+
+                                <Label class="text-lg tracking-widest rounded-xl border-gray-500">Bis</Label>
+
+                            </div>
+
+                            <div>
+
+                                <x-jet-checkbox wire:model.defer="modelo_editar.registro_bis"></x-jet-checkbox>
+
+                            </div>
+
+                            <div>
+
+                                @error('modelo_editar.registro_bis') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                @endif
+
+                @if($flags['distrito'])
+
+                    <div class="flex-auto bg-white p-4 rounded-lg mb-3 shadow-md">
+
+                        <div class="mb-2">
+
+                            <Label class="text-lg tracking-widest rounded-xl border-gray-500">Distrito</Label>
+                        </div>
+
+                        <div>
+
+                            <select class="bg-white rounded text-sm w-full" wire:model.defer="modelo_editar.distrito">
+
+                                <option value="" selected>Seleccione una opción</option>
+
+                                @foreach ($distritos as $key => $item)
+
+                                    <option value="{{  $key }}">{{  $item }}</option>
+
+                                @endforeach
+
+                            </select>
+
+                        </div>
+
+                        <div>
+
+                            @error('modelo_editar.distrito') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+
+                        </div>
+
+                    </div>
+
+                @endif
+
+                @if($flags['seccion'])
+
+                    <div class="flex-auto bg-white p-4 rounded-lg mb-3 shadow-md">
+
+                        <div class="mb-2">
+
+                            <Label class="text-lg tracking-widest rounded-xl border-gray-500">Sección</Label>
+
+                        </div>
+
+                        <div>
+
+                            <select class="bg-white rounded text-sm w-full" wire:model.defer="modelo_editar.seccion">
+
+                                <option value="" selected>Seleccione una opción</option>
+
+                                @foreach ($secciones as $seccion)
+
+                                    <option value="{{ $seccion }}">{{ $seccion }}</option>
+
+                                @endforeach
+
+                            </select>
+
+                        </div>
+
+                        <div>
+
+                            @error('modelo_editar.seccion') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+
+                        </div>
+
+                    </div>
+
+                @endif
+
+                @if($flags['tomo_gravamen'])
+
+                    <div class="flex-auto bg-white p-4 rounded-lg mb-3 shadow-md">
+
+                        <div class="mb-2">
+
+                            <Label class="text-lg tracking-widest rounded-xl border-gray-500">Tomo Gravamen</Label>
+
+                        </div>
+
+                        <div>
+
+                            <input type="text" class="bg-white rounded text-sm w-full" wire:model.defer="modelo_editar.tomo_gravamen">
+
+                        </div>
+
+                        <div>
+
+                            @error('modelo_editar.tomo_gravamen') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+
+                        </div>
+
+                    </div>
+
+                @endif
+
+                @if($flags['registro_gravamen'])
+
+                    <div class="flex-auto bg-white p-4 rounded-lg mb-3 shadow-md">
+
+                        <div class="mb-2">
+
+                            <Label class="text-lg tracking-widest rounded-xl border-gray-500">Registro Gravamen</Label>
+
+                        </div>
+
+                        <div>
+
+                            <input type="text" class="bg-white rounded text-sm w-full" wire:model.defer="modelo_editar.registro_gravamen">
+
+                        </div>
+
+                        <div>
+
+                            @error('modelo_editar.registro_gravamen') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+
+                        </div>
+
+                    </div>
+
+                @endif
+
+                @if($flags['numero_propiedad'])
+
+                    <div class="flex-auto bg-white p-4 rounded-lg mb-3 shadow-md">
+
+                        <div class="mb-2">
+
+                            <Label class="text-lg tracking-widest rounded-xl border-gray-500">Número de propiedad</Label>
+                        </div>
+
+                        <div>
+
+                            <input type="text" class="bg-white rounded text-sm w-full" wire:model.defer="modelo_editar.numero_propiedad">
+
+                        </div>
+
+                        <div>
+
+                            @error('modelo_editar.numero_propiedad') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+
+                        </div>
+
+                    </div>
+
+                @endif
+
+                @if($flags['numero_escritura'])
+
+                    <div class="flex-auto bg-white p-4 rounded-lg mb-3 shadow-md">
+
+                        <div class="mb-2">
+
+                            <Label class="text-lg tracking-widest rounded-xl border-gray-500">Número de escritura</Label>
+                        </div>
+
+                        <div>
+
+                            <input type="text" class="bg-white rounded text-sm w-full" wire:model.defer="modelo_editar.numero_escritura">
+
+                        </div>
+
+                        <div>
+
+                            @error('modelo_editar.numero_escritura') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+
+                        </div>
+
+                    </div>
+
+                @endif
+
+                @if($flags['valor_propiedad'])
+
+                    <div class="flex-auto bg-white p-4 rounded-lg mb-3 shadow-md">
+
+                        <div class="mb-2">
+
+                            <Label class="text-lg tracking-widest rounded-xl border-gray-500">Valor de propiedad</Label>
+                        </div>
+
+                        <div>
+
+                            <input type="number" class="bg-white rounded text-sm w-full" wire:model.defer="modelo_editar.valor_propiedad">
+
+                        </div>
+
+                        <div>
+
+                            @error('modelo_editar.valor_propiedad') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+
+                        </div>
+
+                    </div>
+
+                @endif
+
+                @if($flags['numero_inmuebles'])
+
+                    <div class="flex-auto bg-white p-4 rounded-lg mb-3 shadow-md">
+
+                        <div class="mb-2">
+
+                            <Label class="text-lg tracking-widest rounded-xl border-gray-500">Cantidad de inmuebles</Label>
+                        </div>
+
+                        <div>
+
+                            <input type="number" class="bg-white rounded text-sm w-full" wire:model.defer="modelo_editar.numero_inmuebles">
+
+                        </div>
+
+                        <div>
+
+                            @error('modelo_editar.numero_inmuebles') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+
+                        </div>
+
+                    </div>
+
+                @endif
+
+                @if($flags['numero_paginas'])
+
+                    <div class="flex-auto bg-white p-4 rounded-lg mb-3 shadow-md">
+
+                        <div class="mb-2">
+
+                            <Label class="text-lg tracking-widest rounded-xl border-gray-500">Cantidad de páginas</Label>
+                        </div>
+
+                        <div>
+
+                            <input type="number" min="1" class="bg-white rounded text-sm w-full" wire:model.defer="modelo_editar.numero_paginas">
+
+                        </div>
+
+                        <div>
+
+                            @error('modelo_editar.numero_paginas') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+
+                        </div>
+
+                    </div>
+
+                @endif
+
+                @if($flags['tipo_servicio'])
+
+                    <div class="flex-auto bg-white p-4 rounded-lg mb-3 shadow-md">
+
+                        <div class="mb-2">
+
+                            <Label class="text-lg tracking-widest rounded-xl border-gray-500">Tipo de servicio</Label>
+                        </div>
+
+                        <div>
+
+                            <select class="bg-white rounded text-sm w-full" wire:model="modelo_editar.tipo_servicio">
 
                                 <option value="" selected>Seleccione una opción</option>
                                 <option value="Ordinario" selected>Ordinario</option>
@@ -1322,136 +693,598 @@
 
                     </div>
 
-                    @if($flags['flag_foraneo'])
+                @endif
 
-                        <div class="flex-auto">
+            </div>
 
-                            <div>
+            @if ($flags['observaciones'])
 
-                                <Label>Foraneo</Label>
+                <div class="flex-auto bg-white p-4 rounded-lg mb-3 shadow-md">
+
+                    <div class="mb-2">
+
+                        <Label class="text-lg tracking-widest rounded-xl border-gray-500">Observaciones</Label>
+
+                    </div>
+
+                    <div>
+
+                        <textarea rows="3" wire:model.lazy="modelo_editar.observaciones" class="bg-white rounded text-sm w-full"></textarea>
+
+                    </div>
+
+                    <div>
+
+                        @error('modelo_editar.observaciones') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+
+                    </div>
+
+                </div>
+
+            @endif
+
+        </div>
+
+        {{-- Tramtie --}}
+        <div>
+
+            {{-- Buscador --}}
+            <div class="bg-white p-3 rounded-lg text-center shadow-md mb-3">
+
+                <div class="mb-2">
+
+                    <Label class="text-lg tracking-widest rounded-xl border-gray-500">Buscar trámite</Label>
+
+                </div>
+
+                <div class="flex lg:w-1/2 mx-auto">
+
+                    <input type="number" placeholder="Número de trámite" min="1" class="bg-white rounded-l text-sm w-full focus:ring-0" wire:model.defer="numero_de_control">
+
+                    <button
+                        wire:click="buscarTramite"
+                        wire:loading.attr="disabled"
+                        wire:target="buscarTramite"
+                        type="button"
+                        class="bg-blue-400 hover:shadow-lg text-white font-bold px-4 rounded-r text-sm hover:bg-blue-700 focus:outline-none ">
+
+                        <img wire:loading wire:target="buscarTramite" class="mx-auto h-4 mr-1" src="{{ asset('storage/img/loading3.svg') }}" alt="Loading">
+                        <svg wire:loading.remove wire:target="buscarTramite" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                        </svg>
+                    </button>
+
+                </div>
+
+            </div>
+
+            {{-- Tramite nuevo --}}
+            @if($modelo_editar->id_servicio)
+
+                <div class="bg-white p-3 rounded-lg  shadow-md">
+
+                    <h1 class="text-lg tracking-widest rounded-xl border-gray-500 text-center mb-5">Trámite Nuevo</h1>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-2">
+
+                        <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                            <p><strong>Categoría:</strong> {{ $this->categoria['nombre'] }}</p>
+
+                        </div>
+
+                        <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                            <p><strong>Servicio:</strong> {{ $servicio['nombre'] }}</p>
+
+                        </div>
+
+                        <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                            <p><strong>Tipo de servicio:</strong> {{ Str::ucfirst($modelo_editar->tipo_servicio) }}</p>
+
+                        </div>
+
+                        <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                            <p><strong>Cantidad:</strong> {{ $modelo_editar->cantidad }}</p>
+
+                        </div>
+
+                        <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                            <p><strong>Solicitante:</strong>{{ $modelo_editar->solicitante }} / {{ $modelo_editar->nombre_solicitante }}</p>
+
+                        </div>
+
+                        @if ($modelo_editar->folio_real)
+
+                            <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                                <p><strong>Folio real:</strong> {{ $modelo_editar->folio_real }}</p>
 
                             </div>
 
-                            <div>
+                        @endif
 
-                                <x-jet-checkbox wire:model.defer="modelo_editar.foraneo"></x-jet-checkbox>
+                        @if ($modelo_editar->tomo)
+
+                            <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                                <p><strong>Tomo:</strong> {{ $modelo_editar->tomo }}</p>
+
+                            </div>
+
+                        @endif
+
+                        @if ($modelo_editar->registro)
+
+                            <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                                <p><strong>Registro:</strong> {{ $modelo_editar->registro }}</p>
 
                             </div>
 
-                            <div>
+                        @endif
 
-                                @error('modelo_editar.foraneo') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
+                        @if ($modelo_editar->distrito)
+
+                            <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                                <p><strong>Distrito:</strong> {{ $modelo_editar->distrito }}</p>
 
                             </div>
+
+                        @endif
+
+                        @if ($modelo_editar->seccion)
+
+                            <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                                <p><strong>Sección:</strong> {{ $modelo_editar->seccion }}</p>
+
+                            </div>
+
+                        @endif
+
+                        @if ($modelo_editar->tomo_gravamen)
+
+                            <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                                <p><strong>Tomo gravamen:</strong> {{ $modelo_editar->tomo_gravamen }}</p>
+
+                            </div>
+
+                        @endif
+
+                        @if ($modelo_editar->registro_gravamen)
+
+                            <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                                <p><strong>Registro gravamen:</strong> {{ $modelo_editar->registro_gravamen }}</p>
+
+                            </div>
+
+                        @endif
+
+                        @if ($modelo_editar->numero_oficio)
+
+                            <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                                <p><strong>Número de oficio:</strong> {{ $modelo_editar->numero_oficio }}</p>
+
+                            </div>
+
+                        @endif
+
+                        @if ($modelo_editar->numero_propiedad)
+
+                            <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                                <p><strong>Número de propiedad:</strong> {{ $modelo_editar->numero_propiedad }}</p>
+
+                            </div>
+
+                        @endif
+
+                        @if ($modelo_editar->numero_escritura)
+
+                            <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                                <p><strong>Número de escritura:</strong> {{ $modelo_editar->numero_escritura }}</p>
+
+                            </div>
+
+                        @endif
+
+                        @if ($modelo_editar->numero_notaria)
+
+                            <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                                <p><strong>Número de notaría:</strong> {{ $modelo_editar->numero_notaria }}</p>
+
+                            </div>
+
+                        @endif
+
+                        @if ($modelo_editar->nombre_notario)
+
+                            <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                                <p><strong>Nombre del notarío:</strong> {{ $modelo_editar->nombre_notario }}</p>
+
+                            </div>
+
+                        @endif
+
+                        @if ($modelo_editar->valor_propiedad)
+
+                            <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                                <p><strong>Número de escritura:</strong> {{ $modelo_editar->numero_escritura }}</p>
+
+                            </div>
+
+                        @endif
+
+                        @if ($modelo_editar->numero_paginas)
+
+                            <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                                <p><strong>Número de páginas:</strong> {{ $modelo_editar->numero_paginas }}</p>
+
+                            </div>
+
+                        @endif
+
+                        @if ($modelo_editar->numero_inmuebles)
+
+                            <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                                <p><strong>Número de inmuebles:</strong> {{ $modelo_editar->numero_inmuebles }}</p>
+
+                            </div>
+
+                        @endif
+
+                        <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                            <p><strong>Monto:</strong> ${{ number_format($modelo_editar->monto, 2) }}</p>
+
+                        </div>
+
+                    </div>
+
+                    @if ($modelo_editar->observaciones)
+
+                        <div class="rounded-lg bg-gray-100 py-1 px-2 my-3">
+
+                            <strong>Observaciones:</strong>
+
+                            <p>{{ $modelo_editar->observaciones }}</p>
 
                         </div>
 
                     @endif
 
+                    <div class="mt-4 text-right">
+
+                        @if ($editar)
+
+                            <button
+                                wire:click="actualizar"
+                                wire:loading.attr="disabled"
+                                wire:target="actualizar"
+                                type="button"
+                                class="bg-blue-400 hover:shadow-lg text-white font-bold px-4 py-2 rounded text-sm hover:bg-blue-700 focus:outline-none ">
+                                <img wire:loading wire:target="actualizar" class="mx-auto h-4 mr-1" src="{{ asset('storage/img/loading3.svg') }}" alt="Loading">
+                                Actualizar trámite
+                            </button>
+
+                        @else
+
+                            <button
+                                wire:click="crear"
+                                wire:loading.attr="disabled"
+                                wire:target="crear"
+                                type="button"
+                                class="bg-blue-400 hover:shadow-lg text-white font-bold px-4 py-2 rounded text-sm hover:bg-blue-700 focus:outline-none ">
+                                <img wire:loading wire:target="crear" class="mx-auto h-4 mr-1" src="{{ asset('storage/img/loading3.svg') }}" alt="Loading">
+                                Crear nuevo trámite
+                            </button>
+
+                        @endif
+
+                    </div>
+
                 </div>
 
-                <div class="h-full w-full rounded-lg bg-gray-200 bg-opacity-75 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" wire:loading.delay.longer>
+            @endif
 
-                    <img class="mx-auto h-16" src="{{ asset('storage/img/loading.svg') }}" alt="">
+            {{-- Tramite encontrado --}}
+            @if($tramite)
+
+                <div class="bg-white p-3 rounded-lg  shadow-md">
+
+                    <h1 class="text-lg tracking-widest rounded-xl border-gray-500 text-center mb-5">Trámite</h1>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-2">
+
+                        <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                            <p><strong>Número de control:</strong> {{ $tramite->numero_control }}</p>
+
+                        </div>
+
+                        <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                            <p><strong>Estado:</strong> {{ Str::ucfirst($tramite->estado) }}</p>
+
+                        </div>
+
+                        <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                            <p><strong>Categoría:</strong> {{ $tramite->servicio->categoria->nombre }}</p>
+
+                        </div>
+
+                        <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                            <p><strong>Servicio:</strong> {{ $tramite->servicio->nombre }}</p>
+
+                        </div>
+
+                        <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                            <p><strong>Tipo de servicio:</strong> {{ Str::ucfirst($tramite->tipo_servicio) }}</p>
+
+                        </div>
+
+                        @if ($tramite->folio_real)
+
+                            <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                                <p><strong>Folio real:</strong> {{ $tramite->folio_real }}</p>
+
+                            </div>
+
+                        @endif
+
+                        @if ($tramite->tomo)
+
+                            <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                                <p><strong>Tomo:</strong> {{ $tramite->tomo }}</p>
+
+                            </div>
+
+                        @endif
+
+                        @if ($tramite->registro)
+
+                            <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                                <p><strong>Registro:</strong> {{ $tramite->registro }}</p>
+
+                            </div>
+
+                        @endif
+
+                        @if ($tramite->distrito)
+
+                            <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                                <p><strong>Distrito:</strong> {{ $tramite->distrito }}</p>
+
+                            </div>
+
+                        @endif
+
+                        @if ($tramite->seccion)
+
+                            <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                                <p><strong>Sección:</strong> {{ $tramite->seccion }}</p>
+
+                            </div>
+
+                        @endif
+
+                        @if ($tramite->tomo_gravamen)
+
+                            <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                                <p><strong>Tomo gravamen:</strong> {{ $tramite->tomo_gravamen }}</p>
+
+                            </div>
+
+                        @endif
+
+                        @if ($tramite->registro_gravamen)
+
+                            <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                                <p><strong>Registro gravamen:</strong> {{ $tramite->registro_gravamen }}</p>
+
+                            </div>
+
+                        @endif
+
+                        @if ($tramite->numero_oficio)
+
+                            <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                                <p><strong>Número de oficio:</strong> {{ $tramite->numero_oficio }}</p>
+
+                            </div>
+
+                        @endif
+
+                        @if ($tramite->numero_propiedad)
+
+                            <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                                <p><strong>Número de propiedad:</strong> {{ $tramite->numero_propiedad }}</p>
+
+                            </div>
+
+                        @endif
+
+                        @if ($tramite->numero_escritura)
+
+                            <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                                <p><strong>Número de escritura:</strong> {{ $tramite->numero_escritura }}</p>
+
+                            </div>
+
+                        @endif
+
+                        @if ($tramite->numero_notaria)
+
+                            <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                                <p><strong>Número de notaría:</strong> {{ $tramite->numero_notaria }}</p>
+
+                            </div>
+
+                        @endif
+
+                        @if ($tramite->nombre_notario)
+
+                            <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                                <p><strong>Nombre del notarío:</strong> {{ $tramite->nombre_notario }}</p>
+
+                            </div>
+
+                        @endif
+
+                        @if ($tramite->valor_propiedad)
+
+                            <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                                <p><strong>Número de escritura:</strong> {{ $tramite->numero_escritura }}</p>
+
+                            </div>
+
+                        @endif
+
+                        @if ($tramite->numero_paginas)
+
+                            <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                                <p><strong>Número de páginas:</strong> {{ $tramite->numero_paginas }}</p>
+
+                            </div>
+
+                        @endif
+
+                        @if ($tramite->numero_inmuebles)
+
+                            <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                                <p><strong>Número de inmuebles:</strong> {{ $tramite->numero_inmuebles }}</p>
+
+                            </div>
+
+                        @endif
+
+                        <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                            <p><strong>Solicitante:</strong>{{ $tramite->solicitante }} / {{ $tramite->nombre_solicitante }}</p>
+
+                        </div>
+
+                        <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                            <p><strong>Monto:</strong> ${{ number_format($tramite->monto, 2) }}</p>
+
+                        </div>
+
+                        <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                            <p><strong>Fecha de entrega:</strong> {{ $tramite->fecha_entrega->format('d-m-Y') }}</p>
+
+                        </div>
+
+                        @if ($tramite->limite_de_pago)
+
+                            <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                                <p><strong>Límite de pago:</strong> {{ $tramite->limite_de_pago }}</p>
+
+                            </div>
+
+                        @endif
+
+                        <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                            <p><strong>Orden de pago:</strong> {{ $tramite->orden_de_pago }}</p>
+
+                        </div>
+
+                        <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                            <p><strong>Linea de captura:</strong> {{ $tramite->linea_de_captura }}</p>
+
+                        </div>
+
+                        <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                            <p><strong>Registrado por:</strong> {{ $tramite->creadoPor->name }} el {{ $tramite->created_at }}</p>
+
+                        </div>
+
+                    </div>
+
+                    @if ($tramite->observaciones)
+
+                        <div class="rounded-lg bg-gray-100 py-1 px-2 my-3">
+
+                            <strong>Observaciones:</strong>
+
+                            <p>{{ $tramite->observaciones }}</p>
+
+                        </div>
+
+                    @endif
+
+                    <div class="mt-4 text-right">
+
+                        @if ($tramite->estado == 'nuevo')
+
+                            <button
+                                wire:click="editar"
+                                wire:loading.attr="disabled"
+                                wire:target="editar"
+                                type="button"
+                                class="bg-green-400 hover:shadow-lg text-white font-bold px-4 py-2 rounded text-sm hover:bg-green-700 focus:outline-none ">
+                                <img wire:loading wire:target="editar" class="mx-auto h-4 mr-1" src="{{ asset('storage/img/loading3.svg') }}" alt="Loading">
+                                Editar
+                            </button>
+
+                        @endif
+
+                        <button
+                            wire:click="reimprimir"
+                            wire:loading.attr="disabled"
+                            wire:target="reimprimir"
+                            type="button"
+                            class="bg-blue-400 hover:shadow-lg text-white font-bold px-4 py-2 rounded text-sm hover:bg-blue-700 focus:outline-none ">
+                            <img wire:loading wire:target="reimprimir" class="mx-auto h-4 mr-1" src="{{ asset('storage/img/loading3.svg') }}" alt="Loading">
+                            Reimprimir
+                        </button>
+
+                    </div>
 
                 </div>
 
-            </div>
+            @endif
 
-        </x-slot>
+        </div>
 
-        <x-slot name="footer">
-
-            <div class="">
-
-                @if($modelo_editar->estado == 'nuevo')
-
-                    <a
-                        href="{{ route('tramites.orden', $selected_id) }}"
-                        target="_blank"
-                        class="bg-gray-400 text-white hover:shadow-lg font-bold px-4 py-2 rounded-full text-sm mb-2 hover:bg-gray-700 flaot-left mr-1 focus:outline-none">
-
-                        <img wire:loading wire:target="crear" class="mx-auto h-4 mr-1" src="{{ asset('storage/img/loading3.svg') }}" alt="Loading">
-
-                        Imprimir recibo
-                    </a>
-
-                @endif
-
-                @if($crear)
-
-                    <button
-                        wire:click="crear"
-                        wire:loading.attr="disabled"
-                        wire:target="crear"
-                        class="bg-blue-400 text-white hover:shadow-lg font-bold px-4 py-2 rounded-full text-sm mb-2 hover:bg-blue-700 flaot-left mr-1 focus:outline-none">
-
-                        <img wire:loading wire:target="crear" class="mx-auto h-4 mr-1" src="{{ asset('storage/img/loading3.svg') }}" alt="Loading">
-
-                        Guardar
-                    </button>
-
-                @elseif($editar)
-
-                    <button
-                        wire:click="actualizar"
-                        wire:loading.attr="disabled"
-                        wire:target="actualizar"
-                        class="bg-blue-400 hover:shadow-lg text-white font-bold px-4 py-2 rounded-full text-sm mb-2 hover:bg-blue-700 flaot-left mr-1 focus:outline-none">
-
-                        <img wire:loading wire:target="actualizar" class="mx-auto h-4 mr-1" src="{{ asset('storage/img/loading3.svg') }}" alt="Loading">
-
-                        Actualizar
-                    </button>
-
-                @endif
-
-                <button
-                    wire:click="resetearTodo"
-                    wire:loading.attr="disabled"
-                    wire:target="resetearTodo"
-                    type="button"
-                    class="bg-red-400 hover:shadow-lg text-white font-bold px-4 py-2 rounded-full text-sm mb-2 hover:bg-red-700 focus:outline-none w-min">
-                    Cerrar
-                </button>
-
-            </div>
-
-        </x-slot>
-
-    </x-jet-dialog-modal>
-
-    <x-jet-confirmation-modal wire:model="modalBorrar">
-
-        <x-slot name="title">
-            Eliminar trámite
-        </x-slot>
-
-        <x-slot name="content">
-            ¿Esta seguro que desea eliminar al trámite? No sera posible recuperar la información.
-        </x-slot>
-
-        <x-slot name="footer">
-
-            <x-jet-secondary-button
-                wire:click="$toggle('modalBorrar')"
-                wire:loading.attr="disabled"
-            >
-                No
-            </x-jet-secondary-button>
-
-            <x-jet-danger-button
-                class="ml-2"
-                wire:click="borrar()"
-                wire:loading.attr="disabled"
-                wire:target="borrar"
-            >
-                Borrar
-            </x-jet-danger-button>
-
-        </x-slot>
-
-    </x-jet-confirmation-modal>
+    </div>
 
     <script>
 

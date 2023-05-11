@@ -900,7 +900,7 @@
 
                         <div>
 
-                            <input type="number" class="bg-white rounded text-sm w-full" wire:model.defer="modelo_editar.costo_sap">
+                            <input type="number" min="0" class="bg-white rounded text-sm w-full" wire:model.defer="modelo_editar.costo_sap">
 
                         </div>
 

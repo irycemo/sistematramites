@@ -9,7 +9,7 @@ interface TramitesStrategyInterface
 
     public function cambiarFlags();
 
-    public function crearTramite(Tramite $tramite);
+    public function crearTramite();
 
     public function validaciones();
 

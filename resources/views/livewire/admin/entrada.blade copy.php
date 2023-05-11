@@ -8,7 +8,7 @@
 
     <div class="mb-6">
 
-        <h1 class="text-3xl tracking-widest py-3 px-6 text-gray-600 rounded-xl border-b-2 border-gray-500 font-thin mb-6  bg-white">Trámites</h1>
+        <h1 class="text-3xl tracking-widest py-3 px-6 text-gray-600 rounded-xl border-b-2 border-gray-500 font-thin mb-6  bg-white">Entrada</h1>
 
         <div class="flex justify-between">
 
@@ -27,7 +27,7 @@
 
             </div>
 
-            @can('Crear trámite')
+            @can('Crear entrada')
 
                 <button wire:click="abrirModalCrear" class="bg-gray-500 hover:shadow-lg hover:bg-gray-700 float-right text-sm py-2 px-4 text-white rounded-full focus:outline-none hidden md:block">
 
@@ -50,7 +50,7 @@
 
             <table class="rounded-lg w-full">
 
-                <thead class="border-b border-gray-300 bg-gray-5">
+                <thead class="border-b border-gray-300 bg-gray-50">
 
                     <tr class="text-xs font-medium text-gray-500 uppercase text-left traling-wider">
 
@@ -59,36 +59,6 @@
                             Número de Control
 
                             @if($sort == 'numero_control')
-
-                                @if($direction == 'asc')
-
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 float-right" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4" />
-                                    </svg>
-
-                                @else
-
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 float-right" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" />
-                                    </svg>
-
-                                @endif
-
-                            @else
-
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 float-right" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
-                                </svg>
-
-                            @endif
-
-                        </th>
-
-                        <th wire:click="order('estado')" class="cursor-pointer px-3 py-3 hidden lg:table-cell">
-
-                            Estado
-
-                            @if($sort == 'estado')
 
                                 @if($direction == 'asc')
 
@@ -432,20 +402,6 @@
 
                                 {{ $tramite->numero_control }}
 
-                                @if($tramite->adiciona)
-
-                                    {{ $tramite->adicionaAlTramite->numero_control }}
-
-                                @endif
-
-                            </td>
-
-                            <td class="px-3 py-3 w-full lg:w-auto p-3 text-gray-800 text-center  lg:border-0 border border-b block lg:table-cell relative lg:static">
-
-                                <span class="lg:hidden absolute top-0 left-0 bg-blue-300 px-2 py-1 text-xs text-white font-bold uppercase rounded-br-xl">Estado</span>
-
-                                <span class="bg-{{ $tramite->estado_color }} py-1 px-2 rounded-full text-white text-xs">{{ ucfirst($tramite->estado) }}</span>
-
                             </td>
 
                             <td class="px-3 py-3 w-full lg:w-auto p-3 text-gray-800 text-center lg:text-left lg:border-0 border border-b block lg:table-cell relative lg:static">
@@ -470,7 +426,7 @@
 
                                 <span class="lg:hidden absolute top-0 left-0 bg-blue-300 px-2 py-1 text-xs text-white font-bold uppercase rounded-br-xl">Folio Real</span>
 
-                                {{ $tramite->folio_real ? $tramite->folio_real : 'N/A' }}
+                                {{ $tramite->folio_real }}
 
                             </td>
 
@@ -478,7 +434,7 @@
 
                                 <span class="lg:hidden  absolute top-0 left-0 bg-blue-300 px-2 py-1 text-xs text-white font-bold uppercase rounded-br-xl">Tomo / Bis</span>
 
-                                {{ $tramite->tomo ? $tramite->tomo : 'N/A' }} {{ $tramite->tomo_bis ? '/ Bis' : ''}}
+                                {{ $tramite->tomo }} {{ $tramite->tomo_bis ? '/ Bis' : ''}}
 
                             </td>
 
@@ -486,7 +442,7 @@
 
                                 <span class="lg:hidden  absolute top-0 left-0 bg-blue-300 px-2 py-1 text-xs text-white font-bold uppercase rounded-br-xl">Registro / Bis</span>
 
-                                {{ $tramite->registro ? $tramite->registro : 'N/A' }} {{ $tramite->registro_bis ? '/ Bis' : ''}}
+                                {{ $tramite->registro }} {{ $tramite->registro_bis ? '/ Bis' : ''}}
 
                             </td>
 
@@ -494,7 +450,7 @@
 
                                 <span class="lg:hidden absolute top-0 left-0 bg-blue-300 px-2 py-1 text-xs text-white font-bold uppercase rounded-br-xl">Monto</span>
 
-                                ${{ number_format($tramite->monto, 2) }}
+                                ${{ $tramite->monto }}
 
                             </td>
 
@@ -554,7 +510,7 @@
                                             wire:click="abrirModalEditar({{$tramite->id}})"
                                             wire:loading.attr="disabled"
                                             wire:target="abiriModalEditar({{$tramite->id}})"
-                                            class="w-1/3 lg:w-full bg-blue-400 hover:shadow-lg text-white text-xs md:text-sm px-3 py-1 items-center rounded-full hover:bg-blue-700 flex justify-center focus:outline-none"
+                                            class="w-1/3 lg:w-full bg-blue-400 hover:shadow-lg text-white text-xs md:text-sm px-3 py-1 rounded-full hover:bg-blue-700 flex items-center justify-center focus:outline-none"
                                         >
 
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-4 h-4 mr-2">
@@ -573,7 +529,7 @@
                                             wire:click="abrirModalBorrar({{$tramite->id}})"
                                             wire:loading.attr="disabled"
                                             wire:target="abrirModalBorrar({{$tramite->id}})"
-                                            class="w-1/3 lg:w-full bg-red-400 hover:shadow-lg text-white text-xs md:text-sm px-3 py-1 items-center rounded-full hover:bg-red-700 flex justify-center focus:outline-none"
+                                            class="w-1/3 lg:w-full bg-red-400 hover:shadow-lg text-white text-xs md:text-sm px-3 py-1 rounded-full hover:bg-red-700 flex items-center justify-center focus:outline-none"
                                         >
 
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-4 h-4 mr-2">
@@ -600,7 +556,7 @@
                     <tr>
 
                         <td colspan="20" class="py-2 px-5">
-                            {{ $tramites->links()}}
+                            {{ $tramites->links() }}
                         </td>
 
                     </tr>
@@ -640,7 +596,7 @@
         </x-slot>
 
         <x-slot name="content">
-            {{ $errors }}
+
             <div class="relative p-1">
 
                 <div class="flex flex-col md:flex-row justify-between md:space-x-3 mb-3">
@@ -677,7 +633,7 @@
 
                                     <select class="select2 bg-white rounded text-sm w-full  z-50" wire:model="modelo_editar.adiciona">
 
-                                        @foreach ($tramites as $tramite)
+                                        @foreach ($tramitesAdiciona as $tramite)
 
                                             <option value="{{ $tramite->id }}">{{ $tramite->numero_control }}</option>
 
@@ -1079,7 +1035,7 @@
 
                                         @foreach ($distritos as $key => $item)
 
-                                            <option value="{{ $key }}">{{ $item }}</option>
+                                            <option value="{{  $key }}">{{  $item }}</option>
 
                                         @endforeach
 
@@ -1499,27 +1455,27 @@
 
     <script>
 
-        document.addEventListener('select2', function(){
+            document.addEventListener('select2', function(){
 
-            $('.select2').select2({
-                placeholder: "Número de control",
-                width: '100%',
-            })
+                $('.select2').select2({
+                    placeholder: "Número de control",
+                    width: '100%',
+                })
 
-            $('.select2').val(@this.modelo_editar.adiciona);
-            $('.select2').trigger('change');
+                $('.select2').val(@this.modelo_editar.adiciona);
+                $('.select2').trigger('change');
 
-            $('.select2').on('change', function(){
-                @this.set('modelo_editar.adiciona', $(this).val())
-            })
+                $('.select2').on('change', function(){
+                    @this.set('modelo_editar.adiciona', $(this).val())
+                })
 
-            $('.select2').on("keyup", function(e) {
-                if (e.keyCode === 13){
-                    @this.set('modelo_editar.adiciona', $('.select2').val())
-                }
+                $('.select2').on("keyup", function(e) {
+                    if (e.keyCode === 13){
+                        @this.set('modelo_editar.adiciona', $('.select2').val())
+                    }
+                });
+
             });
-
-        });
 
     </script>
 

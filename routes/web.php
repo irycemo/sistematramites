@@ -18,6 +18,7 @@ use App\Http\Controllers\ManualController;
 use App\Http\Controllers\TramitesController;
 use App\Http\Controllers\SetPasswordController;
 use App\Http\Livewire\Admin\CategoriasServicios;
+use App\Http\Services\LineasDeCaptura\LineaCaptura;
 
 /*
 |--------------------------------------------------------------------------
@@ -82,3 +83,5 @@ Route::get('setpassword/{email}', [SetPasswordController::class, 'create'])->nam
 Route::post('setpassword', [SetPasswordController::class, 'store'])->name('setpassword.store');
 
 Route::get('manual', ManualController::class)->name('manual');
+
+/* Route::get('test/{linea}', [LineaCaptura::class, 'validarLineaDeCaptura'])->name('manual'); */

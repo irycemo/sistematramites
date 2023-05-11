@@ -28,6 +28,8 @@ class Comercio implements TramitesStrategyInterface{
             'flag_registro_gravamen' => false,
             'flag_numero_paginas' => false,
             'flag_valor_propiedad' => false,
+            'flag_dependencias' => false,
+            'flag_notarias' => false,
         ];
 
     }

@@ -25,42 +25,48 @@ class Entrada extends Component
     public $solicitantes;
     public $secciones;
     public $categorias;
-    public $categoria_servicio;
+    public $categoria;
+    public $categoria_selected;
     public $servicios;
     public $servicio;
+    public $servicio_selected;
     public $adicionaTramite;
     public $tramitesAdiciona;
     public $distritos;
     public $dependencias;
     public $notarias;
     public $notaria;
+    public $numero_de_control;
+    public $tramite;
 
     public Tramite $modelo_editar;
 
     public $flags = [
-        'flag_seccion' => false,
-        'flag_numero_oficio' => false,
-        'flag_nombre_solicitante' => false,
-        'flag_tomo' => false,
-        'flag_folio_real' => false,
-        'flag_registro' => false,
-        'flag_numero_propiedad' => false,
-        'flag_distrito' => false,
-        'flag_numero_inmuebles' => false,
-        'flag_numero_escritura' => false,
-        'flag_numero_notaria' => false,
-        'flag_tomo_gravamen' => false,
-        'flag_foraneo' => false,
-        'flag_registro_gravamen' => false,
-        'flag_numero_paginas' => false,
-        'flag_valor_propiedad' => false,
-        'flag_dependencias' => false,
-        'flag_notarias' => false,
+        'adiciona' => false,
+        'solicitante' => false,
+        'nombre_solicitante' => false,
+        'seccion' => false,
+        'numero_oficio' => false,
+        'tomo' => false,
+        'folio_real' => false,
+        'registro' => false,
+        'numero_propiedad' => false,
+        'distrito' => false,
+        'numero_inmuebles' => false,
+        'numero_escritura' => false,
+        'tomo_gravamen' => false,
+        'foraneo' => false,
+        'registro_gravamen' => false,
+        'numero_paginas' => false,
+        'valor_propiedad' => false,
+        'dependencias' => false,
+        'notarias' => false,
+        'tipo_servicio' => false,
+        'observaciones' => false
     ];
 
     protected function rules(){
         return [
-            'categoria_servicio' => 'required',
             'servicio' => 'required',
             'modelo_editar.id_servicio' => 'required',
             'modelo_editar.solicitante' => 'required',
@@ -86,6 +92,7 @@ class Entrada extends Component
             'modelo_editar.numero_notaria' => 'nullable',
             'modelo_editar.nombre_notario' => 'nullable',
             'modelo_editar.valor_propiedad' => 'nullable',
+            'modelo_editar.observaciones' => 'nullable',
             'modelo_editar.foraneo' => 'nullable|boolean',
             'modelo_editar.adiciona' => 'required_if:adicionaTramite,true'
          ];
@@ -121,50 +128,29 @@ class Entrada extends Component
         return Tramite::make();
     }
 
-    public function updatedAdicionaTramite(){
+    public function updatedCategoriaSelected(){
 
-        $this->modelo_editar->adiciona = null;
+        $this->categoria = json_decode($this->categoria_selected, true);
 
-        if($this->adicionaTramite)
-            $this->dispatchBrowserEvent('select2');
-        else
-            $this->modelo_editar->adiciona = null;
+        $this->servicios = Servicio::where('categoria_servicio_id', $this->categoria['id'])->get();
 
-    }
-
-    public function updatedCategoriaServicio(){
-
-        /* Buscar servicios de la categoría */
-        $this->servicios = Servicio::where('estado', 'activo')->where('categoria_servicio_id', $this->categoria_servicio)->get();
-
-        /* Al cambiar de categoría resetear inputs */
-        $this->reset(['flags']);
-
-        $this->modelo_editar = $this->crearModeloVacio();
+        $this->resetearTodo($borrado = true);
 
     }
 
-    public function updatedModeloEditarIdServicio(){
+    public function updatedServicioSelected(){
 
-        $this->servicio = Servicio::find($this->modelo_editar->id_servicio);
+        $this->resetearTodo();
 
-        $this->reset(['flags']);
+        $this->servicio = json_decode($this->servicio_selected, true);
 
-        $this->modelo_editar = $this->crearModeloVacio();
+        $this->modelo_editar->id_servicio = $this->servicio['id'];
 
-        $this->modelo_editar->id_servicio = $this->servicio->id;
+        $context = new TramitesContext($this->categoria['nombre'], $this->modelo_editar);
 
-        if($this->servicio->categoria->nombre == 'Comercio'){
+        $this->flags = $context->cambiarFlags();
 
-            $tramiteContext = new TramitesContext('Comercio');
-
-        }else{
-
-            $tramiteContext = new TramitesContext($this->servicio->nombre);
-
-        }
-
-        $this->flags = $tramiteContext->cambiarFlags();
+        $this->updatedModeloEditarTipoServicio();
 
     }
 
@@ -177,28 +163,36 @@ class Entrada extends Component
 
         if($this->modelo_editar->solicitante == 'Usuario'){
 
-            $this->flags['flag_nombre_solicitante'] = true;
-            $this->flags['flag_dependencias'] = false;
-            $this->flags['flag_notarias'] = false;
+            $this->flags['nombre_solicitante'] = true;
+            $this->flags['dependencias'] = false;
+            $this->flags['notarias'] = false;
 
 
         }elseif($this->modelo_editar->solicitante == 'Notaría'){
 
-            $this->flags['flag_dependencias'] = false;
-            $this->flags['flag_nombre_solicitante'] = false;
-            $this->flags['flag_notarias'] = true;
+            $this->flags['dependencias'] = false;
+            $this->flags['nombre_solicitante'] = false;
+            $this->flags['notarias'] = true;
 
         }elseif($this->modelo_editar->solicitante == 'Oficialia de partes'){
 
-            $this->flags['flag_nombre_solicitante'] = false;
-            $this->flags['flag_dependencias'] = true;
-            $this->flags['flag_notarias'] = false;
+            if(!auth()->user()->hasRole('Oficialia de partes')){
+
+                $this->dispatchBrowserEvent('mostrarMensaje', ['error', "No tienes permisos para esta opción."]);
+                $this->modelo_editar->solicitante = null;
+                return;
+
+            }
+
+            $this->flags['nombre_solicitante'] = false;
+            $this->flags['dependencias'] = true;
+            $this->flags['notarias'] = false;
 
         }else{
 
-            $this->flags['flag_nombre_solicitante'] = false;
-            $this->flags['flag_dependencias'] = false;
-            $this->flags['flag_notarias'] = false;
+            $this->flags['nombre_solicitante'] = false;
+            $this->flags['dependencias'] = false;
+            $this->flags['notarias'] = false;
             $this->modelo_editar->nombre_solicitante = $this->modelo_editar->solicitante;
         }
 
@@ -220,6 +214,50 @@ class Entrada extends Component
 
     }
 
+    public function updatedAdicionaTramite(){
+
+        $this->modelo_editar->adiciona = null;
+
+        if($this->adicionaTramite)
+            $this->dispatchBrowserEvent('select2');
+        else
+            $this->modelo_editar->adiciona = null;
+
+    }
+
+    public function buscarTramite(){
+
+        $this->resetearTodo($borrado = true);
+
+        $this->categoria = null;
+
+        $this->tramite = Tramite::with('servicio')->where('numero_control', $this->numero_de_control)->first();
+
+        if(!$this->tramite)
+            $this->dispatchBrowserEvent('mostrarMensaje', ['error', "No se encontro el trámite."]);
+
+        $this->numero_de_control = null;
+
+    }
+
+    public function reimprimir(){
+
+        $this->dispatchBrowserEvent('imprimir_recibo', ['tramite' => $this->tramite->id]);
+
+    }
+
+    public function updatedModeloEditarIdServicio(){
+
+        $this->resetearTodo($borrado = true);
+
+        $this->modelo_editar->id_servicio = $this->servicio['id'];
+
+        $tramiteContext = new TramitesContext($this->categoria['nombre']);
+
+        $this->flags = $tramiteContext->cambiarFlags();
+
+    }
+
     public function updatedModeloEditarTipoServicio(){
 
         if($this->modelo_editar->id_servicio == ""){
@@ -235,14 +273,12 @@ class Entrada extends Component
 
         if($this->modelo_editar->tipo_servicio == 'Ordinario'){
 
-            $this->modelo_editar->fecha_entrega = $this->calcularFecha(4);
-            $this->modelo_editar->monto = Servicio::find($this->modelo_editar->id_servicio)->ordinario;
+            $this->modelo_editar->monto = $this->servicio['ordinario'];
 
         }
         elseif($this->modelo_editar->tipo_servicio == 'Urgente'){
 
-            $this->modelo_editar->fecha_entrega = $this->calcularFecha(1);
-            $this->modelo_editar->monto = Servicio::find($this->modelo_editar->id_servicio)->urgente;
+            $this->modelo_editar->monto = $this->servicio['urgente'];
 
             if($this->modelo_editar->monto == 0){
 
@@ -254,8 +290,7 @@ class Entrada extends Component
         }
         elseif($this->modelo_editar->tipo_servicio == 'Extra Urgente'){
 
-            $this->modelo_editar->fecha_entrega = now()->format('Y-m-d');
-            $this->modelo_editar->monto = Servicio::find($this->modelo_editar->id_servicio)->extra_urgente;
+            $this->modelo_editar->monto = $this->servicio['extra_urgente'];
 
             if($this->modelo_editar->monto == 0){
 
@@ -268,55 +303,15 @@ class Entrada extends Component
 
     }
 
-    public function updatedModeloEditarForaneo(){
-
-        $this->updatedModeloEditarTipoServicio();
-
-    }
-
-    public function abrirModalEditar(Tramite $modelo){
-
-        $this->resetearTodo();
-
-        $this->selected_id = $modelo->id;
-        $servicio = Servicio::find($modelo->id_servicio);
-        $this->categoria_servicio = $servicio->categoria_servicio_id;
-        $this->updatedCategoriaServicio();
-
-        if($this->modelo_editar->isNot($modelo))
-            $this->modelo_editar = $modelo;
-
-        $this->modal = true;
-        $this->editar = true;
-
-        foreach($this->modelo_editar->getAttributes() as $attribute => $value){
-
-            if($value)
-                $this->flags['flag_' . $attribute] = true;
-
-        }
-
-        if($this->modelo_editar->adiciona)
-            $this->adicionaTramite = true;
-
-    }
-
     public function crear(){
 
         $this->validate([
             'servicio' => 'required',
-            'categoria_servicio' => 'required'
+            'categoria' => 'required'
         ]);
 
-        if($this->servicio->categoria->nombre == 'Comercio'){
 
-            $context = new TramitesContext('Comercio');
-
-        }else{
-
-            $context = new TramitesContext($this->servicio->nombre);
-
-        }
+        $context = new TramitesContext($this->categoria['nombre'], $this->modelo_editar);
 
         $this->validate(array_merge($this->rules(), $context->validaciones()));
 
@@ -324,9 +319,9 @@ class Entrada extends Component
 
             DB::transaction(function () use($context){
 
-                $tramite = $context->crearTramite($this->modelo_editar);
+                $tramite = $context->crearTramite();
 
-                $this->resetearTodo();
+                $this->resetearTodo($borrado = true);
 
                 $this->selected_id = $tramite->id;
 
@@ -339,7 +334,7 @@ class Entrada extends Component
         } catch (\Throwable $th) {
             Log::error("Error al crear trámite por el usuario: (id: " . auth()->user()->id . ") " . auth()->user()->name . ". " . $th->getMessage());
             $this->dispatchBrowserEvent('mostrarMensaje', ['error', "Ha ocurrido un error."]);
-            $this->resetearTodo();
+            $this->resetearTodo($borrado = true);
 
         }
     }
@@ -402,7 +397,7 @@ class Entrada extends Component
 
     public function mount(){
 
-        array_push($this->fields, 'adicionaTramite', 'flags', 'servicios', 'categoria_servicio');
+        array_push($this->fields, 'adicionaTramite', 'flags','tramite', 'flags', 'editar');
 
         $this->modelo_editar = $this->crearModeloVacio();
 

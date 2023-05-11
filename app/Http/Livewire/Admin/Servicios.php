@@ -28,20 +28,21 @@ class Servicios extends Component
             'modelo_editar.estado' => 'required',
             'modelo_editar.material' => 'required',
             'modelo_editar.clave_ingreso' => 'nullable',
-            'modelo_editar.costo_sap' => 'nullable',
+            'modelo_editar.costo_sap' => 'required|numeric|min:0',
             'modelo_editar.umas' => 'numeric|nullable|min:0',
             'modelo_editar.ordinario' => 'required|numeric|nullable',
             'modelo_editar.urgente' => 'numeric|nullable|min:0',
             'modelo_editar.extra_urgente' => 'numeric|nullable|min:0',
-            'modelo_editar.operacion_parcial' => 'nullable|numeric',
-            'modelo_editar.operacion_principal' => 'nullable|numeric',
+            'modelo_editar.operacion_parcial' => 'required|numeric',
+            'modelo_editar.operacion_principal' => 'required|numeric',
             'modelo_editar.categoria_servicio_id' => 'required'
          ];
     }
 
     protected $validationAttributes  = [
         'modelo_editar.operacion_parcial' => 'operación parcial',
-        'modelo_editar.operacion_principal' => 'operación principal'
+        'modelo_editar.operacion_principal' => 'operación principal',
+        'modelo_editar.costo_sap' => 'costo sap'
     ];
 
     public function crearModeloVacio(){

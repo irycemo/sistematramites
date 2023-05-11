@@ -16,7 +16,8 @@ class Tramite extends Model implements Auditable
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
     protected $casts = [
-        'limite_de_pago' => 'date'
+        'limite_de_pago' => 'date',
+        'fecha_entrega' => 'date'
     ];
 
     public function getEstadoColorAttribute()

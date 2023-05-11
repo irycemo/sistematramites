@@ -217,6 +217,7 @@ class Tramites extends Component
 
         $this->modelo_editar->numero_notaria = $notaria->numero;
         $this->modelo_editar->nombre_notario = $notaria->notario;
+        $this->modelo_editar->nombre_solicitante = $notaria->numero;
 
     }
 
