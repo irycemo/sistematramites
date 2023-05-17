@@ -57,7 +57,7 @@ class SistemaRppService{
 
         }else{
 
-            throw new ErrorAlEnviarTramiteSistemaRppException("Error al enviar tramite pagado al sistema rpp."  . $response);
+            throw new ErrorAlEnviarTramiteSistemaRppException("Error al enviar tramite pagado al sistema rpp.");
 
         }
 
@@ -112,7 +112,7 @@ class SistemaRppService{
 
         }else{
 
-            throw new ErrorAlEnviarTramiteSistemaRppException("Error al enviar tramite pagado al sistema rpp."  . $response);
+            throw new ErrorAlEnviarTramiteSistemaRppException("Error al enviar tramite pagado al sistema rpp.");
 
         }
 

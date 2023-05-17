@@ -27,9 +27,9 @@ class TramitesContext
 
     }
 
-    public function cambiarFlags():array
+    public function cambiarFlags(array $flags):array
     {
-        return $this->strategy->cambiarFlags();
+        return $this->strategy->cambiarFlags($flags);
     }
 
     public function crearTramite():Tramite

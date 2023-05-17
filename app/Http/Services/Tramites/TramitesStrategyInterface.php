@@ -7,7 +7,7 @@ use App\Models\Tramite;
 interface TramitesStrategyInterface
 {
 
-    public function cambiarFlags();
+    public function cambiarFlags(array $flags);
 
     public function crearTramite();
 

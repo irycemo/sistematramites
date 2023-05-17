@@ -325,7 +325,7 @@
 
                             <div>
 
-                                <input type="number" class="bg-white rounded text-sm w-full" wire:model.defer="modelo_editar.tomo">
+                                <input type="number" class="bg-white rounded text-sm w-full" wire:model.lazy="modelo_editar.tomo">
 
                             </div>
 
@@ -377,7 +377,7 @@
 
                             <div>
 
-                                <input type="number" class="bg-white rounded text-sm w-full" wire:model.defer="modelo_editar.registro">
+                                <input type="number" class="bg-white rounded text-sm w-full" wire:model.lazy="modelo_editar.registro">
 
                             </div>
 
@@ -426,7 +426,7 @@
 
                         <div>
 
-                            <select class="bg-white rounded text-sm w-full" wire:model.defer="modelo_editar.distrito">
+                            <select class="bg-white rounded text-sm w-full" wire:model.lazy="modelo_editar.distrito">
 
                                 <option value="" selected>Seleccione una opción</option>
 
@@ -462,7 +462,7 @@
 
                         <div>
 
-                            <select class="bg-white rounded text-sm w-full" wire:model.defer="modelo_editar.seccion">
+                            <select class="bg-white rounded text-sm w-full" wire:model.lazy="modelo_editar.seccion">
 
                                 <option value="" selected>Seleccione una opción</option>
 
@@ -498,7 +498,7 @@
 
                         <div>
 
-                            <input type="text" class="bg-white rounded text-sm w-full" wire:model.defer="modelo_editar.tomo_gravamen">
+                            <input type="text" class="bg-white rounded text-sm w-full" wire:model.lazy="modelo_editar.tomo_gravamen">
 
                         </div>
 
@@ -524,7 +524,7 @@
 
                         <div>
 
-                            <input type="text" class="bg-white rounded text-sm w-full" wire:model.defer="modelo_editar.registro_gravamen">
+                            <input type="text" class="bg-white rounded text-sm w-full" wire:model.lazy="modelo_editar.registro_gravamen">
 
                         </div>
 
@@ -549,7 +549,7 @@
 
                         <div>
 
-                            <input type="text" class="bg-white rounded text-sm w-full" wire:model.defer="modelo_editar.numero_propiedad">
+                            <input type="text" class="bg-white rounded text-sm w-full" wire:model.lazy="modelo_editar.numero_propiedad">
 
                         </div>
 
@@ -574,7 +574,7 @@
 
                         <div>
 
-                            <input type="text" class="bg-white rounded text-sm w-full" wire:model.defer="modelo_editar.numero_escritura">
+                            <input type="text" class="bg-white rounded text-sm w-full" wire:model.lazy="modelo_editar.numero_escritura">
 
                         </div>
 
@@ -599,7 +599,7 @@
 
                         <div>
 
-                            <input type="number" class="bg-white rounded text-sm w-full" wire:model.defer="modelo_editar.valor_propiedad">
+                            <input type="number" class="bg-white rounded text-sm w-full" wire:model.lazy="modelo_editar.valor_propiedad">
 
                         </div>
 
@@ -624,7 +624,7 @@
 
                         <div>
 
-                            <input type="number" class="bg-white rounded text-sm w-full" wire:model.defer="modelo_editar.numero_inmuebles">
+                            <input type="number" class="bg-white rounded text-sm w-full" wire:model.lazy="modelo_editar.numero_inmuebles">
 
                         </div>
 
@@ -644,12 +644,12 @@
 
                         <div class="mb-2">
 
-                            <Label class="text-lg tracking-widest rounded-xl border-gray-500">Cantidad de páginas</Label>
+                            <Label class="text-lg tracking-widest rounded-xl border-gray-500">Número de páginas</Label>
                         </div>
 
                         <div>
 
-                            <input type="number" min="1" class="bg-white rounded text-sm w-full" wire:model.defer="modelo_editar.numero_paginas">
+                            <input type="number" min="1" class="bg-white rounded text-sm w-full" wire:model.lazy="modelo_editar.numero_paginas">
 
                         </div>
 

@@ -18,60 +18,25 @@ class Certificaciones implements TramitesStrategyInterface{
         $this->tramite = $tramite;
     }
 
-    public function cambiarFlags():array
+    public function cambiarFlags(array $flags):array
     {
+
+        $flags['adiciona'] = true;
+        $flags['solicitante'] = true;
+        $flags['seccion'] = true;
+        $flags['distrito'] = true;
+        $flags['tipo_servicio'] = true;
+        $flags['observaciones'] = true;
 
         if($this->tramite->servicio->clave_ingreso == 'DC74'){
 
-            return [
-                'adiciona' => true,
-                'solicitante' => true,
-                'seccion' => true,
-                'numero_oficio' => false,
-                'nombre_solicitante' => false,
-                'tomo' => false,
-                'folio_real' => false,
-                'registro' => false,
-                'numero_propiedad' => false,
-                'distrito' => true,
-                'numero_inmuebles' => false,
-                'numero_escritura' => false,
-                'tomo_gravamen' => false,
-                'foraneo' => false,
-                'registro_gravamen' => false,
-                'numero_paginas' => true,
-                'valor_propiedad' => false,
-                'dependencias' => false,
-                'notarias' => false,
-                'tipo_servicio' => true,
-                'observaciones' => true
-            ];
+            $flags['numero_paginas'] = true;
+
+            return $flags;
 
         }else{
 
-            return [
-                'adiciona' => true,
-                'solicitante' => true,
-                'seccion' => true,
-                'numero_oficio' => false,
-                'nombre_solicitante' => false,
-                'tomo' => false,
-                'folio_real' => false,
-                'registro' => false,
-                'numero_propiedad' => false,
-                'distrito' => true,
-                'numero_inmuebles' => false,
-                'numero_escritura' => false,
-                'tomo_gravamen' => false,
-                'foraneo' => false,
-                'registro_gravamen' => false,
-                'numero_paginas' => false,
-                'valor_propiedad' => false,
-                'dependencias' => false,
-                'notarias' => false,
-                'tipo_servicio' => true,
-                'observaciones' => true
-            ];
+            return $flags;
 
         }
 
@@ -158,7 +123,7 @@ class Certificaciones implements TramitesStrategyInterface{
 
         if(!$servicio){
 
-            throw new ModelNotFoundException("Error al encontrar el servcio en App/Http/Services/Tramites/TramitesStrategies/Copias");
+            throw new ModelNotFoundException("Error al encontrar el servcio DC93");
 
         }
 

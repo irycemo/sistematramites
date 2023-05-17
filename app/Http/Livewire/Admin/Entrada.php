@@ -130,6 +130,14 @@ class Entrada extends Component
 
     public function updatedCategoriaSelected(){
 
+        if($this->categoria_selected == ""){
+
+            $this->resetearTodo($borrado = true);
+
+            return;
+
+        }
+
         $this->categoria = json_decode($this->categoria_selected, true);
 
         $this->servicios = Servicio::where('categoria_servicio_id', $this->categoria['id'])->get();
@@ -140,7 +148,15 @@ class Entrada extends Component
 
     public function updatedServicioSelected(){
 
-        $this->resetearTodo();
+        if($this->servicio_selected == ""){
+
+            $this->resetearTodo($borrado = true);
+
+            return;
+
+        }
+
+        $this->resetearTodo($borrado = true);
 
         $this->servicio = json_decode($this->servicio_selected, true);
 
@@ -148,7 +164,7 @@ class Entrada extends Component
 
         $context = new TramitesContext($this->categoria['nombre'], $this->modelo_editar);
 
-        $this->flags = $context->cambiarFlags();
+        $this->flags = $context->cambiarFlags($this->flags);
 
         $this->updatedModeloEditarTipoServicio();
 
@@ -207,6 +223,18 @@ class Entrada extends Component
 
     public function updatedNotaria(){
 
+        if($this->notaria == ""){
+
+            $this->reset(['notaria']);
+
+            $this->modelo_editar->numero_notaria = null;
+            $this->modelo_editar->nombre_notario = null;
+            $this->modelo_editar->nombre_solicitante = null;
+
+            return;
+
+        }
+
         $notaria = json_decode($this->notaria);
 
         $this->modelo_editar->numero_notaria = $notaria->numero;
@@ -232,7 +260,7 @@ class Entrada extends Component
 
         $this->categoria = null;
 
-        $this->tramite = Tramite::with('servicio')->where('numero_control', $this->numero_de_control)->first();
+        $this->tramite = Tramite::with('servicio')->where('estado', 'nuevo')->where('numero_control', $this->numero_de_control)->first();
 
         if(!$this->tramite)
             $this->dispatchBrowserEvent('mostrarMensaje', ['error', "No se encontro el trámite."]);
@@ -333,8 +361,9 @@ class Entrada extends Component
         });
 
         } catch (\Throwable $th) {
-            Log::error("Error al crear trámite por el usuario: (id: " . auth()->user()->id . ") " . auth()->user()->name . ". " . $th->getMessage());
-            $this->dispatchBrowserEvent('mostrarMensaje', ['error', "Ha ocurrido un error."]);
+
+            Log::error("Error al crear trámite por el usuario: (id: " . auth()->user()->id . ") " . auth()->user()->name . ". " . $th);
+            $this->dispatchBrowserEvent('mostrarMensaje', ['error', $th->getMessage()]);
             $this->resetearTodo($borrado = true);
 
         }
@@ -354,8 +383,8 @@ class Entrada extends Component
 
         } catch (\Throwable $th) {
 
-            Log::error("Error al actualizar trámite por el usuario: (id: " . auth()->user()->id . ") " . auth()->user()->name . ". " . $th->getMessage());
-            $this->dispatchBrowserEvent('mostrarMensaje', ['error', "Ha ocurrido un error."]);
+            Log::error("Error al actualizar trámite por el usuario: (id: " . auth()->user()->id . ") " . auth()->user()->name . ". " . $th);
+            $this->dispatchBrowserEvent('mostrarMensaje', ['error', $th->getMessage()]);
             $this->resetearTodo();
 
         }
@@ -374,14 +403,14 @@ class Entrada extends Component
 
         } catch (\Throwable $th) {
 
-            Log::error("Error al borrar trámite por el usuario: (id: " . auth()->user()->id . ") " . auth()->user()->name . ". " . $th->getMessage());
-            $this->dispatchBrowserEvent('mostrarMensaje', ['error', "Ha ocurrido un error."]);
+            Log::error("Error al borrar trámite por el usuario: (id: " . auth()->user()->id . ") " . auth()->user()->name . ". " . $th);
+            $this->dispatchBrowserEvent('mostrarMensaje', ['error', $th->getMessage()]);
             $this->resetearTodo();
 
         }
     }
 
-    public function calcularFecha($dias){
+    /* public function calcularFecha($dias){
 
         $actual = today();
 
@@ -394,7 +423,7 @@ class Entrada extends Component
         }
 
         return $actual->toDateString();
-    }
+    } */
 
     public function mount(){
 

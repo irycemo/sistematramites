@@ -643,55 +643,43 @@
 
             <div class="relative p-1">
 
-                <div class="flex flex-col md:flex-row justify-between md:space-x-3 mb-3">
+                <div class="flex space-x-3 rounded-lg mb-3">
 
-                    <div class="flex-auto mr-1 ">
+                    <div class="flex space-x-4 items-center">
 
-                        <div class="flex space-x-4 items-center">
+                        <Label>¿Adiciona a otro trámite?</Label>
 
-                            <Label>¿Adiciona a otro trámite?</Label>
-
-                            <x-jet-checkbox wire:model="adicionaTramite"></x-jet-checkbox>
-
-                        </div>
+                        <x-jet-checkbox wire:model="adicionaTramite"></x-jet-checkbox>
 
                     </div>
 
-                </div>
+                    @if($adicionaTramite)
 
-                <div>
+                        <div class="flex-auto mr-1 ">
 
-                    @if ($adicionaTramite)
+                            <div class="flex space-x-4 items-center">
 
-                        <div class="flex flex-col md:flex-row justify-between md:space-x-3 mb-5">
+                                <Label>Seleccione el trámite</Label>
 
-                            <div class="flex-auto mr-1 ">
+                            </div>
 
-                                <div class="flex space-x-4 items-center">
+                            <div class="" wire:ignore>
 
-                                    <Label>Seleccione el trámite</Label>
+                                <select class="select2 bg-white rounded text-sm w-full  z-50" wire:model="modelo_editar.adiciona">
 
-                                </div>
+                                    @foreach ($tramites as $item)
 
-                                <div class="w-full md:w-1/2" wire:ignore>
+                                        <option value="{{ $item->id }}">{{ $item->numero_control }}</option>
 
-                                    <select class="select2 bg-white rounded text-sm w-full  z-50" wire:model="modelo_editar.adiciona">
+                                    @endforeach
 
-                                        @foreach ($tramites as $tramite)
+                                </select>
 
-                                            <option value="{{ $tramite->id }}">{{ $tramite->numero_control }}</option>
+                            </div>
 
-                                        @endforeach
+                            <div>
 
-                                    </select>
-
-                                </div>
-
-                                <div>
-
-                                    @error('modelo_editar.adiciona') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
-
-                                </div>
+                                @error('modelo_editar.adiciona') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
 
                             </div>
 

@@ -8,7 +8,7 @@ use App\Http\Services\Tramites\TramitesStrategyInterface;
 
 class Reset implements TramitesStrategyInterface{
 
-    public function cambiarFlags():array
+    public function cambiarFlags(array $flags):array
     {
 
         return  [
