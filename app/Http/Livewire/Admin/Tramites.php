@@ -155,7 +155,7 @@ class Tramites extends Component
 
         $tramiteContext = new TramitesContext($this->servicio->categoria->nombre, $this->modelo_editar);
 
-        $this->flags = $tramiteContext->cambiarFlags();
+        $this->flags = $tramiteContext->cambiarFlags($this->flags);
 
     }
 
