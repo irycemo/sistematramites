@@ -224,10 +224,10 @@ class LineaCaptura
 
         curl_close($ch);
 
-        $error = curl_errno($ch);
+        $error = curl_error($ch);
 
         if($error)
-            throw new ErrorAlGenerarLineaDeCaptura("Error al generar linea de captura.");
+            throw new ErrorAlGenerarLineaDeCaptura("Error al generar linea de captura. " . $error);
 
 
         $xml = preg_replace("/(<\/?)(\w+):([^>]*>)/", "$1$2$3", $response);
