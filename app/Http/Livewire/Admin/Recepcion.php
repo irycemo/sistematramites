@@ -68,7 +68,7 @@ class Recepcion extends Component
                 }
 
                 $tramite = Tramite::find($this->selected_id);
-                $tramite->update(['estado' => 'recivido']);
+                $tramite->update(['estado' => 'aceptado']);
 
                 $this->dispatchBrowserEvent('mostrarMensaje', ['success', "Se actualizó la información con éxito."]);
 
@@ -80,7 +80,7 @@ class Recepcion extends Component
 
         } catch (\Throwable $th) {
 
-            Log::error("Error al guardar documento del trámite id: " . $this->selected_id . " por el usuario: (id: " . auth()->user()->id . ") " . auth()->user()->name . ". " . $th->getMessage());
+            Log::error("Error al guardar documento del trámite id: " . $this->selected_id . " por el usuario: (id: " . auth()->user()->id . ") " . auth()->user()->name . ". " . $th);
             $this->dispatchBrowserEvent('mostrarMensaje', ['error', "Ha ocurrido un error."]);
             $this->resetearTodo();
 
@@ -93,7 +93,7 @@ class Recepcion extends Component
 
         $tramites = Tramite::with('creadoPor', 'actualizadoPor', 'adicionaAlTramite', 'servicio', 'files')
                                 ->where(function($q){
-                                    return $q->where('estado', 'pagado')
+                                    return $q->where('estado', 'recepcion')
                                                 ->orWhere('estado', 'revision');
                                 })
                                 ->where(function ($q){

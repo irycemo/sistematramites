@@ -2,10 +2,11 @@
 
 namespace App\Http\Services\SistemaRPP;
 
-use App\Exceptions\ErrorAlActualizarMovimientoRegistralEnTramite;
-use App\Exceptions\ErrorAlEnviarTramiteSistemaRppException;
 use App\Models\Tramite;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
+use App\Exceptions\ErrorAlEnviarTramiteSistemaRppException;
+use App\Exceptions\ErrorAlActualizarMovimientoRegistralEnTramite;
 
 class SistemaRppService{
 
@@ -17,13 +18,13 @@ class SistemaRppService{
             'monto' => $tramite->monto,
             'solicitante' => $tramite->nombre_solicitante,
             'tramite' => $tramite->numero_control,
-            'fecha_prelacion' => now()->toDateString(), //Prelacion
+            'fecha_prelacion' => $tramite->fecha_prelacion,
             'tipo_servicio' => $tramite->tipo_servicio,
             'seccion' => $tramite->seccion,
             'distrito' => $tramite->distrito,
             'fecha_entrega' => $tramite->fecha_entrega->toDateString(),
             'categoria_servicio' => $tramite->servicio->categoria->nombre,
-            'servicio' => $tramite->servicio->nombre,
+            'servicio' => $tramite->servicio->clave_ingreso,
             'numero_oficio' => $tramite->numero_oficio,
             'folio_real' => $tramite->folio_real,
             'tomo' => $tramite->tomo,
@@ -57,6 +58,8 @@ class SistemaRppService{
 
         }else{
 
+            Log::error($response);
+
             throw new ErrorAlEnviarTramiteSistemaRppException("Error al enviar tramite pagado al sistema rpp.");
 
         }
@@ -77,7 +80,7 @@ class SistemaRppService{
             'distrito' => $tramite->distrito,
             'fecha_entrega' => $tramite->fecha_entrega->toDateString(),
             'categoria_servicio' => $tramite->servicio->categoria->nombre,
-            'servicio' => $tramite->servicio->nombre,
+            'servicio' => $tramite->servicio->clave_ingreso,
             'numero_oficio' => $tramite->numero_oficio,
             'folio_real' => $tramite->folio_real,
             'tomo' => $tramite->tomo,
@@ -111,6 +114,8 @@ class SistemaRppService{
                 $tramite->adicionaAlTramite->update(['movimiento_registral' => $data['data']['id']]);
 
         }else{
+
+            Log::error($response);
 
             throw new ErrorAlEnviarTramiteSistemaRppException("Error al enviar tramite pagado al sistema rpp.");
 

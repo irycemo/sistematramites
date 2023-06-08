@@ -1,9 +1,3 @@
-@push('styles')
-
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-
-@endpush
-
 <div class="">
 
     <div class="mb-6">
@@ -26,19 +20,6 @@
                 </select>
 
             </div>
-
-            @can('Crear trámite')
-
-                <button wire:click="abrirModalCrear" class="bg-gray-500 hover:shadow-lg hover:bg-gray-700 float-right text-sm py-2 px-4 text-white rounded-full focus:outline-none hidden md:block">
-
-                    <img wire:loading wire:target="abrirModalCrear" class="mx-auto h-4 mr-1" src="{{ asset('storage/img/loading3.svg') }}" alt="Loading">
-                    Agregar nuevo trámite
-
-                </button>
-
-                <button wire:click="abrirModalCrear" class="bg-gray-500 hover:shadow-lg hover:bg-gray-700 float-right text-sm py-2 px-4 text-white rounded-full focus:outline-none md:hidden">+</button>
-
-            @endcan
 
         </div>
 
@@ -548,43 +529,47 @@
 
                                 <div class="flex flex-col justify-center lg:justify-start items-center space-y-1">
 
-                                    @can('Editar entrada')
+                                    @if($tramite->estado == 'nuevo')
 
-                                        <button
-                                            wire:click="abrirModalEditar({{$tramite->id}})"
-                                            wire:loading.attr="disabled"
-                                            wire:target="abiriModalEditar({{$tramite->id}})"
-                                            class="w-1/3 lg:w-full bg-blue-400 hover:shadow-lg text-white text-xs md:text-sm px-3 py-1 items-center rounded-full hover:bg-blue-700 flex justify-center focus:outline-none"
-                                        >
+                                        @can('Editar entrada')
 
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-4 h-4 mr-2">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                            </svg>
+                                            <button
+                                                wire:click="abrirModalEditar({{$tramite->id}})"
+                                                wire:loading.attr="disabled"
+                                                wire:target="abiriModalEditar({{$tramite->id}})"
+                                                class="w-1/3 lg:w-full bg-blue-400 hover:shadow-lg text-white text-xs md:text-sm px-3 py-1 items-center rounded-full hover:bg-blue-700 flex justify-center focus:outline-none"
+                                            >
 
-                                            Editar
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-4 h-4 mr-2">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                </svg>
 
-                                        </button>
+                                                Editar
 
-                                    @endcan
+                                            </button>
 
-                                    @can('Borrar entrada')
+                                        @endcan
 
-                                        <button
-                                            wire:click="abrirModalBorrar({{$tramite->id}})"
-                                            wire:loading.attr="disabled"
-                                            wire:target="abrirModalBorrar({{$tramite->id}})"
-                                            class="w-1/3 lg:w-full bg-red-400 hover:shadow-lg text-white text-xs md:text-sm px-3 py-1 items-center rounded-full hover:bg-red-700 flex justify-center focus:outline-none"
-                                        >
+                                        @can('Borrar entrada')
 
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-4 h-4 mr-2">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                            </svg>
+                                            <button
+                                                wire:click="abrirModalBorrar({{$tramite->id}})"
+                                                wire:loading.attr="disabled"
+                                                wire:target="abrirModalBorrar({{$tramite->id}})"
+                                                class="w-1/3 lg:w-full bg-red-400 hover:shadow-lg text-white text-xs md:text-sm px-3 py-1 items-center rounded-full hover:bg-red-700 flex justify-center focus:outline-none"
+                                            >
 
-                                            Eliminar
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-4 h-4 mr-2">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                </svg>
 
-                                        </button>
+                                                Eliminar
 
-                                    @endcan
+                                            </button>
+
+                                        @endcan
+
+                                    @endif
 
                                 </div>
 
@@ -642,122 +627,6 @@
         <x-slot name="content">
 
             <div class="relative p-1">
-
-                <div class="flex space-x-3 rounded-lg mb-3">
-
-                    <div class="flex space-x-4 items-center">
-
-                        <Label>¿Adiciona a otro trámite?</Label>
-
-                        <x-jet-checkbox wire:model="adicionaTramite"></x-jet-checkbox>
-
-                    </div>
-
-                    @if($adicionaTramite)
-
-                        <div class="flex-auto mr-1 ">
-
-                            <div class="flex space-x-4 items-center">
-
-                                <Label>Seleccione el trámite</Label>
-
-                            </div>
-
-                            <div class="" wire:ignore>
-
-                                <select class="select2 bg-white rounded text-sm w-full  z-50" wire:model="modelo_editar.adiciona">
-
-                                    @foreach ($tramites as $item)
-
-                                        <option value="{{ $item->id }}">{{ $item->numero_control }}</option>
-
-                                    @endforeach
-
-                                </select>
-
-                            </div>
-
-                            <div>
-
-                                @error('modelo_editar.adiciona') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
-
-                            </div>
-
-                        </div>
-
-                    @endif
-
-                </div>
-
-                <div class="flex flex-col md:flex-row justify-between md:space-x-3 ">
-
-                    <div class="flex-auto mb-3">
-
-                        <div>
-
-                            <Label>Categoría de servicios</Label>
-                        </div>
-
-                        <div>
-
-                            <select class="bg-white rounded text-sm w-full" wire:model="categoria_servicio">
-
-                                <option value="" selected>Seleccione una opción</option>
-
-                                @foreach ($categorias as $categoria)
-
-                                    <option  value="{{ $categoria->id }}">{{ $categoria->nombre }}</option>
-
-                                @endforeach
-
-                            </select>
-
-                        </div>
-
-                        <div>
-
-                            @error('categoria_servicio') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
-
-                        </div>
-
-                    </div>
-
-                    @if($servicios)
-
-                        <div class="flex-auto ">
-
-                            <div>
-
-                                <Label>Servicio</Label>
-                            </div>
-
-                            <div>
-
-                                <select class="bg-white rounded text-sm w-full" wire:model="modelo_editar.id_servicio">
-
-                                    <option value="" selected>Seleccione una opción</option>
-
-                                    @foreach ($servicios as $servicio)
-
-                                        <option  value="{{ $servicio->id }}">{{ $servicio->nombre }}</option>
-
-                                    @endforeach
-
-                                </select>
-
-                            </div>
-
-                            <div>
-
-                                @error('modelo_editar.id_servicio') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
-
-                            </div>
-
-                        </div>
-
-                    @endif
-
-                </div>
 
                 <div class="flex flex-col md:flex-row justify-between md:space-x-3 ">
 
@@ -1272,89 +1141,6 @@
 
                         @endif
 
-                        @if($flags['numero_paginas'])
-
-                            <div class="flex-auto">
-
-                                <div>
-
-                                    <Label>Cantidad de páginas</Label>
-                                </div>
-
-                                <div>
-
-                                    <input type="number" min="1" class="bg-white rounded text-sm w-full" wire:model.defer="modelo_editar.numero_paginas">
-
-                                </div>
-
-                                <div>
-
-                                    @error('modelo_editar.numero_paginas') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
-
-                                </div>
-
-                            </div>
-
-                        @endif
-
-                </div>
-
-                <div class="flex flex-col md:flex-row justify-between md:space-x-3 mt-3">
-
-                    <div class="flex-auto ">
-
-                        <div>
-
-                            <Label>Tipo de servicio</Label>
-                        </div>
-
-                        <div>
-
-                            <select class="bg-white rounded text-sm w-full" wire:model="modelo_editar.tipo_servicio" @if($this->modelo_editar->solicitante == "Pensiones") disabled @endif>
-
-                                <option value="" selected>Seleccione una opción</option>
-                                <option value="Ordinario" selected>Ordinario</option>
-                                <option value="Urgente" selected>Urgente</option>
-                                <option value="Extra Urgente" selected>Extra Urgente</option>
-
-                            </select>
-
-                        </div>
-
-                        <div>
-
-                            @error('modelo_editar.tipo_servicio') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
-
-                        </div>
-
-                    </div>
-
-                    @if($flags['foraneo'])
-
-                        <div class="flex-auto">
-
-                            <div>
-
-                                <Label>Foraneo</Label>
-
-                            </div>
-
-                            <div>
-
-                                <x-jet-checkbox wire:model.defer="modelo_editar.foraneo"></x-jet-checkbox>
-
-                            </div>
-
-                            <div>
-
-                                @error('modelo_editar.foraneo') <span class="error text-sm text-red-500">{{ $message }}</span> @enderror
-
-                            </div>
-
-                        </div>
-
-                    @endif
-
                 </div>
 
                 <div class="h-full w-full rounded-lg bg-gray-200 bg-opacity-75 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" wire:loading.delay.longer>
@@ -1460,38 +1246,9 @@
 
     </x-jet-confirmation-modal>
 
-    <script>
-
-        document.addEventListener('select2', function(){
-
-            $('.select2').select2({
-                placeholder: "Número de control",
-                width: '100%',
-            })
-
-            $('.select2').val(@this.modelo_editar.adiciona);
-            $('.select2').trigger('change');
-
-            $('.select2').on('change', function(){
-                @this.set('modelo_editar.adiciona', $(this).val())
-            })
-
-            $('.select2').on("keyup", function(e) {
-                if (e.keyCode === 13){
-                    @this.set('modelo_editar.adiciona', $('.select2').val())
-                }
-            });
-
-        });
-
-    </script>
-
 </div>
 
 @push('scripts')
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     <script>
 

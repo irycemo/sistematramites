@@ -26,7 +26,6 @@ return new class extends Migration
             $table->string('clave_ingreso');
             $table->string('operacion_principal');
             $table->string('operacion_parcial');
-            $table->unsignedDecimal("costo_sap", 18,2)->nullable();
             $table->foreignId('categoria_servicio_id')->constrained()->onDelete('cascade');
             $table->foreignId('creado_por')->nullable()->references('id')->on('users');
             $table->foreignId('actualizado_por')->nullable()->references('id')->on('users');

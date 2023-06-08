@@ -5,18 +5,12 @@ namespace App\Http\Services\Tramites\TramitesStrategies;
 use App\Models\Tramite;
 use App\Models\Servicio;
 use App\Http\Services\Tramites\TramiteService;
-use App\Http\Services\SistemaRPP\SistemaRppService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Services\Tramites\TramitesStrategyInterface;
 
 class Certificaciones implements TramitesStrategyInterface{
 
-    public $tramite;
-
-    public function __construct(Tramite $tramite)
-    {
-        $this->tramite = $tramite;
-    }
+    public function __construct(public Tramite $tramite){}
 
     public function cambiarFlags(array $flags):array
     {
@@ -28,7 +22,7 @@ class Certificaciones implements TramitesStrategyInterface{
         $flags['tipo_servicio'] = true;
         $flags['observaciones'] = true;
 
-        if($this->tramite->servicio->clave_ingreso == 'DC74'){
+        if($this->tramite->servicio->clave_ingreso == 'DL14' || $this->tramite->servicio->clave_ingreso == 'DL13'){
 
             $flags['numero_paginas'] = true;
 
@@ -47,36 +41,27 @@ class Certificaciones implements TramitesStrategyInterface{
 
         $this->tramite->load('servicio');
 
-        if($this->tramite->servicio->clave_ingreso != 'DC90' && $this->tramite->servicio->clave_ingreso != 'DC91' && $this->tramite->servicio->clave_ingreso != 'DC92' && $this->tramite->servicio->clave_ingreso != 'DC93'){
+        if($this->tramite->servicio->clave_ingreso == 'DL13' || $this->tramite->servicio->clave_ingreso == 'DL14'){
 
             if($this->tramite->adiciona == null){
 
                 $consulta = $this->crearTramiteConsulta();
 
                 $this->tramite->adiciona = $consulta->id;
-                $this->tramite->limite_de_pago = $consulta->limite_de_pago;
-                $this->tramite->orden_de_pago = $consulta->orden_de_pago;
-                $this->tramite->linea_de_captura = $consulta->linea_de_captura;
+
+                $this->tramite->monto = $this->tramite->monto + $consulta->monto;
 
                 $tramite = (new TramiteService($this->tramite))->crear();
-
-                $tramite->monto = $this->tramite->monto + $consulta->monto;
 
                 $tramite->save();
 
                 $this->tramite->load('servicio.categoria');
-
-                (new SistemaRppService())->insertarSistemaRpp($this->tramite);
 
                 return $this->tramite;
 
             }else{
 
                 $tramite = (new TramiteService($this->tramite))->crear();
-
-
-
-                (new SistemaRppService())->actualizarSistemaRpp($tramite);
 
                 return $tramite;
 
@@ -86,7 +71,7 @@ class Certificaciones implements TramitesStrategyInterface{
 
         $tramite = (new TramiteService($this->tramite))->crear();
 
-        (new SistemaRppService())->insertarSistemaRpp($tramite);
+        $this->tramite->load('servicio.categoria');
 
         return $tramite;
 
@@ -95,7 +80,7 @@ class Certificaciones implements TramitesStrategyInterface{
     public function validaciones():array
     {
 
-        if($this->tramite->servicio->clave_ingreso == 'DC74'){
+        if($this->tramite->servicio->clave_ingreso == 'DL14' || $this->tramite->servicio->clave_ingreso == 'DL13'){
 
             return [
                 'modelo_editar.seccion' => 'required',
@@ -130,8 +115,8 @@ class Certificaciones implements TramitesStrategyInterface{
         $consulta = Tramite::make();
         $consulta->id_servicio = $servicio->id;
         $consulta->estado = 'nuevo';
-        $consulta->monto = $servicio->ordinario;
         $consulta->tipo_servicio = 'ordinario';
+        $consulta->monto = $servicio->ordinario;
         $consulta->fecha_entrega = $this->tramite->fecha_entrega;
         $consulta->solicitante = $this->tramite->solicitante;
         $consulta->nombre_solicitante = $this->tramite->nombre_solicitante;

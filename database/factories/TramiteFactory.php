@@ -37,7 +37,7 @@ class TramiteFactory extends Factory
             'seccion' => $this->faker->randomElement(Constantes::SECCIONES, 1),
             'fecha_entrega' => now(),
             'monto' => $this->faker->randomFloat(2,126,500),
-            'tipo_servicio' => $this->faker->randomElement(['Ordinario', 'Urgente', 'ExtraUrgente'], 1),
+            'tipo_servicio' => $this->faker->randomElement(['ordinario', 'urgente', 'extra_urgente'], 1),
             'numero_control' => $this->faker->unique()->randomNumber(),
             'numero_escritura' => $this->faker->randomNumber(4),
             'numero_notaria' => $this->faker->randomNumber(3),

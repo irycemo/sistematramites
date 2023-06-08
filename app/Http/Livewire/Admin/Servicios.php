@@ -28,7 +28,6 @@ class Servicios extends Component
             'modelo_editar.estado' => 'required',
             'modelo_editar.material' => 'required',
             'modelo_editar.clave_ingreso' => 'nullable',
-            'modelo_editar.costo_sap' => 'required|numeric|min:0',
             'modelo_editar.umas' => 'numeric|nullable|min:0',
             'modelo_editar.ordinario' => 'required|numeric|nullable',
             'modelo_editar.urgente' => 'numeric|nullable|min:0',
@@ -42,7 +41,6 @@ class Servicios extends Component
     protected $validationAttributes  = [
         'modelo_editar.operacion_parcial' => 'operación parcial',
         'modelo_editar.operacion_principal' => 'operación principal',
-        'modelo_editar.costo_sap' => 'costo sap'
     ];
 
     public function crearModeloVacio(){
@@ -113,7 +111,7 @@ class Servicios extends Component
 
         } catch (\Throwable $th) {
 
-            Log::error("Error al crear servicio por el usuario: (id: " . auth()->user()->id . ") " . auth()->user()->name . ". " . $th->getMessage());
+            Log::error("Error al crear servicio por el usuario: (id: " . auth()->user()->id . ") " . auth()->user()->name . ". " . $th);
             $this->dispatchBrowserEvent('mostrarMensaje', ['error', "Ha ocurrido un error."]);
             $this->resetearTodo();
         }
@@ -135,7 +133,7 @@ class Servicios extends Component
 
         } catch (\Throwable $th) {
 
-            Log::error("Error al actualizar servicio por el usuario: (id: " . auth()->user()->id . ") " . auth()->user()->name . ". " . $th->getMessage());
+            Log::error("Error al actualizar servicio por el usuario: (id: " . auth()->user()->id . ") " . auth()->user()->name . ". " . $th);
             $this->dispatchBrowserEvent('mostrarMensaje', ['error', "Ha ocurrido un error."]);
             $this->resetearTodo();
 
@@ -157,7 +155,7 @@ class Servicios extends Component
 
         } catch (\Throwable $th) {
 
-            Log::error("Error al borrar servicio por el usuario: (id: " . auth()->user()->id . ") " . auth()->user()->name . ". " . $th->getMessage());
+            Log::error("Error al borrar servicio por el usuario: (id: " . auth()->user()->id . ") " . auth()->user()->name . ". " . $th);
             $this->dispatchBrowserEvent('mostrarMensaje', ['error', "Ha ocurrido un error."]);
             $this->resetearTodo();
 

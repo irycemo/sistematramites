@@ -30,8 +30,6 @@ return new class extends Migration
             $table->boolean("registro_bis")->nullable();
             $table->string("distrito")->nullable();
             $table->string("seccion")->nullable();
-            $table->date("limite_de_pago");
-            $table->date("fecha_entrega");
             $table->unsignedDecimal("monto", 18, 2);
             $table->string("tipo_servicio");
             $table->unsignedInteger('numero_paginas')->nullable();
@@ -42,16 +40,20 @@ return new class extends Migration
             $table->string("nombre_notario")->nullable();
             $table->string("valor_propiedad")->nullable();
             $table->boolean("foraneo")->default(false)->nullable();
+            $table->timestamp('reingreso')->nullable();
+            $table->timestamp('fecha_prelacion')->nullable();
+            $table->date("fecha_entrega");
+            $table->date("fecha_pago")->nullable();
+            $table->date("limite_de_pago");
+            $table->string('orden_de_pago');
+            $table->string('documento_de_pago')->nullable();
+            $table->string('linea_de_captura');
+            $table->unsignedBigInteger('movimiento_registral')->nullable();
+            $table->text('observaciones')->nullable();
             $table->foreignId('adiciona')->nullable()->references('id')->on('tramites');
             $table->foreignId('creado_por')->nullable()->references('id')->on('users');
             $table->foreignId('actualizado_por')->nullable()->references('id')->on('users');
             $table->foreignId('recibido_por')->nullable()->references('id')->on('users');
-            $table->timestamp('reingreso')->nullable();
-            $table->string('orden_de_pago');
-            $table->string('linea_de_captura');
-            $table->timestamp('fecha_prelacion')->nullable();
-            $table->unsignedBigInteger('movimiento_registral')->nullable();
-            $table->text('observaciones')->nullable();
             $table->timestamps();
         });
     }

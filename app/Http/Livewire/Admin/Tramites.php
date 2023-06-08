@@ -25,21 +25,28 @@ class Tramites extends Component
     public $solicitantes;
     public $secciones;
     public $categorias;
-    public $categoria_servicio;
+    public $categoria;
+    public $categoria_selected;
     public $servicios;
     public $servicio;
+    public $servicio_selected;
     public $adicionaTramite;
+    public $tramitesAdiciona;
     public $distritos;
     public $dependencias;
     public $notarias;
     public $notaria;
+    public $numero_de_control;
+    public $tramite;
 
     public Tramite $modelo_editar;
 
     public $flags = [
+        'adiciona' => false,
+        'solicitante' => false,
+        'nombre_solicitante' => false,
         'seccion' => false,
         'numero_oficio' => false,
-        'nombre_solicitante' => false,
         'tomo' => false,
         'folio_real' => false,
         'registro' => false,
@@ -54,11 +61,12 @@ class Tramites extends Component
         'valor_propiedad' => false,
         'dependencias' => false,
         'notarias' => false,
+        'tipo_servicio' => false,
+        'observaciones' => false
     ];
 
     protected function rules(){
         return [
-            'categoria_servicio' => 'required',
             'servicio' => 'required',
             'modelo_editar.id_servicio' => 'required',
             'modelo_editar.solicitante' => 'required',
@@ -84,6 +92,7 @@ class Tramites extends Component
             'modelo_editar.numero_notaria' => 'nullable',
             'modelo_editar.nombre_notario' => 'nullable',
             'modelo_editar.valor_propiedad' => 'nullable',
+            'modelo_editar.observaciones' => 'nullable',
             'modelo_editar.foraneo' => 'nullable|boolean',
             'modelo_editar.adiciona' => 'required_if:adicionaTramite,true'
          ];
@@ -112,51 +121,13 @@ class Tramites extends Component
         'modelo_editar.valor_propiedad' => 'valor de la propiedad',
         'modelo_editar.registro_gravamen' => 'registro gravamen',
         'modelo_editar.tomo_gravamen' => 'tomo gravamen',
-        'modelo_editar.numero_oficio' => 'número de oficio',
-        'modelo_editar.seccion' => 'sección'
+        'modelo_editar.numero_oficio' => 'número de oficio'
     ];
 
     public function crearModeloVacio(){
-        return Tramite::make();
-    }
-
-    public function updatedAdicionaTramite(){
-
-        $this->modelo_editar->adiciona = null;
-
-        if($this->adicionaTramite)
-            $this->dispatchBrowserEvent('select2');
-        else
-            $this->modelo_editar->adiciona = null;
-
-    }
-
-    public function updatedCategoriaServicio(){
-
-        /* Buscar servicios de la categoría */
-        $this->servicios = Servicio::where('estado', 'activo')->where('categoria_servicio_id', $this->categoria_servicio)->get();
-
-        /* Al cambiar de categoría resetear inputs */
-        $this->reset(['flags']);
-
-        $this->modelo_editar = $this->crearModeloVacio();
-
-    }
-
-    public function updatedModeloEditarIdServicio(){
-
-        $this->servicio = Servicio::find($this->modelo_editar->id_servicio);
-
-        $this->reset(['flags']);
-
-        $this->modelo_editar = $this->crearModeloVacio();
-
-        $this->modelo_editar->id_servicio = $this->servicio->id;
-
-        $tramiteContext = new TramitesContext($this->servicio->categoria->nombre, $this->modelo_editar);
-
-        $this->flags = $tramiteContext->cambiarFlags($this->flags);
-
+        return Tramite::make([
+            'numero_paginas' => 1
+        ]);
     }
 
     public function updatedModeloEditarSolicitante(){
@@ -181,6 +152,16 @@ class Tramites extends Component
 
         }elseif($this->modelo_editar->solicitante == 'Oficialia de partes'){
 
+            if(!auth()->user()->hasRole('Oficialia de partes')){
+
+                $this->dispatchBrowserEvent('mostrarMensaje', ['error', "No tienes permisos para esta opción."]);
+
+                $this->modelo_editar->solicitante = null;
+
+                return;
+
+            }
+
             $this->flags['nombre_solicitante'] = false;
             $this->flags['dependencias'] = true;
             $this->flags['notarias'] = false;
@@ -196,70 +177,33 @@ class Tramites extends Component
         if($this->modelo_editar->solicitante == "S.T.A.S.P.E."){
 
             $this->modelo_editar->nombre_solicitante = $this->modelo_editar->solicitante;
-            $this->modelo_editar->tipo_servicio = "Extra Urgente";
-            $this->updatedModeloEditarTipoServicio();
+            $this->modelo_editar->tipo_servicio = "extra_urgente";
 
         }
+
+        $this->updatedModeloEditarTipoServicio();
+
     }
 
     public function updatedNotaria(){
+
+        if($this->notaria == ""){
+
+            $this->reset(['notaria']);
+
+            $this->modelo_editar->numero_notaria = null;
+            $this->modelo_editar->nombre_notario = null;
+            $this->modelo_editar->nombre_solicitante = null;
+
+            return;
+
+        }
 
         $notaria = json_decode($this->notaria);
 
         $this->modelo_editar->numero_notaria = $notaria->numero;
         $this->modelo_editar->nombre_notario = $notaria->notario;
-        $this->modelo_editar->nombre_solicitante = $notaria->numero;
-
-    }
-
-    public function updatedModeloEditarTipoServicio(){
-
-        if($this->modelo_editar->id_servicio == ""){
-
-            $this->dispatchBrowserEvent('mostrarMensaje', ['error', "Debe seleccionar un servicio."]);
-
-            $this->modelo_editar->tipo_servicio = null;
-
-            $this->modelo_editar->solicitante = null;
-
-            return;
-        }
-
-        if($this->modelo_editar->tipo_servicio == 'Ordinario'){
-
-            $this->modelo_editar->monto = Servicio::find($this->modelo_editar->id_servicio)->ordinario;
-
-        }
-        elseif($this->modelo_editar->tipo_servicio == 'Urgente'){
-
-            $this->modelo_editar->monto = Servicio::find($this->modelo_editar->id_servicio)->urgente;
-
-            if($this->modelo_editar->monto == 0){
-
-                $this->dispatchBrowserEvent('mostrarMensaje', ['error', "No hay servicio urgente para el servicio seleccionado."]);
-
-                $this->modelo_editar->tipo_servicio = null;
-            }
-
-        }
-        elseif($this->modelo_editar->tipo_servicio == 'Extra Urgente'){
-
-            $this->modelo_editar->monto = Servicio::find($this->modelo_editar->id_servicio)->extra_urgente;
-
-            if($this->modelo_editar->monto == 0){
-
-                $this->dispatchBrowserEvent('mostrarMensaje', ['error', "No hay servicio extra urgente para el servicio seleccionado."]);
-
-                $this->modelo_editar->tipo_servicio = null;
-            }
-
-        }
-
-    }
-
-    public function updatedModeloEditarForaneo(){
-
-        $this->updatedModeloEditarTipoServicio();
+        $this->modelo_editar->nombre_solicitante = $notaria->numero . ' ' .$notaria->notario;
 
     }
 
@@ -268,9 +212,6 @@ class Tramites extends Component
         $this->resetearTodo();
 
         $this->selected_id = $modelo->id;
-        $servicio = Servicio::find($modelo->id_servicio);
-        $this->categoria_servicio = $servicio->categoria_servicio_id;
-        $this->updatedCategoriaServicio();
 
         if($this->modelo_editar->isNot($modelo))
             $this->modelo_editar = $modelo;
@@ -290,45 +231,9 @@ class Tramites extends Component
 
     }
 
-    public function crear(){
-
-        $this->validate([
-            'servicio' => 'required',
-            'categoria_servicio' => 'required'
-        ]);
-
-        $context = new TramitesContext($this->servicio->categoria->nombre, $this->modelo_editar);
-
-        $this->validate(array_merge($this->rules(), $context->validaciones()));
-
-        try {
-
-            DB::transaction(function () use ($context){
-
-                $tramite = $context->crearTramite();
-
-                $this->resetearTodo();
-
-                $this->selected_id = $tramite->id;
-
-                $this->dispatchBrowserEvent('imprimir_recibo', ['tramite' => $this->selected_id]);
-
-                $this->dispatchBrowserEvent('mostrarMensaje', ['success', "El trámite se creó con éxito."]);
-
-        });
-
-        } catch (\Throwable $th) {
-
-            Log::error("Error al crear trámite por el usuario: (id: " . auth()->user()->id . ") " . auth()->user()->name . ". " . $th->getMessage());
-            $this->dispatchBrowserEvent('mostrarMensaje', ['error', "Ha ocurrido un error."]);
-            $this->resetearTodo();
-
-        }
-    }
-
     public function actualizar(){
 
-        $context = new TramitesContext($this->servicio->nombre);
+        $context = (new TramitesContext($this->modelo_editar->servicio->categoria->nombre, $this->modelo_editar));
 
         $this->validate(array_merge($this->rules(), $context->validaciones()));
 
@@ -371,11 +276,9 @@ class Tramites extends Component
 
     public function mount(){
 
-        array_push($this->fields, 'adicionaTramite', 'flags', 'servicios', 'categoria_servicio', 'notaria');
+        array_push($this->fields, 'adicionaTramite', 'flags', 'notaria');
 
         $this->modelo_editar = $this->crearModeloVacio();
-
-        $this->categorias = CategoriaServicio::all();
 
         $this->solicitantes = Constantes::SOLICITANTES;
 
@@ -387,21 +290,6 @@ class Tramites extends Component
 
         $this->notarias = Notaria::orderBy('numero')->get();
 
-    }
-
-    public function calcularFecha($dias){
-
-        $actual = today();
-
-        $actual->addDays($dias);
-
-        while($actual->isWeekend()){
-
-            $actual->addDay();
-
-        }
-
-        return $actual->toDateString();
     }
 
     public function render()

@@ -16,9 +16,10 @@ use App\Http\Livewire\Admin\Servicios;
 use App\Http\Livewire\Admin\Dependencias;
 use App\Http\Controllers\ManualController;
 use App\Http\Controllers\TramitesController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SetPasswordController;
 use App\Http\Livewire\Admin\CategoriasServicios;
-use App\Http\Services\LineasDeCaptura\LineaCaptura;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -35,17 +36,9 @@ Route::get('/', function () {
     return redirect('login');
 });
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified'
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-});
-
 Route::group(['middleware' => ['auth', 'esta.activo']], function(){
+
+    Route::get('dashboard', DashboardController::class)->name('dashboard');
 
     Route::get('roles', Roles::class)->middleware('permission:Lista de roles')->name('roles');
 

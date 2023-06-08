@@ -8,6 +8,7 @@ use Livewire\Component;
 use App\Http\Constantes;
 use App\Models\Servicio;
 use App\Models\Dependencia;
+use Illuminate\Support\Str;
 use Livewire\WithPagination;
 use App\Models\CategoriaServicio;
 use Illuminate\Support\Facades\DB;
@@ -15,6 +16,7 @@ use Illuminate\Support\Facades\Log;
 use App\Http\Traits\ComponentesTrait;
 use App\Http\Services\Tramites\TramiteService;
 use App\Http\Services\Tramites\TramitesContext;
+use App\Http\Services\LineasDeCaptura\LineaCaptura;
 
 class Entrada extends Component
 {
@@ -125,7 +127,9 @@ class Entrada extends Component
     ];
 
     public function crearModeloVacio(){
-        return Tramite::make();
+        return Tramite::make([
+            'numero_paginas' => 1
+        ]);
     }
 
     public function updatedCategoriaSelected(){
@@ -170,6 +174,57 @@ class Entrada extends Component
 
     }
 
+    public function updatedModeloEditarTipoServicio(){
+
+        if($this->modelo_editar->id_servicio == ""){
+
+            $this->dispatchBrowserEvent('mostrarMensaje', ['error', "Debe seleccionar un servicio."]);
+
+            $this->modelo_editar->tipo_servicio = null;
+
+            $this->modelo_editar->solicitante = null;
+
+            return;
+        }
+
+        if($this->modelo_editar->tipo_servicio == 'ordinario'){
+
+            $this->modelo_editar->monto = $this->servicio['ordinario'] * $this->modelo_editar->numero_paginas;
+
+        }
+        elseif($this->modelo_editar->tipo_servicio == 'urgente'){
+
+            $this->modelo_editar->monto = $this->servicio['urgente'] * $this->modelo_editar->numero_paginas;
+
+            if($this->modelo_editar->monto == 0){
+
+                $this->dispatchBrowserEvent('mostrarMensaje', ['error', "No hay servicio urgente para el servicio seleccionado."]);
+
+                $this->modelo_editar->tipo_servicio = null;
+            }
+
+        }
+        elseif($this->modelo_editar->tipo_servicio == 'extra_urgente'){
+
+            $this->modelo_editar->monto = $this->servicio['extra_urgente'] * $this->modelo_editar->numero_paginas;
+
+            if($this->modelo_editar->monto == 0){
+
+                $this->dispatchBrowserEvent('mostrarMensaje', ['error', "No hay servicio extra urgente para el servicio seleccionado."]);
+
+                $this->modelo_editar->tipo_servicio = null;
+            }
+
+        }
+
+        if($this->modelo_editar->solicitante == 'Oficialia de partes'){
+
+            $this->modelo_editar->monto = 0;
+
+        }
+
+    }
+
     public function updatedModeloEditarSolicitante(){
 
         $this->modelo_editar->nombre_solicitante = null;
@@ -195,7 +250,9 @@ class Entrada extends Component
             if(!auth()->user()->hasRole('Oficialia de partes')){
 
                 $this->dispatchBrowserEvent('mostrarMensaje', ['error', "No tienes permisos para esta opción."]);
+
                 $this->modelo_editar->solicitante = null;
+
                 return;
 
             }
@@ -203,6 +260,8 @@ class Entrada extends Component
             $this->flags['nombre_solicitante'] = false;
             $this->flags['dependencias'] = true;
             $this->flags['notarias'] = false;
+
+            $this->modelo_editar->monto = 0;
 
         }else{
 
@@ -215,10 +274,30 @@ class Entrada extends Component
         if($this->modelo_editar->solicitante == "S.T.A.S.P.E."){
 
             $this->modelo_editar->nombre_solicitante = $this->modelo_editar->solicitante;
-            $this->modelo_editar->tipo_servicio = "Extra Urgente";
-            $this->updatedModeloEditarTipoServicio();
+            $this->modelo_editar->tipo_servicio = "extra_urgente";
 
         }
+
+        $this->updatedModeloEditarTipoServicio();
+
+    }
+
+    public function updatedModeloEditarIdServicio(){
+
+        $this->resetearTodo($borrado = true);
+
+        $this->modelo_editar->id_servicio = $this->servicio['id'];
+
+        $tramiteContext = new TramitesContext($this->categoria['nombre']);
+
+        $this->flags = $tramiteContext->cambiarFlags();
+
+    }
+
+    public function updatedModeloEditarNumeroPaginas(){
+
+        $this->updatedModeloEditarTipoServicio();
+
     }
 
     public function updatedNotaria(){
@@ -247,10 +326,17 @@ class Entrada extends Component
 
         $this->modelo_editar->adiciona = null;
 
-        if($this->adicionaTramite)
-            $this->dispatchBrowserEvent('select2');
-        else
+        if(!$this->adicionaTramite)
             $this->modelo_editar->adiciona = null;
+        else{
+
+            $this->dispatchBrowserEvent('select2');
+
+            $this->tramitesAdiciona = Tramite::where('estado', 'pagado')
+                                                ->where('id_servicio', $this->servicio['id'])
+                                                ->get();
+
+        }
 
     }
 
@@ -275,57 +361,59 @@ class Entrada extends Component
 
     }
 
-    public function updatedModeloEditarIdServicio(){
+    public function editar(){
 
-        $this->resetearTodo($borrado = true);
+        if($this->modelo_editar->isNot($this->tramite))
+            $this->modelo_editar = $this->tramite;
 
-        $this->modelo_editar->id_servicio = $this->servicio['id'];
+        $this->reset(['tramite']);
 
-        $tramiteContext = new TramitesContext($this->categoria['nombre']);
+        $this->categoria = $this->modelo_editar->servicio->categoria;
 
-        $this->flags = $tramiteContext->cambiarFlags();
+        $this->categoria_selected = json_encode($this->categoria);
+
+        $this->servicio = $this->modelo_editar->servicio;
+
+        $this->servicios = Servicio::where('categoria_servicio_id', $this->categoria['id'])->get();
+
+        $this->servicio_selected = json_encode($this->servicio);
+
+        $context = new TramitesContext($this->categoria['nombre'], $this->modelo_editar);
+
+        $this->flags = $context->cambiarFlags($this->flags);
+
+        $this->flags['numero_paginas'] = false;
+
+        $this->flags['adiciona'] = false;
+
+        $this->flags['tipo_servicio'] = false;
+
+        $this->editar = true;
 
     }
 
-    public function updatedModeloEditarTipoServicio(){
+    public function validarPago(){
 
-        if($this->modelo_editar->id_servicio == ""){
+        $array = (new LineaCaptura($this->tramite))->validarLineaDeCaptura();
 
-            $this->dispatchBrowserEvent('mostrarMensaje', ['error', "Debe seleccionar un servicio."]);
+        if(!isset($array['SOAPBody']['n0MT_ValidarLinCaptura_ECC_Sender']['DOC_PAGO'])){
 
-            $this->modelo_editar->tipo_servicio = null;
+            $this->dispatchBrowserEvent('mostrarMensaje', ['error', 'No se encontro pago relacionado a la linea de captura.']);
 
-            $this->modelo_editar->solicitante = null;
+        }else{
 
-            return;
-        }
+            try {
 
-        if($this->modelo_editar->tipo_servicio == 'Ordinario'){
+                (new TramiteService($this->tramite))->procesarPago($array['SOAPBody']['n0MT_ValidarLinCaptura_ECC_Sender']['FEC_PAGO'], $array['SOAPBody']['n0MT_ValidarLinCaptura_ECC_Sender']['DOC_PAGO']);
 
-            $this->modelo_editar->monto = $this->servicio['ordinario'];
+                $this->dispatchBrowserEvent('mostrarMensaje', ['success', "El trámite se validó con éxito."]);
 
-        }
-        elseif($this->modelo_editar->tipo_servicio == 'Urgente'){
+            } catch (\Throwable $th) {
 
-            $this->modelo_editar->monto = $this->servicio['urgente'];
+                Log::error("Error al validar trámite por el usuario: (id: " . auth()->user()->id . ") " . auth()->user()->name . ". " . $th);
+                $this->dispatchBrowserEvent('mostrarMensaje', ['error', $th->getMessage()]);
+                $this->resetearTodo($borrado = true);
 
-            if($this->modelo_editar->monto == 0){
-
-                $this->dispatchBrowserEvent('mostrarMensaje', ['error', "No hay servicio urgente para el servicio seleccionado."]);
-
-                $this->modelo_editar->tipo_servicio = null;
-            }
-
-        }
-        elseif($this->modelo_editar->tipo_servicio == 'Extra Urgente'){
-
-            $this->modelo_editar->monto = $this->servicio['extra_urgente'];
-
-            if($this->modelo_editar->monto == 0){
-
-                $this->dispatchBrowserEvent('mostrarMensaje', ['error', "No hay servicio extra urgente para el servicio seleccionado."]);
-
-                $this->modelo_editar->tipo_servicio = null;
             }
 
         }
@@ -410,21 +498,6 @@ class Entrada extends Component
         }
     }
 
-    /* public function calcularFecha($dias){
-
-        $actual = today();
-
-        $actual->addDays($dias);
-
-        while($actual->isWeekend()){
-
-            $actual->addDay();
-
-        }
-
-        return $actual->toDateString();
-    } */
-
     public function mount(){
 
         array_push($this->fields, 'adicionaTramite', 'flags','tramite', 'flags', 'editar');
@@ -436,8 +509,6 @@ class Entrada extends Component
         $this->solicitantes = Constantes::SOLICITANTES;
 
         $this->secciones = Constantes::SECCIONES;
-
-        $this->tramitesAdiciona = Tramite::select('numero_control', 'id')->get();
 
         $this->distritos = Constantes::DISTRITOS;
 

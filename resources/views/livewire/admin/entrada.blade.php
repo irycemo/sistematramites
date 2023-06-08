@@ -677,9 +677,9 @@
                             <select class="bg-white rounded text-sm w-full" wire:model="modelo_editar.tipo_servicio">
 
                                 <option value="" selected>Seleccione una opción</option>
-                                <option value="Ordinario" selected>Ordinario</option>
-                                <option value="Urgente" selected>Urgente</option>
-                                <option value="Extra Urgente" selected>Extra Urgente</option>
+                                <option value="ordinario" selected>Ordinario</option>
+                                <option value="urgente" selected>Urgente</option>
+                                <option value="extra_urgente" selected>Extra Urgente</option>
 
                             </select>
 
@@ -787,7 +787,7 @@
 
                         <div class="rounded-lg bg-gray-100 py-1 px-2">
 
-                            <p><strong>Cantidad:</strong> {{ $modelo_editar->cantidad }}</p>
+                            <p><strong>Monto:</strong> {{ $modelo_editar->monto }}</p>
 
                         </div>
 
@@ -1276,6 +1276,16 @@
                             Reimprimir
                         </button>
 
+                        <button
+                            wire:click="validarPago"
+                            wire:loading.attr="disabled"
+                            wire:target="validarPago"
+                            type="button"
+                            class="bg-red-400 hover:shadow-lg text-white font-bold px-4 py-2 rounded text-sm hover:bg-red-700 focus:outline-none ">
+                            <img wire:loading wire:target="validarPago" class="mx-auto h-4 mr-1" src="{{ asset('storage/img/loading3.svg') }}" alt="Loading">
+                            Validar
+                        </button>
+
                     </div>
 
                 </div>
@@ -1329,9 +1339,9 @@
 
             window.open(url_orden, '_blank');
 
-            var url_ticket = "{{ route('tramites.recibo', '')}}" + "/" + tramite;
+            /* var url_ticket = "{{ route('tramites.recibo', '')}}" + "/" + tramite;
 
-            window.open(url_ticket, '_blank');
+            window.open(url_ticket, '_blank'); */
 
         });
 

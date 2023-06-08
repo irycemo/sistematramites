@@ -135,6 +135,9 @@
             <tr>
 
                 <th>
+                    @if($tramite->solicitante == 'Oficialia de partes')
+                    <p>{{ $tramite->solicitante }}</p>
+                    @endif
                     <p>Número de control: {{ $tramite->numero_control }}</p>
                     <p>Solicitante: {{ $tramite->nombre_solicitante }}</p>
                     <p>Servicio: {{ $tramite->servicio->nombre }}

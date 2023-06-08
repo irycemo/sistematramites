@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\SapControllerApi;
 use App\Http\Controllers\Api\TramitesController;
 
 /*
@@ -22,6 +23,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('finalizar_tramite', [TramitesController::class, 'finalizar']);
 
 Route::post('rechazar_tramite', [TramitesController::class, 'rechazar']);
+
+Route::post('acredita_pago', SapControllerApi::class);
 
 Route::fallback(function(){
     return response()->json([

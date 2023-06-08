@@ -5,9 +5,10 @@ namespace App\Http\Services\Tramites;
 use App\Models\Tramite;
 use Illuminate\Support\Str;
 use App\Http\Services\LineasDeCaptura\LineaCaptura;
+use App\Http\Services\SistemaRPP\SistemaRppService;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class TramiteService{
-
 
     public $tramite;
     public $fecha_vencimiento;
@@ -16,31 +17,28 @@ class TramiteService{
 
     public function __construct(Tramite $tramite)
     {
+
         $this->tramite = $tramite;
 
-        if($tramite->adiciona == null){
+        if($tramite->adiciona != null){
 
-            $this->procesarLineaCaptura();
-
-        }else{
-
-            $this->orden_de_pago = $tramite->adicionaAlTramite->orden_de_pago;
-            $this->linea = $tramite->adicionaAlTramite->linea_de_captura;
-            $this->fecha_vencimiento = $tramite->adicionaAlTramite->limite_de_pago;
             $this->tramite->movimiento_registral = $tramite->adicionaAlTramite->movimiento_registral;
 
         }
+
     }
 
-    public function crear(){
+    public function crear():Tramite
+    {
 
-        $this->tramite->numero_control = $this->obtenerNumeroControl();
+        $this->procesarLineaCaptura();
+
+        $this->tramite->numero_control = Tramite::max('numero_control') + 1;
         $this->tramite->limite_de_pago = $this->fecha_vencimiento;
         $this->tramite->orden_de_pago = $this->orden_de_pago;
         $this->tramite->linea_de_captura = $this->linea;
-        $this->tramite->estado = 'pagado'; //Estado
+        $this->tramite->estado = 'nuevo';
         $this->tramite->fecha_entrega = $this->calcularFechaEntrega();
-        //$this->tramite->fecha_prelacion = now(); //Prelacion
         $this->tramite->monto = $this->calcularMonto();
         $this->tramite->creado_por = auth()->user()->id;
 
@@ -50,27 +48,23 @@ class TramiteService{
 
     }
 
-    public function actualizar(){
+    public function actualizar():void
+    {
 
-        $this->tramite->monto = $this->calcularMonto();
         $this->tramite->actualizado_por = auth()->user()->id;
-
         $this->tramite->save();
 
     }
 
-    public function borrar($id){
+    public function borrar($id):void
+    {
 
         Tramite::destroy($id);
 
     }
 
-    public function obtenerNumeroControl()
+    public function procesarLineaCaptura():void
     {
-        return Tramite::max('numero_control') + 1;
-    }
-
-    public function procesarLineaCaptura(){
 
         $array = (new LineaCaptura($this->tramite))->generarLineaDeCaptura();
 
@@ -78,33 +72,33 @@ class TramiteService{
 
         $this->linea = $array['SOAPBody']['ns0MT_ServGralLC_PI_Receiver']['ES_OPAG']['LINEA_CAPTURA'];
 
-        $this->fecha_vencimiento = $this->convertirFechaVencimieto($array['SOAPBody']['ns0MT_ServGralLC_PI_Receiver']['ES_OPAG']['FECHA_VENCIMIENTO']);
+        $this->fecha_vencimiento = $this->convertirFecha($array['SOAPBody']['ns0MT_ServGralLC_PI_Receiver']['ES_OPAG']['FECHA_VENCIMIENTO']);
 
     }
 
-    public function convertirFechaVencimieto($fecha){
+    public function convertirFecha($fecha):string
+    {
 
         return Str::substr($fecha, 0, 4) . '-' . Str::substr($fecha, 4, 2) . '-' . Str::substr($fecha, 6, 2);
 
     }
 
-    public function calcularMonto(){
+    public function calcularMonto():float
+    {
 
         $monto = 0;
 
         if($this->tramite->foraneo){
 
-            $monto = 1865 + (int)$this->tramite->monto;
+            $monto = 1865 + (float)$this->tramite->monto;
+
+        }elseif($this->tramite->solicitante == 'Oficialia de partes'){
+
+            $monto = 0;
 
         }else{
 
-            $monto = (int)$this->tramite->monto;
-
-        }
-
-        if($this->tramite->numero_paginas != null){
-
-            $monto = $monto * (int)$this->tramite->numero_paginas;
+            $monto = (float)$this->tramite->monto;
 
         }
 
@@ -112,21 +106,77 @@ class TramiteService{
 
     }
 
-    public function calcularFechaEntrega(){
+    public function calcularFechaEntrega():string
+    {
 
         if($this->tramite->tipo_servicio == 'ordinario'){
 
-            return now()->addDays(4)->toDateString();
+            $actual =  now()->addDays(4);
+
+            while($actual->isWeekend()){
+
+                $actual->addDay();
+
+            }
+
+            return $actual->toDateString();
 
         }elseif($this->tramite->tipo_servicio == 'urgente'){
 
-            return now()->addDays(1)->toDateString();
+            $actual = now()->addDays(1);
+
+            while($actual->isWeekend()){
+
+                $actual->addDay();
+
+            }
+
+            return $actual->toDateString();
 
         }else{
 
             return now()->toDateString();
 
         }
+
+    }
+
+    public function procesarPago($fecha, $documento){
+
+        $this->tramite->update([
+            'estado' => 'pagado',
+            'fecha_pago' => $this->convertirFecha($fecha),
+            'fecha_prelacion' => $this->convertirFecha($fecha),
+            'documento_de_pago' => $documento
+        ]);
+
+        if($this->tramite->adiciona){
+
+            if($this->tramite->adicionaAlTramite->servicio->clave_ingreso == 'DC93'){
+
+                $tramiteAdiciona = Tramite::find($this->tramite->adiciona);
+
+                if(!$tramiteAdiciona)
+                    throw new ModelNotFoundException("No se encontro el trámite al que adiciona.");
+
+                $tramiteAdiciona->update([
+                    'estado' => 'pagado',
+                    'fecha_pago' => $this->convertirFecha($fecha),
+                    'fecha_prelacion' => $this->convertirFecha($fecha),
+                    'documento_de_pago' => $documento
+                ]);
+
+            }else{
+
+                (new SistemaRppService())->actualizarSistemaRpp($this->tramite);
+
+                return;
+
+            }
+
+        }
+
+        (new SistemaRppService())->insertarSistemaRpp($this->tramite);
 
     }
 
