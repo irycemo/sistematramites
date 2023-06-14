@@ -4,6 +4,7 @@ namespace App\Http\Services\Tramites;
 
 use App\Models\Tramite;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Log;
 use App\Http\Services\LineasDeCaptura\LineaCaptura;
 use App\Http\Services\SistemaRPP\SistemaRppService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -177,6 +178,33 @@ class TramiteService{
         }
 
         (new SistemaRppService())->insertarSistemaRpp($this->tramite);
+
+    }
+
+    public function cambiarEstado($estado){
+
+        try {
+
+            $this->tramite->update(['estado' => $estado]);
+
+            $tramite = $this->tramite;
+
+            while($tramite->adicionaAlTramite != null){
+
+                $tramite->adicionaAlTramite->update(['estado' => $estado]);
+
+                $tramite = $tramite->adicionaAlTramite;
+
+            }
+
+            $tramites = Tramite::where('adiciona', $this->tramite->id)->get();
+
+            foreach($tramites as $item)
+                $item->update(['estado' => $estado]);
+
+        } catch (\Throwable $th) {
+            Log::error("Error al actualizar estado en tramiteService " . $th);
+        }
 
     }
 

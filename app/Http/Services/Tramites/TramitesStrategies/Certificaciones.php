@@ -21,6 +21,8 @@ class Certificaciones implements TramitesStrategyInterface{
         $flags['distrito'] = true;
         $flags['tipo_servicio'] = true;
         $flags['observaciones'] = true;
+        $flags['tomo'] = true;
+        $flags['registro'] = true;
 
         if($this->tramite->servicio->clave_ingreso == 'DL14' || $this->tramite->servicio->clave_ingreso == 'DL13'){
 

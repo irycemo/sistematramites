@@ -3,7 +3,6 @@
 namespace App\Http\Services\LineasDeCaptura;
 
 use App\Models\Tramite;
-use App\Models\Servicio;
 use App\Exceptions\ErrorAlGenerarLineaDeCaptura;
 use App\Exceptions\ErrorAlValidarLineaDeCaptura;
 
@@ -220,8 +219,6 @@ class LineaCaptura
         $xml = simplexml_load_string($xml);
         $json = json_encode($xml);
         $responseArray = json_decode($json,true);
-
-        info($response);
 
         if(isset($responseArray['SOAPBody']['SOAPFault']['detail']['sSystemError']['text']))
             throw new ErrorAlGenerarLineaDeCaptura("Error al generar linea de captura.");

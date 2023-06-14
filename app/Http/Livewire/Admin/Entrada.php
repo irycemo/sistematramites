@@ -8,7 +8,6 @@ use Livewire\Component;
 use App\Http\Constantes;
 use App\Models\Servicio;
 use App\Models\Dependencia;
-use Illuminate\Support\Str;
 use Livewire\WithPagination;
 use App\Models\CategoriaServicio;
 use Illuminate\Support\Facades\DB;
@@ -332,9 +331,17 @@ class Entrada extends Component
 
             $this->dispatchBrowserEvent('select2');
 
-            $this->tramitesAdiciona = Tramite::where('estado', 'pagado')
-                                                ->where('id_servicio', $this->servicio['id'])
+            if($this->servicio['clave_ingreso'] == 'DL14' || $this->servicio['clave_ingreso'] == 'DL13'){
+
+                $this->tramitesAdiciona = Tramite::whereIn('estado', ['pagado', 'rechazado'])
+                                                ->whereIn('id_servicio', [$this->servicio['id'], 3, 4, 5])
                                                 ->get();
+
+            }else
+
+                $this->tramitesAdiciona = Tramite::whereIn('estado', ['pagado', 'rechazado'])
+                                                    ->where('id_servicio', $this->servicio['id'])
+                                                    ->get();
 
         }
 
@@ -346,7 +353,7 @@ class Entrada extends Component
 
         $this->categoria = null;
 
-        $this->tramite = Tramite::with('servicio')->where('estado', 'nuevo')->where('numero_control', $this->numero_de_control)->first();
+        $this->tramite = Tramite::with('servicio')->whereIn('estado', ['nuevo', 'rechazado'])->where('numero_control', $this->numero_de_control)->first();
 
         if(!$this->tramite)
             $this->dispatchBrowserEvent('mostrarMensaje', ['error', "No se encontro el trámite."]);

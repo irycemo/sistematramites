@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\Tramite;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TramiteRequest;
+use App\Http\Services\Tramites\TramiteService;
 
 class TramitesController extends Controller
 {
@@ -15,10 +16,7 @@ class TramitesController extends Controller
 
             $tramite = Tramite::where('numero_control', $request->validated())->firstOrFail();
 
-            $tramite->update(['estado' => 'concluido']);
-
-            if($tramite->adicionaAlTramite)
-                $tramite->adicionaAlTramite->update(['estado' => 'concluido']);
+            (new TramiteService($tramite))->cambiarEstado('concluido');
 
             return response()->json([
                 'result' => 'success',

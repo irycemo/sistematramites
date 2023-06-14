@@ -7,6 +7,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\Log;
 use App\Http\Traits\ComponentesTrait;
+use App\Http\Services\Tramites\TramiteService;
 
 class Entrega extends Component
 {
@@ -41,7 +42,7 @@ class Entrega extends Component
 
         try {
 
-            $this->modelo_editar->estado = 'recibido';
+            (new TramiteService($this->modelo_editar))->cambiarEstado('recibido');
             $this->modelo_editar->recibido_por = auth()->user()->id;
             $this->modelo_editar->actualizado_por = auth()->user()->id;
 
@@ -72,7 +73,7 @@ class Entrega extends Component
 
         try{
 
-            $this->modelo_editar->estado = 'finalizado';
+            (new TramiteService($this->modelo_editar))->cambiarEstado('finalizado');
             $this->modelo_editar->actualizado_por = auth()->user()->id;
             $this->modelo_editar->save();
 

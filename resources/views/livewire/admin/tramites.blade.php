@@ -415,7 +415,7 @@
 
                                 @if($tramite->adiciona)
 
-                                    {{ $tramite->adicionaAlTramite->numero_control }}
+                                    / {{ $tramite->adicionaAlTramite->numero_control }}
 
                                 @endif
 
