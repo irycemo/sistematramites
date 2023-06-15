@@ -99,86 +99,183 @@
 
 <body>
 
-    <table class="table">
+    <div>
 
-        <thead>
+        <table class="table">
 
-            <tr>
+            <thead>
 
-                <th width="10%">
-                    <img src="{{ public_path('storage/img/logo2.png') }}" alt="Logotipo">
-                </th>
+                <tr>
 
-                <th width="80%" style="vertical-align: middle">
-                    <div >
-                        <p style="font-size: 12px; text-align: center">DIRECCIÓN DEL REGISTRO PÚBLICO DE LA PROPIEDAD</p>
-                        <p style="font-size: 12px; text-align: center">GOBIERNO DEL ESTADO DE MICHOACÁN DE OCAMPO</p>
-                    </div>
-                </th>
+                    <th width="10%">
+                        <img src="{{ public_path('storage/img/logo2.png') }}" alt="Logotipo">
+                    </th>
 
-                <th width="10%" >
-                    <p style="font-size: 10px; text-align: right;"><nobr>{{ now()->format('d-m-Y H:i:s') }}</nobr></p>
-                </th>
-
-            </tr>
-
-        </thead>
-
-    </table>
-
-    <h1 class="titulo">Orden de pago</h1>
-
-    <table class="table">
-
-        <thead>
-
-            <tr>
-
-                <th>
-                    @if($tramite->solicitante == 'Oficialia de partes')
-                    <p>{{ $tramite->solicitante }}</p>
-                    @endif
-                    <p>Número de control: {{ $tramite->numero_control }}</p>
-                    <p>Solicitante: {{ $tramite->nombre_solicitante }}</p>
-                    <p>Servicio: {{ $tramite->servicio->nombre }}
-                        @if($tramite->adiciona)
-                            / {{ $tramite->adicionaAlTramite->servicio->nombre }}
-                        @endif
-                    </p>
-                    <p>Tipo de servicio: {{ $tramite->tipo_servicio }}</p>
-                    <p>Orden de pago: {{ $tramite->orden_de_pago }}</p>
-                    <p>Total a pagar: ${{ number_format($tramite->monto, 2) }}
-                    </p>
-                </th>
-
-                <th style="vertical-align: middle">
-
-                    @if(!$tramite->solicitante != 'Oficialia de partes')
-
-                        <div class="text-center" >
-
-                            <p>La vigencia para el pago de este trámite es:</p>
-                            <p>{{ $tramite->limite_de_pago->format('d-m-Y') }}.</p>
-
-                            <p >Linea de captura:</p>
-                            <img src="data:image/png;base64,{{ base64_encode($generatorPNG->getBarcode($tramite->linea_de_captura, $generatorPNG::TYPE_CODE_128)) }}">
-                            <p>{{ $tramite->linea_de_captura }}</p>
-
+                    <th width="80%" style="vertical-align: middle">
+                        <div >
+                            <p style="font-size: 12px; text-align: center">DIRECCIÓN DEL REGISTRO PÚBLICO DE LA PROPIEDAD</p>
+                            <p style="font-size: 12px; text-align: center">GOBIERNO DEL ESTADO DE MICHOACÁN DE OCAMPO</p>
                         </div>
+                    </th>
 
-                    @endif
+                    <th width="10%" >
+                        <p style="font-size: 10px; text-align: right;"><nobr>{{ now()->format('d-m-Y H:i:s') }}</nobr></p>
+                    </th>
 
-                </th>
+                </tr>
 
-            </tr>
+            </thead>
 
-        </thead>
+        </table>
 
-    </table>
+        <h1 class="titulo">Orden de pago</h1>
 
-    <div class="footer">
+        <table class="table">
 
-        <p class="leyenda">EL USUARIO ACEPTA LOS DATOS QUE SE PLASMAN EN ESTA ORDEN DE PAGO, AL MOMENTO DE REALIZAR EL PAGO, SI DESPUES DE REALIZAR DICHO PAGO SE DETECTA ALGÚN ERROR EL SOLICITANTE DEBERÁ ACLARARLO Y TENDRÁ NUEVAMENTE QUE CUBRIR EL COSTO, ESTO DE CONFORMIDAD CON LO ESTABLECIDO EN EL ARTÍCULO 15, PÁRRAFO II DE LA LEY DE FUNCIÓN REGISTRAL Y CATASTRAL DEL ESTADO DE MICHOACÁN DE OCAMPO.</p>
+            <thead>
+
+                <tr>
+
+                    <th>
+                        @if($tramite->solicitante == 'Oficialia de partes')
+                        <p>{{ $tramite->solicitante }}</p>
+                        @endif
+                        <p>Número de control: {{ $tramite->numero_control }}</p>
+                        <p>Solicitante: {{ $tramite->nombre_solicitante }}</p>
+                        <p>Servicio: {{ $tramite->servicio->nombre }}
+                            @if($tramite->adiciona)
+                                / {{ $tramite->adicionaAlTramite->servicio->nombre }}
+                            @endif
+                        </p>
+                        <p>Tipo de servicio: {{ $tramite->tipo_servicio }}</p>
+                        <p>Orden de pago: {{ $tramite->orden_de_pago }}</p>
+                        <p>Total a pagar: ${{ number_format($tramite->monto, 2) }}</p>
+                        @if($tramite->observaciones)
+                            <p>Observaciones:{{ $tramite->observaciones }}</p>
+                        @endif
+                    </th>
+
+                    <th style="vertical-align: middle">
+
+                        @if(!$tramite->solicitante != 'Oficialia de partes')
+
+                            <div class="text-center" >
+
+                                <p>La vigencia para el pago de este trámite es:</p>
+                                <p>{{ $tramite->limite_de_pago->format('d-m-Y') }}.</p>
+
+                                <p >Linea de captura:</p>
+                                <img src="data:image/png;base64,{{ base64_encode($generatorPNG->getBarcode($tramite->linea_de_captura, $generatorPNG::TYPE_CODE_128)) }}">
+                                <p>{{ $tramite->linea_de_captura }}</p>
+
+                            </div>
+
+                        @endif
+
+                    </th>
+
+                </tr>
+
+            </thead>
+
+        </table>
+
+        <div class="footer">
+
+            <p class="leyenda">EL USUARIO ACEPTA LOS DATOS QUE SE PLASMAN EN ESTA ORDEN DE PAGO, AL MOMENTO DE REALIZAR EL PAGO, SI DESPUES DE REALIZAR DICHO PAGO SE DETECTA ALGÚN ERROR EL SOLICITANTE DEBERÁ ACLARARLO Y TENDRÁ NUEVAMENTE QUE CUBRIR EL COSTO, ESTO DE CONFORMIDAD CON LO ESTABLECIDO EN EL ARTÍCULO 15, PÁRRAFO II DE LA LEY DE FUNCIÓN REGISTRAL Y CATASTRAL DEL ESTADO DE MICHOACÁN DE OCAMPO.</p>
+
+        </div>
+
+    </div>
+
+    <br>
+
+    <div>
+
+        <table class="table">
+
+            <thead>
+
+                <tr>
+
+                    <th width="10%">
+                        <img src="{{ public_path('storage/img/logo2.png') }}" alt="Logotipo">
+                    </th>
+
+                    <th width="80%" style="vertical-align: middle">
+                        <div >
+                            <p style="font-size: 12px; text-align: center">DIRECCIÓN DEL REGISTRO PÚBLICO DE LA PROPIEDAD</p>
+                            <p style="font-size: 12px; text-align: center">GOBIERNO DEL ESTADO DE MICHOACÁN DE OCAMPO</p>
+                        </div>
+                    </th>
+
+                    <th width="10%" >
+                        <p style="font-size: 10px; text-align: right;"><nobr>{{ now()->format('d-m-Y H:i:s') }}</nobr></p>
+                    </th>
+
+                </tr>
+
+            </thead>
+
+        </table>
+
+        <h1 class="titulo">Orden de pago</h1>
+
+        <table class="table">
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        @if($tramite->solicitante == 'Oficialia de partes')
+                        <p>{{ $tramite->solicitante }}</p>
+                        @endif
+                        <p>Número de control: {{ $tramite->numero_control }}</p>
+                        <p>Solicitante: {{ $tramite->nombre_solicitante }}</p>
+                        <p>Servicio: {{ $tramite->servicio->nombre }}
+                            @if($tramite->adiciona)
+                                / {{ $tramite->adicionaAlTramite->servicio->nombre }}
+                            @endif
+                        </p>
+                        <p>Tipo de servicio: {{ $tramite->tipo_servicio }}</p>
+                        <p>Orden de pago: {{ $tramite->orden_de_pago }}</p>
+                        <p>Total a pagar: ${{ number_format($tramite->monto, 2) }}</p>
+                        @if($tramite->observaciones)
+                            <p>Observaciones:{{ $tramite->observaciones }}</p>
+                        @endif
+                    </th>
+
+                    <th style="vertical-align: middle">
+
+                        @if(!$tramite->solicitante != 'Oficialia de partes')
+
+                            <div class="text-center" >
+
+                                <p>La vigencia para el pago de este trámite es:</p>
+                                <p>{{ $tramite->limite_de_pago->format('d-m-Y') }}.</p>
+
+                                <p >Linea de captura:</p>
+                                <img src="data:image/png;base64,{{ base64_encode($generatorPNG->getBarcode($tramite->linea_de_captura, $generatorPNG::TYPE_CODE_128)) }}">
+                                <p>{{ $tramite->linea_de_captura }}</p>
+
+                            </div>
+
+                        @endif
+
+                    </th>
+
+                </tr>
+
+            </thead>
+
+        </table>
+
+        <div class="footer">
+
+            <p class="leyenda">EL USUARIO ACEPTA LOS DATOS QUE SE PLASMAN EN ESTA ORDEN DE PAGO, AL MOMENTO DE REALIZAR EL PAGO, SI DESPUES DE REALIZAR DICHO PAGO SE DETECTA ALGÚN ERROR EL SOLICITANTE DEBERÁ ACLARARLO Y TENDRÁ NUEVAMENTE QUE CUBRIR EL COSTO, ESTO DE CONFORMIDAD CON LO ESTABLECIDO EN EL ARTÍCULO 15, PÁRRAFO II DE LA LEY DE FUNCIÓN REGISTRAL Y CATASTRAL DEL ESTADO DE MICHOACÁN DE OCAMPO.</p>
+
+        </div>
 
     </div>
 
