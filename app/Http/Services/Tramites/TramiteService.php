@@ -67,6 +67,20 @@ class TramiteService{
     public function procesarLineaCaptura():void
     {
 
+        if($this->tramite->solicitante == 'Oficialia de partes'){
+
+            $this->orden_de_pago = 0;
+
+            $this->linea = 0;
+
+            $this->fecha_vencimiento = now()->toDateString();
+
+            $this->tramite->fecha_prelacion = now()->toDateString();
+
+            return;
+
+        }
+
         $array = (new LineaCaptura($this->tramite))->generarLineaDeCaptura();
 
         $this->orden_de_pago = $array['SOAPBody']['ns0MT_ServGralLC_PI_Receiver']['ES_OPAG']['NRO_ORD_PAGO'];

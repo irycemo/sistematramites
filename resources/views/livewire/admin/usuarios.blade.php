@@ -606,7 +606,7 @@
 
                         <div>
 
-                            <Label>Localidad</Label>
+                            <Label>Ubicación</Label>
                         </div>
 
                         <div>

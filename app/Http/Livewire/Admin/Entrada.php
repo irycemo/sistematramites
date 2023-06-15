@@ -16,6 +16,7 @@ use App\Http\Traits\ComponentesTrait;
 use App\Http\Services\Tramites\TramiteService;
 use App\Http\Services\Tramites\TramitesContext;
 use App\Http\Services\LineasDeCaptura\LineaCaptura;
+use App\Http\Services\SistemaRPP\SistemaRppService;
 
 class Entrada extends Component
 {
@@ -445,6 +446,12 @@ class Entrada extends Component
 
                 $tramite = $context->crearTramite();
 
+                if($this->modelo_editar->solicitante == 'Oficialia de partes'){
+
+                    (new SistemaRppService())->insertarSistemaRpp($this->modelo_editar);
+
+                }
+
                 $this->resetearTodo($borrado = true);
 
                 $this->selected_id = $tramite->id;
@@ -517,7 +524,15 @@ class Entrada extends Component
 
         $this->secciones = Constantes::SECCIONES;
 
-        $this->distritos = Constantes::DISTRITOS;
+        if(auth()->user()->ubicacion == 'Regional 4'){
+
+            $this->distritos = ['02 Uruapan'];
+
+        }else{
+
+            $this->distritos = Constantes::DISTRITOS;
+
+        }
 
         $this->dependencias = Dependencia::orderBy('nombre')->get();
 

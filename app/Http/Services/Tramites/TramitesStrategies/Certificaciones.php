@@ -118,7 +118,7 @@ class Certificaciones implements TramitesStrategyInterface{
         $consulta->id_servicio = $servicio->id;
         $consulta->estado = 'nuevo';
         $consulta->tipo_servicio = 'ordinario';
-        $consulta->monto = $servicio->ordinario;
+        $consulta->monto = $this->tramite->solicitante == 'Oficialia de partes' ? 0 : $servicio->ordinario;
         $consulta->fecha_entrega = $this->tramite->fecha_entrega;
         $consulta->solicitante = $this->tramite->solicitante;
         $consulta->nombre_solicitante = $this->tramite->nombre_solicitante;
