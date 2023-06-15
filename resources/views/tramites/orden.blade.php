@@ -153,16 +153,20 @@
 
                 <th style="vertical-align: middle">
 
-                    <div class="text-center" >
+                    @if(!$tramite->solicitante == 'Oficialia de partes')
 
-                        <p>La vigencia para el pago de este trámite es:</p>
-                        <p>{{ $tramite->limite_de_pago->format('d-m-Y') }}.</p>
+                        <div class="text-center" >
 
-                        <p >Linea de captura:</p>
-                        <img src="data:image/png;base64,{{ base64_encode($generatorPNG->getBarcode($tramite->linea_de_captura, $generatorPNG::TYPE_CODE_128)) }}">
-                        <p>{{ $tramite->linea_de_captura }}</p>
+                            <p>La vigencia para el pago de este trámite es:</p>
+                            <p>{{ $tramite->limite_de_pago->format('d-m-Y') }}.</p>
 
-                    </div>
+                            <p >Linea de captura:</p>
+                            <img src="data:image/png;base64,{{ base64_encode($generatorPNG->getBarcode($tramite->linea_de_captura, $generatorPNG::TYPE_CODE_128)) }}">
+                            <p>{{ $tramite->linea_de_captura }}</p>
+
+                        </div>
+
+                    @endif
 
                 </th>
 

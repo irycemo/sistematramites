@@ -526,7 +526,7 @@ class Entrada extends Component
 
         if(auth()->user()->ubicacion == 'Regional 4'){
 
-            $this->distritos = ['02 Uruapan'];
+            $this->distritos = [2 => '02 Uruapan',];
 
         }else{
 
