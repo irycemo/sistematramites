@@ -213,10 +213,14 @@ class TramiteService{
 
             }
 
-            $tramites = Tramite::where('adiciona', $this->tramite->id)->get();
+            if($estado != 'pagado'){
 
-            foreach($tramites as $item)
-                $item->update(['estado' => $estado]);
+                $tramites = Tramite::where('adiciona', $this->tramite->id)->get();
+
+                foreach($tramites as $item)
+                    $item->update(['estado' => $estado]);
+
+            }
 
         } catch (\Throwable $th) {
             Log::error("Error al actualizar estado en tramiteService " . $th);
