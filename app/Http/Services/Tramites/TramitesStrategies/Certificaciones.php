@@ -17,14 +17,14 @@ class Certificaciones implements TramitesStrategyInterface{
 
         $flags['solicitante'] = true;
         $flags['tipo_servicio'] = true;
+        $flags['seccion'] = true;
+        $flags['distrito'] = true;
 
         if($this->tramite->servicio->clave_ingreso == 'DL14' || $this->tramite->servicio->clave_ingreso == 'DL13'){
 
             $flags['numero_paginas'] = true;
             $flags['tomo'] = true;
             $flags['registro'] = true;
-            $flags['seccion'] = true;
-            $flags['distrito'] = true;
             $flags['adiciona'] = true;
             $flags['observaciones'] = true;
 
@@ -94,6 +94,8 @@ class Certificaciones implements TramitesStrategyInterface{
         }else{
 
             return [
+                'modelo_editar.seccion' => 'required',
+                'modelo_editar.distrito' => 'required',
                 'modelo_editar.nombre_solicitante' => 'required',
             ];
 

@@ -22,10 +22,9 @@ class SapActualizarPagoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'folio' => 'required',
-            'token' => 'required',
-            'fecha' => 'required',
-            'documento_pago' => 'required'
+            'folio_de_pago' => 'required|string',
+            'fecha_de_pago' => 'required|string',
+            'linea_de_captura' => 'required|string',
         ];
     }
 }
