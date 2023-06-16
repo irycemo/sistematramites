@@ -15,18 +15,18 @@ class Certificaciones implements TramitesStrategyInterface{
     public function cambiarFlags(array $flags):array
     {
 
-        $flags['adiciona'] = true;
         $flags['solicitante'] = true;
-        $flags['seccion'] = true;
-        $flags['distrito'] = true;
         $flags['tipo_servicio'] = true;
-        $flags['observaciones'] = true;
-        $flags['tomo'] = true;
-        $flags['registro'] = true;
 
         if($this->tramite->servicio->clave_ingreso == 'DL14' || $this->tramite->servicio->clave_ingreso == 'DL13'){
 
             $flags['numero_paginas'] = true;
+            $flags['tomo'] = true;
+            $flags['registro'] = true;
+            $flags['seccion'] = true;
+            $flags['distrito'] = true;
+            $flags['adiciona'] = true;
+            $flags['observaciones'] = true;
 
             return $flags;
 
