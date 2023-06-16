@@ -18,7 +18,7 @@ class SapControllerApi extends Controller
 
             DB::transaction(function () use($request){
 
-                $tramite = Tramite::where('linea_de_captura', $request->linea_de_captura)->first();
+                $tramite = Tramite::where('linea_de_captura', $request->linea_de_captura)->firstOrFail();
 
                 (new TramiteService($tramite))->procesarPago($request->fecha, $request->documento_pago);
 
