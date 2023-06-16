@@ -94,8 +94,6 @@ class Certificaciones implements TramitesStrategyInterface{
         }else{
 
             return [
-                'modelo_editar.seccion' => 'required',
-                'modelo_editar.distrito' => 'required',
                 'modelo_editar.nombre_solicitante' => 'required',
             ];
 
