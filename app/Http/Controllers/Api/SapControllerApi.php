@@ -3,14 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Tramite;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SapActualizarPagoRequest;
-use App\Http\Services\SistemaRPP\SistemaRppService;
 use App\Http\Services\Tramites\TramiteService;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class SapControllerApi extends Controller
 {

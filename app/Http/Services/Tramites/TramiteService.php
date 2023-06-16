@@ -94,6 +94,9 @@ class TramiteService{
     public function convertirFecha($fecha):string
     {
 
+        if(Str::length($fecha) == 10)
+            return $fecha;
+
         return Str::substr($fecha, 0, 4) . '-' . Str::substr($fecha, 4, 2) . '-' . Str::substr($fecha, 6, 2);
 
     }
