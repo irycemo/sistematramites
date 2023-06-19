@@ -48,8 +48,7 @@ class TramitesController extends Controller
                         'observaciones' => $request->observaciones
                     ]);
 
-            if($tramite->adicionaAlTramite)
-                $tramite->adicionaAlTramite->update(['estado' => 'rechazado']);
+            (new TramiteService($tramite))->cambiarEstado('rechazado');
 
             return response()->json([
                 'result' => 'success',

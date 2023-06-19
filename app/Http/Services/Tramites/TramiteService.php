@@ -127,8 +127,6 @@ class TramiteService{
     public function calcularFechaEntrega():string
     {
 
-        return now()->toDateString();
-
         if($this->tramite->tipo_servicio == 'ordinario'){
 
             $actual =  now()->addDays(4);
