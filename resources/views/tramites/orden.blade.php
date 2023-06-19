@@ -113,8 +113,8 @@
 
                     <th width="80%" style="vertical-align: middle">
                         <div >
-                            <p style="font-size: 12px; text-align: center">DIRECCIÓN DEL REGISTRO PÚBLICO DE LA PROPIEDAD</p>
                             <p style="font-size: 12px; text-align: center">GOBIERNO DEL ESTADO DE MICHOACÁN DE OCAMPO</p>
+                            <p style="font-size: 12px; text-align: center">DIRECCIÓN DEL REGISTRO PÚBLICO DE LA PROPIEDAD</p>
                         </div>
                     </th>
 
@@ -204,8 +204,8 @@
 
                     <th width="80%" style="vertical-align: middle">
                         <div >
-                            <p style="font-size: 12px; text-align: center">DIRECCIÓN DEL REGISTRO PÚBLICO DE LA PROPIEDAD</p>
                             <p style="font-size: 12px; text-align: center">GOBIERNO DEL ESTADO DE MICHOACÁN DE OCAMPO</p>
+                            <p style="font-size: 12px; text-align: center">DIRECCIÓN DEL REGISTRO PÚBLICO DE LA PROPIEDAD</p>
                         </div>
                     </th>
 
