@@ -1339,9 +1339,9 @@
 
             window.open(url_orden, '_blank');
 
-            /* var url_ticket = "{{ route('tramites.recibo', '')}}" + "/" + tramite;
+            var url_ticket = "{{ route('tramites.recibo', '')}}" + "/" + tramite;
 
-            window.open(url_ticket, '_blank'); */
+            window.open(url_ticket, '_blank');
 
         });
 
