@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Admin;
 
+use Carbon\Carbon;
 use App\Models\Notaria;
 use App\Models\Tramite;
 use Livewire\Component;
@@ -332,10 +333,12 @@ class Entrada extends Component
 
             $this->dispatchBrowserEvent('select2');
 
+            /* Copias certificadas y simples */
             if($this->servicio['clave_ingreso'] == 'DL14' || $this->servicio['clave_ingreso'] == 'DL13'){
 
                 $this->tramitesAdiciona = Tramite::whereIn('estado', ['pagado', 'rechazado'])
-                                                ->whereIn('id_servicio', [$this->servicio['id'], 3, 4, 5])
+                                                ->where('id_servicio', 1)
+                                                ->whereDate('fecha_pago', Carbon::today())
                                                 ->get();
 
             }else
