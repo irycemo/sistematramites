@@ -38,76 +38,85 @@
                     Usuarios
                 </a>
 
-                <a href="#horarios" class="mb-3 capitalize font-medium text-md hover:text-red-600 transition ease-in-out duration-500 flex hover  hover:bg-gray-100 p-2 px-4 rounded-xl">
+                <a href="#servicios" class="mb-3 capitalize font-medium text-md hover:text-red-600 transition ease-in-out duration-500 flex hover  hover:bg-gray-100 p-2 px-4 rounded-xl">
 
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-4 " fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-
-                    Horarios
-                </a>
-
-                <a href="#permisos" class="mb-3 capitalize font-medium text-md transition ease-in-out duration-500 flex hover  hover:bg-gray-100 p-2 px-4 rounded-xl">
-
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6.429 9.75L2.25 12l4.179 2.25m0-4.5l5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0l4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0l-5.571 3-5.571-3" />
                     </svg>
 
-                    Permisos
+                    Servcios
                 </a>
 
-                <a href="#incapacidades" class="mb-3 capitalize font-medium text-md transition ease-in-out duration-500 flex hover  hover:bg-gray-100 p-2 px-4 rounded-xl">
+                <a href="#categorias" class="mb-3 capitalize font-medium text-md transition ease-in-out duration-500 flex hover  hover:bg-gray-100 p-2 px-4 rounded-xl">
 
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.098 19.902a3.75 3.75 0 005.304 0l6.401-6.402M6.75 21A3.75 3.75 0 013 17.25V4.125C3 3.504 3.504 3 4.125 3h5.25c.621 0 1.125.504 1.125 1.125v4.072M6.75 21a3.75 3.75 0 003.75-3.75V8.197M6.75 21h13.125c.621 0 1.125-.504 1.125-1.125v-5.25c0-.621-.504-1.125-1.125-1.125h-4.072M10.5 8.197l2.88-2.88c.438-.439 1.15-.439 1.59 0l3.712 3.713c.44.44.44 1.152 0 1.59l-2.879 2.88M6.75 17.25h.008v.008H6.75v-.008z" />
                     </svg>
 
-                    Incapacidades
+                    Categorías
                 </a>
 
-                <a href="#justificaciones" class="mb-3 capitalize font-medium text-md transition ease-in-out duration-500 flex hover  hover:bg-gray-100 p-2 px-4 rounded-xl">
+                <a href="#umas" class="mb-3 capitalize font-medium text-md transition ease-in-out duration-500 flex hover  hover:bg-gray-100 p-2 px-4 rounded-xl">
 
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
 
-                    Justificaciones
+                    UMAS
                 </a>
 
-                <a href="#inhabil" class="mb-3 capitalize font-medium text-md transition ease-in-out duration-500 flex hover  hover:bg-gray-100 p-2 px-4 rounded-xl">
+                <a href="#tramites" class="mb-3 capitalize font-medium text-md transition ease-in-out duration-500 flex hover  hover:bg-gray-100 p-2 px-4 rounded-xl">
 
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-4 " fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 7.5h-.75A2.25 2.25 0 004.5 9.75v7.5a2.25 2.25 0 002.25 2.25h7.5a2.25 2.25 0 002.25-2.25v-7.5a2.25 2.25 0 00-2.25-2.25h-.75m-6 3.75l3 3m0 0l3-3m-3 3V1.5m6 9h.75a2.25 2.25 0 012.25 2.25v7.5a2.25 2.25 0 01-2.25 2.25h-7.5a2.25 2.25 0 01-2.25-2.25v-.75" />
                     </svg>
 
-                    Días Inhábiles
+                    Trámites
                 </a>
 
-                <a href="#reportes" class="mb-3 capitalize font-medium text-md transition ease-in-out duration-500 flex hover  hover:bg-gray-100 p-2 px-4 rounded-xl">
+                <a href="#dependencias" class="mb-3 capitalize font-medium text-md transition ease-in-out duration-500 flex hover  hover:bg-gray-100 p-2 px-4 rounded-xl">
 
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-4">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0012 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75z" />
                     </svg>
 
-                    Reportes
+                    Dependencias
                 </a>
 
-                <a href="#checador" class="mb-3 capitalize font-medium text-md transition ease-in-out duration-500 flex hover  hover:bg-gray-100 p-2 px-4 rounded-xl">
+                <a href="#notarias" class="mb-3 capitalize font-medium text-md transition ease-in-out duration-500 flex hover  hover:bg-gray-100 p-2 px-4 rounded-xl">
 
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-4">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
                     </svg>
 
-                    Checador
+                    Notarias
                 </a>
 
-                <a href="#personal" class="mb-3 capitalize font-medium text-md transition ease-in-out duration-500 flex hover  hover:bg-gray-100 p-2 px-4 rounded-xl">
+                <a href="#entrada" class="mb-3 capitalize font-medium text-md transition ease-in-out duration-500 flex hover  hover:bg-gray-100 p-2 px-4 rounded-xl">
 
-                    <svg xmlns="http://www.w3.org/2000/svg"  class="w-5 h-5 mr-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-4 " fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
                     </svg>
 
-                    Personal
+                    Entrada
+                </a>
+
+                <a href="#entrega" class="mb-3 capitalize font-medium text-md transition ease-in-out duration-500 flex hover  hover:bg-gray-100 p-2 px-4 rounded-xl">
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-4 " fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
+                    </svg>
+
+                    Entrega
+                </a>
+
+                <a href="#consultas" class="mb-3 capitalize font-medium text-md transition ease-in-out duration-500 flex hover  hover:bg-gray-100 p-2 px-4 rounded-xl">
+
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-4">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 15.75l-2.489-2.489m0 0a3.375 3.375 0 10-4.773-4.773 3.375 3.375 0 004.774 4.774zM21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+
+                    Consultas
                 </a>
 
             </nav>
@@ -152,9 +161,8 @@
                         <div class="  px-3">
 
                             <p class="mb-2">
-                                El Sistema de Gestión Personal, tiene como propósito administrar los empleados del Instituto Registral y Catastral de Michoacán.
-                                El sistema permite dar seguimiento a las incidencias que cada empleado genera como: faltas, retardos, justificaciones, entre otras.
-                                La información puede ser accesada y procesada en cada una de las áreas correspondientes asi como hacer reportes generados en Excel.
+                                El Sistema Trámitesl, tiene como propósito administrar servicios emitidos por el Instituto Registral y Catastral de Michoacán.
+                                El sistema permite generar y dar seguimiento a los trmites que son solicitados.
                             </p>
 
                         </div>
@@ -168,9 +176,7 @@
                         <div class="  px-3">
 
                             <p class="mb-2">
-                                La sección de usuarios lleva el control del registro de los usuarios del sistema. Los usuarios estan clasificados por roles
-                                ('Delegado(a) Administrativo(a)' y 'Contador(a)' y 'Checador')
-                                cada uno con atribuciones distintas. Solo los usuarios con rol de "Delegado(a) Administrativo(a)" pueden agregar nuevos usuarios y editarlos.
+                                La sección de usuarios lleva el control del registro de los usuarios del sistema.
                             </p>
 
                             <p>
@@ -223,506 +229,363 @@
 
                     </div>
 
-                    <div class="capitulo mb-10" id="horarios">
+                    <div class="capitulo mb-10" id="servicios">
 
-                        <h2 class="text-2xl tracking-widest py-3 px-6 text-gray-600 rounded-xl border-b-2 border-gray-500 font-semibold mb-6  bg-white">Horarios</h2>
+                        <h2 class="text-2xl tracking-widest py-3 px-6 text-gray-600 rounded-xl border-b-2 border-gray-500 font-semibold mb-6  bg-white">Servicios</h2>
 
                         <div class="  px-3">
 
                             <p class="mb-2">
-                                La sección de horarios lleva el control del registro de los horarios los cuales estaran asignados a cada uno de los empleados.Cada registro tiene
-                                los siguientes campos:
-                            </p>
-
-                            <p class="mb-2 px-4">
-                                <strong>Nombre:</strong> Es el nombre del horario.
-                                <br>
-                                <strong>Tolerancia:</strong> El tiempo limite que tiene el empleado para registrar su entrada sin que se genere un retardo (minutos).
-                                <br>
-                                <strong>Falta:</strong> El tiempo limite que tiene el empleado para registrar su entrada sin que se genere una falta (minutos)..
-                                <br>
-                                <strong>Descripción:</strong> Descripción del horario.
-                                <br>
-                                <strong>Lunes entrada:</strong> Hora de entrada.
-                                <br>
-                                <strong>Lunes salida:</strong> Hora de salida.
-                                <br>
-                                <strong>Martes entrada:</strong> Hora de entrada.
-                                <br>
-                                <strong>Martes salida:</strong> Hora de salida.
-                                <br>
-                                <strong>Miercoles entrada:</strong> Hora de entrada.
-                                <br>
-                                <strong>Miercoles salida:</strong> Hora de salida.
-                                <br>
-                                <strong>Jueves entrada:</strong> Hora de entrada.
-                                <br>
-                                <strong>Jueves salida:</strong> Hora de salida.
-                                <br>
-                                <strong>Viernes entrada:</strong> Hora de entrada.
-                                <br>
-                                <strong>Viernes salida:</strong> Hora de salida.
-                                <br>
+                                La sección de servicios lleva los registros de todos los servicios que se ofrecen.
                             </p>
 
                             <p>
-                                <strong>Busqueda de horario:</strong>
-                                puede hacer busqueda de horarios por cualquiera de las columnas que muestra la tabla.
+                                <strong>Busqueda de servicio:</strong>
+                                puede hacer busqueda de servicios por cualquiera de las columnas que muestra la tabla.
                             </p>
 
-                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/horarios_buscar.jpg') }}" alt="Imágen buscar">
+                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/servicios_buscar.jpg') }}" alt="Imágen buscar">
 
                             <p>
-                                <strong>Agregar nuevo horario:</strong>
-                                puede agregar una nuevo horario haciendo click el el botón "Agregar nueva Horario" esta acción deplegará una ventana modal
+                                <strong>Agregar nuevo servicio:</strong>
+                                puede agregar una nuevo servicio haciendo click el el botón "Agregar nueva servicio" esta acción deplegará una ventana modal
                                 en la cual se ingresará la información necesaria para el registro. Al hacer click en el botón "Guardar" se generará el registro con los datos
                                 proporcionados. Al hacer click en cerrar se cerrará la ventana modal borrando la información proporcionada.
                             </p>
 
-                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/horarios_modal_crear.jpg') }}" alt="Imágen modal crear">
+                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/servicios_modal_crear.jpg') }}" alt="Imágen modal crear">
 
                             <p>
-                                <strong>Editar horario:</strong>
-                                cada horario tiene asociado dos botones de acciones, puede editar un horario haciendo click el el botón "Editar" esta acción deplegará una ventana modal
+                                <strong>Editar servicio:</strong>
+                                cada servicio tiene asociado dos botones de acciones, puede editar un servicio haciendo click el el botón "Editar" esta acción deplegará una ventana modal
+                                en la cual se mostrará la información del servicio para actualizar.
+                            </p>
+
+                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/servicios_editar.jpg') }}" alt="Imágen editar">
+
+                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/servicios_modal_editar.jpg') }}" alt="Imágen editar modal">
+
+                            <p>
+                                <strong>Borrar servicio:</strong>
+                                puede borrar un servicio haciendo click el el botón "Borrar" esta acción deplegará una ventana modal
+                                en la cual se mostrará una advertencia, dando la opcion de cancelar o borrar la información.
+                            </p>
+
+                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/servicios_borrar.jpg') }}" alt="Imágen borrar">
+
+                        </div>
+
+                    </div>
+
+                    <div class="capitulo mb-10" id="categorias">
+
+                        <h2 class="text-2xl tracking-widest py-3 px-6 text-gray-600 rounded-xl border-b-2 border-gray-500 font-semibold mb-6  bg-white">Categorías</h2>
+
+                        <div class="  px-3">
+
+                            <p class="mb-2">
+                                La sección de categorías lleva los registros de todos los categorías a las que pertenecen los servicios.
+                            </p>
+
+                            <p>
+                                <strong>Busqueda de categoría:</strong>
+                                puede hacer busqueda de categorías por cualquiera de las columnas que muestra la tabla.
+                            </p>
+
+                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/categorias_buscar.jpg') }}" alt="Imágen buscar">
+
+                            <p>
+                                <strong>Agregar nueva categoría:</strong>
+                                puede agregar una nueva categoría haciendo click el el botón "Agregar nueva categoría" esta acción deplegará una ventana modal
+                                en la cual se ingresará la información necesaria para el registro. Al hacer click en el botón "Guardar" se generará el registro con los datos
+                                proporcionados. Al hacer click en cerrar se cerrará la ventana modal borrando la información proporcionada.
+                            </p>
+
+                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/categorias_modal_crear.jpg') }}" alt="Imágen modal crear">
+
+                            <p>
+                                <strong>Editar categoría:</strong>
+                                cada categoría tiene asociada dos botones de acciones, puede editar un categoría haciendo click el el botón "Editar" esta acción deplegará una ventana modal
+                                en la cual se mostrará la información de la categoría para actualizar.
+                            </p>
+
+                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/categorias_editar.jpg') }}" alt="Imágen editar">
+
+                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/categorias_modal_editar.jpg') }}" alt="Imágen editar modal">
+
+                            <p>
+                                <strong>Borrar categoría:</strong>
+                                puede borrar una categoría haciendo click el el botón "Borrar" esta acción deplegará una ventana modal
+                                en la cual se mostrará una advertencia, dando la opcion de cancelar o borrar la información.
+                            </p>
+
+                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/categorias_borrar.jpg') }}" alt="Imágen borrar">
+
+                        </div>
+
+                    </div>
+
+                    <div class="capitulo mb-10" id="umas">
+
+                        <h2 class="text-2xl tracking-widest py-3 px-6 text-gray-600 rounded-xl border-b-2 border-gray-500 font-semibold mb-6  bg-white">UMAS</h2>
+
+                        <div class="  px-3">
+
+                            <p class="mb-2">
+                                La sección de UMAS lleva el registro de las unidades de medida y actualización necesarias para el cálculo del precio de los servicios.
+                            </p>
+
+                            <p>
+                                <strong>Busqueda de uma:</strong>
+                                puede hacer busqueda de umas por cualquiera de las columnas que muestra la tabla.
+                            </p>
+
+                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/umas_buscar.jpg') }}" alt="Imágen buscar">
+
+                            <p>
+                                <strong>Agregar nueva uma:</strong>
+                                puede agregar una nueva uma haciendo click el el botón "Agregar nueva uma" esta acción deplegará una ventana modal
+                                en la cual se ingresará la información necesaria para el registro. Al hacer click en el botón "Guardar" se generará el registro con los datos
+                                proporcionados. Al hacer click en cerrar se cerrará la ventana modal borrando la información proporcionada.
+                            </p>
+
+                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/umas_modal_crear.jpg') }}" alt="Imágen modal crear">
+
+                            <p>
+                                <strong>Editar uma:</strong>
+                                cada uma tiene asociada dos botones de acciones, puede editar una uma haciendo click el el botón "Editar" esta acción deplegará una ventana modal
+                                en la cual se mostrará la información de la uma para actualizar.
+                            </p>
+
+                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/umas_editar.jpg') }}" alt="Imágen editar">
+
+                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/umas_modal_editar.jpg') }}" alt="Imágen editar modal">
+
+                            <p>
+                                <strong>Borrar uma:</strong>
+                                puede borrar una uma haciendo click el el botón "Borrar" esta acción deplegará una ventana modal
+                                en la cual se mostrará una advertencia, dando la opcion de cancelar o borrar la información.
+                            </p>
+
+                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/umas_borrar.jpg') }}" alt="Imágen borrar">
+
+                        </div>
+
+                    </div>
+
+                    <div class="capitulo mb-10" id="tramites">
+
+                        <h2 class="text-2xl tracking-widest py-3 px-6 text-gray-600 rounded-xl border-b-2 border-gray-500 font-semibold mb-6  bg-white">Trámites</h2>
+
+                        <div class="  px-3">
+
+                            <p class="mb-2">
+                                La sección de trámites lleva el control del registro de los trámites generados.
+                            </p>
+
+                            <p>
+                                <strong>Busqueda de trámites:</strong>
+                                puede hacer busqueda de trámites por cualquiera de las columnas que muestra la tabla.
+                            </p>
+
+                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/tramites_buscar.jpg') }}" alt="Imágen buscar">
+
+                            <p>
+                                <strong>Editar trámite:</strong>
+                                cada trámite tiene asociado dos botones de acciones, puede editar un trámite haciendo click el el botón "Editar" esta acción deplegará una ventana modal
+                                en la cual se mostrará la información de la trámite para actualizar.
+                            </p>
+
+                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/tramites_editar.jpg') }}" alt="Imágen editar">
+
+                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/tramites_modal_editar.jpg') }}" alt="Imágen editar modal">
+
+                            <p>
+                                <strong>Borrar trámite:</strong>
+                                puede borrar un trámite haciendo click el el botón "Borrar" esta acción deplegará una ventana modal
+                                en la cual se mostrará una advertencia, dando la opcion de cancelar o borrar la información.
+                            </p>
+
+                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/tramites_borrar.jpg') }}" alt="Imágen borrar">
+
+                        </div>
+
+                    </div>
+
+                    <div class="capitulo mb-10" id="dependencias">
+
+                        <h2 class="text-2xl tracking-widest py-3 px-6 text-gray-600 rounded-xl border-b-2 border-gray-500 font-semibold mb-6  bg-white">Dependencias</h2>
+
+                        <div class="  px-3">
+
+                            <p class="mb-2">
+                                La sección de dependencias lleva el control del registro de los dependencias necesarias para el registro de trámites.
+                            </p>
+
+                            <p>
+                                <strong>Busqueda de dependencias:</strong>
+                                puede hacer busqueda de dependencias por cualquiera de las columnas que muestra la tabla.
+                            </p>
+
+                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/dependencias_buscar.jpg') }}" alt="Imágen buscar">
+
+                            <p>
+                                <strong>Editar dependencia:</strong>
+                                cada dependencia tiene asociada dos botones de acciones, puede editar una dependencia haciendo click el el botón "Editar" esta acción deplegará una ventana modal
                                 en la cual se mostrará la información de la dependencia para actualizar.
                             </p>
 
-                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/horarios_editar.jpg') }}" alt="Imágen editar">
+                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/dependencias_editar.jpg') }}" alt="Imágen editar">
 
-                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/horarios_modal_editar.jpg') }}" alt="Imágen editar modal">
+                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/dependencias_modal_editar.jpg') }}" alt="Imágen editar modal">
 
                             <p>
-                                <strong>Borrar horario:</strong>
-                                puede borrar un horario haciendo click el el botón "Borrar" esta acción deplegará una ventana modal
+                                <strong>Borrar dependencia:</strong>
+                                puede borrar un dependencia haciendo click el el botón "Borrar" esta acción deplegará una ventana modal
                                 en la cual se mostrará una advertencia, dando la opcion de cancelar o borrar la información.
                             </p>
 
-                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/horarios_borrar.jpg') }}" alt="Imágen borrar">
+                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/dependencias_borrar.jpg') }}" alt="Imágen borrar">
 
                         </div>
 
                     </div>
 
-                    <div class="capitulo mb-10" id="permisos">
+                    <div class="capitulo mb-10" id="notarias">
 
-                        <h2 class="text-2xl tracking-widest py-3 px-6 text-gray-600 rounded-xl border-b-2 border-gray-500 font-semibold mb-6  bg-white">Permisos</h2>
+                        <h2 class="text-2xl tracking-widest py-3 px-6 text-gray-600 rounded-xl border-b-2 border-gray-500 font-semibold mb-6  bg-white">Notarias</h2>
 
                         <div class="  px-3">
 
                             <p class="mb-2">
-                                La sección de permisos lleva el control del registro de los permisos. Cada registro tiene los siguientes campos:
-                            </p>
-
-                            <p class="mb-2 px-4">
-                                <strong>Límite:</strong> Es la cantidad veces que el empleado puede solicitar el permiso en el mes actual.
-                                <br>
-                                <strong>Tipo:</strong> El tipo de permiso puede ser "Oficial" o "Personal".
-                                <br>
-                                <strong>Tiempo:</strong> El tiempo que abarca el permiso.
-                                <br>
-                                <strong>Descripción:</strong> Descripción general del permiso.
-                                <br>
+                                La sección de notarias lleva el control del registro de los notarias necesarias para el registro de trámites.
                             </p>
 
                             <p>
-                                <strong>Busqueda de permisos:</strong>
-                                puede hacer busqueda de permisos por cualquiera de las columnas que muestra la tabla.
+                                <strong>Busqueda de notarias:</strong>
+                                puede hacer busqueda de notarias por cualquiera de las columnas que muestra la tabla.
                             </p>
 
-                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/permisos_buscar.jpg') }}" alt="Imágen buscar">
+                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/notarias_buscar.jpg') }}" alt="Imágen buscar">
 
                             <p>
-                                <strong>Agregar nuevo permiso:</strong>
-                                puede agregar un nuevo permiso haciendo click el el botón "Agregar nueva Permiso" esta acción deplegará una ventana modal
-                                en la cual se ingresará la información necesaria para el registro. Al hacer click en el botón "Guardar" se generará el registro con los datos
-                                proporcionados. Al hacer click en cerrar se cerrará la ventana modal borrando la información proporcionada.
+                                <strong>Editar notaría:</strong>
+                                cada notaría tiene asociada dos botones de acciones, puede editar una notaría haciendo click el el botón "Editar" esta acción deplegará una ventana modal
+                                en la cual se mostrará la información de la notaría para actualizar.
                             </p>
 
-                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/permiso_modal_crear.jpg') }}" alt="Imágen modal crear">
+                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/notarias_editar.jpg') }}" alt="Imágen editar">
+
+                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/notarias_modal_editar.jpg') }}" alt="Imágen editar modal">
 
                             <p>
-                                <strong>Editar permiso:</strong>
-                                cada permiso tiene asociado tres botones de acciones, puede editar una permiso haciendo click el el botón "Editar" esta acción deplegará una ventana modal
-                                en la cual se mostrará la información de la permiso para actualizar.
-                            </p>
-
-                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/permiso_editar.jpg') }}" alt="Imágen editar">
-
-                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/permiso_modal_editar.jpg') }}" alt="Imágen editar modal">
-
-                            <p>
-                                <strong>Asignar</strong>
-                                puede hacer asignaciones de permisos a cualquier empleado indicando la fecha en la que será asignado.
-                            </p>
-
-                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/permiso_asignar.jpg') }}" alt="Imágen asignar">
-
-                            <p>
-                                <strong>Borrar permiso:</strong>
-                                puede borrar un permiso haciendo click el el botón "Borrar" esta acción deplegará una ventana modal
+                                <strong>Borrar notaría:</strong>
+                                puede borrar un notaría haciendo click el el botón "Borrar" esta acción deplegará una ventana modal
                                 en la cual se mostrará una advertencia, dando la opcion de cancelar o borrar la información.
                             </p>
 
-                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/permiso_borrar.jpg') }}" alt="Imágen borrar">
-
-                            <p>
-                                <strong>Tareas automáticas:</strong>
-                                El sistema integra tareas automáticas, estas se encargan de revisar los registros efectuados por los permisos
-                                solicitados por los empleados.
-                                <br>
-                                Cada fin de mes se ejecuta una tarea encargada de calcular el tiempo consumido por los permisos personales solicitados de cada empleado, si
-                                la cantidad de tiempo es mayor a la cantidad de tiempo de una jornada laboral se le agregara un permiso "Día Económico" descontandose del límite
-                                de permisos que puede solicitar de este tipo de permiso.
-                                <br>
-                                Otra tarea automática es la de revisar los permisos personales solicitados por los empleados en los que no se registra  su regreso,
-                                calculando el tiempo consumido desde su salida hasta la hora de salida que tiene su horario.
-                            </p>
+                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/notarias_borrar.jpg') }}" alt="Imágen borrar">
 
                         </div>
 
                     </div>
 
-                    <div class="capitulo mb-10" id="incapacidades">
+                    <div class="capitulo mb-10" id="entrada">
 
-                        <h2 class="text-2xl tracking-widest py-3 px-6 text-gray-600 rounded-xl border-b-2 border-gray-500 font-semibold mb-6  bg-white">Incapacidades</h2>
+                        <h2 class="text-2xl tracking-widest py-3 px-6 text-gray-600 rounded-xl border-b-2 border-gray-500 font-semibold mb-6  bg-white">Entrada</h2>
 
                         <div class="  px-3">
 
                             <p class="mb-2">
-                                La sección de incapacidades lleva el control del registro de las incapacidades. Cada registro tiene los siguientes campos:
-                            </p>
-
-                            <p class="mb-2 px-4">
-                                <strong>Folio:</strong> Es el folio con el que se identifica la incapacidad.
-                                <br>
-                                <strong>Tipo:</strong> El tipo de incacpacidad.
-                                <br>
-                                <strong>Empleado:</strong> El empleado que se incapacita.
-                                <br>
-                                <strong>Documento:</strong> El documento que avala la incapacidad.
-                                <br>
-                                <strong>Fecha Inicial:</strong> La fecha en la que comienza la incapacidad.
-                                <br>
-                                <strong>Fecha Final:</strong> La fecha en la que termina la incapacidad.
-                                <br>
+                                La sección de entrada lleva a cabo el registro de lo trámites solicitados.
                             </p>
 
                             <p>
-                                <strong>Busqueda de incapacidades:</strong>
-                                puede hacer busqueda de incapacidades por cualquiera de las columnas que muestra la tabla.
+                                <strong>Selección de categoría:</strong>
+                                Es necesario como primer paso seleccionar la categoría del trámite a construir
                             </p>
 
-                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/incapacidades_buscar.jpg') }}" alt="Imágen buscar">
+                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/entrada_seleccion_categoria.jpg') }}" alt="Seleccionar categoría">
 
                             <p>
-                                <strong>Agregar nueva incapacidad:</strong>
-                                puede agregar un nuevo incapacidades haciendo click el el botón "Agregar nuevo Incapacidad" esta acción deplegará una ventana modal
-                                en la cual se ingresará la información necesaria para el registro. Al hacer click en el botón "Guardar" se generará el registro con los datos
-                                proporcionados. Al hacer click en cerrar se cerrará la ventana modal borrando la información proporcionada.
+                                <strong>Selección de servicio:</strong>
+                                Es necesario como segundo paso seleccionar el trámite a construir. Cada servicio desplegara los campos necesarios para su construcción.
                             </p>
 
-                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/incapacidades_modal_crear.jpg') }}" alt="Imágen modal crear">
+                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/entrada_seleccion_servicio.jpg') }}" alt="Seleccionar servicio">
 
                             <p>
-                                <strong>Editar incapacidad:</strong>
-                                cada incapacidad tiene asociado dos botones de acciones, puede editar un incapacidades haciendo click el el botón "Editar" esta acción deplegará una ventana modal
-                                en la cual se mostrará la información del incapacidades para actualizar.
+                                <strong>Crear trámite:</strong>
+                                Una vez llenado los campos requeridos puede hacer click en el boton "Crear nuevo trámite".
                             </p>
 
-                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/incapacidades_editar.jpg') }}" alt="Imágen editar">
-
-                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/incapacidades_modal_editar.jpg') }}" alt="Imágen editar modal">
+                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/entrada_crear.jpg') }}" alt="Crear trámite">
 
                             <p>
-                                <strong>Borrar incapacidad:</strong>
-                                puede borrar un incapacidad haciendo click el el botón "Borrar" esta acción deplegará una ventana modal
-                                en la cual se mostrará una advertencia, dando la opcion de cancelar o borrar la información.
+                                <strong>Orden de pago:</strong>
+                                Al crear el trámite automaticamente se abrira una nueva pestaña en su navegador con la orden de pago, en caso de no ver la pestaña revisar que el navegador no tenga bloqueadas las ventanas emergentes.
                             </p>
 
-                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/incapacidades_borrar.jpg') }}" alt="Imágen borrar">
+                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/entrada_recibo.jpg') }}" alt="Orden de pago">
+
+                            <p>
+                                <strong>Buscar trámite:</strong>
+                                Puede buscar tramites por su número de control, esto deplegara la información del trámite unicamente si el estado del trámite es "Nuevo", mostrando tres posibles acciones
+                                editarlo, reimprimir la orden de pago y validar si es que la orden de pago ya ha sido pagada.
+                            </p>
+
+                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/entrada_resultado_busqueda.jpg') }}" alt="Busqueda">
 
                         </div>
 
                     </div>
 
-                    <div class="capitulo mb-10" id="justificaciones">
+                    <div class="capitulo mb-10" id="entrega">
 
-                        <h2 class="text-2xl tracking-widest py-3 px-6 text-gray-600 rounded-xl border-b-2 border-gray-500 font-semibold mb-6  bg-white">Justificaciones</h2>
+                        <h2 class="text-2xl tracking-widest py-3 px-6 text-gray-600 rounded-xl border-b-2 border-gray-500 font-semibold mb-6  bg-white">Entrega</h2>
 
                         <div class="  px-3">
 
                             <p class="mb-2">
-                                La sección de justificaciones lleva el control del registro de las justificaciones. Cada registro tiene los siguientes campos:
-                            </p>
-
-                            <p class="mb-2 px-4">
-                                <strong>Folio:</strong> Es el folio con el que se identifica la justificación.
-                                <br>
-                                <strong>Empleado:</strong> El empleado que se justificará.
-                                <br>
-                                <strong>Retardo:</strong> El retardo que se pretende justificar.
-                                <br>
-                                <strong>Falta:</strong> La falta que se pretende justificar.
-                                <br>
-                                <strong>Documento:</strong> El documento que avala la justificación.
+                                La sección de entrega se encarga de recibir los documentos resultantes del trámite para ser entregados al solicitante.
                             </p>
 
                             <p>
-                                <strong>Busqueda de justificaciones:</strong>
-                                puede hacer busqueda de justificaciones por cualquiera de las columnas que muestra la tabla.
+                                <strong>Busqueda de trámite:</strong>
+                                puede hacer busqueda de trámites por cualquiera de las columnas que muestra la tabla.
                             </p>
 
-                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/justificaciones_buscar.jpg') }}" alt="Imágen buscar">
+                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/entrega_buscar.jpg') }}" alt="Imágen buscar">
 
                             <p>
-                                <strong>Agregar nueva justificación:</strong>
-                                puede agregar una nueva justificación haciendo click el el botón "Agregar nueva justificación" esta acción deplegará una ventana modal
-                                en la cual se ingresará la información necesaria para el registro. Al hacer click en el botón "Guardar" se generará el registro con los datos
-                                proporcionados. Al hacer click en cerrar se cerrará la ventana modal borrando la información proporcionada.
+                                <strong>Recibir trámite:</strong>
+                                Puede recibir el támite haciendo click en el boton "Recibir".
                             </p>
 
-                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/justificaciones_modal_crear.jpg') }}" alt="Imágen modal crear">
+                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/entrega_recibir.jpg') }}" alt="Imágen editar">
 
                             <p>
-                                Al seleccionar un empleado automaticamente se desplegaran las opciones de Retardo y Falta pudiendo seleccionar solo una de ellas.
+                                <strong>Entrega trámite:</strong>
+                                Una vez recibido el trámite puede hacer click en "Entregar" para entregar la documentación final al solicitante finalizado así l trámite.
                             </p>
 
-                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/justificaciones_modal_crear_2.jpg') }}" alt="Imágen modal crear">
-
-                            <p>
-                                <strong>Editar justificación:</strong>
-                                cada justificación tiene asociado dos botones de acciones, puede editar una justificación haciendo click el el botón "Editar" esta acción deplegará una ventana modal
-                                en la cual se mostrará la información del justificación para actualizar.
-                            </p>
-
-                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/justificaciones_editar.jpg') }}" alt="Imágen editar">
-
-                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/justificaciones_modal_editar.jpg') }}" alt="Imágen editar modal">
-
-                            <p>
-                                <strong>Borrar justificación:</strong>
-                                puede borrar una justificación haciendo click el el botón "Borrar" esta acción deplegará una ventana modal
-                                en la cual se mostrará una advertencia, dando la opcion de cancelar o borrar la información.
-                            </p>
-
-                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/justificaciones_borrar.jpg') }}" alt="Imágen borrar">
+                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/entrega_entregar.jpg') }}" alt="Imágen editar">
 
                         </div>
 
                     </div>
 
-                    <div class="capitulo mb-10" id="inhabil">
+                    <div class="capitulo mb-10" id="consultas">
 
-                        <h2 class="text-2xl tracking-widest py-3 px-6 text-gray-600 rounded-xl border-b-2 border-gray-500 font-semibold mb-6  bg-white">Días Inhábiles</h2>
-
-                        <div class="  px-3">
-
-                            <p class="mb-2">
-                                La sección de días inhabiles lleva el control del registro de los días inhabiles. Cada registro tiene los siguientes campos:
-                            </p>
-
-                            <p class="mb-2 px-4">
-                                <strong>Fecha:</strong> La fecha del día inhabil.
-                                <br>
-                                <strong>Descripción:</strong> La descripción del día inhabil.
-                            </p>
-
-                            <p>
-                                <strong>Busqueda de días inhabiles:</strong>
-                                puede hacer busqueda de días inhabiles por cualquiera de las columnas que muestra la tabla.
-                            </p>
-
-                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/inhabiles_buscar.jpg') }}" alt="Imágen buscar">
-
-                            <p>
-                                <strong>Agregar nuevo día inhabil:</strong>
-                                puede agregar un nuevo día inhabil haciendo click el el botón "Agregar día inhabil" esta acción deplegará una ventana modal
-                                en la cual se ingresará la información necesaria para el registro. Al hacer click en el botón "Guardar" se generará el registro con los datos
-                                proporcionados. Al hacer click en cerrar se cerrará la ventana modal borrando la información proporcionada.
-                            </p>
-
-                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/inhabiles_modal_crear.jpg') }}" alt="Imágen modal crear">
-
-                            <p>
-                                <strong>Editar día inhabil:</strong>
-                                cada día inhabil tiene asociado dos botones de acciones, puede editar un día inhabil haciendo click el el botón "Editar" esta acción deplegará una ventana modal
-                                en la cual se mostrará la información del día inhabil para actualizar.
-                            </p>
-
-                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/inhabiles_editar.jpg') }}" alt="Imágen editar">
-
-                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/inhabiles_modal_editar.jpg') }}" alt="Imágen editar modal">
-
-                            <p>
-                                <strong>Borrar día inhabil:</strong>
-                                puede borrar una día inhabil haciendo click el el botón "Borrar" esta acción deplegará una ventana modal
-                                en la cual se mostrará una advertencia, dando la opcion de cancelar o borrar la información.
-                            </p>
-
-                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/inhabiles_borrar.jpg') }}" alt="Imágen borrar">
-
-                        </div>
-
-                    </div>
-
-                    <div class="capitulo mb-10" id="reportes">
-
-                        <h2 class="text-2xl tracking-widest py-3 px-6 text-gray-600 rounded-xl border-b-2 border-gray-500 font-semibold mb-6  bg-white">Reportes</h2>
+                        <h2 class="text-2xl tracking-widest py-3 px-6 text-gray-600 rounded-xl border-b-2 border-gray-500 font-semibold mb-6  bg-white">Consultas</h2>
 
                         <div class="  px-3">
 
                             <p class="mb-2">
-                                La sección de reportes permite generar consultas sobre las áreas de interes asi como generar un archivo .xlsx (Excel) con el resultado de la consulta.
+                                En la sección de consultas puede ver cualquier tramite necesario buscandolo por su número de control
                             </p>
 
-                            <p>
-                                <strong>Generar consulta:</strong>
-                                puede generar consulta de las áreas  indicando el intervalo de tiempo.
-                            </p>
-
-                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/reporte_1.jpg') }}" alt="Imágen reportes">
-
-                            <p>
-                                <strong>Filtros:</strong>
-                                cada área despleagrá un conjunto de opciones para filtrar la información.
-                            </p>
-
-                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/reporte_2.jpg') }}" alt="Imágen reportes">
-
-                            <p>
-                                <strong>Generar reporte Excel:</strong>
-                                Al tener seleccionados los filtros necesarios y hacer click en el botón "Filtrar", se desplegara una tabla con la información filtrada, puede hacer click en el boton "Exportar a Excel"
-                                para generar el archivo
-                            </p>
-
-                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/reporte_3.jpg') }}" alt="Imágen reportes">
-
-                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/reporte_4.jpg') }}" alt="Imágen borrar">
-
-                        </div>
-
-                    </div>
-
-                    <div class="capitulo mb-10" id="checador">
-
-                        <h2 class="text-2xl tracking-widest py-3 px-6 text-gray-600 rounded-xl border-b-2 border-gray-500 font-semibold mb-6  bg-white">Checador</h2>
-
-                        <div class="  px-3">
-
-                            <p class="mb-2">
-                                La sección de checador esta encargada de llevar el registro de las asistencias, inasistencias y retardos del personal.
-                            </p>
-
-                            <p>
-                                <strong>Registro de entrada / salida:</strong>
-                                El empleado generara su registro de llegada o salida en el sistema al ser escaneado o ingresado manualmente su código de barras. Esto desplegará
-                                una nueva pantalla con información general del empleado
-                            </p>
-
-                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/checador_1.jpg') }}" alt="Imágen checador">
-
-                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/checador_2.jpg') }}" alt="Imágen checador">
-
-                            <p>
-                                <strong>Tareas automáticas:</strong>
-                                El sistema integra tareas automáticas que se ejecutan una vez al día, estas se encargan de revisar los registros efectuados por el checador,
-                                revisando los empleados que no registraron su entradas y generandoles una falta, si el empleado tiene registrada una incapacidad ó permiso
-                                no se le generará falta. Otra tarea automáticas es revisar si el empleado genera su tercer retardo automáticamente se le genera una falta.
-                            </p>
-
-                        </div>
-
-                    </div>
-
-                    <div class="capitulo mb-10" id="personal">
-
-                        <h2 class="text-2xl tracking-widest py-3 px-6 text-gray-600 rounded-xl border-b-2 border-gray-500 font-semibold mb-6  bg-white">Personal</h2>
-
-                        <div class="  px-3">
-
-                            <p class="mb-2">
-                                La sección de personal lleva el control del registro de los empleados. Cada registro tiene los siguientes campos:
-                            </p>
-
-                            <p class="mb-2 px-4">
-                                <strong># Empleado:</strong> Es el número del empleado.
-                                <br>
-                                <strong>Nombre:</strong> Nombre del empleado.
-                                <br>
-                                <strong>Paterno:</strong> El apellido paterno del empleado.
-                                <br>
-                                <strong>Materno:</strong> El apellido materno del empleado.
-                                <br>
-                                <strong>Localidad:</strong> La localidad del empleado ,esta pueden ser las regionales o Catastro o RPP.
-                                <br>
-                                <strong>Área:</strong> El área a la que pertenece el empleado, esta puede ser direcciones, subdirecciones o departamentos.
-                                <br>
-                                <strong>Tipo:</strong> El tipo de empleado.
-                                <br>
-                                <strong>Código de barras:</strong> El código de barras del empleado.
-                                <br>
-                                <strong>Teléfono:</strong> El teléfono del empleado.
-                                <br>
-                                <strong>Email:</strong> El correo electrónico del empleado.
-                                <br>
-                                <strong>RFC:</strong> El RFC del empleado.
-                                <br>
-                                <strong>CURP:</strong> La CURP del empleado.
-                                <br>
-                                <strong>Domicilio:</strong> El domicilio del empleado.
-                                <br>
-                                <strong>Fecha de ingreso:</strong> La fecha en la que ingreso a trabajar al Instituto Registral y Catastral del Estado de Michoacán empleado.
-                                <br>
-                                <strong>Horario:</strong> El horario del empleado.
-                                <br>
-                                <strong>Estado:</strong> El estado del empleado puede estar activo o inactivo.
-                                <br>
-                                <strong>Observaciones:</strong> Observaciones necesarias del empleado.
-                                <br>
-                                <strong>Fotografía:</strong> Imagen del empleado.
-                                <br>
-                            </p>
-
-                            <p>
-                                <strong>Busqueda de personal:</strong>
-                                puede hacer busqueda de personal por cualquiera de las columnas que muestra la tabla.
-                            </p>
-
-                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/personal_buscar.jpg') }}" alt="Imágen buscar">
-
-                            <p>
-                                <strong>Agregar nuevo personal:</strong>
-                                puede agregar un nuevo personal haciendo click el el botón "Agregar nueva Personal" esta acción deplegará una ventana modal
-                                en la cual se ingresará la información necesaria para el registro. Al hacer click en el botón "Guardar" se generará el registro con los datos
-                                proporcionados. Al hacer click en cerrar se cerrará la ventana modal borrando la información proporcionada.
-                            </p>
-
-                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/personal_modal_crear.jpg') }}" alt="Imágen modal crear">
-
-                            <p>
-                                <strong>Editar personal:</strong>
-                                cada personal tiene asociado tres botones de acciones, puede editar una personal haciendo click el el botón "Editar" esta acción deplegará una ventana modal
-                                en la cual se mostrará la información de la personal para actualizar.
-                            </p>
-
-                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/personal_editar.jpg') }}" alt="Imágen editar">
-
-                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/personal_modal_editar.jpg') }}" alt="Imágen editar modal">
-
-                            <p>
-                                <strong>Ver</strong>
-                                puede ver la información completa del personal haciendo click en el boton "Ver", asi como todas las incidencias que ha generado cada empleado.
-                            </p>
-
-                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/personal_ver.jpg') }}" alt="Imágen ver">
-
-                            <p>
-                                <strong>Borrar personal:</strong>
-                                puede borrar un personal haciendo click el el botón "Borrar" esta acción deplegará una ventana modal
-                                en la cual se mostrará una advertencia, dando la opcion de cancelar o borrar la información.
-                            </p>
-
-                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/personal_borrar.jpg') }}" alt="Imágen borrar">
+                            <img class="mb-4 mt-4 rounded mx-auto" src="{{ asset('storage/img/manual/consultas.jpg') }}" alt="Imágen editar">
 
                         </div>
 

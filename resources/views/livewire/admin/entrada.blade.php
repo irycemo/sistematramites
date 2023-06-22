@@ -739,7 +739,7 @@
 
                 <div class="flex lg:w-1/2 mx-auto">
 
-                    <input type="number" placeholder="Número de trámite" min="1" class="bg-white rounded-l text-sm w-full focus:ring-0" wire:model.defer="numero_de_control">
+                    <input type="number" placeholder="Número de control" min="1" class="bg-white rounded-l text-sm w-full focus:ring-0" wire:model.defer="numero_de_control">
 
                     <button
                         wire:click="buscarTramite"
