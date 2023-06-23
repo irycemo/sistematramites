@@ -16,7 +16,8 @@ class SistemaRppService{
 
         $response = Http::accept('application/json')->asForm()->post($url,[
             'monto' => $tramite->monto,
-            'solicitante' => $tramite->nombre_solicitante,
+            'solicitante' => $tramite->solicitante,
+            'nombre_solicitante' => $tramite->nombre_solicitante,
             'tramite' => $tramite->numero_control,
             'fecha_prelacion' => $tramite->fecha_prelacion,
             'tipo_servicio' => $tramite->tipo_servicio,
@@ -72,7 +73,8 @@ class SistemaRppService{
 
         $response = Http::accept('application/json')->asForm()->post($url,[
             'monto' => $tramite->monto,
-            'solicitante' => $tramite->nombre_solicitante,
+            'solicitante' => $tramite->solicitante,
+            'nombre_solicitante' => $tramite->nombre_solicitante,
             'tramite' => $tramite->numero_control,
             'fecha_prelacion' => now()->toDateString(), //Prelacion
             'tipo_servicio' => $tramite->tipo_servicio,
