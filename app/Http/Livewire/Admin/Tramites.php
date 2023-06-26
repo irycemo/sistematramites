@@ -274,6 +274,11 @@ class Tramites extends Component
         }
     }
 
+    public function reimprimir(){
+
+        $this->dispatchBrowserEvent('imprimir_recibo', ['tramite' => $this->modelo_editar->id]);
+    }
+
     public function mount(){
 
         array_push($this->fields, 'adicionaTramite', 'flags', 'notaria');

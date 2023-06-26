@@ -1159,15 +1159,16 @@
 
                 @if($modelo_editar->estado == 'nuevo')
 
-                    <a
-                        href="{{ route('tramites.orden', $selected_id) }}"
-                        target="_blank"
+                    <button
+                        wire:click="reimprimir"
+                        wire:loading.attr="disabled"
+                        wire:target="reimprimir"
                         class="bg-gray-400 text-white hover:shadow-lg font-bold px-4 py-2 rounded-full text-sm mb-2 hover:bg-gray-700 flaot-left mr-1 focus:outline-none">
 
-                        <img wire:loading wire:target="crear" class="mx-auto h-4 mr-1" src="{{ asset('storage/img/loading3.svg') }}" alt="Loading">
+                        <img wire:loading wire:target="reimprimir" class="mx-auto h-4 mr-1" src="{{ asset('storage/img/loading3.svg') }}" alt="Loading">
 
                         Imprimir recibo
-                    </a>
+                    </button>
 
                 @endif
 

@@ -1343,7 +1343,7 @@
 
             window.open(url_ticket, '_blank');
 
-            location.reload()
+            window.location.reload();
 
         });
 
