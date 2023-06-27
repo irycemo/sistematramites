@@ -64,7 +64,7 @@
 
         <div class="content">
 
-            <p class="title">CALIFICACIÓN DE INSCRIPCIONES</p>
+            <p class="title">CALIFICACIÓN DE DOCUMENTO</p>
             <p>Fecha: {{Carbon\Carbon::now()->format('d-m-Y')}}</p>
             <p>No. Control: {{ $tramite->numero_control }}</p>
             <p>Solicitante: {{ $tramite->nombre_solicitante }}</p>

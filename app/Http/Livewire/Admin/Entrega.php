@@ -104,6 +104,12 @@ class Entrega extends Component
 
         $tramites = Tramite::with('creadoPor', 'actualizadoPor', 'adicionaAlTramite', 'servicio', 'files', 'recibidoPor')
                                 ->whereIn('estado', ['concluido', 'recibido'])
+                                ->when(auth()->user()->ubicacion == 'Regional 4', function($q){
+                                    $q->where('distrito', 2);
+                                })
+                                ->when(auth()->user()->ubicacion != 'Regional 4', function($q){
+                                    $q->where('distrito', '!=', 2);
+                                })
                                 ->where(function ($q){
                                     return $q->where('solicitante', 'LIKE', '%' . $this->search . '%')
                                                 ->orWhere('nombre_solicitante', 'LIKE', '%' . $this->search . '%')

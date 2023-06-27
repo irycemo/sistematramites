@@ -101,6 +101,16 @@
 
                         </th>
 
+                        @if(auth()->user()->hasRole('Validación'))
+
+                            <th class="px-3 py-3 hidden lg:table-cell">
+
+                                Acciones
+
+                            </th>
+
+                        @endif
+
                     </tr>
 
                 </thead>
@@ -204,6 +214,28 @@
 
                         </td>
 
+                        <td class="px-3 py-3 w-full lg:w-auto p-3 text-gray-800 text-center lg:text-left lg:border-0 border border-b lg:table-cell relative lg:static">
+
+                            <span class="lg:hidden absolute top-0 left-0 bg-blue-300 px-2 py-1 text-xs text-white font-bold uppercase rounded-br-xl">Acciones</span>
+
+                            <button
+                                wire:click="abrirModalEditar({{$tramite->id}})"
+                                wire:loading.attr="disabled"
+                                wire:target="abiriModalEditar({{$tramite->id}})"
+                                class="w-1/3 lg:w-full bg-green-400 hover:shadow-lg text-white text-xs md:text-sm px-3 py-1 items-center rounded-full hover:bg-green-700 flex justify-center focus:outline-none"
+                            >
+
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+
+                                Ver
+
+                            </button>
+
+                        </td>
+
                     </tr>
 
                 </tbody>
@@ -231,5 +263,320 @@
         </div>
 
     @endif
+
+    <x-jet-dialog-modal wire:model="modal">
+
+        <x-slot name="title">
+
+            <h1 class="text-lg tracking-widest rounded-xl border-gray-500 text-center mb-5">Trámite</h1>
+
+        </x-slot>
+
+        <x-slot name="content">
+
+            <div class="">
+
+                @if ($modelo_editar->id)
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-2">
+
+                        <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                            <p><strong>Número de control:</strong> {{ $modelo_editar->numero_control }}</p>
+
+                        </div>
+
+                        <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                            <p><strong>Estado:</strong> {{ Str::ucfirst($modelo_editar->estado) }}</p>
+
+                        </div>
+
+                        <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                            <p><strong>Categoría:</strong> {{ $modelo_editar->servicio->categoria->nombre }}</p>
+
+                        </div>
+
+                        <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                            <p><strong>Servicio:</strong> {{ $modelo_editar->servicio->nombre }}</p>
+
+                        </div>
+
+                        <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                            <p><strong>Tipo de servicio:</strong> {{ Str::ucfirst($modelo_editar->tipo_servicio) }}</p>
+
+                        </div>
+
+                        <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                            <p><strong>Solicitante:</strong>{{ $modelo_editar->solicitante }} / {{ $modelo_editar->nombre_solicitante }}</p>
+
+                        </div>
+
+                        @if ($modelo_editar->folio_real)
+
+                            <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                                <p><strong>Folio real:</strong> {{ $modelo_editar->folio_real }}</p>
+
+                            </div>
+
+                        @endif
+
+                        @if ($modelo_editar->tomo)
+
+                            <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                                <p><strong>Tomo:</strong> {{ $modelo_editar->tomo }}</p>
+
+                            </div>
+
+                        @endif
+
+                        @if ($modelo_editar->registro)
+
+                            <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                                <p><strong>Registro:</strong> {{ $modelo_editar->registro }}</p>
+
+                            </div>
+
+                        @endif
+
+                        @if ($modelo_editar->distrito)
+
+                            <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                                <p><strong>Distrito:</strong> {{ $modelo_editar->distrito }}</p>
+
+                            </div>
+
+                        @endif
+
+                        @if ($modelo_editar->seccion)
+
+                            <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                                <p><strong>Sección:</strong> {{ $modelo_editar->seccion }}</p>
+
+                            </div>
+
+                        @endif
+
+                        @if ($modelo_editar->tomo_gravamen)
+
+                            <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                                <p><strong>Tomo gravamen:</strong> {{ $modelo_editar->tomo_gravamen }}</p>
+
+                            </div>
+
+                        @endif
+
+                        @if ($modelo_editar->registro_gravamen)
+
+                            <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                                <p><strong>Registro gravamen:</strong> {{ $modelo_editar->registro_gravamen }}</p>
+
+                            </div>
+
+                        @endif
+
+                        @if ($modelo_editar->numero_oficio)
+
+                            <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                                <p><strong>Número de oficio:</strong> {{ $modelo_editar->numero_oficio }}</p>
+
+                            </div>
+
+                        @endif
+
+                        @if ($modelo_editar->numero_propiedad)
+
+                            <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                                <p><strong>Número de propiedad:</strong> {{ $modelo_editar->numero_propiedad }}</p>
+
+                            </div>
+
+                        @endif
+
+                        @if ($modelo_editar->numero_escritura)
+
+                            <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                                <p><strong>Número de escritura:</strong> {{ $modelo_editar->numero_escritura }}</p>
+
+                            </div>
+
+                        @endif
+
+                        @if ($modelo_editar->numero_notaria)
+
+                            <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                                <p><strong>Número de notaría:</strong> {{ $modelo_editar->numero_notaria }}</p>
+
+                            </div>
+
+                        @endif
+
+                        @if ($modelo_editar->nombre_notario)
+
+                            <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                                <p><strong>Nombre del notarío:</strong> {{ $modelo_editar->nombre_notario }}</p>
+
+                            </div>
+
+                        @endif
+
+                        @if ($modelo_editar->valor_propiedad)
+
+                            <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                                <p><strong>Número de escritura:</strong> {{ $modelo_editar->numero_escritura }}</p>
+
+                            </div>
+
+                        @endif
+
+                        @if ($modelo_editar->numero_paginas)
+
+                            <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                                <p><strong>Número de páginas:</strong> {{ $modelo_editar->numero_paginas }}</p>
+
+                            </div>
+
+                        @endif
+
+                        @if ($modelo_editar->numero_inmuebles)
+
+                            <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                                <p><strong>Número de inmuebles:</strong> {{ $modelo_editar->numero_inmuebles }}</p>
+
+                            </div>
+
+                        @endif
+
+                        <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                            <p><strong>Monto:</strong> ${{ number_format($modelo_editar->monto, 2) }}</p>
+
+                        </div>
+
+                        <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                            <p><strong>Fecha de entrega:</strong> {{ $modelo_editar->fecha_entrega->format('d-m-Y') }}</p>
+
+                        </div>
+
+                        @if ($modelo_editar->fecha_pago)
+
+                            <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                                <p><strong>Fecha de pago:</strong> {{ $modelo_editar->fecha_pago }}</p>
+
+                            </div>
+
+                        @endif
+
+                        @if ($modelo_editar->limite_de_pago)
+
+                            <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                                <p><strong>Límite de pago:</strong> {{ $modelo_editar->limite_de_pago }}</p>
+
+                            </div>
+
+                        @endif
+
+                        <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                            <p><strong>Orden de pago:</strong> {{ $modelo_editar->orden_de_pago }}</p>
+
+                        </div>
+
+                        <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                            <p><strong>Linea de captura:</strong> {{ $modelo_editar->linea_de_captura }}</p>
+
+                        </div>
+
+                        <div class="rounded-lg bg-gray-100 py-1 px-2">
+
+                            <p><strong>Registrado por:</strong> {{ $modelo_editar->creadoPor->name }} el {{ $modelo_editar->created_at }}</p>
+
+                        </div>
+
+                    </div>
+
+                    @if ($modelo_editar->observaciones)
+
+                        <div class="rounded-lg bg-gray-100 py-1 px-2 my-3">
+
+                            <strong>Observaciones:</strong>
+
+                            <p>{{ $modelo_editar->observaciones }}</p>
+
+                        </div>
+
+                    @endif
+
+                @endif
+
+            </div>
+
+        </x-slot>
+
+        <x-slot name="footer">
+
+            <div class="">
+
+                @if($modelo_editar->estado == 'nuevo')
+
+                    <button
+                        wire:click="reimprimir"
+                        wire:loading.attr="disabled"
+                        wire:target="reimprimir"
+                        class="bg-gray-400 text-white hover:shadow-lg font-bold px-4 py-2 rounded-full text-sm mb-2 hover:bg-gray-700 flaot-left mr-1 focus:outline-none">
+
+                        <img wire:loading wire:target="reimprimir" class="mx-auto h-4 mr-1" src="{{ asset('storage/img/loading3.svg') }}" alt="Loading">
+
+                        Imprimir recibo
+                    </button>
+
+                @endif
+
+                @if(!$modelo_editar->fecha_pago)
+
+                    @can('Validar pago')
+
+                        <button
+                            wire:click="validarPago"
+                            wire:loading.attr="disabled"
+                            wire:target="validarPago"
+                            type="button"
+                            class="bg-red-400 text-white hover:shadow-lg font-bold px-4 py-2 rounded-full text-sm mb-2 hover:bg-red-700 flaot-left mr-1 focus:outline-none">
+                            <img wire:loading wire:target="validarPago" class="mx-auto h-4 mr-1" src="{{ asset('storage/img/loading3.svg') }}" alt="Loading">
+                            Validar
+                        </button>
+
+                    @endcan
+
+                @endif
+
+            </div>
+
+        </x-slot>
+
+    </x-jet-dialog-modal>
 
 </div>

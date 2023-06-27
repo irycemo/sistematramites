@@ -38,6 +38,7 @@ class Tramites extends Component
     public $notaria;
     public $numero_de_control;
     public $tramite;
+    public $modalVer = false;
 
     public Tramite $modelo_editar;
 
@@ -228,6 +229,19 @@ class Tramites extends Component
 
         if($this->modelo_editar->adiciona)
             $this->adicionaTramite = true;
+
+    }
+
+    public function abrirModalVer(Tramite $modelo){
+
+        $this->resetearTodo();
+
+        $this->selected_id = $modelo->id;
+
+        if($this->modelo_editar->isNot($modelo))
+            $this->modelo_editar = $modelo;
+
+        $this->modalVer = true;
 
     }
 
