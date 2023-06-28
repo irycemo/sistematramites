@@ -32,9 +32,10 @@ class TramiteService{
     public function crear():Tramite
     {
 
+        $this->tramite->numero_control = Tramite::max('numero_control') + 1;
+
         $this->procesarLineaCaptura();
 
-        $this->tramite->numero_control = Tramite::max('numero_control') + 1;
         $this->tramite->limite_de_pago = $this->fecha_vencimiento;
         $this->tramite->orden_de_pago = $this->orden_de_pago;
         $this->tramite->linea_de_captura = $this->linea;

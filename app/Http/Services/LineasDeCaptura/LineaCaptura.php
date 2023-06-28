@@ -177,7 +177,7 @@ class LineaCaptura
                     <RFC>XXXX0001XXX</RFC>
                     <NOMBRE_RAZON>". $this->tramite->nombre_solicitante ."</NOMBRE_RAZON>
                     <DOMICILIO>Conocido</DOMICILIO>
-                    <OBSERVACIONES>Número de control " . $this->tramite->numero_control . "</OBSERVACIONES>
+                    <OBSERVACIONES>Número de control: " . $this->tramite->numero_control ."</OBSERVACIONES>
                 </ES_GEN_DATA>
                 <TB_CONCEPTOS>
                     <TP_INGRESO>". $this->tramite->servicio->clave_ingreso ."</TP_INGRESO>
