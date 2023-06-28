@@ -10,7 +10,7 @@
 <style>
 
     @page{
-        size:58mm 110mm;
+        size:58mm 120mm;
         margin: 5;
     }
 
@@ -74,6 +74,11 @@
                 @endif
             </p>
             <p>Tipo de servicio: {{ $tramite->tipo_servicio }}</p>
+            @if($tramite->tomo) <p>Tomo: {{ $tramite->tomo }} </p>@endif
+            @if($tramite->registro) <p>Registro: {{ $tramite->registro}}</p>@endif
+            @if($tramite->distrito) <p>Distrito: {{ App\Http\Constantes::DISTRITOS[$tramite->distrito] }} </p>@endif
+            @if($tramite->seccion) <p>Sección: {{ $tramite->seccion }} </p>@endif
+            @if($tramite->numero_paginas) <p>Número de paginas: {{ $tramite->numero_paginas}} </p>@endif
             <p>Orden de pago: {{ $tramite->orden_de_pago }}</p>
             <p>Linea de captura: {{ $tramite->linea_de_captura }}</p>
 
@@ -89,6 +94,8 @@
 
         <div class="footer">
             <p>LA VIGENCIA PARA EL PAGO DE ESTE TRÁMITE ES: {{ $tramite->limite_de_pago->format('d-m-Y') }}.</p>
+            <hr>
+            <p>VERIFICAR LOS DATOS ANTES DE PAGAR</p>
         </div>
 
     </div>

@@ -150,6 +150,10 @@
                         <p>Tipo de servicio: {{ $tramite->tipo_servicio }}</p>
                         <p>Orden de pago: {{ $tramite->orden_de_pago }}</p>
                         <p>Total a pagar: ${{ number_format($tramite->monto, 2) }}</p>
+                        @if($tramite->tomo) Tomo: {{ $tramite->tomo }}, @endif @if($tramite->registro) Registro: {{ $tramite->registro}} <br>@endif
+                        @if($tramite->distrito) Distrito: {{ $tramite->distrito}} <br>@endif
+                        @if($tramite->seccion) Sección: {{ $tramite->seccion}} <br>@endif
+                        @if($tramite->numero_paginas) Número de paginas: {{ $tramite->numero_paginas}} <br>@endif
                         @if($tramite->observaciones)
                             <p>Observaciones:{{ $tramite->observaciones }}</p>
                         @endif
@@ -241,6 +245,10 @@
                         <p>Tipo de servicio: {{ $tramite->tipo_servicio }}</p>
                         <p>Orden de pago: {{ $tramite->orden_de_pago }}</p>
                         <p>Total a pagar: ${{ number_format($tramite->monto, 2) }}</p>
+                        @if($tramite->tomo) Tomo: {{ $tramite->tomo }}, @endif @if($tramite->registro) Registro: {{ $tramite->registro}} <br>@endif
+                        @if($tramite->distrito) Distrito: {{ $tramite->distrito}} <br>@endif
+                        @if($tramite->seccion) Sección: {{ $tramite->seccion}} <br>@endif
+                        @if($tramite->numero_paginas) Número de paginas: {{ $tramite->numero_paginas}} <br>@endif
                         @if($tramite->observaciones)
                             <p>Observaciones:{{ $tramite->observaciones }}</p>
                         @endif
