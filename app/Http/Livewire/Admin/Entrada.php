@@ -261,6 +261,7 @@ class Entrada extends Component
             $this->flags['nombre_solicitante'] = false;
             $this->flags['dependencias'] = true;
             $this->flags['notarias'] = false;
+            $this->flags['numero_oficio'] = true;
 
             $this->modelo_editar->monto = 0;
 
