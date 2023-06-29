@@ -674,7 +674,7 @@
 
                         <div>
 
-                            <input type="number" min="1" class="bg-white rounded text-sm w-full" wire:model.lazy="modelo_editar.numero_oficio">
+                            <input type="text" class="bg-white rounded text-sm w-full" wire:model.lazy="modelo_editar.numero_oficio">
 
                         </div>
 

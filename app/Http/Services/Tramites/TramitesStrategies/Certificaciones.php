@@ -87,8 +87,11 @@ class Certificaciones implements TramitesStrategyInterface{
             return [
                 'modelo_editar.seccion' => 'required',
                 'modelo_editar.distrito' => 'required',
+                'modelo_editar.tomo' => 'required',
+                'modelo_editar.registro' => 'required',
                 'modelo_editar.nombre_solicitante' => 'required',
                 'modelo_editar.numero_paginas' => 'required',
+                'modelo_editar.numero_oficio' => $this->tramite->solicitante == 'Oficialia de partes' ? 'required' : 'nullable'
             ];
 
         }else{

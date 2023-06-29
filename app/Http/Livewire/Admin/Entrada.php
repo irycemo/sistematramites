@@ -124,7 +124,7 @@ class Entrada extends Component
         'modelo_editar.valor_propiedad' => 'valor de la propiedad',
         'modelo_editar.registro_gravamen' => 'registro gravamen',
         'modelo_editar.tomo_gravamen' => 'tomo gravamen',
-        'modelo_editar.numero_oficio' => 'número de oficio'
+        'modelo_editar.numero_oficio' => 'número de oficio',
     ];
 
     public function crearModeloVacio(){
