@@ -23,7 +23,8 @@ class TramiteRequest extends FormRequest
     {
         return [
             'tramite' => 'required',
-            'observaciones' => 'nullable'
+            'observaciones' => 'nullable',
+            'estado' => 'required'
         ];
     }
 }

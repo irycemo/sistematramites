@@ -16,10 +16,7 @@ class TramitesController extends Controller
 
             $tramite = Tramite::where('numero_control', $request->validated())->firstOrFail();
 
-            if($tramite->servicio->clave_ingreso == 'DC93' || $tramite->servicio->clave_ingreso == 'DC90' || $tramite->servicio->clave_ingreso == 'DC91' || $tramite->servicio->clave_ingreso == 'DC92')
-                (new TramiteService($tramite))->cambiarEstado('finalizado');
-            else
-                (new TramiteService($tramite))->cambiarEstado('concluido');
+            (new TramiteService($tramite))->cambiarEstado($request->estado);
 
             return response()->json([
                 'result' => 'success',

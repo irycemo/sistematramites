@@ -337,7 +337,7 @@ class Entrada extends Component
             if($this->servicio['clave_ingreso'] == 'DL14' || $this->servicio['clave_ingreso'] == 'DL13'){
 
                 $this->tramitesAdiciona = Tramite::whereIn('estado', ['pagado', 'rechazado'])
-                                                ->where('id_servicio', 1)
+                                                ->whereIn('id_servicio', [1, $this->servicio['id']])
                                                 ->whereDate('fecha_pago', Carbon::today())
                                                 ->get();
 
