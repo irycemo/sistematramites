@@ -65,6 +65,12 @@ class Consulta extends Component
 
     }
 
+    public function reimprimir(){
+
+        $this->dispatchBrowserEvent('imprimir_recibo', ['tramite' => $this->modelo_editar->id]);
+
+    }
+
     public function consultar(){
 
         $this->tramite = Tramite::where('numero_control', $this->search)->first();
