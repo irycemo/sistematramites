@@ -579,4 +579,24 @@
 
     </x-jet-dialog-modal>
 
+    <script>
+
+        window.addEventListener('imprimir_recibo', event => {
+
+            const tramite = event.detail.tramite;
+
+            var url_orden = "{{ route('tramites.orden', '')}}" + "/" + tramite;
+
+            window.open(url_orden, '_blank');
+
+            var url_ticket = "{{ route('tramites.recibo', '')}}" + "/" + tramite;
+
+            window.open(url_ticket, '_blank');
+
+            window.location.reload();
+
+        });
+
+    </script>
+
 </div>
