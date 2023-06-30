@@ -536,6 +536,8 @@ class Entrada extends Component
 
             $this->distritos = Constantes::DISTRITOS;
 
+            unset($this->distritos[2]);
+
         }
 
         $this->dependencias = Dependencia::orderBy('nombre')->get();
