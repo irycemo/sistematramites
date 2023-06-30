@@ -44,6 +44,9 @@ class TramiteService{
         $this->tramite->monto = $this->calcularMonto();
         $this->tramite->creado_por = auth()->user()->id;
 
+        if($this->tramite->solicitante == 'Oficialia de partes')
+            $this->tramite->fecha_pago = now()->toDateString();
+
         $this->tramite->save();
 
         return $this->tramite;
@@ -130,7 +133,7 @@ class TramiteService{
 
         if($this->tramite->tipo_servicio == 'ordinario'){
 
-            $actual =  now()->addDays(4);
+            $actual =  now()->addDays(5);
 
             while($actual->isWeekend()){
 
