@@ -593,8 +593,6 @@
 
             window.open(url_ticket, '_blank');
 
-            window.location.reload();
-
         });
 
     </script>

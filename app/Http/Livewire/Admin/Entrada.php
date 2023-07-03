@@ -339,7 +339,6 @@ class Entrada extends Component
 
                 $this->tramitesAdiciona = Tramite::whereIn('estado', ['pagado', 'rechazado'])
                                                 ->whereIn('id_servicio', [1, $this->servicio['id']])
-                                                ->whereDate('fecha_pago', Carbon::today())
                                                 ->get();
 
             }else
