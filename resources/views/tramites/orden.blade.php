@@ -151,9 +151,9 @@
                         <p>Orden de pago: {{ $tramite->orden_de_pago }}</p>
                         <p>Total a pagar: ${{ number_format($tramite->monto, 2) }}</p>
                         @if($tramite->tomo) Tomo: {{ $tramite->tomo }}, @endif @if($tramite->registro) Registro: {{ $tramite->registro}} <br>@endif
-                        @if($tramite->distrito) Distrito: {{ $tramite->distrito}} <br>@endif
-                        @if($tramite->seccion) Sección: {{ $tramite->seccion}} <br>@endif
+                        <p>Distrito: {{ App\Http\Constantes::DISTRITOS[$tramite->distrito] }}, Sección: {{ $tramite->seccion}}</p>
                         @if($tramite->numero_paginas) Número de paginas: {{ $tramite->numero_paginas}} <br>@endif
+                        <p>Fecha de entrega:{{ $tramite->fecha_entrega }}</p>
                         @if($tramite->observaciones)
                             <p>Observaciones:{{ $tramite->observaciones }}</p>
                         @endif
@@ -246,9 +246,9 @@
                         <p>Orden de pago: {{ $tramite->orden_de_pago }}</p>
                         <p>Total a pagar: ${{ number_format($tramite->monto, 2) }}</p>
                         @if($tramite->tomo) Tomo: {{ $tramite->tomo }}, @endif @if($tramite->registro) Registro: {{ $tramite->registro}} <br>@endif
-                        @if($tramite->distrito) Distrito: {{ $tramite->distrito}} <br>@endif
-                        @if($tramite->seccion) Sección: {{ $tramite->seccion}} <br>@endif
+                        <p>Distrito: {{ App\Http\Constantes::DISTRITOS[$tramite->distrito] }}, Sección: {{ $tramite->seccion}}</p>
                         @if($tramite->numero_paginas) Número de paginas: {{ $tramite->numero_paginas}} <br>@endif
+                        <p>Fecha de entrega:{{ $tramite->fecha_entrega }}</p>
                         @if($tramite->observaciones)
                             <p>Observaciones:{{ $tramite->observaciones }}</p>
                         @endif

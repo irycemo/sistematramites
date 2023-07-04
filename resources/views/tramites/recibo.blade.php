@@ -65,22 +65,21 @@
         <div class="content">
 
             <p class="title">CALIFICACIÓN DE DOCUMENTO</p>
-            <p>Fecha: {{Carbon\Carbon::now()->format('d-m-Y')}}</p>
-            <p>No. Control: {{ $tramite->numero_control }}</p>
-            <p>Solicitante: {{ $tramite->nombre_solicitante }}</p>
-            <p>Servicio: {{ $tramite->servicio->nombre }}
+            <p><strong>Fecha:</strong> {{Carbon\Carbon::now()->format('d-m-Y')}}</p>
+            <p><strong>No. Control:</strong> {{ $tramite->numero_control }}</p>
+            <p><strong>Solicitante:</strong> {{ $tramite->nombre_solicitante }}</p>
+            <p><strong>Servicio:</strong> {{ $tramite->servicio->nombre }}
                 @if($tramite->adiciona)
                     / {{ $tramite->adicionaAlTramite->servicio->nombre }}
                 @endif
             </p>
-            <p>Tipo de servicio: {{ $tramite->tipo_servicio }}</p>
-            @if($tramite->tomo) <p>Tomo: {{ $tramite->tomo }} </p>@endif
-            @if($tramite->registro) <p>Registro: {{ $tramite->registro}}</p>@endif
-            @if($tramite->distrito) <p>Distrito: {{ App\Http\Constantes::DISTRITOS[$tramite->distrito] }} </p>@endif
-            @if($tramite->seccion) <p>Sección: {{ $tramite->seccion }} </p>@endif
-            @if($tramite->numero_paginas) <p>Número de paginas: {{ $tramite->numero_paginas}} </p>@endif
-            <p>Orden de pago: {{ $tramite->orden_de_pago }}</p>
-            <p>Linea de captura: {{ $tramite->linea_de_captura }}</p>
+            <p><strong>Tipo de servicio:</strong> {{ $tramite->tipo_servicio }}</p>
+            @if($tramite->tomo) <p><strong>Tomo:</strong> {{ $tramite->tomo }}, <strong>Registro:</strong> {{ $tramite->registro}}</p>@endif
+            <p><strong>Distrito:</strong> {{ App\Http\Constantes::DISTRITOS[$tramite->distrito] }}, Sección: {{ $tramite->seccion }}</p>
+            @if($tramite->numero_paginas) <p>Número de paginas:</strong> {{ $tramite->numero_paginas}} </p>@endif
+            <p><strong>Orden de pago:</strong> {{ $tramite->orden_de_pago }}</p>
+            <p><strong>Linea de captura:</strong> {{ $tramite->linea_de_captura }}</p>
+            <p><strong>Fecha de entrega:</strong>{{ $tramite->fecha_entrega->format('d-m-Y') }}</p>
 
         </div>
 
