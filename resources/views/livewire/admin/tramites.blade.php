@@ -545,7 +545,7 @@
 
                                     </button>
 
-                                    @if($tramite->estado == 'nuevo')
+                                    @if($tramite->estado == 'nuevo' || $tramite->estado == 'rechazado')
 
                                         @can('Editar entrada')
 
@@ -1186,22 +1186,27 @@
                         Imprimir recibo
                     </button>
 
+                    @if(!$modelo_editar->fecha_pago)
+
+                        @can('Validar pago')
+
+                            <button
+                                wire:click="validarPago"
+                                wire:loading.attr="disabled"
+                                wire:target="validarPago"
+                                type="button"
+                                class="bg-red-400 text-white hover:shadow-lg font-bold px-4 py-2 rounded-full text-sm mb-2 hover:bg-red-700 flaot-left mr-1 focus:outline-none">
+                                <img wire:loading wire:target="validarPago" class="mx-auto h-4 mr-1" src="{{ asset('storage/img/loading3.svg') }}" alt="Loading">
+                                Validar
+                            </button>
+
+                        @endcan
+
+                    @endif
+
                 @endif
 
-                @if($crear)
-
-                    <button
-                        wire:click="crear"
-                        wire:loading.attr="disabled"
-                        wire:target="crear"
-                        class="bg-blue-400 text-white hover:shadow-lg font-bold px-4 py-2 rounded-full text-sm mb-2 hover:bg-blue-700 flaot-left mr-1 focus:outline-none">
-
-                        <img wire:loading wire:target="crear" class="mx-auto h-4 mr-1" src="{{ asset('storage/img/loading3.svg') }}" alt="Loading">
-
-                        Guardar
-                    </button>
-
-                @elseif($editar)
+                @if($editar)
 
                     <button
                         wire:click="actualizar"
@@ -1536,44 +1541,6 @@
         </x-slot>
 
         <x-slot name="footer">
-
-            <div class="">
-
-                @if($modelo_editar->estado == 'nuevo')
-
-                    <button
-                        wire:click="reimprimir"
-                        wire:loading.attr="disabled"
-                        wire:target="reimprimir"
-                        class="bg-gray-400 text-white hover:shadow-lg font-bold px-4 py-2 rounded-full text-sm mb-2 hover:bg-gray-700 flaot-left mr-1 focus:outline-none">
-
-                        <img wire:loading wire:target="reimprimir" class="mx-auto h-4 mr-1" src="{{ asset('storage/img/loading3.svg') }}" alt="Loading">
-
-                        Imprimir recibo
-                    </button>
-
-                @endif
-
-                @if(!$modelo_editar->fecha_pago)
-
-                    @can('Validar pago')
-
-                        <button
-                            wire:click="validarPago"
-                            wire:loading.attr="disabled"
-                            wire:target="validarPago"
-                            type="button"
-                            class="bg-red-400 text-white hover:shadow-lg font-bold px-4 py-2 rounded-full text-sm mb-2 hover:bg-red-700 flaot-left mr-1 focus:outline-none">
-                            <img wire:loading wire:target="validarPago" class="mx-auto h-4 mr-1" src="{{ asset('storage/img/loading3.svg') }}" alt="Loading">
-                            Validar
-                        </button>
-
-                    @endcan
-
-                @endif
-
-            </div>
-
         </x-slot>
 
     </x-jet-dialog-modal>

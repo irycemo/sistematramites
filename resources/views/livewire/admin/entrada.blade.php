@@ -1277,7 +1277,7 @@
 
                     <div class="mt-4 text-right">
 
-                        @if ($tramite->estado == 'nuevo')
+                        @if ($tramite->estado == 'nuevo' || $tramite->estado == 'rechazado')
 
                             <button
                                 wire:click="editar"
@@ -1288,6 +1288,10 @@
                                 <img wire:loading wire:target="editar" class="mx-auto h-4 mr-1" src="{{ asset('storage/img/loading3.svg') }}" alt="Loading">
                                 Editar
                             </button>
+
+                        @endif
+
+                        @if ($tramite->estado == 'nuevo')
 
                             <button
                                 wire:click="reimprimir"

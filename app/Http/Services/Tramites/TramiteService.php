@@ -133,11 +133,17 @@ class TramiteService{
 
         if($this->tramite->tipo_servicio == 'ordinario'){
 
-            $actual =  now()->addDays(5);
+            $actual = now();
 
-            while($actual->isWeekend()){
+            for ($i=0; $i < 5; $i++) {
 
-                $actual->addDay();
+                $actual->addDays(1);
+
+                while($actual->isWeekend()){
+
+                    $actual->addDay();
+
+                }
 
             }
 

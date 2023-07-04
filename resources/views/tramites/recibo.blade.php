@@ -79,7 +79,6 @@
             @if($tramite->numero_paginas) <p>Número de paginas:</strong> {{ $tramite->numero_paginas}} </p>@endif
             <p><strong>Orden de pago:</strong> {{ $tramite->orden_de_pago }}</p>
             <p><strong>Linea de captura:</strong> {{ $tramite->linea_de_captura }}</p>
-            <p><strong>Fecha de entrega:</strong>{{ $tramite->fecha_entrega->format('d-m-Y') }}</p>
 
         </div>
 
