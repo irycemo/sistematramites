@@ -178,7 +178,7 @@ class LineaCaptura
                     <RFC>XXXX0001XXX</RFC>
                     <NOMBRE_RAZON>". $this->tramite->nombre_solicitante ."</NOMBRE_RAZON>
                     <DOMICILIO>Conocido</DOMICILIO>
-                    <OBSERVACIONES>N.C.: " . $this->tramite->numero_control . " T.: " . $this->tramite->tomo . "R.: " . $this->tramite->registro . "D.: " . Constantes::DISTRITOS[$this->tramite->distrito] . "S.: " . $this->tramite->seccion . "F.E.: " . $this->tramite->fecha_entrega . "T.S.: " . $this->tramite->tipo_servicio . "</OBSERVACIONES>
+                    <OBSERVACIONES>Número de control: " . $this->tramite->numero_control . " Tomo: " . $this->tramite->tomo . " Registro: " . $this->tramite->registro . " Distrito: " . Constantes::DISTRITOS[$this->tramite->distrito] . " Sección: " . $this->tramite->seccion . " Fecha de entrega: " . $this->tramite->fecha_entrega . " Tipo de servicio: " . $this->tramite->tipo_servicio . "</OBSERVACIONES>
                 </ES_GEN_DATA>
                 <TB_CONCEPTOS>
                     <TP_INGRESO>". $this->tramite->servicio->clave_ingreso ."</TP_INGRESO>
