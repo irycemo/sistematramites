@@ -4,6 +4,7 @@ namespace App\Http\Services\Tramites;
 
 use App\Models\Tramite;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Http\Services\LineasDeCaptura\LineaCaptura;
 use App\Http\Services\SistemaRPP\SistemaRppService;
@@ -56,8 +57,14 @@ class TramiteService{
     public function actualizar():void
     {
 
-        $this->tramite->actualizado_por = auth()->user()->id;
-        $this->tramite->save();
+        DB::transaction(function () {
+
+            $this->tramite->actualizado_por = auth()->user()->id;
+            $this->tramite->save();
+
+            (new SistemaRppService())->actualizarSistemaRpp($this->tramite);
+
+        });
 
     }
 

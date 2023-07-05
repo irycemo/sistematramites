@@ -247,7 +247,6 @@
                         @if($tramite->tomo) Tomo: {{ $tramite->tomo }}, @endif @if($tramite->registro) Registro: {{ $tramite->registro}} <br>@endif
                         <p>Distrito: {{ App\Http\Constantes::DISTRITOS[$tramite->distrito] }}, Sección: {{ $tramite->seccion}}</p>
                         @if($tramite->numero_paginas) Número de paginas: {{ $tramite->numero_paginas}} <br>@endif
-                        <p>Fecha de entrega:{{ $tramite->fecha_entrega }}</p>
                         @if($tramite->observaciones)
                             <p>Observaciones:{{ $tramite->observaciones }}</p>
                         @endif

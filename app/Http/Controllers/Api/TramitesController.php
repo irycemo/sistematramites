@@ -42,7 +42,7 @@ class TramitesController extends Controller
 
             $tramite->update([
                         'estado' => 'rechazado',
-                        'observaciones' => $request->observaciones
+                        'observaciones' => $tramite->observaciones . '<|>' .$request->observaciones
                     ]);
 
             (new TramiteService($tramite))->cambiarEstado('rechazado');
