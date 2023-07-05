@@ -41,6 +41,10 @@ class Tramite extends Model implements Auditable
         return $this->belongsTo(Tramite::class, 'adiciona');
     }
 
+    public function adicionadoPor(){
+        return $this->hasMany(Tramtie::class, 'adiciona');
+    }
+
     public function servicio(){
         return $this->belongsTo(Servicio::class, 'id_servicio');
     }
