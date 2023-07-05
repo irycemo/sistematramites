@@ -42,7 +42,7 @@ class Tramite extends Model implements Auditable
     }
 
     public function adicionadoPor(){
-        return $this->hasMany(Tramtie::class, 'adiciona');
+        return $this->hasMany(Tramite::class, 'adiciona');
     }
 
     public function servicio(){
