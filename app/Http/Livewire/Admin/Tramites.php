@@ -244,6 +244,8 @@ class Tramites extends Component
 
         $this->modalVer = true;
 
+        $this->modelo_editar->load('adicionadoPor');
+
     }
 
     public function validarPago(){

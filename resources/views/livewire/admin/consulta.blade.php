@@ -530,6 +530,26 @@
 
                     @endif
 
+                    @if($modelo_editar->adicionadoPor->count())
+
+                    <div class="rounded-lg bg-gray-100 py-1 px-2 my-3">
+
+                        <p>Adicionado por:</p>
+
+                        <div class="flex space-x-2 flex-row">
+
+                            @foreach ($modelo_editar->adicionadoPor as $item)
+
+                                <p><strong>NC:</strong>{{ $item->numero_control }}</p>
+
+                            @endforeach
+
+                        </div>
+
+                    </div>
+
+                @endif
+
                 @endif
 
             </div>

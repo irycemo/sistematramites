@@ -35,6 +35,8 @@ class Consulta extends Component
 
         $this->modal = true;
 
+        $this->modelo_editar->load('adicionadoPor');
+
     }
 
     public function validarPago(){
