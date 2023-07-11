@@ -69,8 +69,6 @@ class Tramites extends Component
 
     protected function rules(){
         return [
-            'servicio' => 'required',
-            'modelo_editar.id_servicio' => 'required',
             'modelo_editar.solicitante' => 'required',
             'modelo_editar.nombre_solicitante' => 'required_if:modelo_editar.solicitante,Ventanilla,Juzgado',
             'modelo_editar.numero_oficio' => 'nullable',
@@ -85,8 +83,6 @@ class Tramites extends Component
             'modelo_editar.seccion' => 'nullable',
             'modelo_editar.limite_de_pago' => 'nullable',
             'modelo_editar.fecha_entrega' => 'nullable',
-            'modelo_editar.monto' => 'nullable',
-            'modelo_editar.tipo_servicio' => 'required',
             'modelo_editar.numero_paginas' => 'nullable',
             'modelo_editar.numero_inmuebles' => 'nullable',
             'modelo_editar.numero_propiedad' => 'nullable',
@@ -95,8 +91,6 @@ class Tramites extends Component
             'modelo_editar.nombre_notario' => 'nullable',
             'modelo_editar.valor_propiedad' => 'nullable',
             'modelo_editar.observaciones' => 'nullable',
-            'modelo_editar.foraneo' => 'nullable|boolean',
-            'modelo_editar.adiciona' => 'required_if:adicionaTramite,true'
          ];
     }
 
