@@ -41,7 +41,6 @@ class TramiteService{
         $this->tramite->orden_de_pago = $this->orden_de_pago;
         $this->tramite->linea_de_captura = $this->linea;
         $this->tramite->estado = 'nuevo';
-        $this->tramite->fecha_entrega = $this->calcularFechaEntrega();
         $this->tramite->monto = $this->calcularMonto();
         $this->tramite->creado_por = auth()->user()->id;
 
@@ -62,7 +61,8 @@ class TramiteService{
             $this->tramite->actualizado_por = auth()->user()->id;
             $this->tramite->save();
 
-            (new SistemaRppService())->actualizarSistemaRpp($this->tramite);
+            if($this->tramite->fecha_pago)
+                (new SistemaRppService())->actualizarSistemaRpp($this->tramite);
 
         });
 
@@ -176,13 +176,15 @@ class TramiteService{
 
     }
 
-    public function procesarPago($fecha, $documento){
+    public function procesarPago($fecha, $documento)
+    {
 
         $this->tramite->update([
             'estado' => 'pagado',
             'fecha_pago' => $this->convertirFecha($fecha),
             'fecha_prelacion' => $this->convertirFecha($fecha),
-            'documento_de_pago' => $documento
+            'documento_de_pago' => $documento,
+            'fecha_entrega' => $this->calcularFechaEntrega()
         ]);
 
         if($this->tramite->adiciona){
@@ -215,7 +217,8 @@ class TramiteService{
 
     }
 
-    public function cambiarEstado($estado){
+    public function cambiarEstado($estado)
+    {
 
         try {
 
@@ -225,6 +228,9 @@ class TramiteService{
 
             while($tramite->adicionaAlTramite != null){
 
+                if($tramite->adicionaAlTramite->servicio->clave_ingreso == 'DC93' && $estado != 'pagado')
+                    break;
+
                 $tramite->adicionaAlTramite->update(['estado' => $estado]);
 
                 $tramite = $tramite->adicionaAlTramite;
@@ -233,7 +239,9 @@ class TramiteService{
 
             if($estado != 'pagado'){
 
-                $tramites = Tramite::where('adiciona', $this->tramite->id)->get();
+                $tramites = Tramite::where('adiciona', $this->tramite->id)
+                                        ->where('estado', '!=', 'nuevo')
+                                        ->get();
 
                 foreach($tramites as $item)
                     $item->update(['estado' => $estado]);

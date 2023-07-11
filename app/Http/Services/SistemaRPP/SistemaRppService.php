@@ -82,7 +82,7 @@ class SistemaRppService{
             'seccion' => $tramite->seccion,
             'distrito' => $tramite->distrito,
             'fecha_entrega' => $tramite->fecha_entrega->toDateString(),
-            'fecha_pago' => $tramite->fecha_pago->toDateString(),
+            'fecha_pago' => $tramite->fecha_pago?->toDateString(),
             'categoria_servicio' => $tramite->servicio->categoria->nombre,
             'servicio' => $tramite->servicio->clave_ingreso,
             'numero_oficio' => $tramite->numero_oficio,

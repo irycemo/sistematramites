@@ -192,6 +192,13 @@ class Entrada extends Component
 
             $this->modelo_editar->monto = $this->servicio['ordinario'] * $this->modelo_editar->numero_paginas;
 
+            if($this->modelo_editar->monto == 0){
+
+                $this->dispatchBrowserEvent('mostrarMensaje', ['error', "No hay servicio ordinario para el servicio seleccionado."]);
+
+                $this->modelo_editar->tipo_servicio = null;
+            }
+
         }
         elseif($this->modelo_editar->tipo_servicio == 'urgente'){
 
