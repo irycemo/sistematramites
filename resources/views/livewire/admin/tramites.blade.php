@@ -1476,11 +1476,15 @@
 
                         </div>
 
-                        <div class="rounded-lg bg-gray-100 py-1 px-2">
+                        @if ($modelo_editar->fecha_entrega)
 
-                            <p><strong>Fecha de entrega:</strong> {{ $modelo_editar->fecha_entrega->format('d-m-Y') }}</p>
+                            <div class="rounded-lg bg-gray-100 py-1 px-2">
 
-                        </div>
+                                <p><strong>Fecha de entrega:</strong> {{ $modelo_editar->fecha_entrega->format('d-m-Y') }}</p>
+
+                            </div>
+
+                        @endif
 
                         @if ($modelo_editar->fecha_pago)
 

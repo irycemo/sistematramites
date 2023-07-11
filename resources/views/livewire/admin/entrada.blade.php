@@ -1227,11 +1227,15 @@
 
                         </div>
 
-                        <div class="rounded-lg bg-gray-100 py-1 px-2">
+                        @if ($tramite->fecha_entrega)
 
-                            <p><strong>Fecha de entrega:</strong> {{ $tramite->fecha_entrega->format('d-m-Y') }}</p>
+                            <div class="rounded-lg bg-gray-100 py-1 px-2">
 
-                        </div>
+                                <p><strong>Fecha de entrega:</strong> {{ $tramite->fecha_entrega->format('d-m-Y') }}</p>
+
+                            </div>
+
+                        @endif
 
                         @if ($tramite->limite_de_pago)
 
