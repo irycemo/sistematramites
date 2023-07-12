@@ -19,7 +19,7 @@ use App\Http\Controllers\TramitesController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SetPasswordController;
 use App\Http\Livewire\Admin\CategoriasServicios;
-
+use App\Http\Livewire\Admin\Reportes;
 
 /*
 |--------------------------------------------------------------------------
@@ -65,6 +65,8 @@ Route::group(['middleware' => ['auth', 'esta.activo']], function(){
     Route::get('auditoria', Auditoria::class)->middleware('permission:Auditoria')->name('auditoria');
 
     Route::get('consulta', Consulta::class)->middleware('permission:Consultas')->name('consulta');
+
+    Route::get('reportes', Reportes::class)->middleware('permission:Reportes')->name('reportes');
 
     Route::get('dependencias', Dependencias::class)->middleware('permission:Lista de dependencias')->name('dependencias');
 

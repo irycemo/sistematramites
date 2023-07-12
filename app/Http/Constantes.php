@@ -15,7 +15,8 @@ class Constantes{
         'Umas',
         'Auditoría',
         'Consultas',
-        'Dependencias'
+        'Dependencias',
+        'Reportes'
     ];
 
     const AREAS_ADSCRIPCION = [

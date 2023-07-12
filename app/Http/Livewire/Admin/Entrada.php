@@ -297,9 +297,9 @@ class Entrada extends Component
 
         $this->modelo_editar->id_servicio = $this->servicio['id'];
 
-        $tramiteContext = new TramitesContext($this->categoria['nombre']);
+        $tramiteContext = new TramitesContext($this->categoria['nombre'], $this->modelo_editar);
 
-        $this->flags = $tramiteContext->cambiarFlags();
+        $this->flags = $tramiteContext->cambiarFlags($this->flags);
 
     }
 
@@ -353,6 +353,22 @@ class Entrada extends Component
                 $this->tramitesAdiciona = Tramite::whereIn('estado', ['pagado', 'rechazado'])
                                                     ->where('id_servicio', $this->servicio['id'])
                                                     ->get();
+
+        }
+
+    }
+
+    public function updatedModeloEditarAdiciona(){
+
+        $tramite = Tramite::find($this->modelo_editar->adiciona);
+
+        if($tramite->servicio->clave_ingreso == 'DL13'){
+
+            $this->flags['solicitante'] = false;
+            $this->flags['tomo'] = false;
+            $this->flags['registro'] = false;
+            $this->flags['distrito'] = false;
+            $this->flags['seccion'] = false;
 
         }
 

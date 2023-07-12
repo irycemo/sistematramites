@@ -2,9 +2,10 @@
 
 namespace App\Console\Commands;
 
-use App\Http\Services\Tramites\TramiteService;
 use App\Models\Tramite;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
+use App\Http\Services\Tramites\TramiteService;
 
 class ExpirarTramitesVencidos extends Command
 {
@@ -28,10 +29,20 @@ class ExpirarTramitesVencidos extends Command
     public function handle(): void
     {
 
-        $tramites = Tramite::whereDate('limite_de_pago', '>=', now()->toDateString())->get();
+        try {
 
-        foreach($tramites as $item)
-            (new TramiteService($item))->cambiarEstado('expirado');
+            $tramites = Tramite::with('adicionaALTramite')
+                                    ->whereDate('limite_de_pago', '<=', now()->toDateString())
+                                    ->get();
+
+            foreach($tramites as $item)
+                (new TramiteService($item))->cambiarEstado('expirado');
+
+        } catch (\Throwable $th) {
+
+            Log::error("Error al expirar trámites. " . $th);
+
+        }
 
     }
 }

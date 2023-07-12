@@ -350,7 +350,7 @@
 
                             <div class="rounded-lg bg-gray-100 py-1 px-2">
 
-                                <p><strong>Distrito:</strong> {{ $modelo_editar->distrito }}</p>
+                                <p><strong>Distrito:</strong> {{ App\Http\Constantes::DISTRITOS[$modelo_editar->distrito] }}</p>
 
                             </div>
 
