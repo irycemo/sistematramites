@@ -362,7 +362,7 @@ class Entrada extends Component
 
         $tramite = Tramite::find($this->modelo_editar->adiciona);
 
-        if($tramite->servicio->clave_ingreso == 'DL13'){
+        if($tramite->servicio->clave_ingreso == 'DL13' || $tramite->servicio->clave_ingreso == 'DL14'){
 
             $this->flags['solicitante'] = false;
             $this->flags['tomo'] = false;
