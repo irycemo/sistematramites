@@ -31,7 +31,8 @@ class ConcluidConsultasDiariamente extends Command
 
         try {
 
-            $tramites = Tramite::whereHas('servicio', function($q){
+            $tramites = Tramite::with('adicionaALTramite')
+                                    ->whereHas('servicio', function($q){
                                         $q->where('clave_ingreso', 'DC93');
                                     })
                                     ->whereIn('estado', ['pagado', 'nuevo', 'rechazado'])

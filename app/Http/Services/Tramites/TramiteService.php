@@ -58,6 +58,9 @@ class TramiteService{
 
         DB::transaction(function () {
 
+            if(!$this->tramite->adiciona)
+                $this->tramite->numero_paginas = 0;
+
             $this->tramite->actualizado_por = auth()->user()->id;
             $this->tramite->save();
 

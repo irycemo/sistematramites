@@ -204,6 +204,13 @@ class Entrada extends Component
 
             $this->modelo_editar->monto = $this->servicio['urgente'] * $this->modelo_editar->numero_paginas;
 
+            if(now() < now()->startOfDay()->addHour(12)){
+
+                $this->dispatchBrowserEvent('mostrarMensaje', ['error', "No se pueden hacer trámites urgentes despues de las 11:00 hrs."]);
+
+                $this->modelo_editar->tipo_servicio = null;
+            }
+
             if($this->modelo_editar->monto == 0){
 
                 $this->dispatchBrowserEvent('mostrarMensaje', ['error', "No hay servicio urgente para el servicio seleccionado."]);
@@ -215,6 +222,13 @@ class Entrada extends Component
         elseif($this->modelo_editar->tipo_servicio == 'extra_urgente'){
 
             $this->modelo_editar->monto = $this->servicio['extra_urgente'] * $this->modelo_editar->numero_paginas;
+
+            if(now() < now()->startOfDay()->addHour(14)){
+
+                $this->dispatchBrowserEvent('mostrarMensaje', ['error', "No se pueden hacer trámites extra urgentes despues de las 13:00 hrs."]);
+
+                $this->modelo_editar->tipo_servicio = null;
+            }
 
             if($this->modelo_editar->monto == 0){
 
@@ -369,6 +383,18 @@ class Entrada extends Component
             $this->flags['registro'] = false;
             $this->flags['distrito'] = false;
             $this->flags['seccion'] = false;
+
+            $this->modelo_editar->solicitante = $tramite->solicitante;
+            $this->modelo_editar->tomo = $tramite->tomo;
+            $this->modelo_editar->registro = $tramite->registro;
+            $this->modelo_editar->distrito = $tramite->distrito;
+            $this->modelo_editar->seccion = $tramite->seccion;
+
+        }
+
+        if($tramite->tipo_servicio != $this->modelo_editar->tipo_servicio){
+
+
 
         }
 
