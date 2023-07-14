@@ -204,9 +204,9 @@ class Entrada extends Component
 
             $this->modelo_editar->monto = $this->servicio['urgente'] * $this->modelo_editar->numero_paginas;
 
-            if(now() < now()->startOfDay()->addHour(14) && !auth()->user()->hasRole('Administrador')){
+            if(now() < now()->startOfDay()->addHour(14)){
 
-                $this->dispatchBrowserEvent('mostrarMensaje', ['error', "No se pueden hacer trámites urgentes despues de las 11:00 hrs."]);
+                $this->dispatchBrowserEvent('mostrarMensaje', ['error', "No se pueden hacer trámites urgentes despues de las 13:00 hrs."]);
 
                 $this->modelo_editar->tipo_servicio = null;
             }
@@ -223,9 +223,9 @@ class Entrada extends Component
 
             $this->modelo_editar->monto = $this->servicio['extra_urgente'] * $this->modelo_editar->numero_paginas;
 
-            if(now() < now()->startOfDay()->addHour(12) && !auth()->user()->hasRole('Administrador')){
+            if(now() < now()->startOfDay()->addHour(12)){
 
-                $this->dispatchBrowserEvent('mostrarMensaje', ['error', "No se pueden hacer trámites extra urgentes despues de las 13:00 hrs."]);
+                $this->dispatchBrowserEvent('mostrarMensaje', ['error', "No se pueden hacer trámites extra urgentes despues de las 11:00 hrs."]);
 
                 $this->modelo_editar->tipo_servicio = null;
             }

@@ -229,6 +229,8 @@ class TramiteService{
 
             $tramite = $this->tramite;
 
+            $tramite->load('adicionaAlTramite');
+
             while($tramite->adicionaAlTramite != null){
 
                 if($tramite->adicionaAlTramite->servicio->clave_ingreso == 'DC93' && $estado != 'pagado')
