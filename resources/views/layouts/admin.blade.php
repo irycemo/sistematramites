@@ -31,7 +31,7 @@
 
                 <p class="uppercase text-md text-rojo mb-4 tracking-wider">Administración</p>
 
-                @can('Lista de roles')
+                @can('List de roles')
 
                     <div class="flex items-center mb-3 w-full justify-between hover:text-red-600 transition ease-in-out duration-500 hover:bg-gray-100 rounded-xl">
 
@@ -54,27 +54,27 @@
 
                     </div>
 
+                    <div
+                        x-transition:enter="transition duration-2000 transform ease-out"
+                        x-transition:leave="transition duration-200 transform ease-in"
+                        x-transition:leave-end="opacity-0 scale-90"
+                        x-transition:enter-start="scale-75"
+                        class="flex items-center mb-3 w-full justify-between hover:text-red-600 transition ease-in-out duration-500 hover:bg-gray-100 rounded-xl text-sm"
+                        x-show="!openRoles">
+
+                        <a href="{{ route('permisos') }}" class=" capitalize font-medium text-md  flex hover w-full   p-2 px-4 ml-5">
+
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z" />
+                            </svg>
+
+                            Permisos
+
+                        </a>
+
+                    </div>
+
                 @endcan
-
-                <div
-                    x-transition:enter="transition duration-2000 transform ease-out"
-                    x-transition:leave="transition duration-200 transform ease-in"
-                    x-transition:leave-end="opacity-0 scale-90"
-                    x-transition:enter-start="scale-75"
-                    class="flex items-center mb-3 w-full justify-between hover:text-red-600 transition ease-in-out duration-500 hover:bg-gray-100 rounded-xl text-sm"
-                    x-show="!openRoles">
-
-                    <a href="{{ route('permisos') }}" class=" capitalize font-medium text-md  flex hover w-full   p-2 px-4 ml-5">
-
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z" />
-                          </svg>
-
-                        Permisos
-
-                    </a>
-
-                </div>
 
                 @can('Lista de usuarios')
 
@@ -112,37 +112,37 @@
 
                     </div>
 
+                    <div
+                        x-transition:enter="transition duration-2000 transform ease-out"
+                        x-transition:leave="transition duration-200 transform ease-in"
+                        x-transition:leave-end="opacity-0 scale-90"
+                        x-transition:enter-start="scale-75"
+                        class="flex flex-col space-y-2 items-center mb-3 w-full justify-between  transition ease-in-out duration-500   text-sm"
+                        x-show="!openServicios">
+
+                        <a href="{{ route('categorias_servicios') }}" class="capitalize font-medium text-md  flex hover w-full  hover:bg-gray-100 p-2 px-4 ml-5 rounded-xl hover:text-red-600">
+
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.098 19.902a3.75 3.75 0 005.304 0l6.401-6.402M6.75 21A3.75 3.75 0 013 17.25V4.125C3 3.504 3.504 3 4.125 3h5.25c.621 0 1.125.504 1.125 1.125v4.072M6.75 21a3.75 3.75 0 003.75-3.75V8.197M6.75 21h13.125c.621 0 1.125-.504 1.125-1.125v-5.25c0-.621-.504-1.125-1.125-1.125h-4.072M10.5 8.197l2.88-2.88c.438-.439 1.15-.439 1.59 0l3.712 3.713c.44.44.44 1.152 0 1.59l-2.879 2.88M6.75 17.25h.008v.008H6.75v-.008z" />
+                            </svg>
+
+                            Categorías
+
+                        </a>
+
+                        <a href="{{ route('umas') }}" class="capitalize font-medium text-md  flex hover w-full  hover:bg-gray-100 p-2 px-4 ml-5 rounded-xl hover:text-red-600">
+
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+
+                            UMAS
+
+                        </a>
+
+                    </div>
+
                 @endcan
-
-                <div
-                    x-transition:enter="transition duration-2000 transform ease-out"
-                    x-transition:leave="transition duration-200 transform ease-in"
-                    x-transition:leave-end="opacity-0 scale-90"
-                    x-transition:enter-start="scale-75"
-                    class="flex flex-col space-y-2 items-center mb-3 w-full justify-between  transition ease-in-out duration-500   text-sm"
-                    x-show="!openServicios">
-
-                    <a href="{{ route('categorias_servicios') }}" class="capitalize font-medium text-md  flex hover w-full  hover:bg-gray-100 p-2 px-4 ml-5 rounded-xl hover:text-red-600">
-
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.098 19.902a3.75 3.75 0 005.304 0l6.401-6.402M6.75 21A3.75 3.75 0 013 17.25V4.125C3 3.504 3.504 3 4.125 3h5.25c.621 0 1.125.504 1.125 1.125v4.072M6.75 21a3.75 3.75 0 003.75-3.75V8.197M6.75 21h13.125c.621 0 1.125-.504 1.125-1.125v-5.25c0-.621-.504-1.125-1.125-1.125h-4.072M10.5 8.197l2.88-2.88c.438-.439 1.15-.439 1.59 0l3.712 3.713c.44.44.44 1.152 0 1.59l-2.879 2.88M6.75 17.25h.008v.008H6.75v-.008z" />
-                        </svg>
-
-                        Categorías
-
-                    </a>
-
-                    <a href="{{ route('umas') }}" class="capitalize font-medium text-md  flex hover w-full  hover:bg-gray-100 p-2 px-4 ml-5 rounded-xl hover:text-red-600">
-
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-
-                        UMAS
-
-                    </a>
-
-                </div>
 
                 @can('Lista de trámites')
 
