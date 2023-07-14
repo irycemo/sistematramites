@@ -385,16 +385,11 @@ class Entrada extends Component
             $this->flags['seccion'] = false;
 
             $this->modelo_editar->solicitante = $tramite->solicitante;
+            $this->modelo_editar->nombre_solicitante = $tramite->nombre_solicitante;
             $this->modelo_editar->tomo = $tramite->tomo;
             $this->modelo_editar->registro = $tramite->registro;
             $this->modelo_editar->distrito = $tramite->distrito;
             $this->modelo_editar->seccion = $tramite->seccion;
-
-        }
-
-        if($tramite->tipo_servicio != $this->modelo_editar->tipo_servicio){
-
-
 
         }
 
