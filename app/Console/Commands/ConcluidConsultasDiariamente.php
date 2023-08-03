@@ -39,7 +39,7 @@ class ConcluidConsultasDiariamente extends Command
                                     ->get();
 
             foreach($tramites as $item)
-                (new TramiteService($item))->cambiarEstado('concluido');
+                $item->update(['estado' => 'concluido']);
 
         } catch (\Throwable $th) {
 
