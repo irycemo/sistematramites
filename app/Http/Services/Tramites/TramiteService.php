@@ -44,8 +44,13 @@ class TramiteService{
         $this->tramite->monto = $this->calcularMonto();
         $this->tramite->creado_por = auth()->user()->id;
 
-        if($this->tramite->solicitante == 'Oficialia de partes')
+        if($this->tramite->solicitante == 'Oficialia de partes'){
+
             $this->tramite->fecha_pago = now()->toDateString();
+
+            $this->tramite->fecha_entrega = $this->calcularFechaEntrega();
+
+        }
 
         $this->tramite->save();
 
