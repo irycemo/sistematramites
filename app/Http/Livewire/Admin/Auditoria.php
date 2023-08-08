@@ -22,7 +22,7 @@ class Auditoria extends Component
     public $selecetedAudit;
     public $modelos = [
         'App\Models\CategoriaServicio',
-        'App\Models\Servicios',
+        'App\Models\Servicio',
         'App\Models\Tramite',
         'App\Models\User',
     ];
