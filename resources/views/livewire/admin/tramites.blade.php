@@ -1558,7 +1558,7 @@
 
                     @endif
 
-                    @if($modelo_editar->adicionaAlTramite->count())
+                    @if($modelo_editar->adicionaAlTramite?->count())
 
                         <div class="rounded-lg bg-gray-100 py-1 px-2 my-3">
 
