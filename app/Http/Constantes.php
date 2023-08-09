@@ -77,7 +77,8 @@ class Constantes{
         'Sentencias',
         'Varios',
         'Cancelaciones',
-        'Fraccionamientos'
+        'Fraccionamientos',
+        'Comercio'
     ];
 
     const DISTRITOS = [
