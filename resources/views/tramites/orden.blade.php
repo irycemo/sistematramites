@@ -283,6 +283,8 @@
 
         </div>
 
+        <p>Pago en OXXO. Cod. Banco: {{ $tramite->oxxo_cod }}. Cod. Convenio: {{ $tramite->oxxo_conv }}</p>
+
     </div>
 
 </body>

@@ -16,6 +16,8 @@ class TramiteService{
     public $fecha_vencimiento;
     public $orden_de_pago;
     public $linea;
+    public $oxxo_cod;
+    public $oxxo_conv;
 
     public function __construct(Tramite $tramite)
     {
@@ -53,6 +55,10 @@ class TramiteService{
         }
 
         $this->tramite->save();
+
+        $this->tramite->oxxo_cod = $this->oxxo_cod;
+
+        $this->tramite->oxxo_conv = $this->oxxo_conv;
 
         return $this->tramite;
 
@@ -107,6 +113,10 @@ class TramiteService{
         $this->linea = $array['SOAPBody']['ns0MT_ServGralLC_PI_Receiver']['ES_OPAG']['LINEA_CAPTURA'];
 
         $this->fecha_vencimiento = $this->convertirFecha($array['SOAPBody']['ns0MT_ServGralLC_PI_Receiver']['ES_OPAG']['FECHA_VENCIMIENTO']);
+
+        $this->oxxo_cod = $array['SOAPBody']['ns0MT_ServGralLC_PI_Receiver']['TB_CONV_BANCARIOS'][1]['COD_BANCO'];
+
+        $this->oxxo_conv = $array['SOAPBody']['ns0MT_ServGralLC_PI_Receiver']['TB_CONV_BANCARIOS'][1]['COD_CONVENIO'];
 
     }
 
