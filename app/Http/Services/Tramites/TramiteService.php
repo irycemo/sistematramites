@@ -16,8 +16,6 @@ class TramiteService{
     public $fecha_vencimiento;
     public $orden_de_pago;
     public $linea;
-    public $oxxo_cod;
-    public $oxxo_conv;
 
     public function __construct(Tramite $tramite)
     {
@@ -55,10 +53,6 @@ class TramiteService{
         }
 
         $this->tramite->save();
-
-        $this->tramite->oxxo_cod = $this->oxxo_cod;
-
-        $this->tramite->oxxo_conv = $this->oxxo_conv;
 
         return $this->tramite;
 

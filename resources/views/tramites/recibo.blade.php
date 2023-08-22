@@ -10,7 +10,7 @@
 <style>
 
     @page{
-        size:58mm 120mm;
+        size:58mm 125mm;
         margin: 5;
     }
 
@@ -92,7 +92,8 @@
         </div>
 
         <div class="footer">
-            <p>LA VIGENCIA PARA EL PAGO DE ESTE TRÁMITE ES: {{ $tramite->limite_de_pago->format('d-m-Y') }}.</p>
+            <p style="margin-bottom: 5px">LA VIGENCIA PARA EL PAGO DE ESTE TRÁMITE ES: {{ $tramite->limite_de_pago->format('d-m-Y') }}.</p>
+            <p>Pago en OXXO. Cod. Banco: 012. Cod. Convenio: 50001</p>
             <hr>
             <p>VERIFICAR LOS DATOS ANTES DE PAGAR</p>
         </div>
