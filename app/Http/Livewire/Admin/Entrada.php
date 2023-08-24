@@ -269,7 +269,7 @@ class Entrada extends Component
 
         }elseif($this->modelo_editar->solicitante == 'Oficialia de partes'){
 
-            if(!auth()->user()->hasRole('Oficialia de partes')){
+            if(!auth()->user()->hasRole(['Oficialia de partes', 'Administrador'])){
 
                 $this->dispatchBrowserEvent('mostrarMensaje', ['error', "No tienes permisos para esta opción."]);
 
