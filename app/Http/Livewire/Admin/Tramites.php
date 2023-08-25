@@ -339,7 +339,21 @@ class Tramites extends Component
 
     public function enviarTramiteRpp(){
 
-        (new SistemaRppService())->insertarSistemaRpp($this->modelo_editar);
+        try{
+
+            (new SistemaRppService())->insertarSistemaRpp($this->modelo_editar);
+
+            $this->resetearTodo($borrado = true);
+
+            $this->dispatchBrowserEvent('mostrarMensaje', ['success', "El trámite se envió al Sistema RPP con éxito."]);
+
+        } catch (\Throwable $th) {
+
+            Log::error("Error al enviar trámite al sistema rpp por el usuario: (id: " . auth()->user()->id . ") " . auth()->user()->name . ". " . $th->getMessage());
+            $this->dispatchBrowserEvent('mostrarMensaje', ['error', "Ha ocurrido un error."]);
+            $this->resetearTodo();
+
+        }
 
     }
 
