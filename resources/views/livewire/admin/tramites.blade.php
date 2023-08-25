@@ -1173,17 +1173,6 @@
 
             <div class="">
 
-                <button
-                    wire:click="enviarTramiteRpp"
-                    wire:loading.attr="disabled"
-                    wire:target="enviarTramiteRpp"
-                    class="bg-gray-400 text-white hover:shadow-lg font-bold px-4 py-2 rounded-full text-sm mb-2 hover:bg-gray-700 flaot-left mr-1 focus:outline-none">
-
-                    <img wire:loading wire:target="enviarTramiteRpp" class="mx-auto h-4 mr-1" src="{{ asset('storage/img/loading3.svg') }}" alt="Loading">
-
-                    Enviar a RPP
-                </button>
-
                 @if($modelo_editar->estado == 'nuevo')
 
                     <button
@@ -1592,6 +1581,16 @@
         </x-slot>
 
         <x-slot name="footer">
+            <button
+                wire:click="enviarTramiteRpp"
+                wire:loading.attr="disabled"
+                wire:target="enviarTramiteRpp"
+                class="bg-gray-400 text-white hover:shadow-lg font-bold px-4 py-2 rounded-full text-sm mb-2 hover:bg-gray-700 flaot-left mr-1 focus:outline-none">
+
+                <img wire:loading wire:target="enviarTramiteRpp" class="mx-auto h-4 mr-1" src="{{ asset('storage/img/loading3.svg') }}" alt="Loading">
+
+                Enviar a RPP
+            </button>
         </x-slot>
 
     </x-jet-dialog-modal>
