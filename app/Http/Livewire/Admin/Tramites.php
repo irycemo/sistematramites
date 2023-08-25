@@ -16,6 +16,7 @@ use App\Http\Traits\ComponentesTrait;
 use App\Http\Services\Tramites\TramiteService;
 use App\Http\Services\Tramites\TramitesContext;
 use App\Http\Services\LineasDeCaptura\LineaCaptura;
+use App\Http\Services\SistemaRPP\SistemaRppService;
 
 class Tramites extends Component
 {
@@ -333,6 +334,12 @@ class Tramites extends Component
         $this->dependencias = Dependencia::orderBy('nombre')->get();
 
         $this->notarias = Notaria::orderBy('numero')->get();
+
+    }
+
+    public function enviarTramiteRpp(){
+
+        (new SistemaRppService())->insertarSistemaRpp($this->tramite);
 
     }
 
