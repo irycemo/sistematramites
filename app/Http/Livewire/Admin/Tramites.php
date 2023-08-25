@@ -319,24 +319,6 @@ class Tramites extends Component
         $this->dispatchBrowserEvent('imprimir_recibo', ['tramite' => $this->modelo_editar->id]);
     }
 
-    public function mount(){
-
-        array_push($this->fields, 'adicionaTramite', 'flags', 'notaria');
-
-        $this->modelo_editar = $this->crearModeloVacio();
-
-        $this->solicitantes = Constantes::SOLICITANTES;
-
-        $this->secciones = Constantes::SECCIONES;
-
-        $this->distritos = Constantes::DISTRITOS;
-
-        $this->dependencias = Dependencia::orderBy('nombre')->get();
-
-        $this->notarias = Notaria::orderBy('numero')->get();
-
-    }
-
     public function enviarTramiteRpp(){
 
         try{
@@ -354,6 +336,24 @@ class Tramites extends Component
             $this->resetearTodo();
 
         }
+
+    }
+
+    public function mount(){
+
+        array_push($this->fields, 'adicionaTramite', 'flags', 'notaria', 'modalVer');
+
+        $this->modelo_editar = $this->crearModeloVacio();
+
+        $this->solicitantes = Constantes::SOLICITANTES;
+
+        $this->secciones = Constantes::SECCIONES;
+
+        $this->distritos = Constantes::DISTRITOS;
+
+        $this->dependencias = Dependencia::orderBy('nombre')->get();
+
+        $this->notarias = Notaria::orderBy('numero')->get();
 
     }
 
