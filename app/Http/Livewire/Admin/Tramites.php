@@ -339,7 +339,7 @@ class Tramites extends Component
 
     public function enviarTramiteRpp(){
 
-        (new SistemaRppService())->insertarSistemaRpp($this->tramite);
+        (new SistemaRppService())->insertarSistemaRpp($this->modelo_editar);
 
     }
 
