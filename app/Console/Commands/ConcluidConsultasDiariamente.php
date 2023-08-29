@@ -36,6 +36,7 @@ class ConcluidConsultasDiariamente extends Command
                                         $q->where('clave_ingreso', 'DC93');
                                     })
                                     ->whereIn('estado', ['pagado', 'nuevo', 'rechazado'])
+                                    ->whereDate('created_at', '>', now()->startOfDay()->subDays(2))
                                     ->get();
 
             foreach($tramites as $item)

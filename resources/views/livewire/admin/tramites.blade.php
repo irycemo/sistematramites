@@ -1581,6 +1581,22 @@
         </x-slot>
 
         <x-slot name="footer">
+
+            @if($modelo_editar->estado == 'concluido' && $modelo_editar->fecha_pago)
+
+                <button
+                    wire:click="reactivar"
+                    wire:loading.attr="disabled"
+                    wire:target="reactivar"
+                    class="bg-gray-400 text-white hover:shadow-lg font-bold px-4 py-2 rounded-full text-sm mb-2 hover:bg-gray-700 flaot-left mr-1 focus:outline-none">
+
+                    <img wire:loading wire:target="reactivar" class="mx-auto h-4 mr-1" src="{{ asset('storage/img/loading3.svg') }}" alt="Loading">
+
+                    Reactivar
+                </button>
+
+            @endif
+
             <button
                 wire:click="enviarTramiteRpp"
                 wire:loading.attr="disabled"
@@ -1591,6 +1607,7 @@
 
                 Enviar a RPP
             </button>
+
         </x-slot>
 
     </x-jet-dialog-modal>

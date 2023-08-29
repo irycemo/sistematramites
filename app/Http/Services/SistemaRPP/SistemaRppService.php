@@ -33,6 +33,7 @@ class SistemaRppService{
             'tomo_bis' => $tramite->tomo_bis,
             'registro' => $tramite->registro,
             'registro_bis' => $tramite->registro_bis,
+            'observaciones' => $tramite->observaciones,
             'numero_paginas' => $tramite->numero_paginas,
             'numero_inmuebles' => $tramite->numero_inmuebles,
             'numero_propiedad' => $tramite->numero_propiedad,
@@ -80,6 +81,7 @@ class SistemaRppService{
             'fecha_prelacion' => now()->toDateString(), //Prelacion
             'tipo_servicio' => $tramite->tipo_servicio,
             'seccion' => $tramite->seccion,
+            'observaciones' => $tramite->observaciones,
             'distrito' => $tramite->distrito,
             'fecha_entrega' => $tramite->fecha_entrega->toDateString(),
             'fecha_pago' => $tramite->fecha_pago?->toDateString(),

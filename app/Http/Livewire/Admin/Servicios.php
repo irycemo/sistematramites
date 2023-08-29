@@ -76,21 +76,21 @@ class Servicios extends Component
 
             $this->modelo_editar->ordinario = $uma->diario * $this->modelo_editar->umas;
 
-            $this->modelo_editar->ordinario = ceil($this->modelo_editar->ordinario);
+            $this->modelo_editar->ordinario = round($this->modelo_editar->ordinario);
 
-            $this->modelo_editar->urgente = ceil($this->modelo_editar->ordinario * 2);
+            $this->modelo_editar->urgente = round($this->modelo_editar->ordinario * 2);
 
-            $this->modelo_editar->extra_urgente = ceil($this->modelo_editar->ordinario * 3);
+            $this->modelo_editar->extra_urgente = round($this->modelo_editar->ordinario * 3);
 
         }else{
 
             $this->modelo_editar->umas = null;
 
-            $this->modelo_editar->ordinario = ceil($this->modelo_editar->ordinario);
+            $this->modelo_editar->ordinario = round($this->modelo_editar->ordinario);
 
-            $this->modelo_editar->urgente = ceil($this->modelo_editar->ordinario * 2);
+            $this->modelo_editar->urgente = round($this->modelo_editar->ordinario * 2);
 
-            $this->modelo_editar->extra_urgente = ceil($this->modelo_editar->ordinario * 3);
+            $this->modelo_editar->extra_urgente = round($this->modelo_editar->ordinario * 3);
 
         }
 

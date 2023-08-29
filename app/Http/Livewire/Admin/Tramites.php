@@ -251,6 +251,8 @@ class Tramites extends Component
 
             $this->dispatchBrowserEvent('mostrarMensaje', ['error', 'No se encontro pago relacionado a la linea de captura.']);
 
+            return;
+
         }else{
 
             try {
@@ -317,6 +319,7 @@ class Tramites extends Component
     public function reimprimir(){
 
         $this->dispatchBrowserEvent('imprimir_recibo', ['tramite' => $this->modelo_editar->id]);
+
     }
 
     public function enviarTramiteRpp(){
@@ -336,6 +339,29 @@ class Tramites extends Component
             $this->resetearTodo();
 
         }
+
+    }
+
+    public function reactivar(){
+
+        try {
+
+            $this->modelo_editar->estado = 'pagado';
+
+            $this->modelo_editar->save();
+
+            $this->dispatchBrowserEvent('mostrarMensaje', ['success', "El trámite se reactivó con éxito."]);
+
+            $this->resetearTodo($borrado = true);
+
+        } catch (\Throwable $th) {
+
+            Log::error("Error al reactivar trámite por el usuario: (id: " . auth()->user()->id . ") " . auth()->user()->name . ". " . $th);
+            $this->dispatchBrowserEvent('mostrarMensaje', ['error', $th->getMessage()]);
+            $this->resetearTodo($borrado = true);
+
+        }
+
 
     }
 

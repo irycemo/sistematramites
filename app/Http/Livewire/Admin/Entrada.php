@@ -455,9 +455,19 @@ class Entrada extends Component
 
             $this->dispatchBrowserEvent('mostrarMensaje', ['error', 'No se encontro pago relacionado a la linea de captura.']);
 
+            return;
+
         }else{
 
             try {
+
+                if(!isset($array['SOAPBody']['n0MT_ValidarLinCaptura_ECC_Sender']['FEC_PAGO']) && !isset($array['SOAPBody']['n0MT_ValidarLinCaptura_ECC_Sender']['DOC_PAGO'])){
+
+                    $this->dispatchBrowserEvent('mostrarMensaje', ['error', 'Error al validar pago.']);
+
+                    return;
+
+                }
 
                 (new TramiteService($this->tramite))->procesarPago($array['SOAPBody']['n0MT_ValidarLinCaptura_ECC_Sender']['FEC_PAGO'], $array['SOAPBody']['n0MT_ValidarLinCaptura_ECC_Sender']['DOC_PAGO']);
 
