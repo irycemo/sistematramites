@@ -14,7 +14,7 @@ class TramitesController extends Controller
 
         try {
 
-            $tramite = Tramite::where('numero_control', $request->validated())->firstOrFail();
+            $tramite = Tramite::where('numero_control', $request->tramite)->firstOrFail();
 
             (new TramiteService($tramite))->cambiarEstado($request->estado);
 
