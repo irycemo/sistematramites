@@ -43,7 +43,7 @@ class Consulta extends Component
 
         $array = (new LineaCaptura($this->modelo_editar))->validarLineaDeCaptura();
 
-        if(!isset($array['SOAPBody']['n0MT_ValidarLinCaptura_ECC_Sender']['DOC_PAGO'])){
+        if(!isset($array['SOAPBody']['n0MT_ValidarLinCaptura_ECC_Sender']['DOC_PAGO']) || !isset($array['SOAPBody']['n0MT_ValidarLinCaptura_ECC_Sender']['FEC_PAGO'])){
 
             $this->dispatchBrowserEvent('mostrarMensaje', ['error', 'No se encontro pago relacionado a la linea de captura.']);
 

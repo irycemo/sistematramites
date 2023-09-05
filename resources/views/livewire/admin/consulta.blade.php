@@ -580,7 +580,7 @@
 
             <div class="">
 
-                @if($modelo_editar->estado == 'nuevo')
+                @if(!$modelo_editar->fecha_pago)
 
                     <button
                         wire:click="reimprimir"
@@ -592,10 +592,6 @@
 
                         Imprimir recibo
                     </button>
-
-                @endif
-
-                @if(!$modelo_editar->fecha_pago)
 
                     @can('Validar pago')
 
