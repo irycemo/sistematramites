@@ -1295,7 +1295,7 @@
 
                         @endif
 
-                        @if ($tramite->estado == 'nuevo')
+                        @if (!$tramite->fecha_pago)
 
                             <button
                                 wire:click="reimprimir"

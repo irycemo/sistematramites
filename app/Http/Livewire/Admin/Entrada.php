@@ -492,6 +492,7 @@ class Entrada extends Component
             'categoria' => 'required'
         ]);
 
+        $this->modelo_editar->observaciones = 'Calificó: ' . auth()->user()->name . ', Área: ' . auth()->user()->area . '. ' . $this->modelo_editar->observaciones;
 
         $context = new TramitesContext($this->categoria['nombre'], $this->modelo_editar);
 
