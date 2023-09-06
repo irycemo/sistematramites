@@ -65,7 +65,7 @@ class ConcluidConsultasDiariamente extends Command
 
         $actual = now();
 
-            for ($i=0; $i < 3; $i--) {
+            for ($i=3; $i < 0; $i--) {
 
                 $actual->subDay();
 
