@@ -360,6 +360,9 @@ class Entrada extends Component
 
                 $this->tramitesAdiciona = Tramite::whereIn('estado', ['pagado', 'rechazado'])
                                                 ->whereIn('id_servicio', [1, $this->servicio['id']])
+                                                ->whereHas('adicionaAlTramite', function($q){
+                                                    $q->where('id_servicio', 1);
+                                                })
                                                 ->get();
 
             }else

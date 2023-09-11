@@ -102,24 +102,7 @@ class SistemaRppService{
             'movimiento_registral' => $tramite->movimiento_registral,
         ]);
 
-        $data = json_decode($response, true);
-
-        if($response->status() == 200){
-
-            $tramite = Tramite::find($tramite->id);
-
-            if(!$tramite){
-
-                throw new ErrorAlActualizarMovimientoRegistralEnTramite('Error al actualizar movimiento registral en tramite.' . $tramite->id);
-
-            }
-
-            $tramite->update(['movimiento_registral' => $data['data']['id']]);
-
-            if($tramite->adicionaAlTramite)
-                $tramite->adicionaAlTramite->update(['movimiento_registral' => $data['data']['id']]);
-
-        }else{
+        if($response->status() != 200){
 
             Log::error($response);
 

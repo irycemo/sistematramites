@@ -63,9 +63,6 @@ class TramiteService{
 
         DB::transaction(function () {
 
-            if(!$this->tramite->adiciona)
-                $this->tramite->numero_paginas = 0;
-
             $this->tramite->actualizado_por = auth()->user()->id;
             $this->tramite->save();
 
@@ -236,29 +233,15 @@ class TramiteService{
 
             $this->tramite->update(['estado' => $estado]);
 
-            $tramite = $this->tramite;
+            $this->tramite->load('adicionadoPor');
 
-            $tramite->load('adicionaAlTramite');
+            if($estado == 'concluido'){
 
-            while($tramite->adicionaAlTramite != null){
+                foreach($this->tramite->adicionadoPor as $tramite){
 
-                if($tramite->adicionaAlTramite->servicio->clave_ingreso == 'DC93' && $estado != 'pagado')
-                    break;
+                    $tramite->update(['estado' => $estado]);
 
-                $tramite->adicionaAlTramite->update(['estado' => $estado]);
-
-                $tramite = $tramite->adicionaAlTramite;
-
-            }
-
-            if($estado != 'pagado'){
-
-                $tramites = Tramite::where('adiciona', $this->tramite->id)
-                                        ->where('estado', '!=', 'nuevo')
-                                        ->get();
-
-                foreach($tramites as $item)
-                    $item->update(['estado' => $estado]);
+                }
 
             }
 
