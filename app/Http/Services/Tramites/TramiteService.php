@@ -222,7 +222,8 @@ class TramiteService{
 
         }
 
-        (new SistemaRppService())->insertarSistemaRpp($this->tramite);
+        if(!$this->tramite->movimiento_registral)
+            (new SistemaRppService())->insertarSistemaRpp($this->tramite);
 
     }
 
