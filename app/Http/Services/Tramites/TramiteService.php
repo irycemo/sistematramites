@@ -22,12 +22,6 @@ class TramiteService{
 
         $this->tramite = $tramite;
 
-        if($tramite->adiciona != null){
-
-            $this->tramite->movimiento_registral = $tramite->adicionaAlTramite->movimiento_registral;
-
-        }
-
     }
 
     public function crear():Tramite
@@ -200,30 +194,31 @@ class TramiteService{
 
             if($this->tramite->adicionaAlTramite->servicio->clave_ingreso == 'DC93'){
 
-                $tramiteAdiciona = Tramite::find($this->tramite->adiciona);
+                if($this->tramite->adicionaAlTramite->servicio->estado != 'pagado'){
 
-                if(!$tramiteAdiciona)
-                    throw new ModelNotFoundException("No se encontro el trámite al que adiciona.");
+                    $this->tramite->adicionaAlTramite->update([
+                        'estado' => 'pagado',
+                        'fecha_pago' => $this->convertirFecha($fecha),
+                        'fecha_prelacion' => $this->convertirFecha($fecha),
+                        'documento_de_pago' => $documento
+                    ]);
+                }
 
-                $tramiteAdiciona->update([
-                    'estado' => 'pagado',
-                    'fecha_pago' => $this->convertirFecha($fecha),
-                    'fecha_prelacion' => $this->convertirFecha($fecha),
-                    'documento_de_pago' => $documento
-                ]);
+                /* Caso de agregar copias a la consulta */
+                (new SistemaRppService())->insertarSistemaRpp($this->tramite);
 
             }else{
 
+                /* Caso de agregar copias a un tramite existente */
                 (new SistemaRppService())->actualizarSistemaRpp($this->tramite);
-
-                return;
 
             }
 
-        }
+        }else{
 
-        if(!$this->tramite->movimiento_registral)
             (new SistemaRppService())->insertarSistemaRpp($this->tramite);
+
+        }
 
     }
 

@@ -393,6 +393,7 @@ class Entrada extends Component
             $this->modelo_editar->registro = $tramite->registro;
             $this->modelo_editar->distrito = $tramite->distrito;
             $this->modelo_editar->seccion = $tramite->seccion;
+            $this->modelo_editar->movimiento_registral = $tramite->movimiento_registral;
 
         }
 
