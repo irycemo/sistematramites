@@ -381,6 +381,14 @@ class Entrada extends Component
 
         if($tramite->servicio->clave_ingreso == 'DL13' || $tramite->servicio->clave_ingreso == 'DL14'){
 
+            if(!$tramite->movimiento_registral){
+
+                $this->dispatch('mostrarMensaje', ['error', "El trámite " . $tramite->numero_control . " no esta dado de alta en Sistema RPP"]);
+
+                return;
+
+            }
+
             $this->flags['solicitante'] = false;
             $this->flags['tomo'] = false;
             $this->flags['registro'] = false;

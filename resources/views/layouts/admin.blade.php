@@ -31,7 +31,7 @@
 
                 <p class="uppercase text-md text-rojo mb-4 tracking-wider">Administración</p>
 
-                @can('List de roles')
+                @can('Lista de roles')
 
                     <div class="flex items-center mb-3 w-full justify-between hover:text-red-600 transition ease-in-out duration-500 hover:bg-gray-100 rounded-xl">
 

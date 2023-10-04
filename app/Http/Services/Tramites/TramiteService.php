@@ -99,9 +99,9 @@ class TramiteService{
 
         $this->fecha_vencimiento = $this->convertirFecha($array['SOAPBody']['ns0MT_ServGralLC_PI_Receiver']['ES_OPAG']['FECHA_VENCIMIENTO']);
 
-        $this->oxxo_cod = $array['SOAPBody']['ns0MT_ServGralLC_PI_Receiver']['TB_CONV_BANCARIOS'][1]['COD_BANCO'];
+        /* $this->oxxo_cod = $array['SOAPBody']['ns0MT_ServGralLC_PI_Receiver']['TB_CONV_BANCARIOS'][1]['COD_BANCO'];
 
-        $this->oxxo_conv = $array['SOAPBody']['ns0MT_ServGralLC_PI_Receiver']['TB_CONV_BANCARIOS'][1]['COD_CONVENIO'];
+        $this->oxxo_conv = $array['SOAPBody']['ns0MT_ServGralLC_PI_Receiver']['TB_CONV_BANCARIOS'][1]['COD_CONVENIO']; */
 
     }
 
@@ -209,7 +209,7 @@ class TramiteService{
 
             }else{
 
-                /* Caso de agregar copias a un tramite existente */
+                /* Caso de agregar copias a un tramite de copias existente */
                 (new SistemaRppService())->actualizarSistemaRpp($this->tramite);
 
             }
