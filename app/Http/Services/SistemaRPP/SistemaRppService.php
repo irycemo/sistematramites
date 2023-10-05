@@ -106,7 +106,7 @@ class SistemaRppService{
 
             Log::error($response);
 
-            throw new ErrorAlEnviarTramiteSistemaRppException("Error al enviar tramite pagado al sistema rpp.");
+            throw new ErrorAlEnviarTramiteSistemaRppException("Error al enviar tramite actualizado al sistema rpp.");
 
         }
 
