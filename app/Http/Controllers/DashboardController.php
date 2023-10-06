@@ -20,6 +20,7 @@ class DashboardController extends Controller
                                         ->get();
 
             $tramites = Tramite::selectRaw('year(created_at) year, monthname(created_at) month, count(*) data, sum(monto) sum')
+                                    ->whereIn('estado', ['pagado', 'concluido', 'rechazado', 'entregado', 'recibido'])
                                     ->groupBy('year', 'month')
                                     ->orderBy('year', 'asc')
                                     ->get();

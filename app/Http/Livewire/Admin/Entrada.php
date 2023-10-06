@@ -383,7 +383,7 @@ class Entrada extends Component
 
             if(!$tramite->movimiento_registral){
 
-                $this->dispatch('mostrarMensaje', ['error', "El trámite " . $tramite->numero_control . " no esta dado de alta en Sistema RPP"]);
+                $this->dispatchBrowserEvent('mostrarMensaje', ['error', "El trámite " . $tramite->numero_control . " no esta dado de alta en Sistema RPP"]);
 
                 $this->modelo_editar->adiciona = null;
 
