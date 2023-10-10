@@ -19,6 +19,7 @@ class Auditoria extends Component
     public $usuario;
     public $evento;
     public $modelo;
+    public $modelo_id;
     public $selecetedAudit;
     public $modelos = [
         'App\Models\CategoriaServicio',
@@ -59,6 +60,10 @@ class Auditoria extends Component
                             })
                             ->when(isset($this->modelo) && $this->modelo != "", function($q){
                                 return $q->where('auditable_type', $this->modelo);
+
+                            })
+                            ->when(isset($this->modelo_id) && $this->modelo_id != "", function($q){
+                                return $q->where('auditable_id', $this->modelo_id);
 
                             })
                             ->orderBy($this->sort, $this->direction)

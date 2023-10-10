@@ -41,6 +41,8 @@
 
                 </select>
 
+                <input class="bg-white rounded-full text-sm p-2 border border-gray-500" wire:model="modelo_id" placeholder="Modelo ID">
+
                 <select class="bg-white rounded-full text-sm" wire:model="pagination">
 
                     <option value="10">10</option>
