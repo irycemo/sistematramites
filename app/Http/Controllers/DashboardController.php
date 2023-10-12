@@ -37,7 +37,7 @@ class DashboardController extends Controller
 
                                         $tramite->monto = $tramite->monto - $tramite->adicionaAlTramite->monto;
 
-                                        $tramite->year = Carbon::parse($tramite->created_at)->format('Y');
+                                        $tramite->año = Carbon::parse($tramite->created_at)->format('Y');
 
                                         $tramite->month = Carbon::parse($tramite->created_at)->format('F');
 
@@ -51,7 +51,7 @@ class DashboardController extends Controller
 
                 foreach($copias as $copia){
 
-                    if($tramite->year == $copia->year && $tramite->month == $copia->month){
+                    if($tramite->year == $copia->año && $tramite->month == $copia->month){
 
                         $tramite->sum += $copia->monto;
 
