@@ -49,6 +49,8 @@ class DashboardController extends Controller
 
             foreach($tramites as $tramite){
 
+                dd($tramite);
+
                 foreach($copias as $copia){
 
                     if($tramite->year == $copia->year && $tramite->month == $copia->month){
