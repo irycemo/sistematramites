@@ -37,7 +37,7 @@ class DashboardController extends Controller
 
                                         $tramite->monto = $tramite->monto - $tramite->adicionaAlTramite->monto;
 
-                                        $tramite->año = Carbon::parse($tramite->created_at)->format('Y');
+                                        $tramite->año = Carbon::parse($tramite->created_at)->year;
 
                                         $tramite->month = Carbon::parse($tramite->created_at)->format('F');
 
