@@ -47,11 +47,15 @@ class DashboardController extends Controller
 
                                 });
 
-            /* foreach($tramites as $tramite){
+            foreach($tramites as $tramite){
+
+                $año = $tramite->year;
+
+                $mes = $tramite->month;
 
                 foreach($copias as $copia){
 
-                    if($tramite->year == $copia->year && $tramite->month == $copia->month){
+                    if($año == $copia->year && $mes == $copia->month){
 
                         $tramite->sum += $copia->monto;
 
@@ -59,7 +63,7 @@ class DashboardController extends Controller
 
                 }
 
-            } */
+            }
 
             $data = [];
 
