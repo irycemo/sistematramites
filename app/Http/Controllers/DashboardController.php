@@ -19,47 +19,11 @@ class DashboardController extends Controller
                                         ->groupBy('estado')
                                         ->get();
 
-                $tramites = Tramite::selectRaw('year(created_at) year, monthname(created_at) month, count(*) data, sum(monto) sum')
-                ->whereNotIn('estado', ['nuevo', 'expirado'])
-                ->whereNotIn('id_servicio', [2,6])
-                ->groupBy('year', 'month')
-                ->orderBy('year', 'asc')
-                ->get();
-
-                $copias = Tramite::select('id', 'monto', 'adiciona', 'created_at')
-                                    ->with('adicionaAlTramite')
-                                    ->whereNotIn('estado', ['nuevo', 'expirado'])
-                                    ->whereIn('id_servicio', [2,6])
-                                    ->get()
-                                    ->map(function($tramite){
-
-                                        if($tramite->adicionaAlTramite->id_servicio == 1){
-
-                                            $tramite->monto = $tramite->monto - $tramite->adicionaAlTramite->monto;
-
-                                            $tramite->year = Carbon::parse($tramite->created_at)->format('Y');
-
-                                            $tramite->month = Carbon::parse($tramite->created_at)->format('F');
-
-                                        }
-
-                                        return $tramite;
-
-                                    });
-
-                foreach($tramites as $tramite){
-
-                    foreach($copias as $copia){
-
-                        if($tramite->year == $copia->year && $tramite->month == $copia->month){
-
-                            $tramite->sum += $copia->monto;
-
-                        }
-
-                    }
-
-                }
+            $tramites = Tramite::selectRaw('year(created_at) year, monthname(created_at) month, count(*) data, sum(monto) sum')
+                                    ->whereIn('estado', ['pagado', 'concluido', 'rechazado', 'entregado', 'recibido'])
+                                    ->groupBy('year', 'month')
+                                    ->orderBy('year', 'asc')
+                                    ->get();
 
             $data = [];
 
