@@ -51,11 +51,7 @@ class DashboardController extends Controller
 
                 foreach($copias as $copia){
 
-                    /* $año2 = $copia['year']; */
-
-                    $mes2 = $copia->month;
-
-                    if($tramite->year == $año2 && $tramite->month == $mes2){
+                    if($tramite->year == '2923' && $tramite->month == $copia->month){
 
                         $tramite->sum += $copia->monto;
 
