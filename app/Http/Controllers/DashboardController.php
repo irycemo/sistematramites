@@ -47,13 +47,13 @@ class DashboardController extends Controller
 
                                 });
 
-            foreach($tramites as $tramite){
+            foreach($tramites as $t){
 
                 foreach($copias as $copia){
 
-                    if($tramite['year'] == $copia['year'] && $tramite['month'] == $copia['month']){
+                    if($t['year'] == $copia['year'] && $t['month'] == $copia['month']){
 
-                        $tramite->sum += $copia->monto;
+                        $t->sum += $copia->monto;
 
                     }
 
