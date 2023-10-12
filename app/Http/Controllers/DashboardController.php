@@ -55,6 +55,8 @@ class DashboardController extends Controller
 
                 foreach($copias as $copia){
 
+                    dd($copia);
+
                     $año2 = $copia->year;
 
                     $mes2 = $copia->month;
